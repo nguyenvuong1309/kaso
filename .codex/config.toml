@@ -1,0 +1,82 @@
+# Codex CLI config recommend cho Kaso project.
+# Copy hoặc merge file này vào ~/.codex/config.toml.
+# Hoặc chạy `bash .codex/install.sh` để install tự động.
+
+# === Model ===
+# gpt-5-codex là default cho coding task. Nếu có access o3/o3-mini, swap ở đây.
+model = "gpt-5-codex"
+model_reasoning_effort = "high"          # "minimal" | "low" | "medium" | "high"
+model_reasoning_summary = "auto"         # auto / detailed / none
+
+# === Sandbox & approval ===
+# workspace-write: Codex có thể edit file trong cwd, không touch ngoài.
+# on-failure: chỉ hỏi user khi command fail (vd: cần network ngoài sandbox).
+sandbox_mode = "workspace-write"
+approval_policy = "on-failure"
+
+# === Hide reasoning từ output để gọn hơn (tuỳ chọn) ===
+hide_agent_reasoning = false
+
+# === History ===
+[history]
+persistence = "save-all"                 # save-all | none
+max_bytes = 10_000_000
+
+# === Shell environment policy ===
+# Inherit env từ shell user (DEVELOPER_DIR, PATH, ...) — cần cho xcodebuild
+[shell_environment_policy]
+inherit = "all"
+ignore_default_excludes = false
+exclude = ["AWS_*", "AZURE_*", "*_TOKEN", "*_SECRET", "*_KEY"]
+
+# === Project profile ===
+# Activate bằng: codex --profile kaso
+[profiles.kaso]
+model = "gpt-5-codex"
+model_reasoning_effort = "high"
+sandbox_mode = "workspace-write"
+approval_policy = "on-failure"
+
+# Cho phép network trong sandbox cho profile này (cần cho swift package resolve)
+[profiles.kaso.sandbox_workspace_write]
+network_access = true
+exclude_tmpdir_env_var = false
+exclude_slash_tmp = false
+writable_roots = [
+    "~/Library/Developer/Xcode/DerivedData",
+    "~/Library/Caches/org.swift.swiftpm",
+    "~/.cache/clang",
+    "/tmp",
+]
+
+# === MCP servers (tuỳ chọn) ===
+# Bật khi cần. Comment out nếu chưa cài MCP server.
+
+# Filesystem MCP — đọc/ghi file ngoài cwd có kiểm soát
+# [mcp_servers.filesystem]
+# command = "npx"
+# args = ["-y", "@modelcontextprotocol/server-filesystem", "/Users/vuongnguyen/dev3/kaso"]
+
+# GitHub MCP — query issue/PR
+# [mcp_servers.github]
+# command = "npx"
+# args = ["-y", "@modelcontextprotocol/server-github"]
+# env = { GITHUB_PERSONAL_ACCESS_TOKEN = "set-via-keychain" }
+
+# Apple Doc MCP — search Apple developer documentation
+# [mcp_servers.appledoc]
+# command = "uvx"
+# args = ["mcp-server-apple-doc"]
+
+# === TUI customization ===
+[tui]
+# Theme có thể là: dark, light, auto
+# theme = "dark"
+
+# === Notification on completion (macOS) ===
+notify = ["osascript", "-e", "display notification \"Codex done\" with title \"Kaso\""]
+
+# === Workspace trust (tuỳ chọn) ===
+# Mark Kaso project là trusted để skip prompt mỗi lần
+# [projects."/Users/vuongnguyen/dev3/kaso"]
+# trust_level = "trusted"

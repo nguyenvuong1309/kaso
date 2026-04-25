@@ -1,0 +1,109 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "Bash(swift:*)",
+      "Bash(swiftc:*)",
+      "Bash(swift-format:*)",
+      "Bash(swiftformat:*)",
+      "Bash(swiftlint:*)",
+      "Bash(xcodebuild:*)",
+      "Bash(xcrun:*)",
+      "Bash(xcbeautify:*)",
+      "Bash(tuist:*)",
+      "Bash(mint:*)",
+      "Bash(fastlane:*)",
+      "Bash(maestro:*)",
+      "Bash(periphery:*)",
+      "Bash(sourcery:*)",
+      "Bash(brew list:*)",
+      "Bash(brew info:*)",
+      "Bash(ls:*)",
+      "Bash(find:*)",
+      "Bash(grep:*)",
+      "Bash(rg:*)",
+      "Bash(wc:*)",
+      "Bash(file:*)",
+      "Bash(stat:*)",
+      "Bash(git status)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git show:*)",
+      "Bash(git branch:*)",
+      "Bash(git remote:*)",
+      "Bash(git ls-files:*)",
+      "Bash(git rev-parse:*)",
+      "Bash(git config --get:*)",
+      "Bash(rtk:*)"
+    ],
+    "deny": [
+      "Bash(git push --force:*)",
+      "Bash(git push -f:*)",
+      "Bash(git reset --hard:*)",
+      "Bash(rm -rf /:*)",
+      "Read(//Users/vuongnguyen/dev3/kaso/**/.env)",
+      "Read(//Users/vuongnguyen/dev3/kaso/**/Secrets.plist)",
+      "Read(//Users/vuongnguyen/dev3/kaso/**/GoogleService-Info.plist)",
+      "Read(//Users/vuongnguyen/dev3/kaso/**/*.p12)",
+      "Read(//Users/vuongnguyen/dev3/kaso/**/*.mobileprovision)"
+    ],
+    "ask": [
+      "Bash(git push:*)",
+      "Bash(git commit:*)",
+      "Bash(fastlane release:*)",
+      "Bash(fastlane beta:*)",
+      "Bash(xcrun altool:*)",
+      "Bash(xcrun notarytool:*)"
+    ]
+  },
+  "env": {
+    "KASO_PROJECT_ROOT": "/Users/vuongnguyen/dev3/kaso",
+    "SWIFT_DETERMINISTIC_HASHING": "1"
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/swift-post-edit.sh\""
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/guard-destructive.sh\""
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "matcher": "startup|resume",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/session-context.sh\""
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/stop-reminder.sh\""
+          }
+        ]
+      }
+    ]
+  }
+}
