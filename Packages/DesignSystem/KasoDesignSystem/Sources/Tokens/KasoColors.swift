@@ -50,6 +50,52 @@ public enum KasoColorTokens {
     public static var destructive: Color {
         .red
     }
+
+    public static func accent(named name: String) -> Color {
+        switch name {
+        case "blue":
+            .blue
+        case "green":
+            .green
+        case "mint":
+            .mint
+        case "orange":
+            .orange
+        case "pink":
+            .pink
+        case "purple":
+            .purple
+        default:
+            accent
+        }
+    }
+
+    public static func category(named name: String) -> Color {
+        switch name {
+        case "blue":
+            .blue
+        case "brown":
+            .brown
+        case "gray":
+            .gray
+        case "green":
+            .green
+        case "indigo":
+            .indigo
+        case "mint":
+            .mint
+        case "orange":
+            .orange
+        case "pink":
+            .pink
+        case "purple":
+            .purple
+        case "red":
+            .red
+        default:
+            accent
+        }
+    }
 }
 
 public extension Color {

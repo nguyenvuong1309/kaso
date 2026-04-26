@@ -14,11 +14,13 @@ let package = Package(
         .library(name: "KasoFoundation", targets: ["KasoFoundation"]),
         .library(name: "KasoLogging", targets: ["KasoLogging"]),
         .library(name: "KasoDesignSystem", targets: ["KasoDesignSystem"]),
+        .library(name: "AppearanceDomain", targets: ["AppearanceDomain"]),
         .library(name: "AuthDomain", targets: ["AuthDomain"]),
         .library(name: "TransactionDomain", targets: ["TransactionDomain"]),
         .library(name: "BudgetDomain", targets: ["BudgetDomain"]),
         .library(name: "OnboardingDomain", targets: ["OnboardingDomain"]),
         .library(name: "PersistenceKit", targets: ["PersistenceKit"]),
+        .library(name: "AppearanceFeature", targets: ["AppearanceFeature"]),
         .library(name: "AuthFeature", targets: ["AuthFeature"]),
         .library(name: "OnboardingFeature", targets: ["OnboardingFeature"]),
         .library(name: "KasoRootFeature", targets: ["KasoRootFeature"]),
@@ -55,6 +57,17 @@ let package = Package(
             path: "Packages/DesignSystem/KasoDesignSystem/Sources"
         ),
         .target(
+            name: "AppearanceDomain",
+            path: "Packages/Domain/AppearanceDomain/Sources"
+        ),
+        .testTarget(
+            name: "AppearanceDomainTests",
+            dependencies: [
+                "AppearanceDomain",
+            ],
+            path: "Packages/Domain/AppearanceDomain/Tests"
+        ),
+        .target(
             name: "AuthDomain",
             path: "Packages/Domain/AuthDomain/Sources"
         ),
@@ -83,6 +96,14 @@ let package = Package(
             ],
             path: "Packages/Domain/BudgetDomain/Sources"
         ),
+        .testTarget(
+            name: "BudgetDomainTests",
+            dependencies: [
+                "BudgetDomain",
+                "TransactionDomain",
+            ],
+            path: "Packages/Domain/BudgetDomain/Tests"
+        ),
         .target(
             name: "OnboardingDomain",
             dependencies: [
@@ -101,6 +122,7 @@ let package = Package(
         .target(
             name: "PersistenceKit",
             dependencies: [
+                "AppearanceDomain",
                 "AuthDomain",
                 "BudgetDomain",
                 "KasoFoundation",
@@ -108,6 +130,16 @@ let package = Package(
                 "TransactionDomain",
             ],
             path: "Packages/Data/PersistenceKit/Sources"
+        ),
+        .testTarget(
+            name: "PersistenceKitTests",
+            dependencies: [
+                "AppearanceDomain",
+                "BudgetDomain",
+                "PersistenceKit",
+                "TransactionDomain",
+            ],
+            path: "Packages/Data/PersistenceKit/Tests"
         ),
         .target(
             name: "AuthFeature",
@@ -134,6 +166,32 @@ let package = Package(
                 ),
             ],
             path: "Packages/Features/AuthFeature/Tests"
+        ),
+        .target(
+            name: "AppearanceFeature",
+            dependencies: [
+                "AppearanceDomain",
+                "KasoDesignSystem",
+                .product(
+                    name: "ComposableArchitecture",
+                    package: "swift-composable-architecture"
+                ),
+            ],
+            path: "Packages/Features/AppearanceFeature/Sources",
+            resources: [
+                .process("../Resources"),
+            ]
+        ),
+        .testTarget(
+            name: "AppearanceFeatureTests",
+            dependencies: [
+                "AppearanceFeature",
+                .product(
+                    name: "ComposableArchitecture",
+                    package: "swift-composable-architecture"
+                ),
+            ],
+            path: "Packages/Features/AppearanceFeature/Tests"
         ),
         .target(
             name: "OnboardingFeature",
@@ -167,8 +225,11 @@ let package = Package(
         .target(
             name: "KasoRootFeature",
             dependencies: [
+                "AppearanceDomain",
+                "AppearanceFeature",
                 "AuthDomain",
                 "AuthFeature",
+                "BudgetDomain",
                 "OnboardingDomain",
                 "OnboardingFeature",
                 "TransactionDomain",
@@ -180,9 +241,24 @@ let package = Package(
             ],
             path: "Packages/Features/KasoRootFeature/Sources"
         ),
+        .testTarget(
+            name: "KasoRootFeatureTests",
+            dependencies: [
+                "BudgetDomain",
+                "KasoRootFeature",
+                "OnboardingDomain",
+                "TransactionDomain",
+                .product(
+                    name: "ComposableArchitecture",
+                    package: "swift-composable-architecture"
+                ),
+            ],
+            path: "Packages/Features/KasoRootFeature/Tests"
+        ),
         .target(
             name: "TransactionFeature",
             dependencies: [
+                "BudgetDomain",
                 "KasoDesignSystem",
                 "TransactionDomain",
                 .product(

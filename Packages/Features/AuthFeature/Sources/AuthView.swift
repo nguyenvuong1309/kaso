@@ -53,34 +53,24 @@ public struct AuthView: View {
     private var heroSection: some View {
         KasoCard {
             VStack(spacing: Spacing.lg) {
-                ZStack {
-                    Circle()
-                        .fill(Color.kaso.accent.opacity(0.14))
-
-                    Circle()
-                        .stroke(Color.kaso.accent.opacity(0.28), lineWidth: Layout.borderWidth)
-
-                    Image(systemName: "wallet.pass.fill")
-                        .font(.kaso.titleLarge)
-                        .foregroundStyle(Color.kaso.accent)
-                        .accessibilityHidden(true)
-                }
-                .frame(
-                    width: Layout.heroIconSize,
-                    height: Layout.heroIconSize
-                )
+                KasoLogoMark()
 
                 VStack(spacing: Spacing.sm) {
-                    Text("auth.title", bundle: .module)
-                        .font(.kaso.titleLarge)
-                        .foregroundStyle(Color.kaso.textPrimary)
-                        .multilineTextAlignment(.center)
+                    AuthWordTypewriterText(
+                        localizationKey: "auth.title",
+                        font: .kaso.titleLarge,
+                        foregroundColor: Color.kaso.textPrimary,
+                        startDelay: Layout.titleTypewriterStartDelay,
+                        wordDelay: Layout.titleTypewriterWordDelay
+                    )
 
-                    Text("auth.subtitle", bundle: .module)
-                        .font(.kaso.body)
-                        .foregroundStyle(Color.kaso.textSecondary)
-                        .multilineTextAlignment(.center)
-                        .fixedSize(horizontal: false, vertical: true)
+                    AuthWordTypewriterText(
+                        localizationKey: "auth.subtitle",
+                        font: .kaso.body,
+                        foregroundColor: Color.kaso.textSecondary,
+                        startDelay: Layout.subtitleTypewriterStartDelay,
+                        wordDelay: Layout.subtitleTypewriterWordDelay
+                    )
                 }
 
                 HStack(spacing: Spacing.sm) {
@@ -244,6 +234,30 @@ public struct AuthView: View {
     }
 }
 
+private struct KasoLogoMark: View {
+    var body: some View {
+        Image("KasoLogo", bundle: .module)
+            .resizable()
+            .scaledToFit()
+            .frame(
+                width: Layout.heroLogoSize,
+                height: Layout.heroLogoSize
+            )
+            .clipShape(
+                RoundedRectangle(
+                    cornerRadius: Layout.heroLogoRadius,
+                    style: .continuous
+                )
+            )
+            .shadow(
+                color: Color.kaso.accent.opacity(Layout.heroLogoShadowOpacity),
+                radius: Layout.heroLogoShadowRadius,
+                y: Layout.heroLogoShadowY
+            )
+            .accessibilityHidden(true)
+    }
+}
+
 private struct AuthBreathingBackground: View {
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
@@ -304,6 +318,219 @@ private struct AuthBreathingBackground: View {
             .truncatingRemainder(dividingBy: Layout.backgroundCycleDuration)
         return (sin(cycle / Layout.backgroundCycleDuration * 2 * Double.pi) + 1) / 2
     }
+}
+
+private struct AuthWordTypewriterText: View {
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.locale) private var locale
+    @State private var visibleWordCount = 0
+
+    let localizationKey: String
+    let font: Font
+    let foregroundColor: Color
+    let startDelay: Duration
+    let wordDelay: Duration
+
+    var body: some View {
+        let localizedText = String(
+            localized: String.LocalizationValue(localizationKey),
+            bundle: .module,
+            locale: locale
+        )
+        let words = words(from: localizedText)
+
+        AuthWordWrapLayout(
+            horizontalSpacing: Layout.typewriterHorizontalSpacing,
+            verticalSpacing: Layout.typewriterLineSpacing
+        ) {
+            ForEach(words.indices, id: \.self) { wordIndex in
+                wordView(words[wordIndex], at: wordIndex)
+            }
+        }
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(Text(verbatim: localizedText))
+        .task(id: animationIdentifier(for: localizedText)) {
+            await animate(words: words)
+        }
+    }
+
+    private func words(from text: String) -> [String] {
+        text.split(whereSeparator: \.isWhitespace)
+            .map(String.init)
+    }
+
+    private func wordView(
+        _ word: String,
+        at wordIndex: Int
+    ) -> some View {
+        let isVisible = reduceMotion || wordIndex < visibleWordCount
+
+        return Text(verbatim: word)
+            .font(font)
+            .foregroundStyle(foregroundColor)
+            .scaleEffect(isVisible ? 1 : Layout.typewriterInitialScale)
+            .opacity(isVisible ? 1 : 0)
+            .blur(radius: isVisible ? 0 : Layout.typewriterInitialBlurRadius)
+            .offset(y: isVisible ? 0 : Layout.typewriterInitialOffsetY)
+            .animation(typewriterAnimation, value: isVisible)
+    }
+
+    private var typewriterAnimation: Animation? {
+        guard reduceMotion == false else {
+            return nil
+        }
+
+        return .spring(
+            response: Layout.typewriterResponse,
+            dampingFraction: Layout.typewriterDampingFraction
+        )
+    }
+
+    private func animationIdentifier(for localizedText: String) -> String {
+        "\(localizedText)-\(reduceMotion)"
+    }
+
+    @MainActor
+    private func animate(words: [String]) async {
+        guard reduceMotion == false else {
+            visibleWordCount = words.count
+            return
+        }
+        guard words.isEmpty == false else {
+            visibleWordCount = 0
+            return
+        }
+
+        visibleWordCount = 0
+        try? await Task.sleep(for: startDelay)
+
+        for wordIndex in 1 ... words.count {
+            guard Task.isCancelled == false else {
+                return
+            }
+
+            withAnimation(typewriterAnimation) {
+                visibleWordCount = wordIndex
+            }
+            try? await Task.sleep(for: wordDelay)
+        }
+    }
+}
+
+private struct AuthWordWrapLayout: SwiftUI.Layout {
+    let horizontalSpacing: CGFloat
+    let verticalSpacing: CGFloat
+
+    func sizeThatFits(
+        proposal: ProposedViewSize,
+        subviews: Subviews,
+        cache: inout ()
+    ) -> CGSize {
+        let sizes = subviewSizes(for: subviews)
+        let maxWidth = proposal.width ?? naturalWidth(for: sizes)
+        let lines = lines(for: sizes, maxWidth: maxWidth)
+        let width = lines.map(\.width).max() ?? 0
+        let height = lines
+            .map(\.height)
+            .reduce(0, +) + verticalSpacing * CGFloat(max(lines.count - 1, 0))
+
+        return CGSize(width: width, height: height)
+    }
+
+    func placeSubviews(
+        in bounds: CGRect,
+        proposal: ProposedViewSize,
+        subviews: Subviews,
+        cache: inout ()
+    ) {
+        let sizes = subviewSizes(for: subviews)
+        let lines = lines(for: sizes, maxWidth: bounds.width)
+        var yPosition = bounds.minY
+
+        for line in lines {
+            var xPosition = bounds.minX + max((bounds.width - line.width) / 2, 0)
+
+            for index in line.range {
+                let size = sizes[index]
+                subviews[index].place(
+                    at: CGPoint(
+                        x: xPosition,
+                        y: yPosition + max((line.height - size.height) / 2, 0)
+                    ),
+                    anchor: .topLeading,
+                    proposal: ProposedViewSize(
+                        width: size.width,
+                        height: size.height
+                    )
+                )
+                xPosition += size.width + horizontalSpacing
+            }
+
+            yPosition += line.height + verticalSpacing
+        }
+    }
+
+    private func subviewSizes(for subviews: Subviews) -> [CGSize] {
+        subviews.map { subview in
+            subview.sizeThatFits(.unspecified)
+        }
+    }
+
+    private func naturalWidth(for sizes: [CGSize]) -> CGFloat {
+        let wordsWidth = sizes.map(\.width).reduce(0, +)
+        let spacingWidth = horizontalSpacing * CGFloat(max(sizes.count - 1, 0))
+        return wordsWidth + spacingWidth
+    }
+
+    private func lines(
+        for sizes: [CGSize],
+        maxWidth: CGFloat
+    ) -> [AuthWordWrapLine] {
+        guard sizes.isEmpty == false else {
+            return []
+        }
+
+        var lines: [AuthWordWrapLine] = []
+        var lineStartIndex = 0
+        var lineWidth: CGFloat = 0
+        var lineHeight: CGFloat = 0
+
+        for (index, size) in sizes.enumerated() {
+            let spacing = lineWidth == 0 ? 0 : horizontalSpacing
+            let proposedWidth = lineWidth + spacing + size.width
+
+            if proposedWidth > maxWidth, lineWidth > 0 {
+                lines.append(
+                    AuthWordWrapLine(
+                        range: lineStartIndex ..< index,
+                        width: lineWidth,
+                        height: lineHeight
+                    )
+                )
+                lineStartIndex = index
+                lineWidth = size.width
+                lineHeight = size.height
+            } else {
+                lineWidth = proposedWidth
+                lineHeight = max(lineHeight, size.height)
+            }
+        }
+
+        lines.append(
+            AuthWordWrapLine(
+                range: lineStartIndex ..< sizes.count,
+                width: lineWidth,
+                height: lineHeight
+            )
+        )
+        return lines
+    }
+}
+
+private struct AuthWordWrapLine {
+    let range: Range<Int>
+    let width: CGFloat
+    let height: CGFloat
 }
 
 private struct MovingBorderGlowModifier: ViewModifier {
@@ -449,8 +676,11 @@ private struct AuthBenefitRow: View {
 }
 
 private enum Layout {
-    static let borderWidth: CGFloat = 1
-    static let heroIconSize: CGFloat = Spacing.xl * 2
+    static let heroLogoSize: CGFloat = Spacing.xl * 2.5
+    static let heroLogoRadius: CGFloat = Radius.lg
+    static let heroLogoShadowOpacity: Double = 0.18
+    static let heroLogoShadowRadius: CGFloat = 12
+    static let heroLogoShadowY: CGFloat = 6
     static let signInButtonMaxWidth: CGFloat = 360
     static let signInButtonHeight: CGFloat = Spacing.xl + Spacing.lg
     static let signInButtonRadius: CGFloat = Radius.md
@@ -464,6 +694,17 @@ private enum Layout {
     static let entranceInitialOffsetY: CGFloat = Spacing.md
     static let entranceResponse: Double = 0.56
     static let entranceDampingFraction: Double = 0.86
+    static let titleTypewriterStartDelay: Duration = .milliseconds(220)
+    static let titleTypewriterWordDelay: Duration = .milliseconds(150)
+    static let subtitleTypewriterStartDelay: Duration = .milliseconds(760)
+    static let subtitleTypewriterWordDelay: Duration = .milliseconds(112)
+    static let typewriterHorizontalSpacing: CGFloat = Spacing.xs
+    static let typewriterLineSpacing: CGFloat = Spacing.xs
+    static let typewriterInitialScale: CGFloat = 0.985
+    static let typewriterInitialOffsetY: CGFloat = Spacing.xs
+    static let typewriterInitialBlurRadius: CGFloat = 2.5
+    static let typewriterResponse: Double = 0.44
+    static let typewriterDampingFraction: Double = 0.92
 
     static let backgroundCycleDuration: Double = 7
     static let backgroundFrameInterval: Double = 1 / 30

@@ -199,7 +199,7 @@ private struct IncomeStep: View {
                     Text("onboarding.income.field", bundle: .module)
                 }
                 .font(.kaso.numericLarge)
-                .kasoDecimalKeyboard()
+                .kasoAmountKeyboard()
 
                 if let formErrorMessageKey {
                     Text(LocalizedStringKey(formErrorMessageKey), bundle: .module)
@@ -416,9 +416,9 @@ private struct SuggestedBudgetRow: View {
 
 private extension View {
     @ViewBuilder
-    func kasoDecimalKeyboard() -> some View {
+    func kasoAmountKeyboard() -> some View {
         #if os(iOS)
-        keyboardType(.decimalPad)
+        keyboardType(.numberPad)
         #else
         self
         #endif

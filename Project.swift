@@ -11,6 +11,13 @@ let baseSettings: SettingsDictionary = [
     "SWIFT_VERSION": "6.0",
 ]
 let projectSettings = Settings.settings(base: baseSettings)
+let appSettings = Settings.settings(
+    base: baseSettings.merging([
+        "ASSETCATALOG_COMPILER_APPICON_NAME": "AppIcon",
+    ]) { _, appValue in
+        appValue
+    }
+)
 
 let project = Project(
     name: "Kaso",
@@ -47,7 +54,7 @@ let project = Project(
                 .target(name: "KasoRootFeature"),
                 .target(name: "PersistenceKit"),
             ],
-            settings: projectSettings
+            settings: appSettings
         ),
         .target(
             name: "KasoFoundation",
@@ -82,6 +89,33 @@ let project = Project(
             infoPlist: .default,
             buildableFolders: [
                 "Packages/DesignSystem/KasoDesignSystem/Sources",
+            ],
+            settings: projectSettings
+        ),
+        .target(
+            name: "AppearanceDomain",
+            destinations: destinations,
+            product: .framework,
+            bundleId: "\(bundlePrefix).appearance-domain",
+            deploymentTargets: deploymentTarget,
+            infoPlist: .default,
+            buildableFolders: [
+                "Packages/Domain/AppearanceDomain/Sources",
+            ],
+            settings: projectSettings
+        ),
+        .target(
+            name: "AppearanceDomainTests",
+            destinations: destinations,
+            product: .unitTests,
+            bundleId: "\(bundlePrefix).appearance-domain-tests",
+            deploymentTargets: deploymentTarget,
+            infoPlist: .default,
+            buildableFolders: [
+                "Packages/Domain/AppearanceDomain/Tests",
+            ],
+            dependencies: [
+                .target(name: "AppearanceDomain"),
             ],
             settings: projectSettings
         ),
@@ -155,6 +189,22 @@ let project = Project(
             settings: projectSettings
         ),
         .target(
+            name: "BudgetDomainTests",
+            destinations: destinations,
+            product: .unitTests,
+            bundleId: "\(bundlePrefix).budget-domain-tests",
+            deploymentTargets: deploymentTarget,
+            infoPlist: .default,
+            buildableFolders: [
+                "Packages/Domain/BudgetDomain/Tests",
+            ],
+            dependencies: [
+                .target(name: "BudgetDomain"),
+                .target(name: "TransactionDomain"),
+            ],
+            settings: projectSettings
+        ),
+        .target(
             name: "OnboardingDomain",
             destinations: destinations,
             product: .framework,
@@ -196,10 +246,29 @@ let project = Project(
                 "Packages/Data/PersistenceKit/Sources",
             ],
             dependencies: [
+                .target(name: "AppearanceDomain"),
                 .target(name: "AuthDomain"),
                 .target(name: "BudgetDomain"),
                 .target(name: "KasoFoundation"),
                 .target(name: "OnboardingDomain"),
+                .target(name: "TransactionDomain"),
+            ],
+            settings: projectSettings
+        ),
+        .target(
+            name: "PersistenceKitTests",
+            destinations: destinations,
+            product: .unitTests,
+            bundleId: "\(bundlePrefix).persistence-kit-tests",
+            deploymentTargets: deploymentTarget,
+            infoPlist: .default,
+            buildableFolders: [
+                "Packages/Data/PersistenceKit/Tests",
+            ],
+            dependencies: [
+                .target(name: "AppearanceDomain"),
+                .target(name: "BudgetDomain"),
+                .target(name: "PersistenceKit"),
                 .target(name: "TransactionDomain"),
             ],
             settings: projectSettings
@@ -234,6 +303,40 @@ let project = Project(
             ],
             dependencies: [
                 .target(name: "AuthFeature"),
+                .package(product: "ComposableArchitecture"),
+            ],
+            settings: projectSettings
+        ),
+        .target(
+            name: "AppearanceFeature",
+            destinations: destinations,
+            product: .staticFramework,
+            bundleId: "\(bundlePrefix).appearance-feature",
+            deploymentTargets: deploymentTarget,
+            infoPlist: .default,
+            buildableFolders: [
+                "Packages/Features/AppearanceFeature/Sources",
+                "Packages/Features/AppearanceFeature/Resources",
+            ],
+            dependencies: [
+                .target(name: "AppearanceDomain"),
+                .target(name: "KasoDesignSystem"),
+                .package(product: "ComposableArchitecture"),
+            ],
+            settings: projectSettings
+        ),
+        .target(
+            name: "AppearanceFeatureTests",
+            destinations: destinations,
+            product: .unitTests,
+            bundleId: "\(bundlePrefix).appearance-feature-tests",
+            deploymentTargets: deploymentTarget,
+            infoPlist: .default,
+            buildableFolders: [
+                "Packages/Features/AppearanceFeature/Tests",
+            ],
+            dependencies: [
+                .target(name: "AppearanceFeature"),
                 .package(product: "ComposableArchitecture"),
             ],
             settings: projectSettings
@@ -286,12 +389,34 @@ let project = Project(
                 "Packages/Features/KasoRootFeature/Sources",
             ],
             dependencies: [
+                .target(name: "AppearanceDomain"),
+                .target(name: "AppearanceFeature"),
                 .target(name: "AuthDomain"),
                 .target(name: "AuthFeature"),
+                .target(name: "BudgetDomain"),
                 .target(name: "OnboardingDomain"),
                 .target(name: "OnboardingFeature"),
                 .target(name: "TransactionDomain"),
                 .target(name: "TransactionFeature"),
+                .package(product: "ComposableArchitecture"),
+            ],
+            settings: projectSettings
+        ),
+        .target(
+            name: "KasoRootFeatureTests",
+            destinations: destinations,
+            product: .unitTests,
+            bundleId: "\(bundlePrefix).root-feature-tests",
+            deploymentTargets: deploymentTarget,
+            infoPlist: .default,
+            buildableFolders: [
+                "Packages/Features/KasoRootFeature/Tests",
+            ],
+            dependencies: [
+                .target(name: "BudgetDomain"),
+                .target(name: "KasoRootFeature"),
+                .target(name: "OnboardingDomain"),
+                .target(name: "TransactionDomain"),
                 .package(product: "ComposableArchitecture"),
             ],
             settings: projectSettings
@@ -308,6 +433,7 @@ let project = Project(
                 "Packages/Features/TransactionFeature/Resources",
             ],
             dependencies: [
+                .target(name: "BudgetDomain"),
                 .target(name: "KasoDesignSystem"),
                 .target(name: "TransactionDomain"),
                 .package(product: "ComposableArchitecture"),

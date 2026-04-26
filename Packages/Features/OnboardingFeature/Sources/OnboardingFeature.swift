@@ -119,7 +119,7 @@ public struct OnboardingFeature: Sendable {
                 return .none
 
             case let .monthlyIncomeTextChanged(monthlyIncomeText):
-                state.monthlyIncomeText = monthlyIncomeText
+                state.monthlyIncomeText = TransactionAmountFormatter.formatForEditing(monthlyIncomeText)
                 state.formErrorMessageKey = nil
                 return .none
 

@@ -88,12 +88,86 @@ func calculatesCurrentMonthSummary() throws {
     #expect(summary.balance == 19_750_000)
 }
 
+@Test("calculates current month spending by category")
+func calculatesCurrentMonthSpendingByCategory() throws {
+    let calendar = Calendar(identifier: .gregorian)
+    let targetDate = try #require(
+        DateComponents(calendar: calendar, year: 2026, month: 4, day: 26).date
+    )
+    let previousMonthDate = try #require(
+        DateComponents(calendar: calendar, year: 2026, month: 3, day: 26).date
+    )
+    let transactions = [
+        Transaction(
+            amount: 20_000_000,
+            kind: .income,
+            category: .salary,
+            occurredAt: targetDate
+        ),
+        Transaction(
+            amount: 250_000,
+            kind: .expense,
+            category: .food,
+            occurredAt: targetDate
+        ),
+        Transaction(
+            amount: 150_000,
+            kind: .expense,
+            category: .food,
+            occurredAt: targetDate
+        ),
+        Transaction(
+            amount: 300_000,
+            kind: .expense,
+            category: .transport,
+            occurredAt: targetDate
+        ),
+        Transaction(
+            amount: 500_000,
+            kind: .expense,
+            category: .shopping,
+            occurredAt: previousMonthDate
+        ),
+    ]
+
+    let spendings = transactions.monthlyCategorySpendings(
+        containing: targetDate,
+        calendar: calendar
+    )
+
+    #expect(
+        spendings == [
+            MonthlyCategorySpending(
+                category: .food,
+                amount: 400_000,
+                fraction: 4 / 7
+            ),
+            MonthlyCategorySpending(
+                category: .transport,
+                amount: 300_000,
+                fraction: 3 / 7
+            ),
+        ]
+    )
+}
+
 @Test("parses common Vietnamese amount formats")
 func parsesCommonVietnameseAmountFormats() {
     #expect(TransactionAmountParser.parse("45000") == 45_000)
     #expect(TransactionAmountParser.parse("45.000") == 45_000)
     #expect(TransactionAmountParser.parse("1.234.000") == 1_234_000)
     #expect(TransactionAmountParser.parse("1234,50") == Decimal(string: "1234.50"))
+}
+
+@Test("formats amount input with Vietnamese grouping separators")
+func formatsAmountInputWithVietnameseGroupingSeparators() {
+    #expect(TransactionAmountFormatter.formatForEditing("") == "")
+    #expect(TransactionAmountFormatter.formatForEditing("0") == "0")
+    #expect(TransactionAmountFormatter.formatForEditing("000") == "0")
+    #expect(TransactionAmountFormatter.formatForEditing("45000") == "45.000")
+    #expect(TransactionAmountFormatter.formatForEditing("1.234.567") == "1.234.567")
+    #expect(TransactionAmountFormatter.formatForEditing("1234567890") == "1.234.567.890")
+    #expect(TransactionAmountFormatter.formatForEditing("abc12def345") == "12.345")
 }
 
 @Test("rejects empty amount input")

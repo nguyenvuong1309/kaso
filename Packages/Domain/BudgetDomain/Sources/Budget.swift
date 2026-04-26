@@ -7,19 +7,20 @@ public enum BudgetStatus: Equatable, Sendable {
     case exceeded
 }
 
-public struct Budget: Identifiable, Equatable, Sendable {
-    public let id: UUID
+public struct Budget: Identifiable, Codable, Equatable, Sendable {
     public var category: TransactionCategory
     public var monthlyLimit: Decimal
     public var spent: Decimal
 
+    public var id: String {
+        category.id
+    }
+
     public init(
-        id: UUID = UUID(),
         category: TransactionCategory,
         monthlyLimit: Decimal,
         spent: Decimal = Decimal(0)
     ) {
-        self.id = id
         self.category = category
         self.monthlyLimit = monthlyLimit
         self.spent = spent
@@ -48,5 +49,25 @@ public struct Budget: Identifiable, Equatable, Sendable {
         }
 
         return .healthy
+    }
+}
+
+public extension Sequence where Element == Budget {
+    func applyingMonthlySpending(
+        from transactions: [Transaction],
+        containing date: Date,
+        calendar: Calendar = .current
+    ) -> [Budget] {
+        map { budget in
+            var updatedBudget = budget
+            updatedBudget.spent = transactions
+                .filter {
+                    $0.kind == .expense
+                        && $0.category == budget.category
+                        && calendar.isDate($0.occurredAt, equalTo: date, toGranularity: .month)
+                }
+                .reduce(Decimal(0)) { $0 + $1.amount }
+            return updatedBudget
+        }
     }
 }

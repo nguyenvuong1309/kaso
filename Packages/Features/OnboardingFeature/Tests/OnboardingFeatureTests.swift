@@ -44,13 +44,10 @@ func validatesMonthlyIncomeBeforeMovingForward() async {
         OnboardingFeature()
     }
 
-    await store.send(.monthlyIncomeTextChanged("abc")) {
-        $0.monthlyIncomeText = "abc"
-    }
     await store.send(.nextButtonTapped) {
         $0.formErrorMessageKey = "onboarding.error.invalidIncome"
     }
-    await store.send(.monthlyIncomeTextChanged("20.000.000")) {
+    await store.send(.monthlyIncomeTextChanged("20000000")) {
         $0.monthlyIncomeText = "20.000.000"
         $0.formErrorMessageKey = nil
     }
