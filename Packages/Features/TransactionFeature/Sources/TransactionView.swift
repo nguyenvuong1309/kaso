@@ -927,12 +927,19 @@ private struct AddTransactionSheet: View {
                             Image(systemName: "doc.viewfinder")
                         }
                     }
-                    .disabled(store.isReceiptImageSaving)
+                    .disabled(store.isReceiptImageSaving || store.isReceiptOCRProcessing)
 
                     if store.isReceiptImageSaving {
                         HStack {
                             ProgressView()
                             Text("transactions.add.receipt.saving", bundle: .module)
+                                .font(.kaso.caption)
+                                .foregroundStyle(Color.kaso.textSecondary)
+                        }
+                    } else if store.isReceiptOCRProcessing {
+                        HStack {
+                            ProgressView()
+                            Text("transactions.add.receipt.ocr.scanning", bundle: .module)
                                 .font(.kaso.caption)
                                 .foregroundStyle(Color.kaso.textSecondary)
                         }
@@ -954,6 +961,16 @@ private struct AddTransactionSheet: View {
                                 Text("transactions.add.receipt.remove", bundle: .module)
                             }
                         }
+                    }
+
+                    if store.receiptOCRResult != nil, store.isReceiptOCRProcessing == false {
+                        Label {
+                            Text("transactions.add.receipt.ocr.applied", bundle: .module)
+                        } icon: {
+                            Image(systemName: "wand.and.stars")
+                        }
+                        .font(.kaso.caption)
+                        .foregroundStyle(Color.kaso.textSecondary)
                     }
                 } header: {
                     Text("transactions.add.receipt.section", bundle: .module)
@@ -984,7 +1001,11 @@ private struct AddTransactionSheet: View {
                         saveButtonLabel
                     }
                     .animation(saveButtonAnimation, value: store.isSaving)
-                    .disabled(store.isSaving || store.isReceiptImageSaving)
+                    .disabled(
+                        store.isSaving
+                            || store.isReceiptImageSaving
+                            || store.isReceiptOCRProcessing
+                    )
                 }
             }
         }

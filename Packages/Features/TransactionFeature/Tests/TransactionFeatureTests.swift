@@ -214,10 +214,15 @@ func savesReceiptImageBeforeSavingTransaction() async throws {
     }
     await store.send(.receiptImageDataSelected(Data([1, 2, 3]))) {
         $0.isReceiptImageSaving = true
+        $0.isReceiptOCRProcessing = true
     }
     await store.receive(.receiptImageSaved("receipt-1")) {
         $0.isReceiptImageSaving = false
         $0.draftReceiptImageIdentifier = "receipt-1"
+    }
+    await store.receive(.receiptOCRRecognized(ReceiptOCRResult())) {
+        $0.isReceiptOCRProcessing = false
+        $0.receiptOCRResult = ReceiptOCRResult()
     }
     await store.send(.amountTextChanged("120000")) {
         $0.amountText = "120.000"
@@ -232,6 +237,7 @@ func savesReceiptImageBeforeSavingTransaction() async throws {
         $0.amountText = ""
         $0.draftOccurredAt = date
         $0.draftReceiptImageIdentifier = nil
+        $0.receiptOCRResult = nil
         $0.summary = MonthlyTransactionSummary(
             income: 0,
             expense: 120_000,
@@ -244,6 +250,57 @@ func savesReceiptImageBeforeSavingTransaction() async throws {
                 fraction: 1
             ),
         ]
+    }
+}
+
+@MainActor
+@Test("fills transaction draft from receipt OCR")
+func fillsTransactionDraftFromReceiptOCR() async throws {
+    let calendar = Calendar(identifier: .gregorian)
+    let date = try #require(
+        DateComponents(calendar: calendar, year: 2026, month: 4, day: 26).date
+    )
+    let receiptDate = try #require(
+        DateComponents(calendar: calendar, year: 2026, month: 4, day: 25).date
+    )
+    let result = ReceiptOCRResult(
+        merchantName: "Kaso Coffee",
+        amount: 120_000,
+        occurredAt: receiptDate,
+        rawText: "Kaso Coffee\nTổng cộng: 120.000 đ"
+    )
+    let store = TestStore(initialState: TransactionFeature.State()) {
+        TransactionFeature()
+    } withDependencies: {
+        $0.date.now = date
+        $0.receiptImageRepository.save = { data in
+            #expect(data == Data([4, 5, 6]))
+            return "receipt-ocr"
+        }
+        $0.receiptOCRClient.recognize = { data in
+            #expect(data == Data([4, 5, 6]))
+            return result
+        }
+    }
+
+    await store.send(.addButtonTapped) {
+        $0.isAddSheetPresented = true
+        $0.draftOccurredAt = date
+    }
+    await store.send(.receiptImageDataSelected(Data([4, 5, 6]))) {
+        $0.isReceiptImageSaving = true
+        $0.isReceiptOCRProcessing = true
+    }
+    await store.receive(.receiptImageSaved("receipt-ocr")) {
+        $0.isReceiptImageSaving = false
+        $0.draftReceiptImageIdentifier = "receipt-ocr"
+    }
+    await store.receive(.receiptOCRRecognized(result)) {
+        $0.isReceiptOCRProcessing = false
+        $0.receiptOCRResult = result
+        $0.amountText = "120.000"
+        $0.draftOccurredAt = receiptDate
+        $0.draftNote = "Kaso Coffee"
     }
 }
 

@@ -159,6 +159,68 @@ let project = Project(
             settings: projectSettings
         ),
         .target(
+            name: "InsightDomain",
+            destinations: destinations,
+            product: .framework,
+            bundleId: "\(bundlePrefix).insight-domain",
+            deploymentTargets: deploymentTarget,
+            infoPlist: .default,
+            buildableFolders: [
+                "Packages/Domain/InsightDomain/Sources",
+            ],
+            dependencies: [
+                .target(name: "TransactionDomain"),
+            ],
+            settings: projectSettings
+        ),
+        .target(
+            name: "InsightDomainTests",
+            destinations: destinations,
+            product: .unitTests,
+            bundleId: "\(bundlePrefix).insight-domain-tests",
+            deploymentTargets: deploymentTarget,
+            infoPlist: .default,
+            buildableFolders: [
+                "Packages/Domain/InsightDomain/Tests",
+            ],
+            dependencies: [
+                .target(name: "InsightDomain"),
+                .target(name: "TransactionDomain"),
+            ],
+            settings: projectSettings
+        ),
+        .target(
+            name: "SubscriptionDomain",
+            destinations: destinations,
+            product: .framework,
+            bundleId: "\(bundlePrefix).subscription-domain",
+            deploymentTargets: deploymentTarget,
+            infoPlist: .default,
+            buildableFolders: [
+                "Packages/Domain/SubscriptionDomain/Sources",
+            ],
+            dependencies: [
+                .target(name: "TransactionDomain"),
+            ],
+            settings: projectSettings
+        ),
+        .target(
+            name: "SubscriptionDomainTests",
+            destinations: destinations,
+            product: .unitTests,
+            bundleId: "\(bundlePrefix).subscription-domain-tests",
+            deploymentTargets: deploymentTarget,
+            infoPlist: .default,
+            buildableFolders: [
+                "Packages/Domain/SubscriptionDomain/Tests",
+            ],
+            dependencies: [
+                .target(name: "SubscriptionDomain"),
+                .target(name: "TransactionDomain"),
+            ],
+            settings: projectSettings
+        ),
+        .target(
             name: "TransactionDomainTests",
             destinations: destinations,
             product: .unitTests,
@@ -170,6 +232,37 @@ let project = Project(
             ],
             dependencies: [
                 .target(name: "TransactionDomain"),
+            ],
+            settings: projectSettings
+        ),
+        .target(
+            name: "WellnessDomain",
+            destinations: destinations,
+            product: .framework,
+            bundleId: "\(bundlePrefix).wellness-domain",
+            deploymentTargets: deploymentTarget,
+            infoPlist: .default,
+            buildableFolders: [
+                "Packages/Domain/WellnessDomain/Sources",
+            ],
+            dependencies: [
+                .target(name: "TransactionDomain"),
+            ],
+            settings: projectSettings
+        ),
+        .target(
+            name: "WellnessDomainTests",
+            destinations: destinations,
+            product: .unitTests,
+            bundleId: "\(bundlePrefix).wellness-domain-tests",
+            deploymentTargets: deploymentTarget,
+            infoPlist: .default,
+            buildableFolders: [
+                "Packages/Domain/WellnessDomain/Tests",
+            ],
+            dependencies: [
+                .target(name: "TransactionDomain"),
+                .target(name: "WellnessDomain"),
             ],
             settings: projectSettings
         ),

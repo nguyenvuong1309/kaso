@@ -18,6 +18,7 @@
 - [x] `1.4` Ngân sách theo danh mục: đã có đặt giới hạn thủ công, lưu mã hoá, progress bar và cảnh báo trực quan khi gần/vượt ngân sách.
 - [x] `1.5` Lịch sử giao dịch: đã có danh sách lưu bền vững, tìm kiếm, lọc danh mục, lọc ngày/tuần/tháng và nhóm theo ngày.
 - [x] `1.6` Chủ đề & Dark mode: đã có chọn system/light/dark, đổi accent và cập nhật icon chính.
+- [x] `2.2` OCR chụp hoá đơn: đã đọc ảnh hoá đơn bằng Apple Vision, parse số tiền/ngày/tên cửa hàng và tự điền form giao dịch.
 
 ## 1. Tính năng cốt lõi (Free tier)
 
@@ -30,15 +31,15 @@
 
 ## 2. Tự động hoá
 
-- [ ] `2.1` Đọc SMS ngân hàng 🔴
-- [ ] `2.2` OCR chụp hoá đơn 🟡
+- [ ] `2.1` Đọc SMS ngân hàng 🔴 - Bị chặn trên iOS public API vì app không được đọc SMS của user.
+- [x] `2.2` OCR chụp hoá đơn 🟡 - Đã đọc ảnh bằng Vision, parse số tiền/ngày/tên cửa hàng, lưu ảnh mã hoá và tự điền form giao dịch.
 - [ ] `2.3` Import sao kê ngân hàng PDF 🟡
-- [ ] `2.4` Subscription tracker 🟡
+- [ ] `2.4` Subscription tracker 🟡 - Một phần: đã có `SubscriptionDomain` phát hiện khoản lặp, kỳ hạn, ngày gia hạn kế tiếp và monthly total; thiếu UI/notification.
 - [ ] `2.5` Nhập bằng giọng nói 🟡
 
 ## 3. AI & Phân tích thông minh
 
-- [ ] `3.1` Phát hiện chi tiêu bất thường 🔴
+- [ ] `3.1` Phát hiện chi tiêu bất thường 🔴 - Một phần: đã có `InsightDomain` phát hiện giao dịch lớn và category spike; thiếu UI/cảnh báo.
 - [ ] `3.2` Gợi ý cắt giảm thông minh 🟡
 - [ ] `3.3` Dự báo số dư cuối tháng 🟡
 - [ ] `3.4` Phân tích theo thời gian 🟡
@@ -56,7 +57,7 @@
 - [ ] `5.1` Báo cáo so sánh tháng/năm 🟡
 - [ ] `5.2` Xuất báo cáo PDF 🟡
 - [ ] `5.3` Benchmark ẩn danh 🟡
-- [ ] `5.4` Xuất dữ liệu CSV 🟡
+- [ ] `5.4` Xuất dữ liệu CSV 🟡 - Một phần: đã có `TransactionCSVExporter` domain; thiếu UI share/export file.
 
 ## 6. Chia sẻ & Gia đình
 
@@ -114,7 +115,7 @@
 ## 14. Tiết kiệm tự động
 
 - [ ] `14.1` Round-up tiết kiệm 🟡
-- [ ] `14.2` No-spend day tracker 🟢
+- [ ] `14.2` No-spend day tracker 🟢 - Một phần: đã có `WellnessDomain` tính no-spend days/current streak/longest streak; thiếu UI.
 - [ ] `14.3` Guilt-free budget 🟡
 
 ## 15. Xã hội & Địa lý
@@ -167,3 +168,4 @@
 - [x] Design tokens cơ bản trong `KasoDesignSystem`.
 - [x] Test reducer/domain cho các module hiện có.
 - [x] Persistence giao dịch thật sự: app dùng `EncryptedTransactionStore` với file mã hoá và key trong Keychain.
+- [x] Domain foundation cho subscription detection, anomaly detection, CSV export và no-spend tracking.

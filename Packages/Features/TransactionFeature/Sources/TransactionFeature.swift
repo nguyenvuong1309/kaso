@@ -99,6 +99,7 @@ public struct TransactionFeature: Sendable {
         public var isBudgetSaving: Bool
         public var isCategorySaving: Bool
         public var isReceiptImageSaving: Bool
+        public var isReceiptOCRProcessing: Bool
         public var isAddSheetPresented: Bool
         public var isBudgetEditorPresented: Bool
         public var isCategoryEditorPresented: Bool
@@ -112,6 +113,7 @@ public struct TransactionFeature: Sendable {
         public var draftOccurredAt: Date
         public var draftNote: String
         public var draftReceiptImageIdentifier: String?
+        public var receiptOCRResult: ReceiptOCRResult?
         public var budgetEditorErrorMessageKey: String?
         public var categoryEditorErrorMessageKey: String?
         public var errorMessageKey: String?
@@ -132,6 +134,7 @@ public struct TransactionFeature: Sendable {
             isBudgetSaving: Bool = false,
             isCategorySaving: Bool = false,
             isReceiptImageSaving: Bool = false,
+            isReceiptOCRProcessing: Bool = false,
             isAddSheetPresented: Bool = false,
             isBudgetEditorPresented: Bool = false,
             isCategoryEditorPresented: Bool = false,
@@ -145,6 +148,7 @@ public struct TransactionFeature: Sendable {
             draftOccurredAt: Date = Date(timeIntervalSinceReferenceDate: 0),
             draftNote: String = "",
             draftReceiptImageIdentifier: String? = nil,
+            receiptOCRResult: ReceiptOCRResult? = nil,
             budgetEditorErrorMessageKey: String? = nil,
             categoryEditorErrorMessageKey: String? = nil,
             errorMessageKey: String? = nil,
@@ -164,6 +168,7 @@ public struct TransactionFeature: Sendable {
             self.isBudgetSaving = isBudgetSaving
             self.isCategorySaving = isCategorySaving
             self.isReceiptImageSaving = isReceiptImageSaving
+            self.isReceiptOCRProcessing = isReceiptOCRProcessing
             self.isAddSheetPresented = isAddSheetPresented
             self.isBudgetEditorPresented = isBudgetEditorPresented
             self.isCategoryEditorPresented = isCategoryEditorPresented
@@ -177,6 +182,7 @@ public struct TransactionFeature: Sendable {
             self.draftOccurredAt = draftOccurredAt
             self.draftNote = draftNote
             self.draftReceiptImageIdentifier = draftReceiptImageIdentifier
+            self.receiptOCRResult = receiptOCRResult
             self.budgetEditorErrorMessageKey = budgetEditorErrorMessageKey
             self.categoryEditorErrorMessageKey = categoryEditorErrorMessageKey
             self.errorMessageKey = errorMessageKey
@@ -270,12 +276,15 @@ public struct TransactionFeature: Sendable {
         case receiptImageDataSelected(Data)
         case receiptImageSaved(String)
         case receiptImageSaveFailed(String)
+        case receiptOCRRecognized(ReceiptOCRResult)
+        case receiptOCRFailed(String)
         case receiptImageRemoved
     }
 
     @Dependency(\.budgetRepository) private var budgetRepository
     @Dependency(\.date.now) private var now
     @Dependency(\.receiptImageRepository) private var receiptImageRepository
+    @Dependency(\.receiptOCRClient) private var receiptOCRClient
     @Dependency(\.transactionCategoryRepository) private var categoryRepository
     @Dependency(\.transactionRepository) private var repository
     @Dependency(\.uuid) private var uuid
@@ -582,6 +591,8 @@ public struct TransactionFeature: Sendable {
                 }
 
                 state.isReceiptImageSaving = true
+                state.isReceiptOCRProcessing = true
+                state.receiptOCRResult = nil
                 state.formErrorMessageKey = nil
 
                 return .run { send in
@@ -590,6 +601,14 @@ public struct TransactionFeature: Sendable {
                         await send(.receiptImageSaved(identifier))
                     } catch {
                         await send(.receiptImageSaveFailed("transactions.add.receipt.error.saveFailed"))
+                        return
+                    }
+
+                    do {
+                        let result = try await receiptOCRClient.recognize(data)
+                        await send(.receiptOCRRecognized(result))
+                    } catch {
+                        await send(.receiptOCRFailed("transactions.add.receipt.ocr.error.failed"))
                     }
                 }
 
@@ -600,11 +619,25 @@ public struct TransactionFeature: Sendable {
 
             case let .receiptImageSaveFailed(messageKey):
                 state.isReceiptImageSaving = false
+                state.isReceiptOCRProcessing = false
+                state.formErrorMessageKey = messageKey
+                return .none
+
+            case let .receiptOCRRecognized(result):
+                state.isReceiptOCRProcessing = false
+                state.receiptOCRResult = result
+                apply(result, to: &state)
+                return .none
+
+            case let .receiptOCRFailed(messageKey):
+                state.isReceiptOCRProcessing = false
                 state.formErrorMessageKey = messageKey
                 return .none
 
             case .receiptImageRemoved:
                 state.draftReceiptImageIdentifier = nil
+                state.receiptOCRResult = nil
+                state.isReceiptOCRProcessing = false
                 state.formErrorMessageKey = nil
                 return .none
             }
@@ -659,7 +692,27 @@ public struct TransactionFeature: Sendable {
         state.draftNote = ""
         state.draftReceiptImageIdentifier = nil
         state.isReceiptImageSaving = false
+        state.isReceiptOCRProcessing = false
+        state.receiptOCRResult = nil
         state.formErrorMessageKey = nil
+    }
+
+    private func apply(
+        _ result: ReceiptOCRResult,
+        to state: inout State
+    ) {
+        if let amount = result.amount {
+            state.amountText = TransactionAmountFormatter.formatForEditing(amount.description)
+        }
+
+        if let occurredAt = result.occurredAt {
+            state.draftOccurredAt = occurredAt
+        }
+
+        if let merchantName = result.merchantName,
+           state.draftNote.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            state.draftNote = merchantName
+        }
     }
 
     private func resetCategoryEditor(_ state: inout State) {

@@ -16,7 +16,10 @@ let package = Package(
         .library(name: "KasoDesignSystem", targets: ["KasoDesignSystem"]),
         .library(name: "AppearanceDomain", targets: ["AppearanceDomain"]),
         .library(name: "AuthDomain", targets: ["AuthDomain"]),
+        .library(name: "InsightDomain", targets: ["InsightDomain"]),
+        .library(name: "SubscriptionDomain", targets: ["SubscriptionDomain"]),
         .library(name: "TransactionDomain", targets: ["TransactionDomain"]),
+        .library(name: "WellnessDomain", targets: ["WellnessDomain"]),
         .library(name: "BudgetDomain", targets: ["BudgetDomain"]),
         .library(name: "OnboardingDomain", targets: ["OnboardingDomain"]),
         .library(name: "PersistenceKit", targets: ["PersistenceKit"]),
@@ -79,6 +82,36 @@ let package = Package(
             path: "Packages/Domain/AuthDomain/Tests"
         ),
         .target(
+            name: "InsightDomain",
+            dependencies: [
+                "TransactionDomain",
+            ],
+            path: "Packages/Domain/InsightDomain/Sources"
+        ),
+        .testTarget(
+            name: "InsightDomainTests",
+            dependencies: [
+                "InsightDomain",
+                "TransactionDomain",
+            ],
+            path: "Packages/Domain/InsightDomain/Tests"
+        ),
+        .target(
+            name: "SubscriptionDomain",
+            dependencies: [
+                "TransactionDomain",
+            ],
+            path: "Packages/Domain/SubscriptionDomain/Sources"
+        ),
+        .testTarget(
+            name: "SubscriptionDomainTests",
+            dependencies: [
+                "SubscriptionDomain",
+                "TransactionDomain",
+            ],
+            path: "Packages/Domain/SubscriptionDomain/Tests"
+        ),
+        .target(
             name: "TransactionDomain",
             path: "Packages/Domain/TransactionDomain/Sources"
         ),
@@ -88,6 +121,21 @@ let package = Package(
                 "TransactionDomain",
             ],
             path: "Packages/Domain/TransactionDomain/Tests"
+        ),
+        .target(
+            name: "WellnessDomain",
+            dependencies: [
+                "TransactionDomain",
+            ],
+            path: "Packages/Domain/WellnessDomain/Sources"
+        ),
+        .testTarget(
+            name: "WellnessDomainTests",
+            dependencies: [
+                "TransactionDomain",
+                "WellnessDomain",
+            ],
+            path: "Packages/Domain/WellnessDomain/Tests"
         ),
         .target(
             name: "BudgetDomain",

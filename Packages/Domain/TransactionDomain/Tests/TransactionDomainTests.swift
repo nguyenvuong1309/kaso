@@ -175,3 +175,52 @@ func rejectsEmptyAmountInput() {
     #expect(TransactionAmountParser.parse("") == nil)
     #expect(TransactionAmountParser.parse("abc") == nil)
 }
+
+@Test("parses receipt OCR lines into draft hints")
+func parsesReceiptOCRLinesIntoDraftHints() throws {
+    let calendar = Calendar(identifier: .gregorian)
+    let expectedDate = try #require(
+        DateComponents(calendar: calendar, year: 2026, month: 4, day: 26).date
+    )
+    let result = ReceiptOCRParser.parse(
+        lines: [
+            "Kaso Coffee",
+            "Ngày: 26/04/2026 08:15",
+            "Cà phê sữa 45.000đ",
+            "Tổng cộng: 120.000 đ",
+        ],
+        referenceDate: expectedDate,
+        calendar: calendar
+    )
+
+    #expect(result.merchantName == "Kaso Coffee")
+    #expect(result.amount == 120_000)
+    #expect(result.occurredAt == expectedDate)
+    #expect(result.rawText.contains("Tổng cộng: 120.000 đ"))
+}
+
+@Test("receipt OCR parser falls back to reference date")
+func receiptOCRParserFallsBackToReferenceDate() throws {
+    let calendar = Calendar(identifier: .gregorian)
+    let referenceDate = try #require(
+        DateComponents(
+            calendar: calendar,
+            year: 2026,
+            month: 4,
+            day: 26,
+            hour: 13
+        ).date
+    )
+    let result = ReceiptOCRParser.parse(
+        lines: [
+            "Nhà hàng Kaso",
+            "Total VND 230000",
+        ],
+        referenceDate: referenceDate,
+        calendar: calendar
+    )
+
+    #expect(result.merchantName == "Nhà hàng Kaso")
+    #expect(result.amount == 230_000)
+    #expect(result.occurredAt == calendar.startOfDay(for: referenceDate))
+}

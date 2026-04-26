@@ -1,22 +1,6 @@
 {
   "sourceLanguage" : "vi",
   "strings" : {
-    "transactions.appearance.title" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Appearance"
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Giao diện"
-          }
-        }
-      }
-    },
     "category.education" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -480,6 +464,55 @@
         }
       }
     },
+    "transactions.add.receipt.ocr.applied" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Receipt details filled from photo."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đã tự điền thông tin từ ảnh hoá đơn."
+          }
+        }
+      }
+    },
+    "transactions.add.receipt.ocr.error.failed" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Could not read details from the receipt photo. You can still enter them manually."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Không thể đọc thông tin từ ảnh hoá đơn. Bạn vẫn có thể nhập thủ công."
+          }
+        }
+      }
+    },
+    "transactions.add.receipt.ocr.scanning" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reading receipt details..."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đang đọc thông tin hoá đơn..."
+          }
+        }
+      }
+    },
     "transactions.add.receipt.remove" : {
       "localizations" : {
         "en" : {
@@ -573,6 +606,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Thêm giao dịch"
+          }
+        }
+      }
+    },
+    "transactions.appearance.title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Appearance"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Giao diện"
           }
         }
       }
