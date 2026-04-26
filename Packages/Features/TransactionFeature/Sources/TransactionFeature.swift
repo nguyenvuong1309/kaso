@@ -1,7 +1,11 @@
 import Foundation
 import ComposableArchitecture
 import BudgetDomain
+import GoalDomain
+import InsightDomain
+import SubscriptionDomain
 import TransactionDomain
+import WellnessDomain
 
 public enum TransactionHistoryScope: String, CaseIterable, Equatable, Identifiable, Sendable {
     case all
@@ -81,6 +85,59 @@ public enum CustomCategoryOption: String, CaseIterable, Equatable, Identifiable,
     }
 }
 
+public struct TransactionCSVExport: Equatable, Sendable {
+    public let fileName: String
+    public let csvText: String
+    public let transactionCount: Int
+
+    public init(
+        fileName: String,
+        csvText: String,
+        transactionCount: Int
+    ) {
+        self.fileName = fileName
+        self.csvText = csvText
+        self.transactionCount = transactionCount
+    }
+}
+
+public struct BankStatementImportSummary: Equatable, Sendable {
+    public let importedCount: Int
+    public let skippedLineCount: Int
+    public let totalLineCount: Int
+
+    public init(
+        importedCount: Int,
+        skippedLineCount: Int,
+        totalLineCount: Int
+    ) {
+        self.importedCount = importedCount
+        self.skippedLineCount = skippedLineCount
+        self.totalLineCount = totalLineCount
+    }
+}
+
+public struct SavingGoalSpendingImpact: Identifiable, Equatable, Sendable {
+    public let id: String
+    public var goal: SavingGoal
+    public var budget: Budget
+    public var overageAmount: Decimal
+    public var delayedDayCount: Int
+
+    public init(
+        goal: SavingGoal,
+        budget: Budget,
+        overageAmount: Decimal,
+        delayedDayCount: Int
+    ) {
+        id = "\(goal.id.uuidString)-\(budget.category.id)"
+        self.goal = goal
+        self.budget = budget
+        self.overageAmount = overageAmount
+        self.delayedDayCount = delayedDayCount
+    }
+}
+
 @Reducer
 public struct TransactionFeature: Sendable {
     @ObservableState
@@ -89,6 +146,7 @@ public struct TransactionFeature: Sendable {
         public var summary: MonthlyTransactionSummary
         public var categorySpendings: [MonthlyCategorySpending]
         public var budgets: [Budget]
+        public var savingGoals: IdentifiedArrayOf<SavingGoal>
         public var customCategories: [TransactionCategory]
         public var historyReferenceDate: Date
         public var historyScope: TransactionHistoryScope
@@ -97,24 +155,43 @@ public struct TransactionFeature: Sendable {
         public var isLoading: Bool
         public var isSaving: Bool
         public var isBudgetSaving: Bool
+        public var isSavingGoalSaving: Bool
         public var isCategorySaving: Bool
         public var isReceiptImageSaving: Bool
         public var isReceiptOCRProcessing: Bool
+        public var isBankStatementImporterPresented: Bool
+        public var isBankStatementImporting: Bool
+        public var isVoiceInputRecording: Bool
+        public var subscriptionRenewalReminderCount: Int
         public var isAddSheetPresented: Bool
         public var isBudgetEditorPresented: Bool
+        public var isSavingGoalEditorPresented: Bool
         public var isCategoryEditorPresented: Bool
         public var amountText: String
         public var budgetLimitText: String
+        public var savingGoalNameText: String
+        public var savingGoalTargetAmountText: String
+        public var savingGoalCurrentAmountText: String
+        public var savingGoalDeadline: Date
+        public var retirementAnnualReturnPercentText: String
+        public var retirementTargetMultiplierText: String
         public var categoryNameText: String
         public var categoryOption: CustomCategoryOption
         public var editingBudgetCategory: TransactionCategory?
+        public var editingSavingGoalID: UUID?
         public var draftKind: TransactionKind
         public var draftCategory: TransactionCategory
         public var draftOccurredAt: Date
         public var draftNote: String
         public var draftReceiptImageIdentifier: String?
         public var receiptOCRResult: ReceiptOCRResult?
+        public var bankStatementImportSummary: BankStatementImportSummary?
+        public var bankStatementImportErrorMessageKey: String?
+        public var voiceInputTranscript: String?
+        public var voiceInputErrorMessageKey: String?
+        public var subscriptionRenewalReminderErrorMessageKey: String?
         public var budgetEditorErrorMessageKey: String?
+        public var savingGoalEditorErrorMessageKey: String?
         public var categoryEditorErrorMessageKey: String?
         public var errorMessageKey: String?
         public var formErrorMessageKey: String?
@@ -124,6 +201,7 @@ public struct TransactionFeature: Sendable {
             summary: MonthlyTransactionSummary = .empty,
             categorySpendings: [MonthlyCategorySpending] = [],
             budgets: [Budget] = [],
+            savingGoals: IdentifiedArrayOf<SavingGoal> = [],
             customCategories: [TransactionCategory] = [],
             historyReferenceDate: Date = Date(timeIntervalSinceReferenceDate: 0),
             historyScope: TransactionHistoryScope = .all,
@@ -132,24 +210,43 @@ public struct TransactionFeature: Sendable {
             isLoading: Bool = false,
             isSaving: Bool = false,
             isBudgetSaving: Bool = false,
+            isSavingGoalSaving: Bool = false,
             isCategorySaving: Bool = false,
             isReceiptImageSaving: Bool = false,
             isReceiptOCRProcessing: Bool = false,
+            isBankStatementImporterPresented: Bool = false,
+            isBankStatementImporting: Bool = false,
+            isVoiceInputRecording: Bool = false,
+            subscriptionRenewalReminderCount: Int = 0,
             isAddSheetPresented: Bool = false,
             isBudgetEditorPresented: Bool = false,
+            isSavingGoalEditorPresented: Bool = false,
             isCategoryEditorPresented: Bool = false,
             amountText: String = "",
             budgetLimitText: String = "",
+            savingGoalNameText: String = "",
+            savingGoalTargetAmountText: String = "",
+            savingGoalCurrentAmountText: String = "",
+            savingGoalDeadline: Date = Date(timeIntervalSinceReferenceDate: 0),
+            retirementAnnualReturnPercentText: String = "5",
+            retirementTargetMultiplierText: String = "25",
             categoryNameText: String = "",
             categoryOption: CustomCategoryOption = .coffee,
             editingBudgetCategory: TransactionCategory? = nil,
+            editingSavingGoalID: UUID? = nil,
             draftKind: TransactionKind = .expense,
             draftCategory: TransactionCategory = .food,
             draftOccurredAt: Date = Date(timeIntervalSinceReferenceDate: 0),
             draftNote: String = "",
             draftReceiptImageIdentifier: String? = nil,
             receiptOCRResult: ReceiptOCRResult? = nil,
+            bankStatementImportSummary: BankStatementImportSummary? = nil,
+            bankStatementImportErrorMessageKey: String? = nil,
+            voiceInputTranscript: String? = nil,
+            voiceInputErrorMessageKey: String? = nil,
+            subscriptionRenewalReminderErrorMessageKey: String? = nil,
             budgetEditorErrorMessageKey: String? = nil,
+            savingGoalEditorErrorMessageKey: String? = nil,
             categoryEditorErrorMessageKey: String? = nil,
             errorMessageKey: String? = nil,
             formErrorMessageKey: String? = nil
@@ -158,6 +255,7 @@ public struct TransactionFeature: Sendable {
             self.summary = summary
             self.categorySpendings = categorySpendings
             self.budgets = budgets
+            self.savingGoals = savingGoals
             self.customCategories = customCategories
             self.historyReferenceDate = historyReferenceDate
             self.historyScope = historyScope
@@ -166,24 +264,43 @@ public struct TransactionFeature: Sendable {
             self.isLoading = isLoading
             self.isSaving = isSaving
             self.isBudgetSaving = isBudgetSaving
+            self.isSavingGoalSaving = isSavingGoalSaving
             self.isCategorySaving = isCategorySaving
             self.isReceiptImageSaving = isReceiptImageSaving
             self.isReceiptOCRProcessing = isReceiptOCRProcessing
+            self.isBankStatementImporterPresented = isBankStatementImporterPresented
+            self.isBankStatementImporting = isBankStatementImporting
+            self.isVoiceInputRecording = isVoiceInputRecording
+            self.subscriptionRenewalReminderCount = subscriptionRenewalReminderCount
             self.isAddSheetPresented = isAddSheetPresented
             self.isBudgetEditorPresented = isBudgetEditorPresented
+            self.isSavingGoalEditorPresented = isSavingGoalEditorPresented
             self.isCategoryEditorPresented = isCategoryEditorPresented
             self.amountText = amountText
             self.budgetLimitText = budgetLimitText
+            self.savingGoalNameText = savingGoalNameText
+            self.savingGoalTargetAmountText = savingGoalTargetAmountText
+            self.savingGoalCurrentAmountText = savingGoalCurrentAmountText
+            self.savingGoalDeadline = savingGoalDeadline
+            self.retirementAnnualReturnPercentText = retirementAnnualReturnPercentText
+            self.retirementTargetMultiplierText = retirementTargetMultiplierText
             self.categoryNameText = categoryNameText
             self.categoryOption = categoryOption
             self.editingBudgetCategory = editingBudgetCategory
+            self.editingSavingGoalID = editingSavingGoalID
             self.draftKind = draftKind
             self.draftCategory = draftCategory
             self.draftOccurredAt = draftOccurredAt
             self.draftNote = draftNote
             self.draftReceiptImageIdentifier = draftReceiptImageIdentifier
             self.receiptOCRResult = receiptOCRResult
+            self.bankStatementImportSummary = bankStatementImportSummary
+            self.bankStatementImportErrorMessageKey = bankStatementImportErrorMessageKey
+            self.voiceInputTranscript = voiceInputTranscript
+            self.voiceInputErrorMessageKey = voiceInputErrorMessageKey
+            self.subscriptionRenewalReminderErrorMessageKey = subscriptionRenewalReminderErrorMessageKey
             self.budgetEditorErrorMessageKey = budgetEditorErrorMessageKey
+            self.savingGoalEditorErrorMessageKey = savingGoalEditorErrorMessageKey
             self.categoryEditorErrorMessageKey = categoryEditorErrorMessageKey
             self.errorMessageKey = errorMessageKey
             self.formErrorMessageKey = formErrorMessageKey
@@ -229,6 +346,140 @@ public struct TransactionFeature: Sendable {
             }
         }
 
+        public var subscriptionDetectionResult: SubscriptionDetectionResult {
+            SubscriptionDetector().detect(
+                from: Array(transactions),
+                referenceDate: historyReferenceDate
+            )
+        }
+
+        public var spendingAnomalies: [SpendingAnomaly] {
+            SpendingAnomalyDetector.detect(
+                transactions: Array(transactions),
+                currentDate: historyReferenceDate
+            )
+        }
+
+        public var spendingReductionSuggestions: [SpendingReductionSuggestion] {
+            SpendingReductionSuggestionEngine.suggestions(
+                transactions: Array(transactions),
+                referenceDate: historyReferenceDate
+            )
+        }
+
+        public var monthlyBalanceForecast: MonthlyBalanceForecast {
+            MonthlyBalanceForecaster.forecast(
+                transactions: Array(transactions),
+                referenceDate: historyReferenceDate
+            )
+        }
+
+        public var timeSpendingAnalysis: TimeSpendingAnalysis {
+            TimeSpendingAnalyzer.analyze(
+                transactions: Array(transactions),
+                referenceDate: historyReferenceDate
+            )
+        }
+
+        public var noSpendSummary: NoSpendSummary {
+            NoSpendDayTracker.monthSummary(
+                from: Array(transactions),
+                containing: historyReferenceDate
+            )
+        }
+
+        public var csvExport: TransactionCSVExport {
+            TransactionCSVExport(
+                fileName: "kaso-transactions-\(Self.exportDateString(historyReferenceDate)).csv",
+                csvText: TransactionCSVExporter.export(Array(transactions)),
+                transactionCount: transactions.count
+            )
+        }
+
+        public var editingSavingGoal: SavingGoal? {
+            guard let editingSavingGoalID else {
+                return nil
+            }
+
+            return savingGoals[id: editingSavingGoalID]
+        }
+
+        public var savingGoalSpendingImpacts: [SavingGoalSpendingImpact] {
+            guard let goal = savingGoals.first(where: {
+                let status = $0.status(on: historyReferenceDate)
+                return status == .notStarted || status == .inProgress
+            }) else {
+                return []
+            }
+
+            return budgets
+                .filter { $0.status == .exceeded }
+                .compactMap { budget -> SavingGoalSpendingImpact? in
+                    let overageAmount = budget.spent - budget.monthlyLimit
+                    let delayedDayCount = SavingGoalDelayEstimator.delayedDayCount(
+                        overageAmount: overageAmount,
+                        goal: goal,
+                        asOf: historyReferenceDate
+                    )
+                    guard delayedDayCount > 0 else {
+                        return nil
+                    }
+
+                    return SavingGoalSpendingImpact(
+                        goal: goal,
+                        budget: budget,
+                        overageAmount: overageAmount,
+                        delayedDayCount: delayedDayCount
+                    )
+                }
+                .sorted { $0.overageAmount > $1.overageAmount }
+        }
+
+        public var emergencyFundGoal: SavingGoal? {
+            savingGoals.first { $0.name.isEmergencyFundGoalName }
+        }
+
+        public var emergencyFundRecommendation: EmergencyFundRecommendation? {
+            EmergencyFundPlanner.recommendation(
+                monthlyExpense: Self.averageMonthlyExpense(
+                    transactions: Array(transactions),
+                    referenceDate: historyReferenceDate
+                ),
+                currentAmount: emergencyFundGoal?.currentAmount ?? 0
+            )
+        }
+
+        public var retirementSimulation: RetirementSimulation? {
+            guard
+                let annualReturnPercent = Decimal.inputValue(retirementAnnualReturnPercentText),
+                let targetMultiplier = Int(retirementTargetMultiplierText),
+                targetMultiplier > 0
+            else {
+                return nil
+            }
+
+            return RetirementSimulator.simulate(
+                monthlyIncome: Self.averageMonthlyIncome(
+                    transactions: Array(transactions),
+                    referenceDate: historyReferenceDate
+                ),
+                monthlyExpense: Self.averageMonthlyExpense(
+                    transactions: Array(transactions),
+                    referenceDate: historyReferenceDate
+                ),
+                currentSavings: savingGoals.reduce(0) { $0 + $1.currentAmount },
+                annualReturnRate: annualReturnPercent / 100,
+                targetAnnualExpenseMultiplier: targetMultiplier
+            )
+        }
+
+        public var spendingComparisonReport: SpendingComparisonReport {
+            SpendingComparisonReporter.report(
+                transactions: Array(transactions),
+                referenceDate: historyReferenceDate
+            )
+        }
+
         private static func uniqueCategories(
             _ categories: [TransactionCategory]
         ) -> [TransactionCategory] {
@@ -236,6 +487,83 @@ public struct TransactionFeature: Sendable {
             return categories.filter { category in
                 seenCategoryIDs.insert(category.id).inserted
             }
+        }
+
+        private static func exportDateString(_ date: Date) -> String {
+            let components = Calendar.current.dateComponents([.year, .month, .day], from: date)
+            let year = components.year ?? 0
+            let month = components.month ?? 0
+            let day = components.day ?? 0
+            return String(format: "%04d-%02d-%02d", year, month, day)
+        }
+
+        private static func averageMonthlyExpense(
+            transactions: [Transaction],
+            referenceDate: Date,
+            calendar: Calendar = .current,
+            monthCount: Int = 3
+        ) -> Decimal {
+            averageMonthlyAmount(
+                transactions: transactions,
+                referenceDate: referenceDate,
+                kind: .expense,
+                calendar: calendar,
+                monthCount: monthCount
+            )
+        }
+
+        private static func averageMonthlyIncome(
+            transactions: [Transaction],
+            referenceDate: Date,
+            calendar: Calendar = .current,
+            monthCount: Int = 3
+        ) -> Decimal {
+            averageMonthlyAmount(
+                transactions: transactions,
+                referenceDate: referenceDate,
+                kind: .income,
+                calendar: calendar,
+                monthCount: monthCount
+            )
+        }
+
+        private static func averageMonthlyAmount(
+            transactions: [Transaction],
+            referenceDate: Date,
+            kind: TransactionKind,
+            calendar: Calendar,
+            monthCount: Int
+        ) -> Decimal {
+            guard
+                monthCount > 0,
+                let currentMonth = calendar.dateInterval(of: .month, for: referenceDate),
+                let startDate = calendar.date(
+                    byAdding: .month,
+                    value: -(monthCount - 1),
+                    to: currentMonth.start
+                )
+            else {
+                return 0
+            }
+
+            let monthlyTotals = transactions.reduce(into: [:]) { result, transaction in
+                guard
+                    transaction.kind == kind,
+                    transaction.occurredAt >= startDate,
+                    transaction.occurredAt <= referenceDate,
+                    let month = calendar.dateInterval(of: .month, for: transaction.occurredAt)
+                else {
+                    return
+                }
+
+                result[month.start, default: 0] += transaction.amount
+            } as [Date: Decimal]
+
+            guard monthlyTotals.isEmpty == false else {
+                return 0
+            }
+
+            return monthlyTotals.values.reduce(0, +) / Decimal(monthlyTotals.count)
         }
     }
 
@@ -262,6 +590,24 @@ public struct TransactionFeature: Sendable {
         case budgetSaveButtonTapped
         case budgetsSaved([Budget])
         case budgetSaveFailed(String)
+        case savingGoalsLoaded([SavingGoal])
+        case savingGoalsLoadFailed(String)
+        case savingGoalAddButtonTapped
+        case savingGoalEditButtonTapped(SavingGoal)
+        case savingGoalEditorDismissed
+        case savingGoalNameTextChanged(String)
+        case savingGoalTargetAmountTextChanged(String)
+        case savingGoalCurrentAmountTextChanged(String)
+        case savingGoalDeadlineChanged(Date)
+        case savingGoalSaveButtonTapped
+        case savingGoalSaved(SavingGoal)
+        case savingGoalSaveFailed(String)
+        case savingGoalDeleteButtonTapped(SavingGoal)
+        case savingGoalDeleted(UUID)
+        case savingGoalDeleteFailed(String)
+        case emergencyFundGoalButtonTapped
+        case retirementAnnualReturnPercentTextChanged(String)
+        case retirementTargetMultiplierTextChanged(String)
         case customCategoriesLoaded([TransactionCategory])
         case categoryAddButtonTapped
         case categoryEditorDismissed
@@ -279,15 +625,29 @@ public struct TransactionFeature: Sendable {
         case receiptOCRRecognized(ReceiptOCRResult)
         case receiptOCRFailed(String)
         case receiptImageRemoved
+        case bankStatementImportButtonTapped
+        case bankStatementImporterDismissed
+        case bankStatementPDFDataSelected(Data)
+        case bankStatementImported([Transaction], BankStatementImportSummary)
+        case bankStatementImportFailed(String)
+        case subscriptionRenewalRemindersScheduled(Int)
+        case subscriptionRenewalReminderSchedulingFailed(String)
+        case voiceInputButtonTapped
+        case voiceInputTranscriptRecognized(String)
+        case voiceInputFailed(String)
     }
 
+    @Dependency(\.bankStatementPDFClient) private var bankStatementPDFClient
     @Dependency(\.budgetRepository) private var budgetRepository
     @Dependency(\.date.now) private var now
     @Dependency(\.receiptImageRepository) private var receiptImageRepository
     @Dependency(\.receiptOCRClient) private var receiptOCRClient
+    @Dependency(\.savingGoalRepository) private var savingGoalRepository
+    @Dependency(\.subscriptionNotificationClient) private var subscriptionNotificationClient
     @Dependency(\.transactionCategoryRepository) private var categoryRepository
     @Dependency(\.transactionRepository) private var repository
     @Dependency(\.uuid) private var uuid
+    @Dependency(\.voiceInputClient) private var voiceInputClient
 
     public init() {}
 
@@ -317,6 +677,15 @@ public struct TransactionFeature: Sendable {
                     }
 
                     do {
+                        let goals = try await savingGoalRepository.fetchAll()
+                        if goals.isEmpty == false {
+                            await send(.savingGoalsLoaded(goals))
+                        }
+                    } catch {
+                        await send(.savingGoalsLoadFailed("transactions.goal.error.loadFailed"))
+                    }
+
+                    do {
                         let categories = try await categoryRepository.fetchCustomCategories()
                         if categories.isEmpty == false {
                             await send(.customCategoriesLoaded(categories))
@@ -332,7 +701,7 @@ public struct TransactionFeature: Sendable {
                     uniqueElements: transactions.sorted { $0.occurredAt > $1.occurredAt }
                 )
                 updateDashboard(&state)
-                return .none
+                return scheduleSubscriptionRenewalReminders(for: state)
 
             case let .loadFailed(messageKey):
                 state.isLoading = false
@@ -405,7 +774,7 @@ public struct TransactionFeature: Sendable {
                 insert(transaction, into: &state)
                 resetForm(&state, occurredAt: now)
                 updateDashboard(&state)
-                return .none
+                return scheduleSubscriptionRenewalReminders(for: state)
 
             case let .saveFailed(messageKey):
                 state.isSaving = false
@@ -490,6 +859,134 @@ public struct TransactionFeature: Sendable {
             case let .budgetSaveFailed(messageKey):
                 state.isBudgetSaving = false
                 state.budgetEditorErrorMessageKey = messageKey
+                return .none
+
+            case let .savingGoalsLoaded(goals):
+                state.savingGoals = IdentifiedArray(uniqueElements: goals.sorted { $0.deadline < $1.deadline })
+                return .none
+
+            case let .savingGoalsLoadFailed(messageKey):
+                state.errorMessageKey = messageKey
+                return .none
+
+            case .savingGoalAddButtonTapped:
+                resetSavingGoalEditor(&state, deadline: defaultSavingGoalDeadline(from: now))
+                state.isSavingGoalEditorPresented = true
+                return .none
+
+            case let .savingGoalEditButtonTapped(goal):
+                state.editingSavingGoalID = goal.id
+                state.savingGoalNameText = goal.name
+                state.savingGoalTargetAmountText = TransactionAmountFormatter.formatForEditing(
+                    goal.targetAmount.description
+                )
+                state.savingGoalCurrentAmountText = TransactionAmountFormatter.formatForEditing(
+                    goal.currentAmount.description
+                )
+                state.savingGoalDeadline = goal.deadline
+                state.savingGoalEditorErrorMessageKey = nil
+                state.isSavingGoalEditorPresented = true
+                return .none
+
+            case .savingGoalEditorDismissed:
+                resetSavingGoalEditor(&state, deadline: defaultSavingGoalDeadline(from: now))
+                return .none
+
+            case let .savingGoalNameTextChanged(text):
+                state.savingGoalNameText = text
+                state.savingGoalEditorErrorMessageKey = nil
+                return .none
+
+            case let .savingGoalTargetAmountTextChanged(text):
+                state.savingGoalTargetAmountText = TransactionAmountFormatter.formatForEditing(text)
+                state.savingGoalEditorErrorMessageKey = nil
+                return .none
+
+            case let .savingGoalCurrentAmountTextChanged(text):
+                state.savingGoalCurrentAmountText = TransactionAmountFormatter.formatForEditing(text)
+                state.savingGoalEditorErrorMessageKey = nil
+                return .none
+
+            case let .savingGoalDeadlineChanged(date):
+                state.savingGoalDeadline = date
+                state.savingGoalEditorErrorMessageKey = nil
+                return .none
+
+            case .savingGoalSaveButtonTapped:
+                return saveSavingGoal(state: &state)
+
+            case let .savingGoalSaved(goal):
+                state.isSavingGoalSaving = false
+                upsert(goal, into: &state)
+                resetSavingGoalEditor(&state, deadline: defaultSavingGoalDeadline(from: now))
+                return .none
+
+            case let .savingGoalSaveFailed(messageKey):
+                state.isSavingGoalSaving = false
+                state.savingGoalEditorErrorMessageKey = messageKey
+                return .none
+
+            case let .savingGoalDeleteButtonTapped(goal):
+                state.isSavingGoalSaving = true
+                state.savingGoalEditorErrorMessageKey = nil
+                return .run { send in
+                    do {
+                        try await savingGoalRepository.delete(goal.id)
+                        await send(.savingGoalDeleted(goal.id))
+                    } catch {
+                        await send(.savingGoalDeleteFailed("transactions.goal.error.deleteFailed"))
+                    }
+                }
+
+            case let .savingGoalDeleted(id):
+                state.isSavingGoalSaving = false
+                state.savingGoals.remove(id: id)
+                resetSavingGoalEditor(&state, deadline: defaultSavingGoalDeadline(from: now))
+                return .none
+
+            case let .savingGoalDeleteFailed(messageKey):
+                state.isSavingGoalSaving = false
+                state.savingGoalEditorErrorMessageKey = messageKey
+                return .none
+
+            case .emergencyFundGoalButtonTapped:
+                guard let recommendation = state.emergencyFundRecommendation else {
+                    return .none
+                }
+
+                if let goal = state.emergencyFundGoal {
+                    state.editingSavingGoalID = goal.id
+                    state.savingGoalNameText = goal.name
+                    state.savingGoalTargetAmountText = TransactionAmountFormatter.formatForEditing(
+                        goal.targetAmount.description
+                    )
+                    state.savingGoalCurrentAmountText = TransactionAmountFormatter.formatForEditing(
+                        goal.currentAmount.description
+                    )
+                    state.savingGoalDeadline = goal.deadline
+                } else {
+                    resetSavingGoalEditor(
+                        &state,
+                        deadline: emergencyFundGoalDeadline(from: now)
+                    )
+                    state.savingGoalNameText = "Quỹ khẩn cấp"
+                    state.savingGoalTargetAmountText = TransactionAmountFormatter.formatForEditing(
+                        recommendation.recommendedAmount.description
+                    )
+                    state.savingGoalCurrentAmountText = TransactionAmountFormatter.formatForEditing(
+                        recommendation.currentAmount.description
+                    )
+                }
+                state.savingGoalEditorErrorMessageKey = nil
+                state.isSavingGoalEditorPresented = true
+                return .none
+
+            case let .retirementAnnualReturnPercentTextChanged(text):
+                state.retirementAnnualReturnPercentText = text
+                return .none
+
+            case let .retirementTargetMultiplierTextChanged(text):
+                state.retirementTargetMultiplierText = text
                 return .none
 
             case let .searchTextChanged(searchText):
@@ -640,6 +1137,183 @@ public struct TransactionFeature: Sendable {
                 state.isReceiptOCRProcessing = false
                 state.formErrorMessageKey = nil
                 return .none
+
+            case .voiceInputButtonTapped:
+                state.isVoiceInputRecording = true
+                state.voiceInputTranscript = nil
+                state.voiceInputErrorMessageKey = nil
+                state.formErrorMessageKey = nil
+
+                return .run { send in
+                    do {
+                        let transcript = try await voiceInputClient.recognize()
+                        await send(.voiceInputTranscriptRecognized(transcript))
+                    } catch {
+                        await send(.voiceInputFailed("transactions.voice.error.failed"))
+                    }
+                }
+
+            case let .voiceInputTranscriptRecognized(transcript):
+                state.isVoiceInputRecording = false
+                state.voiceInputTranscript = transcript
+                guard let parseResult = VoiceTransactionParser.parse(transcript) else {
+                    state.voiceInputErrorMessageKey = "transactions.voice.error.parseFailed"
+                    return .none
+                }
+
+                apply(parseResult, to: &state)
+                return .none
+
+            case let .voiceInputFailed(messageKey):
+                state.isVoiceInputRecording = false
+                state.voiceInputErrorMessageKey = messageKey
+                return .none
+
+            case .bankStatementImportButtonTapped:
+                state.isBankStatementImporterPresented = true
+                state.bankStatementImportErrorMessageKey = nil
+                return .none
+
+            case .bankStatementImporterDismissed:
+                state.isBankStatementImporterPresented = false
+                return .none
+
+            case let .bankStatementPDFDataSelected(data):
+                guard data.isEmpty == false else {
+                    return .none
+                }
+
+                state.isBankStatementImporterPresented = false
+                state.isBankStatementImporting = true
+                state.bankStatementImportSummary = nil
+                state.bankStatementImportErrorMessageKey = nil
+                state.errorMessageKey = nil
+
+                return .run { send in
+                    do {
+                        let text = try await bankStatementPDFClient.extractText(data)
+                        let result = BankStatementParser.parse(text: text)
+                        guard result.drafts.isEmpty == false else {
+                            await send(.bankStatementImportFailed("transactions.import.error.empty"))
+                            return
+                        }
+
+                        var importedTransactions: [Transaction] = []
+                        for draft in result.drafts {
+                            let transaction = try draft.validated(id: uuid())
+                            try await repository.save(transaction)
+                            importedTransactions.append(transaction)
+                        }
+
+                        await send(
+                            .bankStatementImported(
+                                importedTransactions,
+                                BankStatementImportSummary(
+                                    importedCount: importedTransactions.count,
+                                    skippedLineCount: result.skippedLineCount,
+                                    totalLineCount: result.totalLineCount
+                                )
+                            )
+                        )
+                    } catch {
+                        await send(.bankStatementImportFailed("transactions.import.error.failed"))
+                    }
+                }
+
+            case let .bankStatementImported(transactions, summary):
+                state.isBankStatementImporting = false
+                state.bankStatementImportSummary = summary
+                for transaction in transactions {
+                    insert(transaction, into: &state)
+                }
+                updateDashboard(&state)
+                return scheduleSubscriptionRenewalReminders(for: state)
+
+            case let .bankStatementImportFailed(messageKey):
+                state.isBankStatementImporting = false
+                state.bankStatementImportErrorMessageKey = messageKey
+                return .none
+
+            case let .subscriptionRenewalRemindersScheduled(count):
+                state.subscriptionRenewalReminderCount = count
+                state.subscriptionRenewalReminderErrorMessageKey = nil
+                return .none
+
+            case let .subscriptionRenewalReminderSchedulingFailed(messageKey):
+                state.subscriptionRenewalReminderErrorMessageKey = messageKey
+                return .none
+            }
+        }
+    }
+
+    private func saveSavingGoal(state: inout State) -> Effect<Action> {
+        guard let targetAmount = TransactionAmountParser.parse(state.savingGoalTargetAmountText) else {
+            state.savingGoalEditorErrorMessageKey = "transactions.goal.error.invalidTarget"
+            return .none
+        }
+
+        let currentAmountText = state.savingGoalCurrentAmountText
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+        let currentAmount = currentAmountText.isEmpty
+            ? Decimal.zero
+            : TransactionAmountParser.parse(currentAmountText)
+        guard let currentAmount else {
+            state.savingGoalEditorErrorMessageKey = "transactions.goal.error.invalidCurrent"
+            return .none
+        }
+
+        let existingGoal = state.editingSavingGoal
+        let goalID = existingGoal?.id ?? uuid()
+        let createdAt = existingGoal?.createdAt ?? now
+        let draft = SavingGoalDraft(
+            name: state.savingGoalNameText,
+            targetAmount: targetAmount,
+            currentAmount: currentAmount,
+            deadline: state.savingGoalDeadline,
+            imageIdentifier: existingGoal?.imageIdentifier
+        )
+
+        do {
+            let goal = try draft.validated(id: goalID, createdAt: createdAt)
+            state.isSavingGoalSaving = true
+            state.savingGoalEditorErrorMessageKey = nil
+
+            return .run { send in
+                do {
+                    try await savingGoalRepository.save(goal)
+                    await send(.savingGoalSaved(goal))
+                } catch {
+                    await send(.savingGoalSaveFailed("transactions.goal.error.saveFailed"))
+                }
+            }
+        } catch let error as SavingGoalValidationError {
+            state.savingGoalEditorErrorMessageKey = error.messageKey
+            return .none
+        } catch {
+            state.savingGoalEditorErrorMessageKey = "transactions.goal.error.saveFailed"
+            return .none
+        }
+    }
+
+    private func scheduleSubscriptionRenewalReminders(for state: State) -> Effect<Action> {
+        let reminders = SubscriptionRenewalReminderPlanner.reminders(
+            for: state.subscriptionDetectionResult.subscriptions,
+            referenceDate: state.historyReferenceDate
+        )
+        guard reminders.isEmpty == false else {
+            return .none
+        }
+
+        return .run { send in
+            do {
+                try await subscriptionNotificationClient.scheduleRenewalReminders(reminders)
+                await send(.subscriptionRenewalRemindersScheduled(reminders.count))
+            } catch {
+                await send(
+                    .subscriptionRenewalReminderSchedulingFailed(
+                        "transactions.subscription.notification.error.failed"
+                    )
+                )
             }
         }
     }
@@ -694,6 +1368,9 @@ public struct TransactionFeature: Sendable {
         state.isReceiptImageSaving = false
         state.isReceiptOCRProcessing = false
         state.receiptOCRResult = nil
+        state.isVoiceInputRecording = false
+        state.voiceInputTranscript = nil
+        state.voiceInputErrorMessageKey = nil
         state.formErrorMessageKey = nil
     }
 
@@ -715,6 +1392,24 @@ public struct TransactionFeature: Sendable {
         }
     }
 
+    private func apply(
+        _ result: VoiceTransactionParseResult,
+        to state: inout State
+    ) {
+        state.amountText = TransactionAmountFormatter.formatForEditing(result.amount.description)
+        state.draftKind = result.kind
+        if state.categories(for: result.kind).contains(result.category) {
+            state.draftCategory = result.category
+        } else {
+            state.draftCategory = TransactionCategory.defaultCategory(for: result.kind)
+        }
+        if let note = result.note {
+            state.draftNote = note
+        }
+        state.voiceInputErrorMessageKey = nil
+        state.formErrorMessageKey = nil
+    }
+
     private func resetCategoryEditor(_ state: inout State) {
         state.isCategoryEditorPresented = false
         state.isCategorySaving = false
@@ -729,6 +1424,38 @@ public struct TransactionFeature: Sendable {
         state.editingBudgetCategory = nil
         state.budgetLimitText = ""
         state.budgetEditorErrorMessageKey = nil
+    }
+
+    private func resetSavingGoalEditor(
+        _ state: inout State,
+        deadline: Date
+    ) {
+        state.isSavingGoalEditorPresented = false
+        state.isSavingGoalSaving = false
+        state.editingSavingGoalID = nil
+        state.savingGoalNameText = ""
+        state.savingGoalTargetAmountText = ""
+        state.savingGoalCurrentAmountText = ""
+        state.savingGoalDeadline = deadline
+        state.savingGoalEditorErrorMessageKey = nil
+    }
+
+    private func upsert(
+        _ goal: SavingGoal,
+        into state: inout State
+    ) {
+        var goals = Array(state.savingGoals)
+        goals.removeAll { $0.id == goal.id }
+        goals.append(goal)
+        state.savingGoals = IdentifiedArray(uniqueElements: goals.sorted { $0.deadline < $1.deadline })
+    }
+
+    private func defaultSavingGoalDeadline(from date: Date) -> Date {
+        Calendar.current.date(byAdding: .month, value: 6, to: date) ?? date
+    }
+
+    private func emergencyFundGoalDeadline(from date: Date) -> Date {
+        Calendar.current.date(byAdding: .month, value: 12, to: date) ?? date
     }
 
     private func updatingBudgets(
@@ -791,5 +1518,38 @@ private extension String {
                 result.append(character)
             }
             .trimmingCharacters(in: CharacterSet(charactersIn: "-"))
+    }
+
+    var isEmergencyFundGoalName: Bool {
+        let normalizedName = normalizedForTransactionSearch.lowercased()
+        return normalizedName.contains("emergency")
+            || normalizedName.contains("khan cap")
+            || normalizedName.contains("du phong")
+    }
+}
+
+private extension SavingGoalValidationError {
+    var messageKey: String {
+        switch self {
+        case .nameRequired:
+            "transactions.goal.error.nameRequired"
+        case .targetAmountMustBePositive:
+            "transactions.goal.error.invalidTarget"
+        case .currentAmountCannotBeNegative:
+            "transactions.goal.error.invalidCurrent"
+        case .currentAmountCannotExceedTargetAmount:
+            "transactions.goal.error.currentExceedsTarget"
+        case .deadlineMustBeInFuture:
+            "transactions.goal.error.deadlineMustBeFuture"
+        }
+    }
+}
+
+private extension Decimal {
+    static func inputValue(_ text: String) -> Decimal? {
+        let normalizedText = text
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+            .replacingOccurrences(of: ",", with: ".")
+        return Decimal(string: normalizedText, locale: Locale(identifier: "en_US_POSIX"))
     }
 }

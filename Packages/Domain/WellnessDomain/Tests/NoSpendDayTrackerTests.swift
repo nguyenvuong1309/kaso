@@ -114,6 +114,31 @@ func longestStreakSpansOnlyConsecutiveNoSpendDays() throws {
     #expect(summary.longestStreak == 3)
 }
 
+@Test("estimates savings and tracks streak milestones")
+func estimatesSavingsAndTracksStreakMilestones() throws {
+    let calendar = Calendar(identifier: .gregorian)
+    let transactions = [
+        Transaction(
+            amount: 100_000,
+            kind: .expense,
+            category: .food,
+            occurredAt: try makeDate(year: 2026, month: 4, day: 1, calendar: calendar)
+        ),
+    ]
+
+    let summary = try NoSpendDayTracker.monthSummary(
+        from: transactions,
+        containing: makeDate(year: 2026, month: 4, day: 4, calendar: calendar),
+        calendar: calendar
+    )
+
+    #expect(summary.currentStreak == 3)
+    #expect(summary.noSpendDaysInMonth == 3)
+    #expect(summary.estimatedSavings == 300_000)
+    #expect(summary.achievedMilestone == .threeDays)
+    #expect(summary.nextMilestone == .sevenDays)
+}
+
 @Test("day bucketing uses the supplied calendar time zone")
 func dayBucketingUsesSuppliedCalendarTimeZone() throws {
     var calendar = Calendar(identifier: .gregorian)

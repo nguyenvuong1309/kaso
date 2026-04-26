@@ -16,10 +16,13 @@ let package = Package(
         .library(name: "KasoDesignSystem", targets: ["KasoDesignSystem"]),
         .library(name: "AppearanceDomain", targets: ["AppearanceDomain"]),
         .library(name: "AuthDomain", targets: ["AuthDomain"]),
+        .library(name: "GoalDomain", targets: ["GoalDomain"]),
         .library(name: "InsightDomain", targets: ["InsightDomain"]),
         .library(name: "SubscriptionDomain", targets: ["SubscriptionDomain"]),
         .library(name: "TransactionDomain", targets: ["TransactionDomain"]),
         .library(name: "WellnessDomain", targets: ["WellnessDomain"]),
+        .library(name: "WealthDomain", targets: ["WealthDomain"]),
+        .library(name: "DebtDomain", targets: ["DebtDomain"]),
         .library(name: "BudgetDomain", targets: ["BudgetDomain"]),
         .library(name: "OnboardingDomain", targets: ["OnboardingDomain"]),
         .library(name: "PersistenceKit", targets: ["PersistenceKit"]),
@@ -28,6 +31,8 @@ let package = Package(
         .library(name: "OnboardingFeature", targets: ["OnboardingFeature"]),
         .library(name: "KasoRootFeature", targets: ["KasoRootFeature"]),
         .library(name: "TransactionFeature", targets: ["TransactionFeature"]),
+        .library(name: "WealthFeature", targets: ["WealthFeature"]),
+        .library(name: "DebtFeature", targets: ["DebtFeature"]),
     ],
     dependencies: [
         .package(
@@ -39,6 +44,7 @@ let package = Package(
         .executableTarget(
             name: "Kaso",
             dependencies: [
+                "DebtFeature",
                 "KasoRootFeature",
                 "PersistenceKit",
             ],
@@ -80,6 +86,17 @@ let package = Package(
                 "AuthDomain",
             ],
             path: "Packages/Domain/AuthDomain/Tests"
+        ),
+        .target(
+            name: "GoalDomain",
+            path: "Packages/Domain/GoalDomain/Sources"
+        ),
+        .testTarget(
+            name: "GoalDomainTests",
+            dependencies: [
+                "GoalDomain",
+            ],
+            path: "Packages/Domain/GoalDomain/Tests"
         ),
         .target(
             name: "InsightDomain",
@@ -138,6 +155,32 @@ let package = Package(
             path: "Packages/Domain/WellnessDomain/Tests"
         ),
         .target(
+            name: "WealthDomain",
+            path: "Packages/Domain/WealthDomain/Sources"
+        ),
+        .testTarget(
+            name: "WealthDomainTests",
+            dependencies: [
+                "WealthDomain",
+            ],
+            path: "Packages/Domain/WealthDomain/Tests"
+        ),
+        .target(
+            name: "DebtDomain",
+            dependencies: [
+                "WealthDomain",
+            ],
+            path: "Packages/Domain/DebtDomain/Sources"
+        ),
+        .testTarget(
+            name: "DebtDomainTests",
+            dependencies: [
+                "DebtDomain",
+                "WealthDomain",
+            ],
+            path: "Packages/Domain/DebtDomain/Tests"
+        ),
+        .target(
             name: "BudgetDomain",
             dependencies: [
                 "TransactionDomain",
@@ -173,9 +216,12 @@ let package = Package(
                 "AppearanceDomain",
                 "AuthDomain",
                 "BudgetDomain",
+                "DebtDomain",
+                "GoalDomain",
                 "KasoFoundation",
                 "OnboardingDomain",
                 "TransactionDomain",
+                "WealthDomain",
             ],
             path: "Packages/Data/PersistenceKit/Sources"
         ),
@@ -184,8 +230,11 @@ let package = Package(
             dependencies: [
                 "AppearanceDomain",
                 "BudgetDomain",
+                "DebtDomain",
+                "GoalDomain",
                 "PersistenceKit",
                 "TransactionDomain",
+                "WealthDomain",
             ],
             path: "Packages/Data/PersistenceKit/Tests"
         ),
@@ -278,16 +327,23 @@ let package = Package(
                 "AuthDomain",
                 "AuthFeature",
                 "BudgetDomain",
+                "DebtFeature",
+                "GoalDomain",
                 "OnboardingDomain",
                 "OnboardingFeature",
                 "TransactionDomain",
                 "TransactionFeature",
+                "WealthDomain",
+                "WealthFeature",
                 .product(
                     name: "ComposableArchitecture",
                     package: "swift-composable-architecture"
                 ),
             ],
-            path: "Packages/Features/KasoRootFeature/Sources"
+            path: "Packages/Features/KasoRootFeature/Sources",
+            resources: [
+                .process("../Resources"),
+            ]
         ),
         .testTarget(
             name: "KasoRootFeatureTests",
@@ -307,8 +363,12 @@ let package = Package(
             name: "TransactionFeature",
             dependencies: [
                 "BudgetDomain",
+                "GoalDomain",
+                "InsightDomain",
                 "KasoDesignSystem",
+                "SubscriptionDomain",
                 "TransactionDomain",
+                "WellnessDomain",
                 .product(
                     name: "ComposableArchitecture",
                     package: "swift-composable-architecture"
@@ -322,13 +382,70 @@ let package = Package(
         .testTarget(
             name: "TransactionFeatureTests",
             dependencies: [
+                "GoalDomain",
+                "InsightDomain",
+                "SubscriptionDomain",
                 "TransactionFeature",
+                "WellnessDomain",
                 .product(
                     name: "ComposableArchitecture",
                     package: "swift-composable-architecture"
                 ),
             ],
             path: "Packages/Features/TransactionFeature/Tests"
+        ),
+        .target(
+            name: "DebtFeature",
+            dependencies: [
+                "DebtDomain",
+                "KasoDesignSystem",
+                "WealthDomain",
+                .product(
+                    name: "ComposableArchitecture",
+                    package: "swift-composable-architecture"
+                ),
+            ],
+            path: "Packages/Features/DebtFeature/Sources",
+            resources: [
+                .process("../Resources"),
+            ]
+        ),
+        .testTarget(
+            name: "DebtFeatureTests",
+            dependencies: [
+                "DebtFeature",
+                .product(
+                    name: "ComposableArchitecture",
+                    package: "swift-composable-architecture"
+                ),
+            ],
+            path: "Packages/Features/DebtFeature/Tests"
+        ),
+        .target(
+            name: "WealthFeature",
+            dependencies: [
+                "KasoDesignSystem",
+                "WealthDomain",
+                .product(
+                    name: "ComposableArchitecture",
+                    package: "swift-composable-architecture"
+                ),
+            ],
+            path: "Packages/Features/WealthFeature/Sources",
+            resources: [
+                .process("../Resources"),
+            ]
+        ),
+        .testTarget(
+            name: "WealthFeatureTests",
+            dependencies: [
+                "WealthFeature",
+                .product(
+                    name: "ComposableArchitecture",
+                    package: "swift-composable-architecture"
+                ),
+            ],
+            path: "Packages/Features/WealthFeature/Tests"
         ),
     ],
     swiftLanguageModes: [.v6]

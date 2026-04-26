@@ -24,17 +24,42 @@ public struct NoSpendSummary: Equatable, Sendable {
     public let currentStreak: Int
     public let longestStreak: Int
     public let noSpendDaysInMonth: Int
+    public let estimatedSavings: Decimal
+    public let achievedMilestone: NoSpendMilestone?
+    public let nextMilestone: NoSpendMilestone?
 
     public init(
         days: [NoSpendDay],
         currentStreak: Int,
         longestStreak: Int,
-        noSpendDaysInMonth: Int
+        noSpendDaysInMonth: Int,
+        estimatedSavings: Decimal = 0,
+        achievedMilestone: NoSpendMilestone? = nil,
+        nextMilestone: NoSpendMilestone? = nil
     ) {
         self.days = days
         self.currentStreak = currentStreak
         self.longestStreak = longestStreak
         self.noSpendDaysInMonth = noSpendDaysInMonth
+        self.estimatedSavings = estimatedSavings
+        self.achievedMilestone = achievedMilestone
+        self.nextMilestone = nextMilestone
+    }
+}
+
+public enum NoSpendMilestone: Int, CaseIterable, Equatable, Identifiable, Sendable {
+    case threeDays = 3
+    case sevenDays = 7
+    case fourteenDays = 14
+    case twentyOneDays = 21
+    case thirtyDays = 30
+
+    public var id: Int {
+        rawValue
+    }
+
+    public var dayCount: Int {
+        rawValue
     }
 }
 
@@ -78,12 +103,20 @@ public enum NoSpendDayTracker {
             containing: referenceDate,
             calendar: calendar
         )
+        let currentStreak = currentStreak(in: days)
 
         return NoSpendSummary(
             days: days,
-            currentStreak: currentStreak(in: days),
+            currentStreak: currentStreak,
             longestStreak: longestStreak(in: days),
-            noSpendDaysInMonth: noSpendDaysInMonth
+            noSpendDaysInMonth: noSpendDaysInMonth,
+            estimatedSavings: estimatedSavings(
+                transactions: transactions,
+                days: days,
+                calendar: calendar
+            ),
+            achievedMilestone: achievedMilestone(for: currentStreak),
+            nextMilestone: nextMilestone(after: currentStreak)
         )
     }
 }
@@ -167,5 +200,45 @@ private extension NoSpendDayTracker {
         }
 
         return longest
+    }
+
+    static func estimatedSavings(
+        transactions: [Transaction],
+        days: [NoSpendDay],
+        calendar: Calendar
+    ) -> Decimal {
+        let noSpendDayCount = days.filter(\.isNoSpendDay).count
+        guard noSpendDayCount > 0 else {
+            return 0
+        }
+
+        let spendingDays = days.filter { $0.isNoSpendDay == false }
+        guard spendingDays.isEmpty == false else {
+            return 0
+        }
+
+        let spendingDayStarts = Set(spendingDays.map(\.date))
+        let totalExpenseOnSpendingDays = transactions
+            .filter {
+                $0.kind == .expense
+                    && spendingDayStarts.contains(calendar.startOfDay(for: $0.occurredAt))
+            }
+            .reduce(Decimal(0)) { $0 + $1.amount }
+
+        guard totalExpenseOnSpendingDays > 0 else {
+            return 0
+        }
+
+        return totalExpenseOnSpendingDays
+            / Decimal(spendingDays.count)
+            * Decimal(noSpendDayCount)
+    }
+
+    static func achievedMilestone(for currentStreak: Int) -> NoSpendMilestone? {
+        NoSpendMilestone.allCases.last { $0.dayCount <= currentStreak }
+    }
+
+    static func nextMilestone(after currentStreak: Int) -> NoSpendMilestone? {
+        NoSpendMilestone.allCases.first { $0.dayCount > currentStreak }
     }
 }

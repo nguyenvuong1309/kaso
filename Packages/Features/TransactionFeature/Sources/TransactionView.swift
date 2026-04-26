@@ -1,11 +1,17 @@
 import Charts
+import CoreTransferable
 import Foundation
 import PhotosUI
 import SwiftUI
+import UniformTypeIdentifiers
 import ComposableArchitecture
 import BudgetDomain
+import GoalDomain
+import InsightDomain
 import KasoDesignSystem
+import SubscriptionDomain
 import TransactionDomain
+import WellnessDomain
 
 public struct TransactionRootView: View {
     private let store: StoreOf<TransactionFeature>
@@ -53,6 +59,31 @@ public struct TransactionView: View {
                             isVisible: hasAnimatedIn,
                             delay: Layout.summaryEntranceDelay
                         )
+                    forecastSection
+                        .homeEntrance(
+                            isVisible: hasAnimatedIn,
+                            delay: Layout.forecastEntranceDelay
+                        )
+                    savingGoalSection
+                        .homeEntrance(
+                            isVisible: hasAnimatedIn,
+                            delay: Layout.savingGoalEntranceDelay
+                        )
+                    emergencyFundSection
+                        .homeEntrance(
+                            isVisible: hasAnimatedIn,
+                            delay: Layout.emergencyFundEntranceDelay
+                        )
+                    retirementSection
+                        .homeEntrance(
+                            isVisible: hasAnimatedIn,
+                            delay: Layout.retirementEntranceDelay
+                        )
+                    reportSection
+                        .homeEntrance(
+                            isVisible: hasAnimatedIn,
+                            delay: Layout.reportEntranceDelay
+                        )
                     categoryBreakdownSection
                         .homeEntrance(
                             isVisible: hasAnimatedIn,
@@ -62,6 +93,46 @@ public struct TransactionView: View {
                         .homeEntrance(
                             isVisible: hasAnimatedIn,
                             delay: Layout.budgetEntranceDelay
+                        )
+                    goalImpactSection
+                        .homeEntrance(
+                            isVisible: hasAnimatedIn,
+                            delay: Layout.goalImpactEntranceDelay
+                        )
+                    subscriptionSection
+                        .homeEntrance(
+                            isVisible: hasAnimatedIn,
+                            delay: Layout.subscriptionEntranceDelay
+                        )
+                    anomalySection
+                        .homeEntrance(
+                            isVisible: hasAnimatedIn,
+                            delay: Layout.anomalyEntranceDelay
+                        )
+                    reductionSection
+                        .homeEntrance(
+                            isVisible: hasAnimatedIn,
+                            delay: Layout.reductionEntranceDelay
+                        )
+                    timeAnalysisSection
+                        .homeEntrance(
+                            isVisible: hasAnimatedIn,
+                            delay: Layout.timeAnalysisEntranceDelay
+                        )
+                    noSpendSection
+                        .homeEntrance(
+                            isVisible: hasAnimatedIn,
+                            delay: Layout.noSpendEntranceDelay
+                        )
+                    importSection
+                        .homeEntrance(
+                            isVisible: hasAnimatedIn,
+                            delay: Layout.importEntranceDelay
+                        )
+                    exportSection
+                        .homeEntrance(
+                            isVisible: hasAnimatedIn,
+                            delay: Layout.exportEntranceDelay
                         )
                     historySection
                         .homeEntrance(
@@ -119,9 +190,22 @@ public struct TransactionView: View {
                 BudgetEditorSheet(store: store)
                     .kasoAddSheetPresentation()
             }
+            .sheet(isPresented: savingGoalEditorPresented) {
+                SavingGoalEditorSheet(store: store)
+                    .kasoAddSheetPresentation()
+            }
             .sheet(isPresented: categoryEditorPresented) {
                 CategoryEditorSheet(store: store)
                     .kasoAddSheetPresentation()
+            }
+            .fileImporter(
+                isPresented: bankStatementImporterPresented,
+                allowedContentTypes: [.pdf],
+                allowsMultipleSelection: false
+            ) { result in
+                Task {
+                    await loadBankStatementPDF(from: result)
+                }
             }
             .onAppear {
                 startEntranceAnimation()
@@ -176,6 +260,17 @@ public struct TransactionView: View {
         )
     }
 
+    private var savingGoalEditorPresented: Binding<Bool> {
+        Binding(
+            get: { store.isSavingGoalEditorPresented },
+            set: { isPresented in
+                if isPresented == false {
+                    store.send(.savingGoalEditorDismissed)
+                }
+            }
+        )
+    }
+
     private var categoryEditorPresented: Binding<Bool> {
         Binding(
             get: { store.isCategoryEditorPresented },
@@ -184,6 +279,31 @@ public struct TransactionView: View {
                     store.send(.categoryEditorDismissed)
                 }
             }
+        )
+    }
+
+    private var bankStatementImporterPresented: Binding<Bool> {
+        Binding(
+            get: { store.isBankStatementImporterPresented },
+            set: { isPresented in
+                if isPresented == false {
+                    store.send(.bankStatementImporterDismissed)
+                }
+            }
+        )
+    }
+
+    private var retirementAnnualReturnBinding: Binding<String> {
+        Binding(
+            get: { store.retirementAnnualReturnPercentText },
+            set: { store.send(.retirementAnnualReturnPercentTextChanged($0)) }
+        )
+    }
+
+    private var retirementTargetMultiplierBinding: Binding<String> {
+        Binding(
+            get: { store.retirementTargetMultiplierText },
+            set: { store.send(.retirementTargetMultiplierTextChanged($0)) }
         )
     }
 
@@ -217,6 +337,54 @@ public struct TransactionView: View {
             cornerRadius: Radius.lg,
             isActive: store.summary != .empty
         )
+    }
+
+    private var forecastSection: some View {
+        KasoCard {
+            MonthlyBalanceForecastCard(forecast: store.monthlyBalanceForecast)
+        }
+    }
+
+    private var savingGoalSection: some View {
+        KasoCard {
+            SavingGoalCard(
+                goals: Array(store.savingGoals),
+                referenceDate: store.historyReferenceDate,
+                onAddButtonTapped: {
+                    store.send(.savingGoalAddButtonTapped)
+                },
+                onGoalTapped: { goal in
+                    store.send(.savingGoalEditButtonTapped(goal))
+                }
+            )
+        }
+    }
+
+    private var emergencyFundSection: some View {
+        KasoCard {
+            EmergencyFundCard(
+                recommendation: store.emergencyFundRecommendation,
+                onGoalButtonTapped: {
+                    store.send(.emergencyFundGoalButtonTapped)
+                }
+            )
+        }
+    }
+
+    private var retirementSection: some View {
+        KasoCard {
+            RetirementSimulationCard(
+                simulation: store.retirementSimulation,
+                annualReturnText: retirementAnnualReturnBinding,
+                targetMultiplierText: retirementTargetMultiplierBinding
+            )
+        }
+    }
+
+    private var reportSection: some View {
+        KasoCard {
+            SpendingComparisonReportCard(report: store.spendingComparisonReport)
+        }
     }
 
     private var historySection: some View {
@@ -426,6 +594,76 @@ public struct TransactionView: View {
         }
     }
 
+    private var goalImpactSection: some View {
+        KasoCard {
+            SavingGoalImpactCard(impacts: store.savingGoalSpendingImpacts)
+        }
+    }
+
+    private var subscriptionSection: some View {
+        KasoCard {
+            SubscriptionTrackerCard(
+                result: store.subscriptionDetectionResult,
+                referenceDate: store.historyReferenceDate
+            )
+        }
+    }
+
+    private var anomalySection: some View {
+        KasoCard {
+            SpendingAnomalyCard(anomalies: store.spendingAnomalies)
+        }
+    }
+
+    private var reductionSection: some View {
+        KasoCard {
+            SpendingReductionSuggestionCard(suggestions: store.spendingReductionSuggestions)
+        }
+    }
+
+    private var timeAnalysisSection: some View {
+        KasoCard {
+            TimeSpendingAnalysisCard(analysis: store.timeSpendingAnalysis)
+        }
+    }
+
+    private var noSpendSection: some View {
+        KasoCard {
+            NoSpendTrackerCard(summary: store.noSpendSummary)
+        }
+    }
+
+    private var importSection: some View {
+        KasoCard {
+            BankStatementImportCard(
+                isImporting: store.isBankStatementImporting,
+                summary: store.bankStatementImportSummary,
+                errorMessageKey: store.bankStatementImportErrorMessageKey,
+                onImportButtonTapped: {
+                    store.send(.bankStatementImportButtonTapped)
+                }
+            )
+        }
+    }
+
+    private var exportSection: some View {
+        KasoCard {
+            VStack(alignment: .leading, spacing: Spacing.lg) {
+                CSVExportCard(
+                    export: store.csvExport,
+                    isDisabled: store.transactions.isEmpty
+                )
+
+                Divider()
+
+                TransactionPDFReportExportCard(
+                    report: store.pdfReport,
+                    isDisabled: store.transactions.isEmpty
+                )
+            }
+        }
+    }
+
     private var transactionIDs: [UUID] {
         store.transactions.map { $0.id }
     }
@@ -612,6 +850,1376 @@ public struct TransactionView: View {
             self.highlightedTransactionID = nil
         }
     }
+
+    @MainActor
+    private func loadBankStatementPDF(from result: Result<[URL], Error>) async {
+        do {
+            guard let url = try result.get().first else {
+                return
+            }
+
+            let hasSecurityScopedAccess = url.startAccessingSecurityScopedResource()
+            defer {
+                if hasSecurityScopedAccess {
+                    url.stopAccessingSecurityScopedResource()
+                }
+            }
+
+            let data = try Data(contentsOf: url, options: [.mappedIfSafe])
+            store.send(.bankStatementPDFDataSelected(data))
+        } catch {
+            store.send(.bankStatementImportFailed("transactions.import.error.loadFailed"))
+        }
+    }
+}
+
+private struct SubscriptionTrackerCard: View {
+    let result: SubscriptionDetectionResult
+    let referenceDate: Date
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: Spacing.md) {
+            HStack(alignment: .firstTextBaseline, spacing: Spacing.md) {
+                VStack(alignment: .leading, spacing: Spacing.xs) {
+                    Text("transactions.subscription.title", bundle: .module)
+                        .font(.kaso.titleMedium)
+                        .foregroundStyle(Color.kaso.textPrimary)
+
+                    Text("transactions.subscription.description", bundle: .module)
+                        .font(.kaso.caption)
+                        .foregroundStyle(Color.kaso.textSecondary)
+                }
+
+                Spacer(minLength: Spacing.md)
+
+                Text(result.monthlyTotal.formatted(.currency(code: "VND")))
+                    .font(.kaso.numericMedium)
+                    .foregroundStyle(Color.kaso.accent)
+                    .lineLimit(1)
+                    .minimumScaleFactor(Layout.amountMinimumScaleFactor)
+            }
+
+            if result.subscriptions.isEmpty {
+                ContentUnavailableView {
+                    Label {
+                        Text("transactions.subscription.empty.title", bundle: .module)
+                    } icon: {
+                        Image(systemName: "repeat.circle")
+                    }
+                } description: {
+                    Text("transactions.subscription.empty.description", bundle: .module)
+                }
+            } else {
+                VStack(spacing: Spacing.md) {
+                    ForEach(Array(result.subscriptions.prefix(Layout.dashboardPreviewLimit))) { subscription in
+                        SubscriptionRow(
+                            subscription: subscription,
+                            referenceDate: referenceDate
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
+
+private struct MonthlyBalanceForecastCard: View {
+    let forecast: MonthlyBalanceForecast
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: Spacing.md) {
+            HStack(alignment: .firstTextBaseline, spacing: Spacing.md) {
+                VStack(alignment: .leading, spacing: Spacing.xs) {
+                    Text("transactions.forecast.title", bundle: .module)
+                        .font(.kaso.titleMedium)
+                        .foregroundStyle(Color.kaso.textPrimary)
+
+                    Text(LocalizedStringKey(forecast.status.descriptionKey), bundle: .module)
+                        .font(.kaso.caption)
+                        .foregroundStyle(Color.kaso.textSecondary)
+                }
+
+                Spacer(minLength: Spacing.md)
+
+                Text(forecast.projectedBalance.formatted(.currency(code: "VND")))
+                    .font(.kaso.numericLarge)
+                    .foregroundStyle(statusColor)
+                    .lineLimit(1)
+                    .minimumScaleFactor(Layout.amountMinimumScaleFactor)
+            }
+
+            HStack(spacing: Spacing.md) {
+                ForecastMetric(
+                    titleKey: "transactions.forecast.projectedExpense",
+                    amount: forecast.projectedExpense,
+                    symbolName: "chart.line.downtrend.xyaxis"
+                )
+                ForecastMetric(
+                    titleKey: "transactions.forecast.remainingDays",
+                    value: forecast.remainingDayCount.formatted(),
+                    symbolName: "calendar.badge.clock"
+                )
+            }
+
+            Label {
+                Text(LocalizedStringKey(forecast.status.titleKey), bundle: .module)
+            } icon: {
+                Image(systemName: statusSymbolName)
+                    .foregroundStyle(statusColor)
+            }
+            .font(.kaso.caption)
+            .foregroundStyle(Color.kaso.textSecondary)
+        }
+    }
+
+    private var statusColor: Color {
+        switch forecast.status {
+        case .safe:
+            Color.kaso.positive
+        case .tight:
+            Color.kaso.warning
+        case .negative:
+            Color.kaso.destructive
+        }
+    }
+
+    private var statusSymbolName: String {
+        switch forecast.status {
+        case .safe:
+            "checkmark.circle.fill"
+        case .tight:
+            "exclamationmark.circle.fill"
+        case .negative:
+            "exclamationmark.triangle.fill"
+        }
+    }
+}
+
+private struct ForecastMetric: View {
+    let titleKey: String
+    let amount: Decimal?
+    let value: String?
+    let symbolName: String
+
+    init(
+        titleKey: String,
+        amount: Decimal,
+        symbolName: String
+    ) {
+        self.titleKey = titleKey
+        self.amount = amount
+        self.value = nil
+        self.symbolName = symbolName
+    }
+
+    init(
+        titleKey: String,
+        value: String,
+        symbolName: String
+    ) {
+        self.titleKey = titleKey
+        self.amount = nil
+        self.value = value
+        self.symbolName = symbolName
+    }
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: Spacing.xs) {
+            Image(systemName: symbolName)
+                .foregroundStyle(Color.kaso.accent)
+
+            if let amount {
+                Text(amount.formatted(.currency(code: "VND")))
+                    .font(.kaso.numericMedium)
+                    .foregroundStyle(Color.kaso.textPrimary)
+                    .lineLimit(1)
+                    .minimumScaleFactor(Layout.metricMinimumScaleFactor)
+            } else if let value {
+                Text(value)
+                    .font(.kaso.numericMedium)
+                    .foregroundStyle(Color.kaso.textPrimary)
+            }
+
+            Text(LocalizedStringKey(titleKey), bundle: .module)
+                .font(.kaso.caption)
+                .foregroundStyle(Color.kaso.textSecondary)
+                .lineLimit(2)
+                .minimumScaleFactor(Layout.metricMinimumScaleFactor)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(Spacing.sm)
+        .background(
+            RoundedRectangle(cornerRadius: Radius.md, style: .continuous)
+                .fill(Color.kaso.surfaceSecondary)
+        )
+    }
+}
+
+private struct SavingGoalCard: View {
+    let goals: [SavingGoal]
+    let referenceDate: Date
+    let onAddButtonTapped: () -> Void
+    let onGoalTapped: (SavingGoal) -> Void
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: Spacing.md) {
+            HStack(alignment: .firstTextBaseline, spacing: Spacing.md) {
+                VStack(alignment: .leading, spacing: Spacing.xs) {
+                    Text("transactions.goal.title", bundle: .module)
+                        .font(.kaso.titleMedium)
+                        .foregroundStyle(Color.kaso.textPrimary)
+
+                    Text("transactions.goal.description", bundle: .module)
+                        .font(.kaso.caption)
+                        .foregroundStyle(Color.kaso.textSecondary)
+                }
+
+                Spacer(minLength: Spacing.md)
+
+                Button {
+                    onAddButtonTapped()
+                } label: {
+                    Label {
+                        Text("transactions.goal.add", bundle: .module)
+                    } icon: {
+                        Image(systemName: "plus.circle")
+                    }
+                }
+                .font(.kaso.body)
+            }
+
+            if goals.isEmpty {
+                ContentUnavailableView {
+                    Label {
+                        Text("transactions.goal.empty.title", bundle: .module)
+                    } icon: {
+                        Image(systemName: "target")
+                    }
+                } description: {
+                    Text("transactions.goal.empty.description", bundle: .module)
+                }
+            } else {
+                VStack(spacing: Spacing.md) {
+                    ForEach(Array(goals.prefix(Layout.dashboardPreviewLimit))) { goal in
+                        Button {
+                            onGoalTapped(goal)
+                        } label: {
+                            SavingGoalRow(goal: goal, referenceDate: referenceDate)
+                        }
+                        .buttonStyle(.plain)
+                    }
+                }
+            }
+        }
+    }
+}
+
+private struct SavingGoalRow: View {
+    let goal: SavingGoal
+    let referenceDate: Date
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: Spacing.sm) {
+            HStack(alignment: .top, spacing: Spacing.md) {
+                Image(systemName: "target")
+                    .foregroundStyle(statusColor)
+                    .frame(width: Layout.categoryIconSize, height: Layout.categoryIconSize)
+
+                VStack(alignment: .leading, spacing: Spacing.xs) {
+                    Text(goal.name)
+                        .font(.kaso.body)
+                        .foregroundStyle(Color.kaso.textPrimary)
+
+                    Text(goal.deadline.formatted(.dateTime.day().month(.abbreviated).year()))
+                        .font(.kaso.caption)
+                        .foregroundStyle(Color.kaso.textSecondary)
+                }
+
+                Spacer(minLength: Spacing.md)
+
+                Text(goal.progress.fraction.formatted(.percent.precision(.fractionLength(0))))
+                    .font(.kaso.numericMedium)
+                    .foregroundStyle(statusColor)
+            }
+
+            ProgressView(value: goal.progress.fraction)
+                .tint(statusColor)
+
+            HStack(spacing: Spacing.sm) {
+                Text(goal.currentAmount.formatted(.currency(code: "VND")))
+                    .font(.kaso.numericMedium)
+                    .foregroundStyle(Color.kaso.textPrimary)
+                    .lineLimit(1)
+                    .minimumScaleFactor(Layout.amountMinimumScaleFactor)
+
+                Text("/")
+                    .font(.kaso.caption)
+                    .foregroundStyle(Color.kaso.textSecondary)
+
+                Text(goal.targetAmount.formatted(.currency(code: "VND")))
+                    .font(.kaso.numericMedium)
+                    .foregroundStyle(Color.kaso.textSecondary)
+                    .lineLimit(1)
+                    .minimumScaleFactor(Layout.amountMinimumScaleFactor)
+
+                Spacer(minLength: Spacing.md)
+
+                Text(LocalizedStringKey(status.nameKey), bundle: .module)
+                    .font(.kaso.caption)
+                    .foregroundStyle(statusColor)
+            }
+        }
+        .padding(Spacing.sm)
+        .background(
+            RoundedRectangle(cornerRadius: Radius.md, style: .continuous)
+                .fill(Color.kaso.surfaceSecondary)
+        )
+    }
+
+    private var status: SavingGoalStatus {
+        goal.status(on: referenceDate)
+    }
+
+    private var statusColor: Color {
+        status.color
+    }
+}
+
+private struct SavingGoalImpactCard: View {
+    let impacts: [SavingGoalSpendingImpact]
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: Spacing.md) {
+            VStack(alignment: .leading, spacing: Spacing.xs) {
+                Text("transactions.goalImpact.title", bundle: .module)
+                    .font(.kaso.titleMedium)
+                    .foregroundStyle(Color.kaso.textPrimary)
+
+                Text("transactions.goalImpact.description", bundle: .module)
+                    .font(.kaso.caption)
+                    .foregroundStyle(Color.kaso.textSecondary)
+            }
+
+            if impacts.isEmpty {
+                ContentUnavailableView {
+                    Label {
+                        Text("transactions.goalImpact.empty.title", bundle: .module)
+                    } icon: {
+                        Image(systemName: "target")
+                    }
+                } description: {
+                    Text("transactions.goalImpact.empty.description", bundle: .module)
+                }
+            } else {
+                VStack(spacing: Spacing.md) {
+                    ForEach(Array(impacts.prefix(Layout.dashboardPreviewLimit))) { impact in
+                        SavingGoalImpactRow(impact: impact)
+                    }
+                }
+            }
+        }
+    }
+}
+
+private struct EmergencyFundCard: View {
+    let recommendation: EmergencyFundRecommendation?
+    let onGoalButtonTapped: () -> Void
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: Spacing.md) {
+            VStack(alignment: .leading, spacing: Spacing.xs) {
+                Text("transactions.emergencyFund.title", bundle: .module)
+                    .font(.kaso.titleMedium)
+                    .foregroundStyle(Color.kaso.textPrimary)
+
+                Text("transactions.emergencyFund.description", bundle: .module)
+                    .font(.kaso.caption)
+                    .foregroundStyle(Color.kaso.textSecondary)
+            }
+
+            if let recommendation {
+                VStack(spacing: Spacing.md) {
+                    HStack(spacing: Spacing.md) {
+                        ForecastMetric(
+                            titleKey: "transactions.emergencyFund.target",
+                            amount: recommendation.recommendedAmount,
+                            symbolName: "shield.lefthalf.filled"
+                        )
+                        ForecastMetric(
+                            titleKey: "transactions.emergencyFund.coverage",
+                            value: recommendation.coverageMonthCount.formatted(
+                                .number.precision(.fractionLength(1))
+                            ),
+                            symbolName: "calendar"
+                        )
+                    }
+
+                    HStack(spacing: Spacing.md) {
+                        ForecastMetric(
+                            titleKey: "transactions.emergencyFund.remaining",
+                            amount: recommendation.remainingAmount,
+                            symbolName: "arrow.up.forward.circle"
+                        )
+                        ForecastMetric(
+                            titleKey: "transactions.emergencyFund.monthlyTopUp",
+                            amount: recommendation.monthlyTopUpAmount,
+                            symbolName: "bell.badge"
+                        )
+                    }
+
+                    Button {
+                        onGoalButtonTapped()
+                    } label: {
+                        Label {
+                            Text("transactions.emergencyFund.goalButton", bundle: .module)
+                        } icon: {
+                            Image(systemName: "target")
+                        }
+                    }
+                    .font(.kaso.body)
+                }
+            } else {
+                ContentUnavailableView {
+                    Label {
+                        Text("transactions.emergencyFund.empty.title", bundle: .module)
+                    } icon: {
+                        Image(systemName: "shield")
+                    }
+                } description: {
+                    Text("transactions.emergencyFund.empty.description", bundle: .module)
+                }
+            }
+        }
+    }
+}
+
+private struct RetirementSimulationCard: View {
+    let simulation: RetirementSimulation?
+    let annualReturnText: Binding<String>
+    let targetMultiplierText: Binding<String>
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: Spacing.md) {
+            VStack(alignment: .leading, spacing: Spacing.xs) {
+                Text("transactions.retirement.title", bundle: .module)
+                    .font(.kaso.titleMedium)
+                    .foregroundStyle(Color.kaso.textPrimary)
+
+                Text("transactions.retirement.description", bundle: .module)
+                    .font(.kaso.caption)
+                    .foregroundStyle(Color.kaso.textSecondary)
+            }
+
+            if let simulation {
+                VStack(spacing: Spacing.md) {
+                    HStack(spacing: Spacing.md) {
+                        ForecastMetric(
+                            titleKey: "transactions.retirement.target",
+                            amount: simulation.targetAmount,
+                            symbolName: "flag.checkered"
+                        )
+                        ForecastMetric(
+                            titleKey: "transactions.retirement.timeline",
+                            value: timelineValue(for: simulation),
+                            symbolName: "hourglass"
+                        )
+                    }
+
+                    HStack(spacing: Spacing.md) {
+                        ForecastMetric(
+                            titleKey: "transactions.retirement.monthlyContribution",
+                            amount: simulation.monthlyContribution,
+                            symbolName: "arrow.up.forward"
+                        )
+                        ForecastMetric(
+                            titleKey: "transactions.retirement.currentSavings",
+                            amount: simulation.currentSavings,
+                            symbolName: "banknote"
+                        )
+                    }
+
+                    HStack(spacing: Spacing.md) {
+                        RetirementAssumptionField(
+                            titleKey: "transactions.retirement.return",
+                            suffix: "%",
+                            text: annualReturnText
+                        )
+                        RetirementAssumptionField(
+                            titleKey: "transactions.retirement.multiplier",
+                            suffix: "x",
+                            text: targetMultiplierText
+                        )
+                    }
+                }
+            } else {
+                ContentUnavailableView {
+                    Label {
+                        Text("transactions.retirement.empty.title", bundle: .module)
+                    } icon: {
+                        Image(systemName: "chart.line.uptrend.xyaxis")
+                    }
+                } description: {
+                    Text("transactions.retirement.empty.description", bundle: .module)
+                }
+            }
+        }
+    }
+
+    private func timelineValue(for simulation: RetirementSimulation) -> String {
+        guard let projectedMonthCount = simulation.projectedMonthCount else {
+            return "∞"
+        }
+
+        let projectedYearCount = Double(projectedMonthCount) / 12
+        return projectedYearCount.formatted(.number.precision(.fractionLength(1)))
+    }
+}
+
+private struct RetirementAssumptionField: View {
+    let titleKey: String
+    let suffix: String
+    let text: Binding<String>
+
+    var body: some View {
+        HStack(spacing: Spacing.sm) {
+            Text(LocalizedStringKey(titleKey), bundle: .module)
+                .font(.kaso.caption)
+                .foregroundStyle(Color.kaso.textSecondary)
+
+            TextField("", text: text)
+                .font(.kaso.numericMedium)
+                .multilineTextAlignment(.trailing)
+                .kasoAmountKeyboard()
+
+            Text(verbatim: suffix)
+                .font(.kaso.caption)
+                .foregroundStyle(Color.kaso.textSecondary)
+        }
+        .padding(Spacing.sm)
+        .background(
+            RoundedRectangle(cornerRadius: Radius.md, style: .continuous)
+                .fill(Color.kaso.surfaceSecondary)
+        )
+    }
+}
+
+private struct SpendingComparisonReportCard: View {
+    let report: SpendingComparisonReport
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: Spacing.md) {
+            VStack(alignment: .leading, spacing: Spacing.xs) {
+                Text("transactions.report.title", bundle: .module)
+                    .font(.kaso.titleMedium)
+                    .foregroundStyle(Color.kaso.textPrimary)
+
+                Text("transactions.report.description", bundle: .module)
+                    .font(.kaso.caption)
+                    .foregroundStyle(Color.kaso.textSecondary)
+            }
+
+            HStack(spacing: Spacing.md) {
+                SpendingComparisonMetric(
+                    titleKey: "transactions.report.month",
+                    comparison: report.month
+                )
+                SpendingComparisonMetric(
+                    titleKey: "transactions.report.year",
+                    comparison: report.yearToDate
+                )
+            }
+        }
+    }
+}
+
+private struct SpendingComparisonMetric: View {
+    let titleKey: String
+    let comparison: SpendingPeriodComparison
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: Spacing.xs) {
+            HStack(spacing: Spacing.xs) {
+                Image(systemName: comparison.trend.symbolName)
+                    .foregroundStyle(comparison.trend.color)
+
+                Text(LocalizedStringKey(titleKey), bundle: .module)
+                    .font(.kaso.caption)
+                    .foregroundStyle(Color.kaso.textSecondary)
+            }
+
+            Text(comparison.currentExpense.formatted(.currency(code: "VND")))
+                .font(.kaso.numericMedium)
+                .foregroundStyle(Color.kaso.textPrimary)
+                .lineLimit(1)
+                .minimumScaleFactor(Layout.metricMinimumScaleFactor)
+
+            Text(deltaText)
+                .font(.kaso.caption)
+                .foregroundStyle(comparison.trend.color)
+                .lineLimit(1)
+                .minimumScaleFactor(Layout.metricMinimumScaleFactor)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(Spacing.sm)
+        .background(
+            RoundedRectangle(cornerRadius: Radius.md, style: .continuous)
+                .fill(Color.kaso.surfaceSecondary)
+        )
+    }
+
+    private var deltaText: String {
+        let amount = comparison.delta.formatted(.currency(code: "VND"))
+        guard let percentageChange = comparison.percentageChange else {
+            return amount
+        }
+
+        let percent = percentageChange.formatted(.percent.precision(.fractionLength(0)))
+        return "\(amount) · \(percent)"
+    }
+}
+
+private struct SavingGoalImpactRow: View {
+    let impact: SavingGoalSpendingImpact
+
+    var body: some View {
+        HStack(alignment: .top, spacing: Spacing.md) {
+            Image(systemName: impact.budget.category.symbolName)
+                .foregroundStyle(Color.kaso.destructive)
+                .frame(width: Layout.categoryIconSize, height: Layout.categoryIconSize)
+
+            VStack(alignment: .leading, spacing: Spacing.xs) {
+                Text(LocalizedStringKey(impact.budget.category.nameKey), bundle: .module)
+                    .font(.kaso.body)
+                    .foregroundStyle(Color.kaso.textPrimary)
+
+                Text(impact.goal.name)
+                    .font(.kaso.caption)
+                    .foregroundStyle(Color.kaso.textSecondary)
+            }
+
+            Spacer(minLength: Spacing.md)
+
+            VStack(alignment: .trailing, spacing: Spacing.xs) {
+                Text(impact.overageAmount.formatted(.currency(code: "VND")))
+                    .font(.kaso.numericMedium)
+                    .foregroundStyle(Color.kaso.destructive)
+                    .lineLimit(1)
+                    .minimumScaleFactor(Layout.amountMinimumScaleFactor)
+
+                Label {
+                    HStack(spacing: Spacing.xs) {
+                        Text(impact.delayedDayCount.formatted())
+                        Text("transactions.goalImpact.days", bundle: .module)
+                    }
+                } icon: {
+                    Image(systemName: "calendar.badge.exclamationmark")
+                }
+                .font(.kaso.caption)
+                .foregroundStyle(Color.kaso.textSecondary)
+            }
+        }
+        .padding(Spacing.sm)
+        .background(
+            RoundedRectangle(cornerRadius: Radius.md, style: .continuous)
+                .fill(Color.kaso.destructive.opacity(Layout.alertBackgroundOpacity))
+        )
+    }
+}
+
+private struct SubscriptionRow: View {
+    let subscription: DetectedSubscription
+    let referenceDate: Date
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: Spacing.sm) {
+            HStack(spacing: Spacing.md) {
+                Image(systemName: subscription.category.symbolName)
+                    .foregroundStyle(Color.kaso.category(named: subscription.category.colorName))
+                    .frame(width: Layout.categoryIconSize, height: Layout.categoryIconSize)
+
+                VStack(alignment: .leading, spacing: Spacing.xs) {
+                    Text(subscription.name)
+                        .font(.kaso.body)
+                        .foregroundStyle(Color.kaso.textPrimary)
+
+                    Text(LocalizedStringKey(subscription.interval.nameKey), bundle: .module)
+                        .font(.kaso.caption)
+                        .foregroundStyle(Color.kaso.textSecondary)
+                }
+
+                Spacer(minLength: Spacing.md)
+
+                VStack(alignment: .trailing, spacing: Spacing.xs) {
+                    Text(subscription.monthlyAmount.formatted(.currency(code: "VND")))
+                        .font(.kaso.numericMedium)
+                        .foregroundStyle(Color.kaso.textPrimary)
+                        .lineLimit(1)
+                        .minimumScaleFactor(Layout.amountMinimumScaleFactor)
+
+                    Text(subscription.confidence.formatted(.percent.precision(.fractionLength(0))))
+                        .font(.kaso.caption)
+                        .foregroundStyle(Color.kaso.textSecondary)
+                }
+            }
+
+            HStack(spacing: Spacing.sm) {
+                Label {
+                    Text(subscription.nextBillingDate.formatted(.dateTime.day().month(.abbreviated)))
+                } icon: {
+                    Image(systemName: "calendar.badge.clock")
+                }
+
+                if isDueSoon {
+                    Label {
+                        Text("transactions.subscription.dueSoon", bundle: .module)
+                    } icon: {
+                        Image(systemName: "bell.badge")
+                    }
+                    .foregroundStyle(Color.kaso.warning)
+                }
+            }
+            .font(.kaso.caption)
+            .foregroundStyle(Color.kaso.textSecondary)
+        }
+        .padding(Spacing.sm)
+        .background(
+            RoundedRectangle(cornerRadius: Radius.md, style: .continuous)
+                .fill(Color.kaso.surfaceSecondary)
+        )
+    }
+
+    private var isDueSoon: Bool {
+        let calendar = Calendar.current
+        let startDate = calendar.startOfDay(for: referenceDate)
+        let nextDate = calendar.startOfDay(for: subscription.nextBillingDate)
+        let dayCount = calendar.dateComponents([.day], from: startDate, to: nextDate).day ?? 0
+        return (0...Layout.subscriptionDueSoonDayLimit).contains(dayCount)
+    }
+}
+
+private struct SpendingAnomalyCard: View {
+    let anomalies: [SpendingAnomaly]
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: Spacing.md) {
+            VStack(alignment: .leading, spacing: Spacing.xs) {
+                Text("transactions.anomaly.title", bundle: .module)
+                    .font(.kaso.titleMedium)
+                    .foregroundStyle(Color.kaso.textPrimary)
+
+                Text("transactions.anomaly.description", bundle: .module)
+                    .font(.kaso.caption)
+                    .foregroundStyle(Color.kaso.textSecondary)
+            }
+
+            if anomalies.isEmpty {
+                ContentUnavailableView {
+                    Label {
+                        Text("transactions.anomaly.empty.title", bundle: .module)
+                    } icon: {
+                        Image(systemName: "checkmark.shield")
+                    }
+                } description: {
+                    Text("transactions.anomaly.empty.description", bundle: .module)
+                }
+            } else {
+                VStack(spacing: Spacing.md) {
+                    ForEach(Array(anomalies.prefix(Layout.dashboardPreviewLimit))) { anomaly in
+                        SpendingAnomalyRow(anomaly: anomaly)
+                    }
+                }
+            }
+        }
+    }
+}
+
+private struct SpendingAnomalyRow: View {
+    let anomaly: SpendingAnomaly
+
+    var body: some View {
+        HStack(alignment: .top, spacing: Spacing.md) {
+            Image(systemName: anomaly.kind.symbolName)
+                .foregroundStyle(Color.kaso.warning)
+                .frame(width: Layout.categoryIconSize, height: Layout.categoryIconSize)
+
+            VStack(alignment: .leading, spacing: Spacing.xs) {
+                Text(LocalizedStringKey(anomaly.kind.titleKey), bundle: .module)
+                    .font(.kaso.body)
+                    .foregroundStyle(Color.kaso.textPrimary)
+
+                Label {
+                    Text(LocalizedStringKey(anomaly.category.nameKey), bundle: .module)
+                } icon: {
+                    Image(systemName: anomaly.category.symbolName)
+                }
+                .font(.kaso.caption)
+                .foregroundStyle(Color.kaso.textSecondary)
+
+                Text(anomaly.occurredAt.formatted(.dateTime.day().month(.abbreviated)))
+                    .font(.kaso.caption)
+                    .foregroundStyle(Color.kaso.textSecondary)
+            }
+
+            Spacer(minLength: Spacing.md)
+
+            VStack(alignment: .trailing, spacing: Spacing.xs) {
+                Text(anomaly.amount.formatted(.currency(code: "VND")))
+                    .font(.kaso.numericMedium)
+                    .foregroundStyle(Color.kaso.destructive)
+                    .lineLimit(1)
+                    .minimumScaleFactor(Layout.amountMinimumScaleFactor)
+
+                Text(anomaly.baselineAmount.formatted(.currency(code: "VND")))
+                    .font(.kaso.caption)
+                    .foregroundStyle(Color.kaso.textSecondary)
+                    .lineLimit(1)
+                    .minimumScaleFactor(Layout.amountMinimumScaleFactor)
+            }
+        }
+        .padding(Spacing.sm)
+        .background(
+            RoundedRectangle(cornerRadius: Radius.md, style: .continuous)
+                .fill(Color.kaso.warning.opacity(Layout.alertBackgroundOpacity))
+        )
+    }
+}
+
+private struct SpendingReductionSuggestionCard: View {
+    let suggestions: [SpendingReductionSuggestion]
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: Spacing.md) {
+            VStack(alignment: .leading, spacing: Spacing.xs) {
+                Text("transactions.reduction.title", bundle: .module)
+                    .font(.kaso.titleMedium)
+                    .foregroundStyle(Color.kaso.textPrimary)
+
+                Text("transactions.reduction.description", bundle: .module)
+                    .font(.kaso.caption)
+                    .foregroundStyle(Color.kaso.textSecondary)
+            }
+
+            if suggestions.isEmpty {
+                ContentUnavailableView {
+                    Label {
+                        Text("transactions.reduction.empty.title", bundle: .module)
+                    } icon: {
+                        Image(systemName: "scissors")
+                    }
+                } description: {
+                    Text("transactions.reduction.empty.description", bundle: .module)
+                }
+            } else {
+                VStack(spacing: Spacing.md) {
+                    ForEach(Array(suggestions.prefix(Layout.dashboardPreviewLimit))) { suggestion in
+                        SpendingReductionSuggestionRow(suggestion: suggestion)
+                    }
+                }
+            }
+        }
+    }
+}
+
+private struct SpendingReductionSuggestionRow: View {
+    let suggestion: SpendingReductionSuggestion
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: Spacing.sm) {
+            HStack(spacing: Spacing.md) {
+                Image(systemName: suggestion.category.symbolName)
+                    .foregroundStyle(Color.kaso.category(named: suggestion.category.colorName))
+                    .frame(width: Layout.categoryIconSize, height: Layout.categoryIconSize)
+
+                VStack(alignment: .leading, spacing: Spacing.xs) {
+                    Text(LocalizedStringKey(suggestion.kind.titleKey), bundle: .module)
+                        .font(.kaso.body)
+                        .foregroundStyle(Color.kaso.textPrimary)
+
+                    Text(LocalizedStringKey(suggestion.category.nameKey), bundle: .module)
+                        .font(.kaso.caption)
+                        .foregroundStyle(Color.kaso.textSecondary)
+                }
+
+                Spacer(minLength: Spacing.md)
+
+                Text(suggestion.suggestedMonthlySaving.formatted(.currency(code: "VND")))
+                    .font(.kaso.numericMedium)
+                    .foregroundStyle(Color.kaso.positive)
+                    .lineLimit(1)
+                    .minimumScaleFactor(Layout.amountMinimumScaleFactor)
+            }
+
+            Text(LocalizedStringKey(suggestion.kind.descriptionKey), bundle: .module)
+                .font(.kaso.caption)
+                .foregroundStyle(Color.kaso.textSecondary)
+
+            HStack(spacing: Spacing.sm) {
+                Text(suggestion.currentMonthlyAmount.formatted(.currency(code: "VND")))
+                    .font(.kaso.numericMedium)
+                    .foregroundStyle(Color.kaso.textPrimary)
+                    .lineLimit(1)
+                    .minimumScaleFactor(Layout.amountMinimumScaleFactor)
+
+                Image(systemName: "arrow.right")
+                    .font(.caption)
+                    .foregroundStyle(Color.kaso.textSecondary)
+
+                Text(suggestion.projectedMonthlyAmount.formatted(.currency(code: "VND")))
+                    .font(.kaso.numericMedium)
+                    .foregroundStyle(Color.kaso.accent)
+                    .lineLimit(1)
+                    .minimumScaleFactor(Layout.amountMinimumScaleFactor)
+            }
+        }
+        .padding(Spacing.sm)
+        .background(
+            RoundedRectangle(cornerRadius: Radius.md, style: .continuous)
+                .fill(Color.kaso.surfaceSecondary)
+        )
+    }
+}
+
+private struct TimeSpendingAnalysisCard: View {
+    let analysis: TimeSpendingAnalysis
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: Spacing.md) {
+            VStack(alignment: .leading, spacing: Spacing.xs) {
+                Text("transactions.timeAnalysis.title", bundle: .module)
+                    .font(.kaso.titleMedium)
+                    .foregroundStyle(Color.kaso.textPrimary)
+
+                Text("transactions.timeAnalysis.description", bundle: .module)
+                    .font(.kaso.caption)
+                    .foregroundStyle(Color.kaso.textSecondary)
+            }
+
+            if analysis.isEmpty {
+                ContentUnavailableView {
+                    Label {
+                        Text("transactions.timeAnalysis.empty.title", bundle: .module)
+                    } icon: {
+                        Image(systemName: "clock.badge.questionmark")
+                    }
+                } description: {
+                    Text("transactions.timeAnalysis.empty.description", bundle: .module)
+                }
+            } else {
+                VStack(spacing: Spacing.md) {
+                    ForEach(Array(analysis.peakWeekdays.prefix(Layout.timeAnalysisWeekdayLimit))) { pattern in
+                        TimeSpendingPatternRow(
+                            titleKey: "transactions.timeAnalysis.weekdayPeak",
+                            value: weekdayName(for: pattern.weekday),
+                            amount: pattern.amount,
+                            shareOfTotal: pattern.shareOfTotal,
+                            symbolName: "calendar"
+                        )
+                    }
+
+                    ForEach(Array(analysis.peakHours.prefix(Layout.timeAnalysisHourLimit))) { pattern in
+                        TimeSpendingPatternRow(
+                            titleKey: "transactions.timeAnalysis.hourPeak",
+                            value: hourLabel(for: pattern.hour),
+                            amount: pattern.amount,
+                            shareOfTotal: pattern.shareOfTotal,
+                            symbolName: "clock"
+                        )
+                    }
+
+                    if let eveningSpike = analysis.eveningSpike {
+                        TimeSpendingPatternRow(
+                            titleKey: "transactions.timeAnalysis.eveningSpike",
+                            value: "\(hourLabel(for: eveningSpike.startHour))+",
+                            amount: eveningSpike.amount,
+                            shareOfTotal: eveningSpike.shareOfTotal,
+                            symbolName: "moon.stars"
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
+
+private struct TimeSpendingPatternRow: View {
+    let titleKey: String
+    let value: String
+    let amount: Decimal
+    let shareOfTotal: Decimal
+    let symbolName: String
+
+    var body: some View {
+        HStack(alignment: .top, spacing: Spacing.md) {
+            Image(systemName: symbolName)
+                .foregroundStyle(Color.kaso.accent)
+                .frame(width: Layout.categoryIconSize, height: Layout.categoryIconSize)
+
+            VStack(alignment: .leading, spacing: Spacing.xs) {
+                Text(LocalizedStringKey(titleKey), bundle: .module)
+                    .font(.kaso.body)
+                    .foregroundStyle(Color.kaso.textPrimary)
+
+                Text(verbatim: value)
+                    .font(.kaso.caption)
+                    .foregroundStyle(Color.kaso.textSecondary)
+            }
+
+            Spacer(minLength: Spacing.md)
+
+            VStack(alignment: .trailing, spacing: Spacing.xs) {
+                Text(amount.formatted(.currency(code: "VND")))
+                    .font(.kaso.numericMedium)
+                    .foregroundStyle(Color.kaso.textPrimary)
+                    .lineLimit(1)
+                    .minimumScaleFactor(Layout.amountMinimumScaleFactor)
+
+                Text(amountValue(shareOfTotal).formatted(.percent.precision(.fractionLength(0))))
+                    .font(.kaso.caption)
+                    .foregroundStyle(Color.kaso.textSecondary)
+            }
+        }
+        .padding(Spacing.sm)
+        .background(
+            RoundedRectangle(cornerRadius: Radius.md, style: .continuous)
+                .fill(Color.kaso.surfaceSecondary)
+        )
+    }
+}
+
+private struct NoSpendTrackerCard: View {
+    let summary: NoSpendSummary
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: Spacing.md) {
+            VStack(alignment: .leading, spacing: Spacing.xs) {
+                Text("transactions.noSpend.title", bundle: .module)
+                    .font(.kaso.titleMedium)
+                    .foregroundStyle(Color.kaso.textPrimary)
+
+                Text("transactions.noSpend.description", bundle: .module)
+                    .font(.kaso.caption)
+                    .foregroundStyle(Color.kaso.textSecondary)
+            }
+
+            HStack(spacing: Spacing.sm) {
+                NoSpendMetric(
+                    titleKey: "transactions.noSpend.currentStreak",
+                    value: summary.currentStreak,
+                    symbolName: "flame"
+                )
+                NoSpendMetric(
+                    titleKey: "transactions.noSpend.monthCount",
+                    value: summary.noSpendDaysInMonth,
+                    symbolName: "calendar"
+                )
+                NoSpendMetric(
+                    titleKey: "transactions.noSpend.longestStreak",
+                    value: summary.longestStreak,
+                    symbolName: "trophy"
+                )
+            }
+
+            NoSpendSavingsRow(estimatedSavings: summary.estimatedSavings)
+
+            if let achievedMilestone = summary.achievedMilestone {
+                NoSpendMilestoneCard(
+                    achievedMilestone: achievedMilestone,
+                    nextMilestone: summary.nextMilestone,
+                    currentStreak: summary.currentStreak
+                )
+            }
+
+            if summary.days.isEmpty == false {
+                HStack(spacing: Spacing.xs) {
+                    ForEach(Array(summary.days.suffix(Layout.noSpendPreviewDayCount))) { day in
+                        NoSpendDayDot(day: day)
+                    }
+                }
+                .accessibilityLabel(Text("transactions.noSpend.calendar.label", bundle: .module))
+            }
+        }
+    }
+}
+
+private struct NoSpendMetric: View {
+    let titleKey: String
+    let value: Int
+    let symbolName: String
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: Spacing.xs) {
+            Image(systemName: symbolName)
+                .foregroundStyle(Color.kaso.accent)
+
+            Text(value.formatted())
+                .font(.kaso.numericMedium)
+                .foregroundStyle(Color.kaso.textPrimary)
+
+            Text(LocalizedStringKey(titleKey), bundle: .module)
+                .font(.kaso.caption)
+                .foregroundStyle(Color.kaso.textSecondary)
+                .lineLimit(2)
+                .minimumScaleFactor(Layout.metricMinimumScaleFactor)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(Spacing.sm)
+        .background(
+            RoundedRectangle(cornerRadius: Radius.md, style: .continuous)
+                .fill(Color.kaso.surfaceSecondary)
+        )
+    }
+}
+
+private struct NoSpendSavingsRow: View {
+    let estimatedSavings: Decimal
+
+    var body: some View {
+        HStack(spacing: Spacing.md) {
+            Label {
+                VStack(alignment: .leading, spacing: Spacing.xs) {
+                    Text("transactions.noSpend.estimatedSavings", bundle: .module)
+                        .font(.kaso.body)
+                        .foregroundStyle(Color.kaso.textPrimary)
+
+                    Text("transactions.noSpend.estimatedSavings.description", bundle: .module)
+                        .font(.kaso.caption)
+                        .foregroundStyle(Color.kaso.textSecondary)
+                }
+            } icon: {
+                Image(systemName: "banknote")
+                    .foregroundStyle(Color.kaso.positive)
+            }
+
+            Spacer(minLength: Spacing.md)
+
+            Text(estimatedSavings.formatted(.currency(code: "VND")))
+                .font(.kaso.numericMedium)
+                .foregroundStyle(Color.kaso.positive)
+                .lineLimit(1)
+                .minimumScaleFactor(Layout.metricMinimumScaleFactor)
+        }
+        .padding(Spacing.sm)
+        .background(
+            RoundedRectangle(cornerRadius: Radius.md, style: .continuous)
+                .fill(Color.kaso.surfaceSecondary)
+        )
+    }
+}
+
+private struct NoSpendMilestoneCard: View {
+    let achievedMilestone: NoSpendMilestone
+    let nextMilestone: NoSpendMilestone?
+    let currentStreak: Int
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: Spacing.sm) {
+            Label {
+                Text("transactions.noSpend.milestone.title", bundle: .module)
+            } icon: {
+                Image(systemName: "party.popper.fill")
+                    .foregroundStyle(Color.kaso.positive)
+            }
+            .font(.kaso.body)
+            .foregroundStyle(Color.kaso.textPrimary)
+
+            HStack(spacing: Spacing.xs) {
+                Text("transactions.noSpend.milestone.current", bundle: .module)
+                    .font(.kaso.caption)
+                    .foregroundStyle(Color.kaso.textSecondary)
+                Text(achievedMilestone.dayCount.formatted())
+                    .font(.kaso.numericMedium)
+                    .foregroundStyle(Color.kaso.textPrimary)
+                Text("transactions.noSpend.milestone.days", bundle: .module)
+                    .font(.kaso.caption)
+                    .foregroundStyle(Color.kaso.textSecondary)
+            }
+
+            if let remainingDayCount {
+                HStack(spacing: Spacing.xs) {
+                    Text("transactions.noSpend.milestone.next", bundle: .module)
+                        .font(.kaso.caption)
+                        .foregroundStyle(Color.kaso.textSecondary)
+                    Text(remainingDayCount.formatted())
+                        .font(.kaso.numericMedium)
+                        .foregroundStyle(Color.kaso.accent)
+                    Text("transactions.noSpend.milestone.days", bundle: .module)
+                        .font(.kaso.caption)
+                        .foregroundStyle(Color.kaso.textSecondary)
+                }
+            }
+        }
+        .padding(Spacing.sm)
+        .background(
+            RoundedRectangle(cornerRadius: Radius.md, style: .continuous)
+                .fill(Color.kaso.positive.opacity(Layout.alertBackgroundOpacity))
+        )
+    }
+
+    private var remainingDayCount: Int? {
+        guard let nextMilestone else {
+            return nil
+        }
+
+        return max(nextMilestone.dayCount - currentStreak, 0)
+    }
+}
+
+private struct NoSpendDayDot: View {
+    let day: NoSpendDay
+
+    var body: some View {
+        Circle()
+            .fill(day.isNoSpendDay ? Color.kaso.positive : Color.kaso.destructive)
+            .frame(width: Layout.noSpendDotSize, height: Layout.noSpendDotSize)
+            .overlay {
+                Text(day.date.formatted(.dateTime.day()))
+                    .font(.kaso.caption)
+                    .foregroundStyle(Color.kaso.surfacePrimary)
+                    .minimumScaleFactor(Layout.metricMinimumScaleFactor)
+            }
+            .accessibilityLabel(day.date.formatted(.dateTime.day().month(.wide)))
+            .accessibilityValue(
+                Text(
+                    day.isNoSpendDay
+                        ? "transactions.noSpend.day.noSpend"
+                        : "transactions.noSpend.day.spent",
+                    bundle: .module
+                )
+            )
+    }
+}
+
+private struct BankStatementImportCard: View {
+    let isImporting: Bool
+    let summary: BankStatementImportSummary?
+    let errorMessageKey: String?
+    let onImportButtonTapped: () -> Void
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: Spacing.md) {
+            VStack(alignment: .leading, spacing: Spacing.xs) {
+                Text("transactions.import.title", bundle: .module)
+                    .font(.kaso.titleMedium)
+                    .foregroundStyle(Color.kaso.textPrimary)
+
+                Text("transactions.import.description", bundle: .module)
+                    .font(.kaso.caption)
+                    .foregroundStyle(Color.kaso.textSecondary)
+            }
+
+            HStack(spacing: Spacing.md) {
+                if isImporting {
+                    ProgressView()
+                    Text("transactions.import.processing", bundle: .module)
+                        .font(.kaso.body)
+                        .foregroundStyle(Color.kaso.textSecondary)
+                } else {
+                    Button {
+                        onImportButtonTapped()
+                    } label: {
+                        Label {
+                            Text("transactions.import.button", bundle: .module)
+                        } icon: {
+                            Image(systemName: "doc.badge.arrow.up")
+                        }
+                    }
+                    .font(.kaso.body)
+                }
+            }
+
+            if let summary {
+                Label {
+                    HStack(spacing: Spacing.xs) {
+                        Text("transactions.import.imported", bundle: .module)
+                        Text(summary.importedCount.formatted())
+                            .font(.kaso.numericMedium)
+                        Text("transactions.import.skipped", bundle: .module)
+                        Text(summary.skippedLineCount.formatted())
+                            .font(.kaso.numericMedium)
+                    }
+                } icon: {
+                    Image(systemName: "checkmark.circle.fill")
+                        .foregroundStyle(Color.kaso.positive)
+                }
+                .font(.kaso.caption)
+                .foregroundStyle(Color.kaso.textSecondary)
+            }
+
+            if let errorMessageKey {
+                Label {
+                    Text(LocalizedStringKey(errorMessageKey), bundle: .module)
+                } icon: {
+                    Image(systemName: "exclamationmark.triangle.fill")
+                        .foregroundStyle(Color.kaso.destructive)
+                }
+                .font(.kaso.caption)
+                .foregroundStyle(Color.kaso.destructive)
+            }
+        }
+    }
+}
+
+private struct CSVExportCard: View {
+    let export: TransactionCSVExport
+    let isDisabled: Bool
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: Spacing.md) {
+            VStack(alignment: .leading, spacing: Spacing.xs) {
+                Text("transactions.export.title", bundle: .module)
+                    .font(.kaso.titleMedium)
+                    .foregroundStyle(Color.kaso.textPrimary)
+
+                Text("transactions.export.description", bundle: .module)
+                    .font(.kaso.caption)
+                    .foregroundStyle(Color.kaso.textSecondary)
+            }
+
+            HStack(spacing: Spacing.md) {
+                Label {
+                    Text(export.transactionCount.formatted())
+                        .font(.kaso.numericMedium)
+                } icon: {
+                    Image(systemName: "tablecells")
+                }
+                .foregroundStyle(Color.kaso.textPrimary)
+
+                Spacer(minLength: Spacing.md)
+
+                if isDisabled {
+                    Label {
+                        Text("transactions.export.empty", bundle: .module)
+                    } icon: {
+                        Image(systemName: "square.and.arrow.up")
+                    }
+                    .font(.kaso.body)
+                    .foregroundStyle(Color.kaso.textSecondary)
+                } else {
+                    ShareLink(
+                        item: TransactionCSVTransferable(export: export),
+                        preview: SharePreview(export.fileName)
+                    ) {
+                        Label {
+                            Text("transactions.export.share", bundle: .module)
+                        } icon: {
+                            Image(systemName: "square.and.arrow.up")
+                        }
+                    }
+                    .font(.kaso.body)
+                }
+            }
+        }
+    }
+}
+
+private struct TransactionCSVTransferable: Transferable {
+    let export: TransactionCSVExport
+
+    static var transferRepresentation: some TransferRepresentation {
+        DataRepresentation(exportedContentType: .commaSeparatedText) { item in
+            Data(item.export.csvText.utf8)
+        }
+    }
 }
 
 private struct TransactionKindPicker: View {
@@ -664,6 +2272,152 @@ private struct TransactionCategoryPicker: View {
                 }
             }
         }
+    }
+}
+
+private struct SavingGoalEditorSheet: View {
+    @Bindable var store: StoreOf<TransactionFeature>
+    @State private var targetAmountText = ""
+    @State private var currentAmountText = ""
+
+    var body: some View {
+        NavigationStack {
+            Form {
+                Section {
+                    TextField(
+                        text: goalNameBinding,
+                        prompt: Text("transactions.goal.name.placeholder", bundle: .module)
+                    ) {
+                        Text("transactions.goal.name", bundle: .module)
+                    }
+
+                    TextField(
+                        text: targetAmountBinding,
+                        prompt: Text("transactions.goal.target.placeholder", bundle: .module)
+                    ) {
+                        Text("transactions.goal.target", bundle: .module)
+                    }
+                    .font(.kaso.numericLarge)
+                    .kasoAmountKeyboard()
+
+                    TextField(
+                        text: currentAmountBinding,
+                        prompt: Text("transactions.goal.current.placeholder", bundle: .module)
+                    ) {
+                        Text("transactions.goal.current", bundle: .module)
+                    }
+                    .font(.kaso.numericLarge)
+                    .kasoAmountKeyboard()
+
+                    DatePicker(
+                        selection: goalDeadlineBinding,
+                        displayedComponents: .date
+                    ) {
+                        Text("transactions.goal.deadline", bundle: .module)
+                    }
+                } header: {
+                    Text("transactions.goal.edit.section", bundle: .module)
+                }
+
+                if store.editingSavingGoal != nil {
+                    Section {
+                        Button(role: .destructive) {
+                            if let goal = store.editingSavingGoal {
+                                store.send(.savingGoalDeleteButtonTapped(goal))
+                            }
+                        } label: {
+                            Text("transactions.goal.delete", bundle: .module)
+                        }
+                        .disabled(store.isSavingGoalSaving)
+                    }
+                }
+
+                if let messageKey = store.savingGoalEditorErrorMessageKey {
+                    Section {
+                        Text(LocalizedStringKey(messageKey), bundle: .module)
+                            .font(.kaso.caption)
+                            .foregroundStyle(Color.kaso.destructive)
+                    }
+                }
+            }
+            .navigationTitle(Text("transactions.goal.edit.title", bundle: .module))
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button {
+                        store.send(.savingGoalEditorDismissed)
+                    } label: {
+                        Text("transactions.add.cancel", bundle: .module)
+                    }
+                }
+
+                ToolbarItem(placement: .confirmationAction) {
+                    Button {
+                        store.send(.savingGoalSaveButtonTapped)
+                    } label: {
+                        if store.isSavingGoalSaving {
+                            ProgressView()
+                        } else {
+                            Text("transactions.add.save", bundle: .module)
+                        }
+                    }
+                    .disabled(store.isSavingGoalSaving)
+                }
+            }
+        }
+        .onAppear {
+            targetAmountText = store.savingGoalTargetAmountText
+            currentAmountText = store.savingGoalCurrentAmountText
+        }
+        .onChange(of: store.savingGoalTargetAmountText) { _, newValue in
+            guard targetAmountText != newValue else {
+                return
+            }
+
+            targetAmountText = newValue
+        }
+        .onChange(of: store.savingGoalCurrentAmountText) { _, newValue in
+            guard currentAmountText != newValue else {
+                return
+            }
+
+            currentAmountText = newValue
+        }
+    }
+
+    private var goalNameBinding: Binding<String> {
+        Binding(
+            get: { store.savingGoalNameText },
+            set: { store.send(.savingGoalNameTextChanged($0)) }
+        )
+    }
+
+    private var targetAmountBinding: Binding<String> {
+        Binding(
+            get: { targetAmountText },
+            set: { newValue in
+                let formattedValue = TransactionAmountFormatter.formatForEditing(newValue)
+                targetAmountText = formattedValue
+                store.send(.savingGoalTargetAmountTextChanged(formattedValue))
+            }
+        )
+    }
+
+    private var currentAmountBinding: Binding<String> {
+        Binding(
+            get: { currentAmountText },
+            set: { newValue in
+                let formattedValue = TransactionAmountFormatter.formatForEditing(newValue)
+                currentAmountText = formattedValue
+                store.send(.savingGoalCurrentAmountTextChanged(formattedValue))
+            }
+        )
+    }
+
+    private var goalDeadlineBinding: Binding<Date> {
+        Binding(
+            get: { store.savingGoalDeadline },
+            set: { store.send(.savingGoalDeadlineChanged($0)) }
+        )
     }
 }
 
@@ -880,6 +2634,40 @@ private struct AddTransactionSheet: View {
                         Text("transactions.add.amount", bundle: .module)
                     }
                     .kasoAmountKeyboard()
+
+                    Button {
+                        store.send(.voiceInputButtonTapped)
+                    } label: {
+                        Label {
+                            Text("transactions.voice.button", bundle: .module)
+                        } icon: {
+                            Image(systemName: store.isVoiceInputRecording ? "waveform.circle.fill" : "mic.circle")
+                        }
+                    }
+                    .disabled(store.isVoiceInputRecording || store.isSaving)
+
+                    if store.isVoiceInputRecording {
+                        HStack {
+                            ProgressView()
+                            Text("transactions.voice.listening", bundle: .module)
+                                .font(.kaso.caption)
+                                .foregroundStyle(Color.kaso.textSecondary)
+                        }
+                    } else if let transcript = store.voiceInputTranscript {
+                        Label {
+                            Text(transcript)
+                        } icon: {
+                            Image(systemName: "quote.bubble")
+                        }
+                        .font(.kaso.caption)
+                        .foregroundStyle(Color.kaso.textSecondary)
+                    }
+
+                    if let voiceInputErrorMessageKey = store.voiceInputErrorMessageKey {
+                        Text(LocalizedStringKey(voiceInputErrorMessageKey), bundle: .module)
+                            .font(.kaso.caption)
+                            .foregroundStyle(Color.kaso.destructive)
+                    }
                 } header: {
                     Text("transactions.add.amountSection", bundle: .module)
                 }
@@ -1005,6 +2793,7 @@ private struct AddTransactionSheet: View {
                         store.isSaving
                             || store.isReceiptImageSaving
                             || store.isReceiptOCRProcessing
+                            || store.isVoiceInputRecording
                     )
                 }
             }
@@ -1491,9 +3280,22 @@ private enum Layout {
     static let chartLegendInitialOffsetY: CGFloat = Spacing.sm
 
     static let summaryEntranceDelay: Double = 0
-    static let breakdownEntranceDelay: Double = 0.08
-    static let budgetEntranceDelay: Double = 0.16
-    static let recentEntranceDelay: Double = 0.24
+    static let forecastEntranceDelay: Double = 0.08
+    static let savingGoalEntranceDelay: Double = 0.16
+    static let emergencyFundEntranceDelay: Double = 0.24
+    static let retirementEntranceDelay: Double = 0.32
+    static let reportEntranceDelay: Double = 0.4
+    static let breakdownEntranceDelay: Double = 0.48
+    static let budgetEntranceDelay: Double = 0.56
+    static let goalImpactEntranceDelay: Double = 0.64
+    static let subscriptionEntranceDelay: Double = 0.72
+    static let anomalyEntranceDelay: Double = 0.8
+    static let reductionEntranceDelay: Double = 0.88
+    static let timeAnalysisEntranceDelay: Double = 0.96
+    static let noSpendEntranceDelay: Double = 1.04
+    static let importEntranceDelay: Double = 1.12
+    static let exportEntranceDelay: Double = 1.2
+    static let recentEntranceDelay: Double = 1.28
     static let entranceInitialScale: CGFloat = 0.97
     static let entranceInitialOffsetY: CGFloat = Spacing.md
     static let entranceResponse: Double = 0.5
@@ -1550,10 +3352,35 @@ private enum Layout {
     static let borderGlowTailLocation: Double = 0.82
     static let borderGlowShadowOpacity: Double = 0.12
     static let borderGlowShadowRadius: CGFloat = 8
+
+    static let alertBackgroundOpacity: Double = 0.12
+    static let dashboardPreviewLimit = 3
+    static let metricMinimumScaleFactor: CGFloat = 0.72
+    static let noSpendDotSize: CGFloat = 28
+    static let noSpendPreviewDayCount = 10
+    static let subscriptionDueSoonDayLimit = 5
+    static let timeAnalysisWeekdayLimit = 2
+    static let timeAnalysisHourLimit = 1
 }
 
 private func amountValue(_ amount: Decimal) -> Double {
     NSDecimalNumber(decimal: amount).doubleValue
+}
+
+private func weekdayName(for weekday: Int, calendar: Calendar = .current) -> String {
+    let symbols = calendar.weekdaySymbols
+    let index = weekday - 1
+
+    guard symbols.indices.contains(index) else {
+        return weekday.formatted()
+    }
+
+    return symbols[index]
+}
+
+private func hourLabel(for hour: Int) -> String {
+    let boundedHour = min(max(hour, 0), 23)
+    return "\(boundedHour.formatted(.number.grouping(.never))):00"
 }
 
 private extension Budget {
@@ -1582,6 +3409,91 @@ private extension BudgetStatus {
             Color.kaso.warning
         case .exceeded:
             Color.kaso.destructive
+        }
+    }
+}
+
+private extension SavingGoalStatus {
+    var nameKey: String {
+        switch self {
+        case .notStarted:
+            "transactions.goal.status.notStarted"
+        case .inProgress:
+            "transactions.goal.status.inProgress"
+        case .completed:
+            "transactions.goal.status.completed"
+        case .overdue:
+            "transactions.goal.status.overdue"
+        }
+    }
+
+    var color: Color {
+        switch self {
+        case .notStarted:
+            Color.kaso.textSecondary
+        case .inProgress:
+            Color.kaso.accent
+        case .completed:
+            Color.kaso.positive
+        case .overdue:
+            Color.kaso.destructive
+        }
+    }
+}
+
+private extension SpendingComparisonTrend {
+    var symbolName: String {
+        switch self {
+        case .increased:
+            "arrow.up.right"
+        case .decreased:
+            "arrow.down.right"
+        case .flat:
+            "minus"
+        }
+    }
+
+    var color: Color {
+        switch self {
+        case .increased:
+            Color.kaso.destructive
+        case .decreased:
+            Color.kaso.positive
+        case .flat:
+            Color.kaso.textSecondary
+        }
+    }
+}
+
+private extension SubscriptionInterval {
+    var nameKey: String {
+        switch self {
+        case .weekly:
+            "transactions.subscription.interval.weekly"
+        case .monthly:
+            "transactions.subscription.interval.monthly"
+        case .yearly:
+            "transactions.subscription.interval.yearly"
+        }
+    }
+}
+
+private extension SpendingAnomalyKind {
+    var titleKey: String {
+        switch self {
+        case .largeTransaction:
+            "transactions.anomaly.kind.largeTransaction"
+        case .categorySpike:
+            "transactions.anomaly.kind.categorySpike"
+        }
+    }
+
+    var symbolName: String {
+        switch self {
+        case .largeTransaction:
+            "exclamationmark.triangle"
+        case .categorySpike:
+            "chart.line.uptrend.xyaxis"
         }
     }
 }

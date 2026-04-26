@@ -19,6 +19,23 @@
 - [x] `1.5` Lịch sử giao dịch: đã có danh sách lưu bền vững, tìm kiếm, lọc danh mục, lọc ngày/tuần/tháng và nhóm theo ngày.
 - [x] `1.6` Chủ đề & Dark mode: đã có chọn system/light/dark, đổi accent và cập nhật icon chính.
 - [x] `2.2` OCR chụp hoá đơn: đã đọc ảnh hoá đơn bằng Apple Vision, parse số tiền/ngày/tên cửa hàng và tự điền form giao dịch.
+- [x] `2.3` Import sao kê ngân hàng PDF: đã đọc PDF bằng PDFKit, parse giao dịch sao kê và import vào lịch sử.
+- [x] `2.4` Subscription tracker: đã phát hiện khoản định kỳ, hiển thị dashboard và đặt local notification trước ngày gia hạn.
+- [x] `2.5` Nhập bằng giọng nói: đã dùng Apple Speech/microphone để nhận transcript, parse câu tiếng Việt và tự điền form giao dịch.
+- [x] `3.1` Phát hiện chi tiêu bất thường: đã có dashboard cảnh báo giao dịch lớn và category spike dựa trên lịch sử.
+- [x] `3.2` Gợi ý cắt giảm thông minh: đã phân tích baseline chi tiêu cục bộ và đưa ra mục tiêu tiết kiệm cụ thể trên dashboard.
+- [x] `3.3` Dự báo số dư cuối tháng: đã dự báo chi tiêu/số dư dựa trên nhịp chi hiện tại và lịch sử 3 tháng.
+- [x] `3.4` Phân tích theo thời gian: đã nhận diện ngày/giờ chi tiêu cao và đột biến sau 20h trên dashboard, xử lý cục bộ không thu GPS.
+- [x] `4.1` Tạo mục tiêu tiết kiệm: đã có CRUD mục tiêu tiết kiệm, progress/status trên dashboard và persistence mã hoá.
+- [x] `4.2` Kết nối mục tiêu với chi tiêu thực: đã hiển thị tác động ngày chậm mục tiêu khi danh mục vượt ngân sách.
+- [x] `4.3` Quỹ khẩn cấp: đã gợi ý quỹ 6 tháng chi phí, coverage hiện tại và mức nên nạp hàng tháng.
+- [x] `4.4` Mô phỏng nghỉ hưu: đã mô phỏng mục tiêu tài sản, số năm tới mục tiêu và giả định lợi suất/hệ số ngay trên dashboard.
+- [x] `5.1` Báo cáo so sánh tháng/năm: đã so sánh chi tiêu tháng hiện tại và YTD với kỳ trước/cùng kỳ năm trước.
+- [x] `5.2` Xuất báo cáo PDF: đã tạo báo cáo PDF cục bộ gồm summary tháng, phân bổ danh mục, forecast, so sánh kỳ và giao dịch gần đây.
+- [x] `5.4` Xuất dữ liệu CSV: đã có domain exporter và ShareLink export CSV từ dashboard.
+- [x] `10.1` Theo dõi tài sản & Net worth: đã có tab tài sản ròng, nhập tài sản/khoản nợ, lưu mã hoá, breakdown và lịch sử tăng trưởng tháng.
+- [x] `10.3` Theo dõi nợ & khoản vay: đã có CRUD khoản vay, lịch trả nợ, tổng dư nợ/lãi phải trả, mô phỏng trả thêm và tự đồng bộ liability vào net worth.
+- [x] `14.2` No-spend day tracker: đã có streak, day dots, milestone chúc mừng và ước tính tiền tiết kiệm theo ngày không chi.
 
 ## 1. Tính năng cốt lõi (Free tier)
 
@@ -33,31 +50,31 @@
 
 - [ ] `2.1` Đọc SMS ngân hàng 🔴 - Bị chặn trên iOS public API vì app không được đọc SMS của user.
 - [x] `2.2` OCR chụp hoá đơn 🟡 - Đã đọc ảnh bằng Vision, parse số tiền/ngày/tên cửa hàng, lưu ảnh mã hoá và tự điền form giao dịch.
-- [ ] `2.3` Import sao kê ngân hàng PDF 🟡
-- [ ] `2.4` Subscription tracker 🟡 - Một phần: đã có `SubscriptionDomain` phát hiện khoản lặp, kỳ hạn, ngày gia hạn kế tiếp và monthly total; thiếu UI/notification.
-- [ ] `2.5` Nhập bằng giọng nói 🟡
+- [x] `2.3` Import sao kê ngân hàng PDF 🟡 - Đã đọc text từ PDF bằng PDFKit, parse ngày/số tiền/thu-chi/danh mục sơ bộ và lưu giao dịch cục bộ.
+- [x] `2.4` Subscription tracker 🟡 - Đã có `SubscriptionDomain`, dashboard hiển thị khoản lặp/monthly total/due-soon và local notification trước gia hạn không chứa PII.
+- [x] `2.5` Nhập bằng giọng nói 🟡 - Đã có `VoiceTransactionParser`, Apple Speech client, quyền microphone/speech và nút điền form bằng giọng nói trong màn thêm giao dịch.
 
 ## 3. AI & Phân tích thông minh
 
-- [ ] `3.1` Phát hiện chi tiêu bất thường 🔴 - Một phần: đã có `InsightDomain` phát hiện giao dịch lớn và category spike; thiếu UI/cảnh báo.
-- [ ] `3.2` Gợi ý cắt giảm thông minh 🟡
-- [ ] `3.3` Dự báo số dư cuối tháng 🟡
-- [ ] `3.4` Phân tích theo thời gian 🟡
+- [x] `3.1` Phát hiện chi tiêu bất thường 🔴 - Đã có `InsightDomain` phát hiện giao dịch lớn/category spike và dashboard cảnh báo trực quan.
+- [x] `3.2` Gợi ý cắt giảm thông minh 🟡 - Đã có `SpendingReductionSuggestionEngine` so sánh chi tiêu hiện tại với baseline 3 tháng và dashboard hiển thị mức có thể tiết kiệm.
+- [x] `3.3` Dự báo số dư cuối tháng 🟡 - Đã có `MonthlyBalanceForecaster` dùng nhịp chi hiện tại + lịch sử 3 tháng để dự báo chi tiêu và số dư cuối tháng.
+- [x] `3.4` Phân tích theo thời gian 🟡 - Đã có `TimeSpendingAnalyzer` nhận diện ngày/giờ chi tiêu cao và đột biến sau 20h; không thu GPS để giữ privacy mặc định.
 - [ ] `3.5` AI chatbot tài chính cá nhân 🔴
 
 ## 4. Mục tiêu tài chính
 
-- [ ] `4.1` Tạo mục tiêu tiết kiệm 🟡 - Một phần: onboarding có chọn financial goal, chưa có CRUD goal với số tiền/thời hạn/ảnh.
-- [ ] `4.2` Kết nối mục tiêu với chi tiêu thực 🟡
-- [ ] `4.3` Quỹ khẩn cấp 🟡
-- [ ] `4.4` Mô phỏng nghỉ hưu 🟡
+- [x] `4.1` Tạo mục tiêu tiết kiệm 🟡 - Đã có `GoalDomain`, CRUD UI trên dashboard, progress/status và `EncryptedSavingGoalStore` lưu mã hoá.
+- [x] `4.2` Kết nối mục tiêu với chi tiêu thực 🟡 - Đã tính số ngày mục tiêu bị chậm khi budget vượt hạn mức và hiển thị card tác động trên dashboard.
+- [x] `4.3` Quỹ khẩn cấp 🟡 - Đã có `EmergencyFundPlanner`, card dashboard gợi ý target 6 tháng chi phí, coverage, phần còn thiếu và mức nên nạp hàng tháng.
+- [x] `4.4` Mô phỏng nghỉ hưu 🟡 - Đã có `RetirementSimulator`, card dashboard tính target tài sản theo chi phí, savings rate, thời gian tới mục tiêu và input giả định lợi suất/hệ số.
 
 ## 5. Báo cáo nâng cao
 
-- [ ] `5.1` Báo cáo so sánh tháng/năm 🟡
-- [ ] `5.2` Xuất báo cáo PDF 🟡
+- [x] `5.1` Báo cáo so sánh tháng/năm 🟡 - Đã có `SpendingComparisonReporter` và dashboard report so sánh tháng hiện tại với tháng trước, YTD với cùng kỳ năm trước.
+- [x] `5.2` Xuất báo cáo PDF 🟡 - Đã có model report, SwiftUI PDF renderer bằng `ImageRenderer`, ShareLink export PDF từ dashboard và nội dung tạo cục bộ trên thiết bị.
 - [ ] `5.3` Benchmark ẩn danh 🟡
-- [ ] `5.4` Xuất dữ liệu CSV 🟡 - Một phần: đã có `TransactionCSVExporter` domain; thiếu UI share/export file.
+- [x] `5.4` Xuất dữ liệu CSV 🟡 - Đã có `TransactionCSVExporter` domain và ShareLink export file CSV từ dashboard.
 
 ## 6. Chia sẻ & Gia đình
 
@@ -88,9 +105,9 @@
 
 ## 10. Đầu tư & Tài sản
 
-- [ ] `10.1` Theo dõi tài sản & Net worth 🟡
+- [x] `10.1` Theo dõi tài sản & Net worth 🟡 - Đã có `WealthDomain`, `WealthFeature`, encrypted stores cho asset/liability/snapshot, tab tài sản ròng, CRUD tài sản/khoản nợ, breakdown theo loại và lịch sử net worth 6 tháng.
 - [ ] `10.2` Danh mục đầu tư 🔴
-- [ ] `10.3` Theo dõi nợ & khoản vay 🟡
+- [x] `10.3` Theo dõi nợ & khoản vay 🟡 - Đã có `DebtDomain`, `DebtFeature`, encrypted debt store, CRUD khoản vay, amortization schedule, tổng lãi/khoản trả hàng tháng, mô phỏng trả thêm và sync auto-tracked liability vào net worth.
 
 ## 11. UX & Tiện lợi
 
@@ -115,7 +132,7 @@
 ## 14. Tiết kiệm tự động
 
 - [ ] `14.1` Round-up tiết kiệm 🟡
-- [ ] `14.2` No-spend day tracker 🟢 - Một phần: đã có `WellnessDomain` tính no-spend days/current streak/longest streak; thiếu UI.
+- [x] `14.2` No-spend day tracker 🟢 - Đã có `WellnessDomain`, dashboard current/longest streak + day dots, milestone chúc mừng và ước tính tiết kiệm dựa trên ngày có chi tiêu trung bình.
 - [ ] `14.3` Guilt-free budget 🟡
 
 ## 15. Xã hội & Địa lý
@@ -135,7 +152,7 @@
 
 - [ ] `17.1` Cooling-off period cho mua bốc đồng 🟡
 - [ ] `17.2` Phantom expense ledger 🟢
-- [ ] `17.3` Hours of life converter 🟢
+- [ ] `17.3` Hours of life converter 🟢 - Một phần: đã có `WellnessDomain` quy đổi số tiền sang giờ/phút làm việc; thiếu UI và cấu hình thu nhập/giờ làm.
 - [ ] `17.4` Money therapist mode 🟡
 
 ## 18. Ngách chuyên biệt & Wellness
@@ -168,4 +185,4 @@
 - [x] Design tokens cơ bản trong `KasoDesignSystem`.
 - [x] Test reducer/domain cho các module hiện có.
 - [x] Persistence giao dịch thật sự: app dùng `EncryptedTransactionStore` với file mã hoá và key trong Keychain.
-- [x] Domain foundation cho subscription detection, anomaly detection, CSV export và no-spend tracking.
+- [x] Domain foundation cho subscription detection, anomaly detection, CSV export, no-spend tracking, saving goals và hours-of-life conversion.

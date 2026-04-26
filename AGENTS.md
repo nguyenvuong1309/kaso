@@ -21,6 +21,7 @@ Không đề xuất tính năng / công nghệ trái với 2 doc trên mà chưa
 5. **Test trước, code sau** — Reducer phải có test, Domain ≥90% coverage
 6. **Metal là moat** — đừng ngại viết shader cho hiệu ứng khác biệt
 7. **Privacy by default** — không log PII, dữ liệu tài chính mã hoá at-rest
+8. **Correctness over compatibility** — project đang trong giai đoạn phát triển; không giữ tương thích ngược hoặc adapter legacy trừ khi user yêu cầu rõ. Sửa theo hướng đúng đắn, cập nhật mọi call site liên quan và xoá phần code cũ/không cần thiết.
 
 ## Setup & build
 
@@ -107,6 +108,13 @@ struct TransactionFeature {
 }
 ```
 
+### File size & decomposition
+
+- File code không được quá **500 dòng**. Áp dụng cho Swift, Metal, test và mọi file source do agent tạo/sửa.
+- Khi file tiệm cận giới hạn hoặc chứa nhiều trách nhiệm, phải tách thành file nhỏ theo component, reducer/state/action, helper, extension hoặc domain service rõ ràng.
+- SwiftUI view lớn phải chia thành component nhỏ, dễ preview/test; không nhồi nhiều layout branch hoặc business logic vào một `body`.
+- Mỗi file nên có một type chính. Chỉ giữ nested/private type khi chúng nhỏ, cùng trách nhiệm và không làm file vượt giới hạn.
+
 ### Cấm tuyệt đối
 
 | Cấm | Thay bằng |
@@ -144,14 +152,16 @@ App → Features → Domain → Data → Core
 
 ## Workflow chuẩn cho mỗi task
 
-1. Đọc `plan.md` tìm feature tương ứng
-2. Propose approach với user nếu task >30 phút
-3. Viết failing test cho reducer/domain logic
-4. Implement theo convention
-5. Snapshot test cho view
-6. Lint + format
-7. Build clean (no warning)
-8. Preview light + dark + Dynamic Type lớn
+1. Phân tích kỹ codebase trước khi sửa/thêm: đọc tài liệu liên quan, module hiện có, dependency graph, call sites, tests/previews và convention đang áp dụng; xác định root cause, không sửa đoán.
+2. Đọc `plan.md` tìm feature tương ứng
+3. Propose approach với user nếu task >30 phút
+4. Viết failing test cho reducer/domain logic
+5. Implement theo convention
+6. Xoá code cũ/không cần thiết khi thay thế bằng hướng đúng hơn; không giữ compatibility layer cho phiên bản cũ nếu user không yêu cầu.
+7. Snapshot test cho view
+8. Lint + format
+9. Build clean (no warning)
+10. Preview light + dark + Dynamic Type lớn
 
 ## TCA pattern bắt buộc
 

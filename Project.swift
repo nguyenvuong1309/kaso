@@ -39,6 +39,8 @@ let project = Project(
             infoPlist: .extendingDefault(
                 with: [
                     "CFBundleDisplayName": "Kaso",
+                    "NSMicrophoneUsageDescription": "Kaso dùng microphone để nhập giao dịch bằng giọng nói khi bạn bấm nút ghi âm.",
+                    "NSSpeechRecognitionUsageDescription": "Kaso dùng nhận diện giọng nói trên thiết bị để chuyển lời nói thành giao dịch nháp.",
                     "UILaunchScreen": [
                         "UIColorName": "",
                         "UIImageName": "",
@@ -51,6 +53,7 @@ let project = Project(
             ],
             entitlements: .file(path: "App/Entitlements/Kaso.entitlements"),
             dependencies: [
+                .target(name: "DebtFeature"),
                 .target(name: "KasoRootFeature"),
                 .target(name: "PersistenceKit"),
             ],
@@ -155,6 +158,33 @@ let project = Project(
             ],
             dependencies: [
                 .target(name: "AuthDomain"),
+            ],
+            settings: projectSettings
+        ),
+        .target(
+            name: "GoalDomain",
+            destinations: destinations,
+            product: .framework,
+            bundleId: "\(bundlePrefix).goal-domain",
+            deploymentTargets: deploymentTarget,
+            infoPlist: .default,
+            buildableFolders: [
+                "Packages/Domain/GoalDomain/Sources",
+            ],
+            settings: projectSettings
+        ),
+        .target(
+            name: "GoalDomainTests",
+            destinations: destinations,
+            product: .unitTests,
+            bundleId: "\(bundlePrefix).goal-domain-tests",
+            deploymentTargets: deploymentTarget,
+            infoPlist: .default,
+            buildableFolders: [
+                "Packages/Domain/GoalDomain/Tests",
+            ],
+            dependencies: [
+                .target(name: "GoalDomain"),
             ],
             settings: projectSettings
         ),
@@ -267,6 +297,64 @@ let project = Project(
             settings: projectSettings
         ),
         .target(
+            name: "WealthDomain",
+            destinations: destinations,
+            product: .framework,
+            bundleId: "\(bundlePrefix).wealth-domain",
+            deploymentTargets: deploymentTarget,
+            infoPlist: .default,
+            buildableFolders: [
+                "Packages/Domain/WealthDomain/Sources",
+            ],
+            settings: projectSettings
+        ),
+        .target(
+            name: "WealthDomainTests",
+            destinations: destinations,
+            product: .unitTests,
+            bundleId: "\(bundlePrefix).wealth-domain-tests",
+            deploymentTargets: deploymentTarget,
+            infoPlist: .default,
+            buildableFolders: [
+                "Packages/Domain/WealthDomain/Tests",
+            ],
+            dependencies: [
+                .target(name: "WealthDomain"),
+            ],
+            settings: projectSettings
+        ),
+        .target(
+            name: "DebtDomain",
+            destinations: destinations,
+            product: .framework,
+            bundleId: "\(bundlePrefix).debt-domain",
+            deploymentTargets: deploymentTarget,
+            infoPlist: .default,
+            buildableFolders: [
+                "Packages/Domain/DebtDomain/Sources",
+            ],
+            dependencies: [
+                .target(name: "WealthDomain"),
+            ],
+            settings: projectSettings
+        ),
+        .target(
+            name: "DebtDomainTests",
+            destinations: destinations,
+            product: .unitTests,
+            bundleId: "\(bundlePrefix).debt-domain-tests",
+            deploymentTargets: deploymentTarget,
+            infoPlist: .default,
+            buildableFolders: [
+                "Packages/Domain/DebtDomain/Tests",
+            ],
+            dependencies: [
+                .target(name: "DebtDomain"),
+                .target(name: "WealthDomain"),
+            ],
+            settings: projectSettings
+        ),
+        .target(
             name: "BudgetDomain",
             destinations: destinations,
             product: .framework,
@@ -342,9 +430,12 @@ let project = Project(
                 .target(name: "AppearanceDomain"),
                 .target(name: "AuthDomain"),
                 .target(name: "BudgetDomain"),
+                .target(name: "DebtDomain"),
+                .target(name: "GoalDomain"),
                 .target(name: "KasoFoundation"),
                 .target(name: "OnboardingDomain"),
                 .target(name: "TransactionDomain"),
+                .target(name: "WealthDomain"),
             ],
             settings: projectSettings
         ),
@@ -361,8 +452,11 @@ let project = Project(
             dependencies: [
                 .target(name: "AppearanceDomain"),
                 .target(name: "BudgetDomain"),
+                .target(name: "DebtDomain"),
+                .target(name: "GoalDomain"),
                 .target(name: "PersistenceKit"),
                 .target(name: "TransactionDomain"),
+                .target(name: "WealthDomain"),
             ],
             settings: projectSettings
         ),
@@ -480,6 +574,7 @@ let project = Project(
             infoPlist: .default,
             buildableFolders: [
                 "Packages/Features/KasoRootFeature/Sources",
+                "Packages/Features/KasoRootFeature/Resources",
             ],
             dependencies: [
                 .target(name: "AppearanceDomain"),
@@ -487,10 +582,14 @@ let project = Project(
                 .target(name: "AuthDomain"),
                 .target(name: "AuthFeature"),
                 .target(name: "BudgetDomain"),
+                .target(name: "DebtFeature"),
+                .target(name: "GoalDomain"),
                 .target(name: "OnboardingDomain"),
                 .target(name: "OnboardingFeature"),
                 .target(name: "TransactionDomain"),
                 .target(name: "TransactionFeature"),
+                .target(name: "WealthDomain"),
+                .target(name: "WealthFeature"),
                 .package(product: "ComposableArchitecture"),
             ],
             settings: projectSettings
@@ -527,8 +626,12 @@ let project = Project(
             ],
             dependencies: [
                 .target(name: "BudgetDomain"),
+                .target(name: "GoalDomain"),
+                .target(name: "InsightDomain"),
                 .target(name: "KasoDesignSystem"),
+                .target(name: "SubscriptionDomain"),
                 .target(name: "TransactionDomain"),
+                .target(name: "WellnessDomain"),
                 .package(product: "ComposableArchitecture"),
             ],
             settings: projectSettings
@@ -544,7 +647,80 @@ let project = Project(
                 "Packages/Features/TransactionFeature/Tests",
             ],
             dependencies: [
+                .target(name: "GoalDomain"),
+                .target(name: "InsightDomain"),
+                .target(name: "SubscriptionDomain"),
                 .target(name: "TransactionFeature"),
+                .target(name: "WellnessDomain"),
+                .package(product: "ComposableArchitecture"),
+            ],
+            settings: projectSettings
+        ),
+        .target(
+            name: "DebtFeature",
+            destinations: destinations,
+            product: .staticFramework,
+            bundleId: "\(bundlePrefix).debt-feature",
+            deploymentTargets: deploymentTarget,
+            infoPlist: .default,
+            buildableFolders: [
+                "Packages/Features/DebtFeature/Sources",
+                "Packages/Features/DebtFeature/Resources",
+            ],
+            dependencies: [
+                .target(name: "DebtDomain"),
+                .target(name: "KasoDesignSystem"),
+                .target(name: "WealthDomain"),
+                .package(product: "ComposableArchitecture"),
+            ],
+            settings: projectSettings
+        ),
+        .target(
+            name: "DebtFeatureTests",
+            destinations: destinations,
+            product: .unitTests,
+            bundleId: "\(bundlePrefix).debt-feature-tests",
+            deploymentTargets: deploymentTarget,
+            infoPlist: .default,
+            buildableFolders: [
+                "Packages/Features/DebtFeature/Tests",
+            ],
+            dependencies: [
+                .target(name: "DebtFeature"),
+                .package(product: "ComposableArchitecture"),
+            ],
+            settings: projectSettings
+        ),
+        .target(
+            name: "WealthFeature",
+            destinations: destinations,
+            product: .staticFramework,
+            bundleId: "\(bundlePrefix).wealth-feature",
+            deploymentTargets: deploymentTarget,
+            infoPlist: .default,
+            buildableFolders: [
+                "Packages/Features/WealthFeature/Sources",
+                "Packages/Features/WealthFeature/Resources",
+            ],
+            dependencies: [
+                .target(name: "KasoDesignSystem"),
+                .target(name: "WealthDomain"),
+                .package(product: "ComposableArchitecture"),
+            ],
+            settings: projectSettings
+        ),
+        .target(
+            name: "WealthFeatureTests",
+            destinations: destinations,
+            product: .unitTests,
+            bundleId: "\(bundlePrefix).wealth-feature-tests",
+            deploymentTargets: deploymentTarget,
+            infoPlist: .default,
+            buildableFolders: [
+                "Packages/Features/WealthFeature/Tests",
+            ],
+            dependencies: [
+                .target(name: "WealthFeature"),
                 .package(product: "ComposableArchitecture"),
             ],
             settings: projectSettings

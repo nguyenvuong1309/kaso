@@ -18,6 +18,7 @@
 5. **Tests before code** — every reducer must have tests. Domain layer coverage must be ≥90%.
 6. **Metal is the moat** — do not hesitate to write shaders for effects. This is Kaso's differentiator.
 7. **Privacy by default** — do not log PII. Financial data must be encrypted at rest.
+8. **Correctness over compatibility** — Kaso is in active development. Do not preserve backward compatibility, legacy adapters, or old APIs unless the user explicitly asks for it. Prefer the correct design, update all affected call sites, and delete obsolete code.
 
 ## Code Conventions
 
@@ -58,6 +59,13 @@ struct TransactionFeature {
 }
 ```
 
+### File size & decomposition
+
+- Code files must not exceed **500 lines**. This applies to Swift, Metal, tests, and any source file created or edited by an agent.
+- When a file approaches the limit or mixes responsibilities, split it into smaller files by component, reducer/state/action, helper, extension, or domain service.
+- Large SwiftUI views must be decomposed into small components that are easy to preview and test. Do not pack layout branches or business logic into a single `body`.
+- Prefer one primary type per file. Keep nested/private types only when they are small, tightly related, and do not push the file over the limit.
+
 ### Strictly Forbidden
 
 - `force unwrap` (`!`) — except `@IBOutlet` (which Kaso does not use)
@@ -91,14 +99,16 @@ Every new feature must live in its own **Swift Package** under `Packages/Feature
 
 ## Standard Workflow for Each Task
 
-1. **Understand the request** — read `plan.md` to find the corresponding feature when relevant
-2. **Plan** — propose the approach to the user if the task takes >30 minutes
-3. **Test first** — write failing tests for reducer/domain logic
-4. **Implement** — follow the conventions above
-5. **Snapshot test** — write snapshots for every new view
-6. **Lint & format** — run `swiftlint` + `swiftformat` (automated through hooks)
-7. **Clean build** — `tuist build` with no warnings
-8. **Preview** — check light + dark + large Dynamic Type
+1. **Analyze the codebase first** — before modifying or adding code, read the relevant docs, existing modules, dependency graph, call sites, tests/previews, and local conventions. Identify the root cause; do not guess.
+2. **Understand the request** — read `plan.md` to find the corresponding feature when relevant
+3. **Plan** — propose the approach to the user if the task takes >30 minutes
+4. **Test first** — write failing tests for reducer/domain logic
+5. **Implement** — follow the conventions above
+6. **Remove obsolete code** — when replacing an old path with the correct design, delete unnecessary legacy code instead of keeping compatibility layers unless explicitly requested.
+7. **Snapshot test** — write snapshots for every new view
+8. **Lint & format** — run `swiftlint` + `swiftformat` (automated through hooks)
+9. **Clean build** — `tuist build` with no warnings
+10. **Preview** — check light + dark + large Dynamic Type
 
 ## SwiftUI patterns
 
