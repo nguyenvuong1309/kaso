@@ -1,48 +1,48 @@
 ---
 name: swift6-concurrency
-description: Swift 6 strict concurrency patterns — Sendable, actor, MainActor, isolation. Trigger khi user gặp concurrency warning/error, hoặc khi viết async code, actor, Sendable conformance.
+description: Swift 6 strict concurrency patterns — Sendable, actor, MainActor, isolation. Trigger when the user encounters concurrency warnings/errors, or when writing async code, actors, or Sendable conformance.
 ---
 
-# Swift 6 Strict Concurrency cho Kaso
+# Swift 6 Strict Concurrency for Kaso
 
-Project Kaso bật strict concurrency từ ngày 1. Mọi file `.swift` phải compile clean ở mode này.
+Kaso has strict concurrency enabled from day 1. Every `.swift` file must compile cleanly in this mode.
 
 ## 1. Mental model
 
-| Khái niệm | Nghĩa |
+| Concept | Meaning |
 |-----------|-------|
-| **Isolation** | "Code này chạy ở context nào" — main actor, custom actor, hoặc nonisolated |
-| **Sendable** | "Type này an toàn truyền giữa isolation domain" |
-| **Actor** | "Type bảo vệ state — chỉ 1 task access tại 1 thời điểm" |
+| **Isolation** | "Which context this code runs in" — main actor, custom actor, or nonisolated |
+| **Sendable** | "This type can safely move across isolation domains" |
+| **Actor** | "A type that protects state — only 1 task accesses it at a time" |
 
-Compiler check ở compile time — không runtime cost cho check.
+Compiler checks happen at compile time — there is no runtime cost for these checks.
 
 ## 2. `@MainActor` — UI code
 
-Mọi code chạm UI (SwiftUI View, UIKit, Core Animation) phải MainActor:
+All code that touches UI (SwiftUI View, UIKit, Core Animation) must be MainActor-isolated:
 
 ```swift
 @MainActor
 public final class KasoRenderer: NSObject, MTKViewDelegate {
     func draw(in view: MTKView) {
-        // tự động MainActor
+        // automatically MainActor
     }
 }
 
 @Reducer
 public struct TransactionFeature {
-    // KHÔNG cần MainActor — TCA Reducer là `Sendable`, chạy trên TCA's queue
+    // Does not need MainActor — TCA Reducer is `Sendable`, runs on TCA's queue
 }
 
 public struct TransactionView: View {
-    // SwiftUI View tự động `@MainActor`
+    // SwiftUI View is automatically `@MainActor`
 }
 ```
 
-## 3. `Sendable` — value cross-isolation
+## 3. `Sendable` — values crossing isolation
 
 ```swift
-// Struct value-type chỉ chứa Sendable: tự động Sendable
+// Value-type struct containing only Sendable values: automatically Sendable
 public struct Transaction: Sendable, Equatable, Identifiable {
     public let id: UUID
     public let amount: Decimal      // Sendable
@@ -50,21 +50,21 @@ public struct Transaction: Sendable, Equatable, Identifiable {
     public let note: String         // Sendable
 }
 
-// Class — phải explicit
+// Class — must be explicit
 public final class TransactionStore: Sendable {
     private let lock = NSLock()
     private nonisolated(unsafe) var _items: [Transaction] = []
-    // ... với lock bảo vệ
+    // ... protected by lock
 }
 
-// Tốt hơn: dùng actor
+// Better: use an actor
 public actor TransactionStore {
     private var items: [Transaction] = []
     public func add(_ transaction: Transaction) { items.append(transaction) }
 }
 ```
 
-## 4. Actor cho mutable shared state
+## 4. Actor for mutable shared state
 
 ```swift
 public actor RateLimiter {
@@ -89,14 +89,14 @@ public actor RateLimiter {
     }
 }
 
-// Dùng:
+// Usage:
 let limiter = RateLimiter(minInterval: 1.0)
 if await limiter.shouldAllow() {
     // ...
 }
 ```
 
-## 5. `@Dependency` closure — phải `@Sendable`
+## 5. `@Dependency` closure — must be `@Sendable`
 
 ```swift
 public struct TransactionRepository: Sendable {
@@ -105,21 +105,21 @@ public struct TransactionRepository: Sendable {
 }
 ```
 
-`@Sendable` closure: KHÔNG capture mutable non-Sendable state.
+`@Sendable` closure: do not capture mutable non-Sendable state.
 
-## 6. Bridging Apple API cũ
+## 6. Bridging older Apple APIs
 
-Nhiều Apple API chưa annotate `Sendable` đầy đủ. Pattern xử lý:
+Many Apple APIs are not fully annotated with `Sendable`. Handling patterns:
 
 ```swift
-// MTKView delegate — tự MainActor
+// MTKView delegate — MainActor by design
 @MainActor
 final class Renderer: NSObject, MTKViewDelegate {
     func draw(in view: MTKView) { /* main actor */ }
     func mtkView(_ view: MTKView, drawableSizeWillChange size: CGSize) { /* main actor */ }
 }
 
-// CoreLocation, CloudKit — wrap thành actor hoặc dùng AsyncStream
+// CoreLocation, CloudKit — wrap as an actor or use AsyncStream
 public func locationStream() -> AsyncStream<CLLocation> {
     AsyncStream { continuation in
         let manager = CLLocationManager()
@@ -133,23 +133,23 @@ public func locationStream() -> AsyncStream<CLLocation> {
 }
 ```
 
-## 7. `nonisolated` khi cần
+## 7. `nonisolated` when needed
 
 ```swift
 @MainActor
 public final class ViewModel {
-    public let id: UUID = UUID()  // immutable, không cần MainActor
+    public let id: UUID = UUID()  // immutable, does not need MainActor
 
     nonisolated public func description() -> String {
-        "VM-\(id)"  // không touch isolated state
+        "VM-\(id)"  // does not touch isolated state
     }
 }
 ```
 
-## 8. Async/await chuẩn
+## 8. Correct async/await
 
 ```swift
-// Đúng
+// Correct
 public func loadDashboard() async throws -> Dashboard {
     async let transactions = repository.fetchTransactions()
     async let budgets = repository.fetchBudgets()
@@ -159,15 +159,15 @@ public func loadDashboard() async throws -> Dashboard {
     )
 }
 
-// Sai — sequential khi có thể parallel
+// Incorrect — sequential when it could be parallel
 public func loadBad() async throws -> Dashboard {
     let transactions = try await repository.fetchTransactions()
-    let budgets = try await repository.fetchBudgets()  // chờ transactions xong mới start
+    let budgets = try await repository.fetchBudgets()  // waits for transactions before starting
     return Dashboard(transactions: transactions, budgets: budgets)
 }
 ```
 
-## 9. `TaskGroup` cho dynamic parallel
+## 9. `TaskGroup` for dynamic parallelism
 
 ```swift
 public func parseStatements(_ urls: [URL]) async throws -> [Transaction] {
@@ -203,26 +203,26 @@ return .run { send in
 .cancellable(id: SearchID.self, cancelInFlight: true)
 ```
 
-## 11. AsyncStream thay Combine
+## 11. AsyncStream instead of Combine
 
 ```swift
-// Cũ — Combine
+// Old — Combine
 let cancellable = NotificationCenter.default
     .publisher(for: UIApplication.didEnterBackgroundNotification)
     .sink { _ in /* ... */ }
 
-// Mới — AsyncStream
+// New — AsyncStream
 for await _ in NotificationCenter.default.notifications(named: UIApplication.didEnterBackgroundNotification) {
     // ...
 }
 ```
 
-## 12. Common errors & fix
+## 12. Common errors & fixes
 
 ### `Capture of 'self' with non-sendable type`
 
 ```swift
-// Sai
+// Incorrect
 class ViewModel {
     func load() {
         Task {
@@ -232,13 +232,13 @@ class ViewModel {
     }
 }
 
-// Đúng
+// Correct
 @MainActor
 class ViewModel {
     func load() {
         Task {
             let data = await fetch()
-            self.update(data)  // ← OK vì @MainActor
+            self.update(data)  // ← OK because @MainActor
         }
     }
 }
@@ -247,13 +247,13 @@ class ViewModel {
 ### `Sending value of non-sendable type`
 
 ```swift
-// Sai
+// Incorrect
 let nonSendable = SomeClass()
 Task.detached {
     use(nonSendable)  // ← error
 }
 
-// Đúng — wrap Sendable
+// Correct — wrap in Sendable
 struct SendableWrapper: Sendable {
     let value: SomeData
 }
@@ -266,22 +266,22 @@ Task.detached {
 ### `Main actor-isolated property cannot be accessed from a non-isolated context`
 
 ```swift
-// Sai
+// Incorrect
 nonisolated func foo() {
     print(self.uiProperty)  // ← error
 }
 
-// Đúng
+// Correct
 func foo() async {
     let value = await self.uiProperty
     print(value)
 }
 ```
 
-## 13. Cấm
+## 13. Forbidden
 
-- `@unchecked Sendable` — phải có comment giải thích lý do và lock mechanism
-- `nonisolated(unsafe)` — chỉ cho immutable hoặc có lock manual
-- `Task { @MainActor in ... }` để workaround — sửa root cause
-- Tắt warning bằng `-disable-availability-checking`
+- `@unchecked Sendable` — must have a comment explaining the reason and lock mechanism
+- `nonisolated(unsafe)` — only for immutable data or manually locked data
+- `Task { @MainActor in ... }` as a workaround — fix the root cause
+- Disabling warnings with `-disable-availability-checking`
 - `unsafeBitCast` cross-isolation

@@ -1,13 +1,13 @@
 ---
-description: Build Kaso app — chọn scheme/destination phù hợp
+description: Build the Kaso app — choose the appropriate scheme/destination
 ---
 
-Build project Kaso. Argument đầu (nếu có) = scheme override, default `Kaso`.
+Build the Kaso project. First argument (if any) = scheme override, default `Kaso`.
 
-## Bước
+## Steps
 
-1. Detect Tuist setup: nếu có `Tuist/Project.swift` → chạy `tuist generate --no-open` trước
-2. Chạy build:
+1. Detect Tuist setup: if `Tuist/Project.swift` exists → run `tuist generate --no-open` first
+2. Run build:
 
 ```bash
 xcodebuild build \
@@ -18,15 +18,15 @@ xcodebuild build \
   | xcbeautify --renderer terminal
 ```
 
-## Báo cáo
+## Report
 
-- Pass: thời gian build, số warning
-- Fail: parse error theo `file:line`, đề xuất fix
-- KHÔNG ignore warning — list từng cái
-- Lần đầu build: warn user ~3-5 phút (resolve dependency)
+- Pass: build duration, warning count
+- Fail: parse errors by `file:line`, propose fixes
+- Do not ignore warnings — list each one
+- First build: warn the user it may take ~3-5 minutes (dependency resolution)
 
-## Cấm
+## Forbidden
 
-- KHÔNG dùng flag `-quiet` để giấu warning
-- KHÔNG suggest skip build error
-- KHÔNG build với `OTHER_SWIFT_FLAGS` tắt strict concurrency
+- Do not use `-quiet` to hide warnings
+- Do not suggest skipping build errors
+- Do not build with `OTHER_SWIFT_FLAGS` that disable strict concurrency

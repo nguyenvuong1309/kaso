@@ -1,40 +1,40 @@
-# Kaso — Hướng dẫn cho Claude Code
+# Kaso — Claude Code Instructions
 
-> Project **Kaso** — app quản lý tài chính cá nhân iOS, enterprise-grade, SwiftUI + Metal.
-> Đọc kỹ trước khi đề xuất hoặc viết code.
+> Project **Kaso** — an enterprise-grade personal finance iOS app built with SwiftUI + Metal.
+> Read carefully before proposing changes or writing code.
 
-## Tài liệu định hướng (đọc đầu tiên)
+## Guiding Documents (Read First)
 
-- **`plan.md`** — toàn bộ tính năng đã chốt, ưu tiên, lộ trình 6 phase
-- **`tech-stack.md`** — tech stack, kiến trúc, cấu trúc module
-- Không đề xuất tính năng / công nghệ trái với 2 tài liệu này mà chưa hỏi user
+- **`plan.md`** — all approved features, priorities, and the 6-phase roadmap
+- **`tech-stack.md`** — tech stack, architecture, and module structure
+- Do not propose features or technologies that conflict with these 2 documents without asking the user first
 
-## Triết lý kỹ thuật (không thoả hiệp)
+## Technical Philosophy (Non-Negotiable)
 
-1. **Apple-native first** — không thêm dependency third-party nếu Apple đã có giải pháp tương đương
-2. **Swift 6 strict concurrency** — không dùng `@unchecked Sendable`, không tắt warning bằng pragma
-3. **SwiftUI-only** — chỉ dùng UIKit khi SwiftUI thực sự không có cách. Phải comment lý do.
-4. **TCA cho mọi feature** — không MVVM, không vanilla `@StateObject`. Reducer thuần, View không chứa logic.
-5. **Test trước, code sau** — mọi reducer phải có test. Domain layer ≥90% coverage.
-6. **Metal là moat** — đừng ngại viết shader cho hiệu ứng. Đây là điểm khác biệt của Kaso.
-7. **Privacy by default** — không log PII. Dữ liệu tài chính phải mã hoá at-rest.
+1. **Apple-native first** — do not add a third-party dependency when Apple provides an equivalent solution
+2. **Swift 6 strict concurrency** — do not use `@unchecked Sendable`; do not suppress warnings with pragmas
+3. **SwiftUI-only** — use UIKit only when SwiftUI truly has no solution. Comment why.
+4. **TCA for every feature** — no MVVM, no vanilla `@StateObject`. Reducers are pure; Views contain no logic.
+5. **Tests before code** — every reducer must have tests. Domain layer coverage must be ≥90%.
+6. **Metal is the moat** — do not hesitate to write shaders for effects. This is Kaso's differentiator.
+7. **Privacy by default** — do not log PII. Financial data must be encrypted at rest.
 
-## Quy ước code
+## Code Conventions
 
 ### Naming
 
-- **Type**: `UpperCamelCase`. TCA reducer suffix `Feature` (vd: `TransactionFeature`)
+- **Type**: `UpperCamelCase`. TCA reducers use the `Feature` suffix (for example: `TransactionFeature`)
 - **Property/function**: `lowerCamelCase`
-- **File**: tên trùng type chính (`TransactionFeature.swift` chứa `struct TransactionFeature`)
-- **Test file**: suffix `Tests` (`TransactionFeatureTests.swift`)
-- **Snapshot file**: suffix `Snapshots`
+- **File**: match the main type name (`TransactionFeature.swift` contains `struct TransactionFeature`)
+- **Test file**: `Tests` suffix (`TransactionFeatureTests.swift`)
+- **Snapshot file**: `Snapshots` suffix
 - **Metal shader**: snake_case file `.metal` + UpperCamelCase function name
-- **Tiếng Việt**: comment có thể tiếng Việt, **identifier luôn tiếng Anh**
+- **Vietnamese**: comments may be Vietnamese, but **identifiers must always be English**
 
 ### File organization
 
 ```swift
-// 1. Imports — Apple frameworks first, third-party sau, internal cuối
+// 1. Imports — Apple frameworks first, then third-party, internal last
 import Foundation
 import SwiftUI
 import ComposableArchitecture
@@ -43,7 +43,7 @@ import KasoDesignSystem
 // 2. Type declaration
 @Reducer
 struct TransactionFeature {
-    // 3. State (nested types đầu)
+    // 3. State (nested types first)
     @ObservableState
     struct State { /* ... */ }
 
@@ -58,51 +58,51 @@ struct TransactionFeature {
 }
 ```
 
-### Cấm tuyệt đối
+### Strictly Forbidden
 
-- `force unwrap` (`!`) — trừ `@IBOutlet` (mà Kaso không dùng)
-- `try!` — thay bằng `try?` hoặc xử lý error
+- `force unwrap` (`!`) — except `@IBOutlet` (which Kaso does not use)
+- `try!` — replace with `try?` or handle the error
 - `Any` / `AnyObject` — type-safe always
-- `print()` — dùng `Logger` từ `KasoLogging`
-- `DispatchQueue.main.async` — dùng `await MainActor.run` hoặc `@MainActor`
-- `ObservableObject` — dùng `@Observable` macro
-- `Combine` cho logic mới — dùng `AsyncStream`. Combine chỉ khi tương tác Apple API bắt buộc
-- Singleton mutable state — dùng `@Dependency` injection
+- `print()` — use `Logger` from `KasoLogging`
+- `DispatchQueue.main.async` — use `await MainActor.run` or `@MainActor`
+- `ObservableObject` — use the `@Observable` macro
+- `Combine` for new logic — use `AsyncStream`. Use Combine only when an Apple API requires it.
+- Mutable singleton state — use `@Dependency` injection
 
-### Khuyến khích
+### Recommended
 
-- `let` thay vì `var` mặc định
-- `private` mặc định, mở rộng khi cần
-- `some View` / `some Reducer` thay vì erase type
-- `if let x` shorthand (Swift 5.7+) thay vì `if let x = x`
-- Trailing closure cho closure cuối
-- Dùng `guard` để early return
+- Default to `let` instead of `var`
+- Default to `private`, widening access only when needed
+- Use `some View` / `some Reducer` instead of type erasure
+- Use `if let x` shorthand (Swift 5.7+) instead of `if let x = x`
+- Use trailing closures for the final closure
+- Use `guard` for early returns
 
-## Cấu trúc module
+## Module Structure
 
-Mọi feature mới phải nằm trong **Swift Package** riêng dưới `Packages/Features/`. Tham khảo `tech-stack.md` mục 19.
+Every new feature must live in its own **Swift Package** under `Packages/Features/`. See section 19 of `tech-stack.md`.
 
-**Quy tắc dependency** (cấm vi phạm):
+**Dependency rules** (must not be violated):
 
 - `App` → `Features` → `Domain` → `Data` → `Core`
-- `Features` được phụ thuộc `DesignSystem`
-- `Domain` **KHÔNG được** phụ thuộc `Features` hoặc `Data`
-- Mỗi `Feature` package phải build và `#Preview` được độc lập
+- `Features` may depend on `DesignSystem`
+- `Domain` **must not** depend on `Features` or `Data`
+- Each `Feature` package must build and `#Preview` independently
 
-## Workflow chuẩn cho mỗi task
+## Standard Workflow for Each Task
 
-1. **Hiểu yêu cầu** — đọc `plan.md` để tìm feature tương ứng nếu có
-2. **Lên kế hoạch** — propose approach với user nếu task >30 phút
-3. **Test trước** — viết failing test cho reducer/domain logic
-4. **Implement** — code theo convention trên
-5. **Snapshot test** — viết snapshot cho mọi view mới
-6. **Lint & format** — chạy `swiftlint` + `swiftformat` (auto qua hook)
-7. **Build clean** — `tuist build` không warning
-8. **Preview** — kiểm tra ở light + dark + dynamic type lớn
+1. **Understand the request** — read `plan.md` to find the corresponding feature when relevant
+2. **Plan** — propose the approach to the user if the task takes >30 minutes
+3. **Test first** — write failing tests for reducer/domain logic
+4. **Implement** — follow the conventions above
+5. **Snapshot test** — write snapshots for every new view
+6. **Lint & format** — run `swiftlint` + `swiftformat` (automated through hooks)
+7. **Clean build** — `tuist build` with no warnings
+8. **Preview** — check light + dark + large Dynamic Type
 
 ## SwiftUI patterns
 
-### Đúng
+### Correct
 
 ```swift
 struct TransactionView: View {
@@ -119,13 +119,13 @@ struct TransactionView: View {
 }
 ```
 
-### Sai — sẽ bị reject
+### Incorrect — Will Be Rejected
 
 ```swift
 // ObservableObject + @StateObject
 class ViewModel: ObservableObject { /* ... */ }
 
-// Logic trong view body
+// Logic in view body
 struct BadView: View {
     var body: some View {
         let total = transactions.reduce(0) { $0 + $1.amount }
@@ -139,30 +139,30 @@ DispatchQueue.main.async { self.update() }
 
 ## Metal patterns
 
-- File `.metal` đặt trong `Sources/.../Shaders/`
-- Mỗi shader có DocC comment mô tả input/output
-- SwiftUI integration ưu tiên `.colorEffect`, `.distortionEffect`, `.layerEffect` trước khi reach `MTKView`
-- `MTKView` chỉ khi cần state phức tạp (60K+ data points, particle system)
-- Test shader bằng snapshot — render vào `CGImage` và compare
+- Place `.metal` files under `Sources/.../Shaders/`
+- Every shader must have a DocC comment describing input/output
+- Prefer SwiftUI integration through `.colorEffect`, `.distortionEffect`, `.layerEffect` before reaching for `MTKView`
+- Use `MTKView` only for complex state (60K+ data points, particle systems)
+- Test shaders with snapshots — render into `CGImage` and compare
 
 ## Design System
 
-KHÔNG hardcode màu, font, spacing, radius. Dùng token từ `KasoDesignSystem`:
+Do not hardcode colors, fonts, spacing, or radius. Use tokens from `KasoDesignSystem`:
 
-| Đúng | Sai |
+| Correct | Incorrect |
 |------|-----|
 | `Color.kaso.surfacePrimary` | `Color(hex: "#1A1A1A")` |
 | `Font.kaso.titleLarge` | `.font(.system(size: 28, weight: .bold))` |
 | `Spacing.md` (= 16pt) | `.padding(16)` |
 
-Component mới phải có `#Preview` cho light + dark + Dynamic Type XL.
+New components must include `#Preview` for light + dark + Dynamic Type XL.
 
 ## Testing
 
-- **Unit test**: Swift Testing (`@Test`) cho code mới, XCTest cho legacy
-- **Reducer test**: TCA `TestStore` — assert mọi state change
-- **Snapshot test**: Pointfree SnapshotTesting cho mọi view component
-- **UI test**: Maestro flow cho critical path (onboarding, log expense, paywall)
+- **Unit test**: Swift Testing (`@Test`) for new code, XCTest for legacy
+- **Reducer test**: TCA `TestStore` — assert every state change
+- **Snapshot test**: Pointfree SnapshotTesting for every view component
+- **UI test**: Maestro flows for critical paths (onboarding, log expense, paywall)
 
 ```swift
 import Testing
@@ -178,27 +178,27 @@ func monthlyTotal() async {
 
 ## Localization
 
-- App default tiếng Việt, hỗ trợ tiếng Anh
-- Dùng **String Catalog** (`.xcstrings`) — không dùng `.strings` cũ
-- Format số tiền qua `Decimal.formatted(.currency(code: "VND"))`
-- Format ngày qua `Date.formatted(.dateTime.locale(.current))`
-- KHÔNG hardcode "VND" hay "đ" trong UI string
+- App defaults to Vietnamese and supports English
+- Use **String Catalog** (`.xcstrings`) — do not use old `.strings` files
+- Format money with `Decimal.formatted(.currency(code: "VND"))`
+- Format dates with `Date.formatted(.dateTime.locale(.current))`
+- Do not hardcode "VND" or the Vietnamese dong symbol in UI strings
 
 ## Git workflow
 
 - Branch: `feat/`, `fix/`, `refactor/`, `chore/` + kebab-case
 - Commit: conventional commits (`feat:`, `fix:`, `refactor:`, `test:`, `docs:`, `chore:`)
-- KHÔNG commit nếu chưa user approve
-- KHÔNG `git push` mà chưa user xác nhận
-- KHÔNG `--no-verify` skip hook trừ khi user yêu cầu
+- Do not commit unless the user approves
+- Do not `git push` unless the user confirms
+- Do not use `--no-verify` to skip hooks unless the user requests it
 
-## Khi gặp lỗi
+## When Errors Occur
 
-1. **Đọc error message kỹ** — Swift compiler error rất chi tiết
-2. **Không suppress warning** — fix root cause
-3. **Không thêm `@MainActor` bừa** — hiểu vì sao concurrency complain
-4. **Build clean** — không tolerate warning trong CI
+1. **Read the error message carefully** — Swift compiler errors are very detailed
+2. **Do not suppress warnings** — fix the root cause
+3. **Do not add `@MainActor` blindly** — understand why concurrency is complaining
+4. **Clean build** — do not tolerate warnings in CI
 
 ---
 
-*Cập nhật quy ước này khi codebase trưởng thành. Đừng giữ rule cũ chỉ vì lịch sử.*
+*Update these conventions as the codebase matures. Do not keep old rules merely because of history.*

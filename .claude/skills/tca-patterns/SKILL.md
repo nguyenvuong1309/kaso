@@ -1,13 +1,13 @@
 ---
 name: tca-patterns
-description: TCA (The Composable Architecture) patterns chuẩn cho Kaso. Trigger khi user nói về reducer, store, action, dependency, navigation TCA, hoặc khi viết/sửa file dạng *Feature.swift.
+description: Standard TCA (The Composable Architecture) patterns for Kaso. Trigger when the user mentions reducer, store, action, dependency, TCA navigation, or when writing/editing *Feature.swift files.
 ---
 
-# TCA Patterns cho Kaso
+# TCA Patterns for Kaso
 
-Khi làm việc với TCA, tuân thủ các pattern sau.
+When working with TCA, follow these patterns.
 
-## 1. Reducer chuẩn
+## 1. Standard Reducer
 
 ```swift
 import ComposableArchitecture
@@ -86,32 +86,32 @@ public struct TransactionFeature: Sendable {
 }
 ```
 
-## 2. Quy tắc bất di bất dịch
+## 2. Non-Negotiable Rules
 
 ### State
-- `Equatable` luôn (TCA cần để diff)
-- `@ObservableState` macro — tự động conform `Observable`
-- KHÔNG chứa reference type mutable (class) — dùng struct
-- KHÔNG chứa closure — không Equatable được
-- Init `public` để feature khác composition được
+- Always `Equatable` (TCA needs it for diffing)
+- `@ObservableState` macro — automatically conforms to `Observable`
+- Do not contain mutable reference types (classes) — use structs
+- Do not contain closures — they cannot be Equatable
+- `public` initializer so other features can compose it
 
 ### Action
-- Past tense cho event ("tapped", "loaded", "failed")
-- Imperative cho command từ ngoài ("start", "stop") — hiếm dùng
-- Nest theo destination/child feature
-- KHÔNG đặt logic trong action — chỉ là "data" describing event
-- `delegate(.xxx)` pattern để parent handle event từ child
+- Use past tense for events ("tapped", "loaded", "failed")
+- Use imperative for external commands ("start", "stop") — rarely used
+- Nest by destination/child feature
+- Do not put logic in actions — they are only "data" describing events
+- Use the `delegate(.xxx)` pattern so parents handle events from children
 
 ### Reducer body
-- `switch` exhaustive trên Action
-- Mỗi case return `Effect` (`.none`, `.run`, `.send`, ...)
-- KHÔNG side effect ngoài `.run`
-- Capture dependency qua `@Dependency`, KHÔNG inject qua initializer
+- Exhaustive `switch` over Action
+- Every case returns an `Effect` (`.none`, `.run`, `.send`, ...)
+- No side effects outside `.run`
+- Capture dependencies through `@Dependency`; do not inject through initializer
 
 ### Effect
-- Dùng `.run { send in ... }` cho async work
-- `withTaskCancellation(id:)` cho cancellable work (search debounce, polling)
-- KHÔNG dùng `Combine` Effect cho code mới — dùng AsyncStream
+- Use `.run { send in ... }` for async work
+- Use `withTaskCancellation(id:)` for cancellable work (search debounce, polling)
+- Do not use `Combine` Effect for new code — use AsyncStream
 
 ## 3. View binding
 
@@ -148,7 +148,7 @@ public struct TransactionView: View {
 
 ## 4. Dependencies
 
-Mọi external dependency phải qua `DependencyKey`:
+Every external dependency must go through `DependencyKey`:
 
 ```swift
 import Dependencies
@@ -187,7 +187,7 @@ extension DependencyValues {
 }
 ```
 
-## 5. Test với TestStore
+## 5. Testing with TestStore
 
 ```swift
 import ComposableArchitecture
@@ -219,18 +219,18 @@ struct TransactionFeatureTests {
 }
 ```
 
-## 6. Anti-patterns (cấm)
+## 6. Anti-patterns (Forbidden)
 
-- `@StateObject var viewModel = ViewModel()` — dùng Store
-- Logic trong `View.body` — đẩy vào reducer
-- `Reducer` capture `self` trong closure — phải capture local var
-- `@Dependency` trong `View` — chỉ dùng trong Reducer
-- Trực tiếp mutate `store.state` từ View — dùng `.send(action)`
-- Singleton store ngoài `App` root — composition phải explicit
+- `@StateObject var viewModel = ViewModel()` — use Store
+- Logic in `View.body` — move it into the reducer
+- `Reducer` captures `self` in a closure — must capture a local variable instead
+- `@Dependency` in `View` — only use it in Reducers
+- Directly mutating `store.state` from a View — use `.send(action)`
+- Singleton store outside the `App` root — composition must be explicit
 
 ## 7. Composition pattern
 
-Parent feature scope vào child:
+Parent feature scopes into child:
 
 ```swift
 @Reducer
@@ -266,16 +266,16 @@ struct AppFeature {
 }
 ```
 
-## 8. Khi nào dùng `@Shared` (TCA 1.10+)
+## 8. When to Use `@Shared` (TCA 1.10+)
 
-Khi state cần share giữa nhiều feature không qua composition:
+When state must be shared across multiple features without going through composition:
 - User session
 - Feature flags
 - Network connectivity status
 
-KHÔNG dùng `@Shared` cho:
-- Domain model thông thường — composition là default
-- State chỉ 1 feature dùng
+Do not use `@Shared` for:
+- Normal domain models — composition is the default
+- State used by only one feature
 
 ```swift
 @Shared(.fileStorage(.documentsDirectory.appending(component: "session.json")))

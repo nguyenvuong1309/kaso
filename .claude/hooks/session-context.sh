@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Inject context vào đầu session: trạng thái git, phase hiện tại, TODO nổi bật.
+# Inject context at session start: git status, current phase, notable TODOs.
 
 set -euo pipefail
 
@@ -14,7 +14,7 @@ if git rev-parse --git-dir >/dev/null 2>&1; then
 fi
 
 if [[ -f "Tuist/Project.swift" ]] || [[ -f "Project.swift" ]]; then
-  context+="🔨 Tuist project — chạy 'tuist generate' trước khi build\n"
+  context+="🔨 Tuist project — run 'tuist generate' before building\n"
 fi
 
 if [[ -f "Package.swift" ]]; then
@@ -31,7 +31,7 @@ fi
 
 if [[ -n "$context" ]]; then
   cat <<EOF
-{"hookSpecificOutput":{"hookEventName":"SessionStart","additionalContext":"=== Kaso project status ===\n${context}\nXem plan.md cho features, tech-stack.md cho kiến trúc, .claude/CLAUDE.md cho rules."}}
+{"hookSpecificOutput":{"hookEventName":"SessionStart","additionalContext":"=== Kaso project status ===\n${context}\nSee plan.md for features, tech-stack.md for architecture, and .claude/CLAUDE.md for rules."}}
 EOF
 fi
 

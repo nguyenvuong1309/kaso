@@ -21,8 +21,11 @@
 13. [Mô phỏng & Dự báo ⭐ Mới](#13-mô-phỏng--dự-báo)
 14. [Tiết kiệm tự động ⭐ Mới](#14-tiết-kiệm-tự-động)
 15. [Xã hội & Địa lý ⭐ Mới](#15-xã-hội--địa-lý)
-16. [Đề xuất Pricing](#16-đề-xuất-pricing)
-17. [Lộ trình phát triển](#17-lộ-trình-phát-triển)
+16. [Văn hoá & Đặc thù Việt Nam ⭐ Mới](#16-văn-hoá--đặc-thù-việt-nam)
+17. [Tâm lý mở rộng ⭐ Mới](#17-tâm-lý-mở-rộng)
+18. [Ngách chuyên biệt & Wellness ⭐ Mới](#18-ngách-chuyên-biệt--wellness)
+19. [Đề xuất Pricing](#19-đề-xuất-pricing)
+20. [Lộ trình phát triển](#20-lộ-trình-phát-triển)
 
 ---
 
@@ -286,37 +289,108 @@ Cuối mỗi năm, app tạo ra một "báo cáo DNA tài chính" — một info
 
 ---
 
-## 16. Đề xuất Pricing
+## 16. Văn hoá & Đặc thù Việt Nam
+
+> Nhóm tính năng hyperlocal cho Việt Nam — giải quyết các khoản tiền rất thật nhưng hầu như chưa app tài chính cá nhân nào tracking tốt.
+
+### 16.1 Lì xì & đám hỉ tracker 🟢
+Theo dõi tiền lì xì cho/nhận, tiền mừng cưới, đám hỏi, thôi nôi, tân gia, đám tang theo từng người và từng sự kiện. App lưu lịch sử quan hệ: "Năm ngoái bạn mừng Hùng 1.000.000 ₫" → lần sau gợi ý mức phù hợp theo quan hệ, dịp và lịch sử hai chiều. Đây là pain point rất Việt Nam, effort thấp, khả năng viral cao vì người dùng có lý do mở app trước mỗi dịp Tết hoặc mùa cưới.
+
+### 16.2 Hụi/họ tracker 🟡
+Quản lý dây hụi/họ với danh sách thành viên, kỳ đóng, kỳ hốt, số tiền đã đóng/nhận, người giữ hụi và trạng thái từng kỳ. App chỉ đóng vai trò ledger cá nhân, không giữ tiền, không môi giới và không khuyến khích vay mượn. Tính năng này phục vụ nhóm user rất deep, đặc biệt tiểu thương, nội trợ và người có nhiều quan hệ tài chính phi chính thức.
+
+### 16.3 BNPL exposure tracker 🟡
+Theo dõi tổng nghĩa vụ "mua trước trả sau" từ các dịch vụ như Fundiin, Kredivo, Atome, Shopee PayLater hoặc các khoản trả góp ngắn hạn nhập thủ công. App gom các kỳ phải trả theo tháng, cảnh báo khi tổng BNPL vượt ngưỡng an toàn so với thu nhập và hiển thị tác động lên ngân sách còn lại. Đây là tính năng quan trọng cho Gen Z vì rủi ro thật nằm ở tổng exposure, không phải từng khoản nhỏ riêng lẻ.
+
+### 16.4 Cộng đồng giá địa phương 🔵
+Database giá địa phương do cộng đồng đóng góp: bún bò, cà phê, gửi xe, cắt tóc, gym, chợ, siêu thị... theo khu vực và thời điểm. User có thể biết "giá tô bún bò quanh Quận 1 đang khoảng 45.000–55.000 ₫" hoặc "quán này cao hơn trung bình khu vực 20%". Dữ liệu phải được ẩn danh, chống spam và chỉ hiển thị aggregate để bảo vệ quyền riêng tư. Nếu làm tốt, đây là moat network effect dài hạn.
+
+---
+
+## 17. Tâm lý mở rộng
+
+> Nhóm tính năng can thiệp hành vi trước khi tiền rời ví — không chỉ ghi nhận giao dịch sau khi đã xảy ra.
+
+### 17.1 Cooling-off period cho mua bốc đồng 🟡
+Khi user tạo kế hoạch mua một món vượt ngưỡng cá nhân, app đưa vào hàng chờ 24 giờ đến 7 ngày tuỳ mức tiền và danh mục. Trong thời gian chờ, app nhắc nhẹ: "Bạn vẫn muốn mua không?" kèm các lựa chọn khác cho cùng số tiền như tăng quỹ khẩn cấp, trả nợ, hoặc tiến gần hơn tới mục tiêu tiết kiệm. Tính năng này phải cho phép user override để tránh cảm giác bị kiểm soát, nhưng mặc định giúp tạo ma sát tích cực trước các quyết định bốc đồng.
+
+### 17.2 Phantom expense ledger 🟢
+Theo dõi "tiền suýt tiêu" — món đã bỏ khỏi giỏ hàng, chuyến đi đã huỷ, subscription không gia hạn, hoặc giao dịch user quyết định không thực hiện. Cuối tháng, app tổng kết: "Bạn đã tránh được 4.200.000 ₫ chi tiêu không cần thiết." Đây là positive reinforcement, giúp app không chỉ gắn với cảm giác tội lỗi vì đã tiêu tiền mà còn ghi nhận các quyết định tốt không thấy được trong sao kê.
+
+### 17.3 Hours of life converter 🟢
+Quy đổi giao dịch sang số giờ làm việc dựa trên thu nhập thực nhận sau thuế và số giờ làm trung bình của user. Ví dụ: "Ly cà phê 65.000 ₫ = 18 phút làm việc." Có thể hiển thị trong transaction detail, budget warning và what-if simulator. Đây là quick win effort rất thấp nhưng tác động nhận thức mạnh vì user thấy chi phí bằng thời gian sống, không chỉ bằng tiền.
+
+### 17.4 Money therapist mode 🟡
+Chế độ AI hỗ trợ cảm xúc tài chính, khác với chatbot tư vấn tài chính. Khi user vừa chi quá tay, vượt ngân sách hoặc cảm thấy guilt, app phản hồi không phán xét, giúp user nhìn lại trigger, chọn một hành động nhỏ tiếp theo và tránh spiral "đã lỡ thì tiêu tiếp". Không đưa lời khuyên đầu tư hoặc cam kết tài chính; ưu tiên on-device hoặc redaction nghiêm ngặt trước khi dùng cloud AI.
+
+---
+
+## 18. Ngách chuyên biệt & Wellness
+
+> Nhóm tính năng mở rộng sang các nhu cầu tài chính chưa được phục vụ tốt: cặp đôi, thu nhập không đều, sức khoẻ và kế hoạch dài hạn.
+
+### 18.1 Money compatibility test cho cặp đôi 🔵
+Hai người trả lời bộ câu hỏi ngắn về thói quen tiền bạc: tiết kiệm/chi tiêu, mức chịu rủi ro, nợ, chia tiền, hỗ trợ gia đình, ưu tiên tương lai. App tạo report compatibility, highlight điểm dễ xung đột và gợi ý cách nói chuyện cụ thể. Đây là viral driver tự nhiên vì một người có lý do mời người yêu hoặc vợ/chồng cùng dùng app trước khi bật family account.
+
+### 18.2 Freelancer income smoothing 🟡
+Dành cho freelancer, tài xế công nghệ, seller online và người có thu nhập không đều. App tính "lương ảo hàng tháng" dựa trên trung bình thu nhập, biến động mùa vụ và mức buffer an toàn; phần thu vượt mức được đưa vào quỹ đệm thay vì xem là tiền tự do. Có thể mở rộng sang ước tính thuế TNCN, nhắc dành tiền cho bảo hiểm, thiết bị, ngày nghỉ không lương và tháng thấp điểm.
+
+### 18.3 Sleep × spending correlation 🟡
+Nếu user cho phép Apple Health, app phân tích tương quan giữa giấc ngủ và chi tiêu: ngày sau khi ngủ ít hơn 6 giờ có dễ đặt đồ ăn, mua sắm đêm hoặc vượt ngân sách hơn không. Insight chỉ hiển thị khi có đủ dữ liệu và không suy diễn y khoa. Đây là "wow feature" tạo khác biệt vì kết nối health data với money behavior theo cách cá nhân hoá, privacy-first.
+
+### 18.4 Digital financial legacy 🔴
+Kho lưu trữ mã hoá cho danh sách tài khoản ngân hàng, ví điện tử, bảo hiểm, khoản vay, đầu tư và hướng dẫn cho gia đình nếu có sự cố. Dữ liệu được mã hoá end-to-end, có thể unlock qua legacy contact hoặc cơ chế dead-man switch được thiết kế rất thận trọng. Đây là tính năng Phase 6+ vì độ nhạy cảm bảo mật, pháp lý và UX cao, nhưng thị trường Việt Nam gần như chưa có sản phẩm đại chúng làm tốt.
+
+### 18.5 Ma trận ưu tiên cho nhóm mới
+
+| Tính năng | Pain | Khác biệt | Effort | Khuyến nghị |
+|---|---|---|---|---|
+| Lì xì & đám hỉ tracker | Rất cao | Rất cao | Thấp | Phải có |
+| BNPL exposure tracker | Rất cao | Rất cao | Trung bình | Phải có |
+| Hours of life converter | Trung bình | Cao | Rất thấp | Quick win |
+| Cooling-off period | Cao | Cao | Thấp | Nên có |
+| Money compatibility test | Cao | Rất cao | Trung bình | Viral driver |
+| Freelancer income smoothing | Rất cao | Rất cao | Cao | Differentiator |
+| Hụi/họ tracker | Cao | Rất cao | Trung bình | Niche nhưng deep |
+| Sleep × spending correlation | Trung bình | Rất cao | Trung bình | Wow feature |
+| Cộng đồng giá địa phương | Cao | Cao | Cao | Long-term moat |
+| Phantom expense ledger | Trung bình | Cao | Thấp | Add-on |
+| Money therapist mode | Trung bình | Cao | Trung bình | Add-on cho AI |
+| Digital financial legacy | Trung bình | Cao | Cao | Phase 6+ |
+
+---
+
+## 19. Đề xuất Pricing
 
 | Gói | Giá | Tính năng chính |
 |---|---|---|
-| **Free** | 0 ₫ | Nhập tay, ngân sách cơ bản, biểu đồ đơn giản, lịch sử 3 tháng, dark mode, gamification cơ bản |
-| **Pro** | 49.000 ₫/tháng hoặc 399.000 ₫/năm | Tất cả tính năng tự động hoá, AI insight, báo cáo nâng cao, iCloud sync, widget, Apple Watch, lịch sử không giới hạn |
-| **Family** | 79.000 ₫/tháng hoặc 599.000 ₫/năm | Tất cả tính năng Pro + chia sẻ tối đa 5 người, tài khoản gia đình, phân quyền thành viên |
+| **Free** | 0 ₫ | Nhập tay, ngân sách cơ bản, biểu đồ đơn giản, lịch sử 3 tháng, dark mode, gamification cơ bản, no-spend day, hours of life converter, phantom expense ledger cơ bản |
+| **Pro** | 49.000 ₫/tháng hoặc 399.000 ₫/năm | Tất cả tính năng tự động hoá, AI insight, báo cáo nâng cao, iCloud sync, widget, Apple Watch, lịch sử không giới hạn, BNPL tracker, lì xì/đám hỉ nâng cao, cooling-off period |
+| **Family** | 79.000 ₫/tháng hoặc 599.000 ₫/năm | Tất cả tính năng Pro + chia sẻ tối đa 5 người, tài khoản gia đình, phân quyền thành viên, money compatibility test |
 
 > Gợi ý: Dùng mô hình **freemium với paywall thông minh** — cho user trải nghiệm đủ giá trị ở free tier, sau đó upsell khi user đã có thói quen dùng app (thường sau 2–4 tuần).
 
 ---
 
-## 17. Lộ trình phát triển
+## 20. Lộ trình phát triển
 
 ### Giai đoạn 1 — MVP (tuần 1–5)
-Hoàn thiện free tier: nhập tay, ngân sách, dashboard, dark mode, no-spend day tracker. Mục tiêu: user dùng đều đặn 2–4 tuần.
+Hoàn thiện free tier: nhập tay, ngân sách, dashboard, dark mode, no-spend day tracker, hours of life converter và phantom expense ledger cơ bản. Mục tiêu: user dùng đều đặn 2–4 tuần.
 
 ### Giai đoạn 2 — Killer feature (tuần 6–10)
-Tích hợp đọc SMS ngân hàng và OCR hoá đơn. Đây là lý do chính để user nâng cấp lên Pro.
+Tích hợp đọc SMS ngân hàng, OCR hoá đơn, lì xì/đám hỉ tracker và BNPL exposure tracker. Đây là lý do chính để user nâng cấp lên Pro và khác biệt rõ với app quản lý chi tiêu generic.
 
 ### Giai đoạn 3 — Retention (tuần 11–14)
-AI insight, dự báo chi tiêu, mục tiêu tài chính, gamification đầy đủ, guilt-free budget, round-up tiết kiệm. Tạo habit dài hạn, user khó bỏ.
+AI insight, dự báo chi tiêu, mục tiêu tài chính, gamification đầy đủ, guilt-free budget, round-up tiết kiệm và cooling-off period. Tạo habit dài hạn, user khó bỏ.
 
 ### Giai đoạn 4 — Differentiation (tuần 15–18)
-Spending mood journal, regret score, what-if simulator, spending calendar. Đây là các tính năng tạo sự khác biệt thực sự so với mọi đối thủ trên thị trường.
+Spending mood journal, regret score, what-if simulator, spending calendar, money compatibility test và freelancer income smoothing MVP. Đây là các tính năng tạo sự khác biệt thực sự so với mọi đối thủ trên thị trường.
 
 ### Giai đoạn 5 — Growth (tuần 19–22)
-Money personality, spending DNA, chia sẻ Wrapped, thử thách cộng đồng, tách tiền nhóm. Tạo kênh viral tự nhiên không tốn chi phí marketing.
+Money personality, spending DNA, chia sẻ Wrapped, thử thách cộng đồng, tách tiền nhóm và cộng đồng giá địa phương MVP. Tạo kênh viral tự nhiên không tốn chi phí marketing.
 
 ### Giai đoạn 6 — Expansion (tháng 6+)
-Family plan, theo dõi tài sản, tích hợp Apple Watch, spending map, seasonal planner, danh mục đầu tư, future self letter. Mở rộng thị trường và tăng revenue per user.
+Family plan, theo dõi tài sản, tích hợp Apple Watch, spending map, seasonal planner, danh mục đầu tư, future self letter, hụi/họ tracker, sleep × spending correlation, money therapist mode và digital financial legacy. Mở rộng thị trường và tăng revenue per user.
 
 ---
 
@@ -333,4 +407,4 @@ Family plan, theo dõi tài sản, tích hợp Apple Watch, spending map, season
 ---
 
 *Tài liệu được tổng hợp cho dự án app quản lý chi tiêu SwiftUI + Metal — iOS.*
-*Cập nhật lần cuối: tháng 4/2026 — thêm 4 nhóm tính năng mới: Tâm lý & Hành vi, Mô phỏng & Dự báo, Tiết kiệm tự động, Xã hội & Địa lý.*
+*Cập nhật lần cuối: tháng 4/2026 — thêm 7 nhóm tính năng mới: Tâm lý & Hành vi, Mô phỏng & Dự báo, Tiết kiệm tự động, Xã hội & Địa lý, Văn hoá & Đặc thù Việt Nam, Tâm lý mở rộng, Ngách chuyên biệt & Wellness.*

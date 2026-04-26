@@ -1,8 +1,8 @@
 ---
-description: Quản lý snapshot test — record, verify, hoặc clean.
+description: Manage snapshot tests — record, verify, or clean.
 ---
 
-Quản lý snapshot test. Argument: `record` | `verify` | `clean` (default `verify`).
+Manage snapshot tests. Argument: `record` | `verify` | `clean` (default `verify`).
 
 ## Mode
 
@@ -10,21 +10,21 @@ Quản lý snapshot test. Argument: `record` | `verify` | `clean` (default `veri
 ```bash
 swift test --filter Snapshot
 ```
-Fail nếu khác baseline.
+Fails if output differs from the baseline.
 
 ### `record`
-**CHỈ chạy khi UI thực sự thay đổi có chủ đích.**
+**ONLY run when the UI intentionally changed.**
 
 ```bash
 SNAPSHOT_TESTING_RECORD=true swift test --filter Snapshot
 ```
 
-- Hỏi user xác nhận trước khi record
-- Sau record: hiển thị diff (số file changed)
-- KHÔNG commit luôn — user review từng file
+- Ask the user to confirm before recording
+- After recording: show the diff (number of changed files)
+- Do not commit immediately — the user reviews each file
 
 ### `clean`
-Scan `__Snapshots__/` folder, cross-check với test file, list orphan.
+Scan the `__Snapshots__/` folder, cross-check with test files, and list orphans.
 
 ```bash
 find . -path '*/__Snapshots__/*' -type f | while read f; do
@@ -34,15 +34,15 @@ find . -path '*/__Snapshots__/*' -type f | while read f; do
 done
 ```
 
-## Quy tắc
+## Rules
 
-- Snapshot test ở: light, dark, Dynamic Type XL
-- Tên file khớp test name
-- KHÔNG record khi đang debug — chỉ khi đã verify thay đổi đúng ý
-- CI fail snapshot: KHÔNG fix bằng record local — fix root cause hoặc xác nhận với user
+- Snapshot tests cover: light, dark, Dynamic Type XL
+- File names match test names
+- Do not record while debugging — only after verifying the intended change
+- CI snapshot failure: do not fix by local recording — fix the root cause or confirm with the user
 
 ## Output
 
-- Số snapshot pass/fail/new
-- Path tới `__Snapshots__/` để user mở visual diff
-- Đề xuất tool: Kaleidoscope (image) hoặc `git diff` (text)
+- Number of snapshots pass/fail/new
+- Path to `__Snapshots__/` so the user can open visual diffs
+- Suggested tools: Kaleidoscope (image) or `git diff` (text)

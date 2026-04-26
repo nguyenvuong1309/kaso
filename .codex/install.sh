@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Install Codex config + prompts cho project Kaso vào ~/.codex/
+# Install Codex config + prompts for the Kaso project into ~/.codex/
 # Usage:
 #   bash .codex/install.sh             # install
 #   bash .codex/install.sh --uninstall # remove
@@ -89,7 +89,7 @@ else
     ok "Appended Kaso config to $CODEX_HOME/config.toml"
 fi
 
-# Symlink prompts với namespace
+# Symlink prompts with namespace
 linked=0
 for f in "$SCRIPT_DIR"/prompts/*.md; do
     [[ -e "$f" ]] || continue

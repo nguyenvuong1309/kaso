@@ -1,49 +1,49 @@
 ---
-description: Self-review diff hiện tại theo Kaso enterprise rules trước khi commit.
+description: Self-review the current diff against Kaso enterprise rules before committing.
 ---
 
-Review `git diff` hiện tại theo các tiêu chí enterprise. Output checklist + score, KHÔNG sửa code.
+Review the current `git diff` against enterprise criteria. Output checklist + score, and do not edit code.
 
 ## Checklist
 
 ### Architecture (BLOCKER)
-- [ ] File Swift đúng layer? (Domain không import Feature/Data)
-- [ ] Có `ObservableObject` mới? → bắt buộc đổi `@Observable`
-- [ ] Có `class ViewModel` mới? → bắt buộc đổi TCA Reducer
-- [ ] Có UIKit code không cần thiết? → flag
+- [ ] Swift files in correct layers? (Domain does not import Feature/Data)
+- [ ] Any new `ObservableObject`? → must change to `@Observable`
+- [ ] Any new `class ViewModel`? → must change to TCA Reducer
+- [ ] Any unnecessary UIKit code? → flag it
 
 ### Code quality (MAJOR)
 - [ ] `print()`? → `Logger`
 - [ ] `try!` / `force unwrap`? → fix
 - [ ] Hardcode color/font/spacing? → token `KasoDesignSystem`
-- [ ] Hardcode "VND"/"đ" trong UI string? → formatter
+- [ ] Hardcoded "VND"/Vietnamese dong symbol in UI strings? → formatter
 
 ### Concurrency (MAJOR)
-- [ ] `@unchecked Sendable`? → tìm cách remove
+- [ ] `@unchecked Sendable`? → find a way to remove it
 - [ ] `DispatchQueue.main.async`? → `await MainActor.run`
 - [ ] Reducer capture `self`?
 
 ### Testing (MAJOR)
-- [ ] Reducer mới có TestStore test?
-- [ ] View mới có snapshot test?
-- [ ] Coverage không drop?
+- [ ] New reducers have TestStore tests?
+- [ ] New views have snapshot tests?
+- [ ] Coverage does not drop?
 
 ### Privacy & Security (BLOCKER)
-- [ ] Log số tiền/tên user/SDT vào console?
-- [ ] Gửi PII lên cloud (analytics, AI prompt)?
-- [ ] Network call có pinning?
-- [ ] Sensitive data lưu Keychain (không UserDefaults)?
+- [ ] Amount/user name/phone number logged to console?
+- [ ] PII sent to cloud (analytics, AI prompt)?
+- [ ] Network calls have pinning?
+- [ ] Sensitive data stored in Keychain (not UserDefaults)?
 
 ### Design & UX (MAJOR)
-- [ ] Component mới có dark mode preview?
+- [ ] New components have dark mode previews?
 - [ ] Dynamic Type support?
 - [ ] Animation honor `accessibilityReduceMotion`?
-- [ ] VoiceOver label đầy đủ?
+- [ ] VoiceOver labels complete?
 
 ### Localization (MINOR)
-- [ ] String mới trong String Catalog?
-- [ ] Plural rules cho cả VN + EN?
-- [ ] Format số/ngày qua `.formatted()`?
+- [ ] New strings in String Catalog?
+- [ ] Plural rules for both Vietnamese + English?
+- [ ] Numbers/dates formatted through `.formatted()`?
 
 ## Output format
 
@@ -62,7 +62,7 @@ Review `git diff` hiện tại theo các tiêu chí enterprise. Output checklist
 - [file:line] <issue> — <fix>
 
 ### ✓ Good
-- <điểm tốt>
+- <positive point>
 
 ## Score
 - Architecture: X/10
@@ -74,10 +74,10 @@ Review `git diff` hiện tại theo các tiêu chí enterprise. Output checklist
 - **Total: X/60**
 
 ## Verdict
-✅ Pass / ⚠️ Fix major rồi pass / ❌ Block
+✅ Pass / ⚠️ Fix major then pass / ❌ Block
 ```
 
-## Sau review
+## After Review
 
-Nếu pass → suggest `/kaso-audit` để verify CI clean.
-KHÔNG fix tự động — user quyết.
+If it passes → suggest `/kaso-audit` to verify CI is clean.
+Do not fix automatically — the user decides.

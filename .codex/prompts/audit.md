@@ -2,9 +2,9 @@
 description: Full pre-commit audit — lint + format + build clean + test + dead code + privacy.
 ---
 
-Chạy full audit pipeline. Block commit nếu bất kỳ bước nào fail.
+Run the full audit pipeline. Block commit if any step fails.
 
-## Pipeline (tuần tự, dừng khi fail)
+## Pipeline (sequential, stop on failure)
 
 ### 1. Format check
 ```bash
@@ -37,17 +37,17 @@ periphery scan --quiet --strict
 ```
 
 ### 6. Privacy manifest
-Verify `PrivacyInfo.xcprivacy` exists và sync với API usage.
+Verify `PrivacyInfo.xcprivacy` exists and is synced with API usage.
 
-### 7. Bundle size (nếu archive sẵn)
+### 7. Bundle size (if an archive exists)
 ```bash
 du -sh .build/DerivedData/Build/Products/*-iphonesimulator/Kaso.app
 ```
-Warn nếu >50MB.
+Warn if >50MB.
 
-## Báo cáo cuối
+## Final Report
 
-| Bước | Kết quả | Thời gian |
+| Step | Result | Time |
 |------|---------|-----------|
 | Format | ✓/✗ | ?s |
 | Lint | ✓/✗ | ?s |
@@ -56,16 +56,16 @@ Warn nếu >50MB.
 | Dead code | ✓/✗ | ?s |
 | Privacy | ✓/✗ | ?s |
 
-## Sau pass
+## After Passing
 
-- Báo "Ready to commit"
-- KHÔNG tự commit — đợi user
-- Suggest commit message theo conventional commits
+- Report "Ready to commit"
+- Do not commit automatically — wait for the user
+- Suggest a conventional commit message
 
-## Sau fail
+## After Failure
 
-- Highlight bước fail
-- Hiển thị error
-- Đề xuất fix cụ thể
-- KHÔNG suggest skip bước
-- KHÔNG suggest `--no-verify`
+- Highlight the failed step
+- Show the error
+- Propose a specific fix
+- Do not suggest skipping the step
+- Do not suggest `--no-verify`

@@ -1,23 +1,23 @@
 ---
-description: Chạy test (unit + snapshot). Optionally filter scope.
+description: Run tests (unit + snapshot). Optionally filter scope.
 ---
 
-Chạy test cho Kaso. Argument:
-- không có → all tests via SPM
-- tên feature/package → test riêng package đó
+Run tests for Kaso. Argument:
+- none → all tests via SPM
+- feature/package name → test that package only
 - `snapshot` → snapshot tests
-- `failed` → re-run test fail lần trước
+- `failed` → re-run previous failed tests
 
-## Lệnh
+## Commands
 
 ```bash
-# All tests (nhanh)
+# All tests (fast)
 swift test --parallel
 
 # Specific package
 swift test --package-path Packages/Features/${1}Feature --parallel
 
-# Via Xcode (cần simulator cho UI test)
+# Via Xcode (simulator needed for UI tests)
 xcodebuild test \
   -scheme Kaso \
   -destination 'platform=iOS Simulator,name=iPhone 16 Pro,OS=latest' \
@@ -27,7 +27,7 @@ xcodebuild test \
   | xcbeautify --renderer terminal
 ```
 
-## Báo cáo
+## Report
 
 | Metric | Value |
 |--------|-------|
@@ -37,11 +37,11 @@ xcodebuild test \
 | Time | Xs |
 | Coverage | X% |
 
-Nếu fail: list `FILE:LINE — test name — reason` + fix gợi ý.
-Nếu coverage drop dưới threshold (Domain 90%, Features 80%): warn.
-Nếu snapshot fail: hỏi user record-mode (KHÔNG tự re-record).
+If failing: list `FILE:LINE — test name — reason` + suggested fix.
+If coverage drops below threshold (Domain 90%, Features 80%): warn.
+If snapshots fail: ask the user about record mode (do not auto re-record).
 
-## Sau pass
+## After Passing
 
-Suggest next: `/kaso-lint`, `/kaso-audit`, hoặc commit.
-Nếu modified Swift file mà không có test mới: warn.
+Suggest next: `/kaso-lint`, `/kaso-audit`, or commit.
+If a Swift file was modified without new tests: warn.

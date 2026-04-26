@@ -1,34 +1,34 @@
 ---
-description: Chạy SwiftLint + SwiftFormat lint mode. Optionally auto-fix.
-argument-hint: [fix] để auto-fix
+description: Run SwiftLint + SwiftFormat lint mode. Optionally auto-fix.
+argument-hint: [fix] to auto-fix
 ---
 
-Lint toàn bộ Swift code.
+Lint all Swift code.
 
-## Lệnh
+## Commands
 
 ```bash
 # Lint check
 swiftlint lint --quiet --strict
 
-# Format check (không sửa)
+# Format check (does not edit)
 swiftformat --lint --quiet .
 ```
 
-## Nếu argument = "fix"
+## If argument = "fix"
 
 ```bash
 swiftlint --fix --quiet
 swiftformat --quiet .
 ```
 
-## Báo cáo
+## Report
 
-- Số warning theo rule (top 5)
-- File vi phạm nhiều nhất (top 5)
-- Nếu `--strict` fail: block commit, list error đầu tiên với fix gợi ý
+- Warning count by rule (top 5)
+- Files with the most violations (top 5)
+- If `--strict` fails: block commit and list the first error with a suggested fix
 
-## Cấm
+## Forbidden
 
-- KHÔNG suppress warning bằng `// swiftlint:disable` trừ khi user approve
-- KHÔNG sửa file trong `Packages/*/Tests/Snapshots/` (auto-generated)
+- Do not suppress warnings with `// swiftlint:disable` unless the user approves
+- Do not edit files in `Packages/*/Tests/Snapshots/` (auto-generated)

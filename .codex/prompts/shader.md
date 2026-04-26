@@ -1,8 +1,8 @@
 ---
-description: Scaffold Metal shader mới — color, distortion, layer, hoặc MTKView.
+description: Scaffold a new Metal shader — color, distortion, layer, or MTKView.
 ---
 
-Tạo Metal shader mới. Argument 1 = tên shader, argument 2 = type (color|distortion|layer|view), default `color`.
+Create a new Metal shader. Argument 1 = shader name, argument 2 = type (color|distortion|layer|view), default `color`.
 
 ## Layout files
 
@@ -17,7 +17,7 @@ Packages/DesignSystem/KasoMetalEffects/
     └── ${SHADER_NAME}SnapshotTests.swift
 ```
 
-## Template theo type
+## Template by Type
 
 ### `color` — `.colorEffect`
 
@@ -59,11 +59,11 @@ public extension View {
 
 ### `view` — `MTKView`
 
-- Tạo `${SHADER_NAME}Renderer.swift` implement `MTKViewDelegate`
-- Wrap bằng `UIViewRepresentable`
+- Create `${SHADER_NAME}Renderer.swift` implementing `MTKViewDelegate`
+- Wrap with `UIViewRepresentable`
 - Vertex + Fragment shader pair
 
-## Snapshot test bắt buộc
+## Required Snapshot Test
 
 ```swift
 import SnapshotTesting
@@ -87,25 +87,25 @@ struct ${SHADER_NAME}SnapshotTests {
 }
 ```
 
-## Quy tắc
+## Rules
 
-- DocC comment trên shader: input/output, performance note
-- Test ít nhất 3 state (t=0, 0.5, 1.0)
+- DocC comment on the shader: input/output, performance note
+- Test at least 3 states (t=0, 0.5, 1.0)
 - Compile shader: `xcrun -sdk iphoneos metal -c Shader.metal -o /dev/null`
-- Performance target: 120fps trên iPhone 15 Pro, 60fps trên iPhone 12
-- Reduce Motion fallback bắt buộc
+- Performance target: 120fps on iPhone 15 Pro, 60fps on iPhone 12
+- Reduce Motion fallback is required
 
-## Checklist trước khi báo done
+## Checklist Before Reporting Done
 
 - [ ] Shader compile clean
-- [ ] Modifier có `#Preview`
+- [ ] Modifier has `#Preview`
 - [ ] 3 snapshot test pass
-- [ ] DocC comment đầy đủ
-- [ ] Reduce Motion fallback có
+- [ ] DocC comments are complete
+- [ ] Reduce Motion fallback exists
 
-## Khi không cần Metal
+## When Metal Is Not Needed
 
-Nếu effect đơn giản, suggest user dùng SwiftUI native trước:
-- Animation đơn giản → `withAnimation`
+If the effect is simple, suggest native SwiftUI first:
+- Simple animation → `withAnimation`
 - Particle <50 → `TimelineView` + `Circle`
 - Static visual → asset PNG

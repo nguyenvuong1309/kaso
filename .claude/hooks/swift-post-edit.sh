@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Auto-format và lint file Swift sau khi Claude edit/write.
-# Đọc tool input từ stdin (JSON), trích file path, chạy formatter + linter nếu là .swift.
+# Auto-format and lint Swift files after Claude edits/writes.
+# Read tool input from stdin (JSON), extract the file path, and run formatter + linter for .swift files.
 
 set -euo pipefail
 
@@ -19,7 +19,7 @@ case "$file_path" in
     if command -v swiftlint >/dev/null 2>&1; then
       lint_output=$(swiftlint lint --quiet --path "$file_path" 2>&1 || true)
       if [[ -n "$lint_output" ]]; then
-        printf '{"systemMessage":"SwiftLint warnings cho %s:\\n%s"}\n' \
+        printf '{"systemMessage":"SwiftLint warnings for %s:\\n%s"}\n' \
           "$(basename "$file_path")" \
           "$(printf '%s' "$lint_output" | head -20 | sed 's/"/\\"/g' | tr '\n' ' ')"
       fi

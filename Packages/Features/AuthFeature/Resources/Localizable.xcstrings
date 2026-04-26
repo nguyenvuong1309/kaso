@@ -1,0 +1,376 @@
+{
+  "sourceLanguage" : "vi",
+  "strings" : {
+    "auth.badge.local" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "On-device first"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ưu tiên trên máy"
+          }
+        }
+      }
+    },
+    "auth.badge.private" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Private by default"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Riêng tư mặc định"
+          }
+        }
+      }
+    },
+    "auth.benefit.fast.subtitle" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign in once, then Kaso prepares onboarding and your first budget plan."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đăng nhập một lần, Kaso sẽ chuẩn bị onboarding và kế hoạch ngân sách đầu tiên."
+          }
+        }
+      }
+    },
+    "auth.benefit.fast.title" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start with less friction"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bắt đầu ít ma sát hơn"
+          }
+        }
+      }
+    },
+    "auth.benefit.insight.subtitle" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kaso uses your setup choices to suggest realistic categories and budgets."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kaso dùng lựa chọn ban đầu để gợi ý danh mục và ngân sách thực tế."
+          }
+        }
+      }
+    },
+    "auth.benefit.insight.title" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Personalized from day one"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cá nhân hoá từ ngày đầu"
+          }
+        }
+      }
+    },
+    "auth.benefit.privacy.subtitle" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your session is stored securely in Keychain. We do not log financial details."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Phiên đăng nhập được lưu an toàn trong Keychain. Kaso không log chi tiết tài chính."
+          }
+        }
+      }
+    },
+    "auth.benefit.privacy.title" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Protect financial data"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bảo vệ dữ liệu tài chính"
+          }
+        }
+      }
+    },
+    "auth.error.invalidCredential" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Could not read the Apple ID credential."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Không thể đọc thông tin Apple ID."
+          }
+        }
+      }
+    },
+    "auth.error.invalidResponse" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple returned an invalid sign-in response. Try again."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple trả về phản hồi đăng nhập không hợp lệ. Hãy thử lại."
+          }
+        }
+      }
+    },
+    "auth.error.loadFailed" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Could not load your sign-in session."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Không thể tải phiên đăng nhập."
+          }
+        }
+      }
+    },
+    "auth.error.notHandled" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple could not handle this sign-in request. Check the app capability and provisioning profile."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple không xử lý được yêu cầu đăng nhập này. Kiểm tra capability và provisioning profile của app."
+          }
+        }
+      }
+    },
+    "auth.error.saveFailed" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Could not save your sign-in session."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Không thể lưu phiên đăng nhập."
+          }
+        }
+      }
+    },
+    "auth.error.signInAuthorizationFailed" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple sign-in authorization failed. Check that the bundle ID has Sign in with Apple enabled."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uỷ quyền đăng nhập Apple thất bại. Kiểm tra Bundle ID đã bật Sign in with Apple."
+          }
+        }
+      }
+    },
+    "auth.error.signInCanceled" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign in was cancelled."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đăng nhập đã bị huỷ."
+          }
+        }
+      }
+    },
+    "auth.error.signInFailed" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign in was cancelled or failed."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đăng nhập đã bị huỷ hoặc thất bại."
+          }
+        }
+      }
+    },
+    "auth.error.signOutFailed" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Could not sign out."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Không thể đăng xuất."
+          }
+        }
+      }
+    },
+    "auth.loading" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Loading"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đang tải"
+          }
+        }
+      }
+    },
+    "auth.privacyNote" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kaso asks Apple only for your name and email to create a private session."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kaso chỉ yêu cầu Apple cung cấp tên và email để tạo phiên đăng nhập riêng tư."
+          }
+        }
+      }
+    },
+    "auth.subtitle" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign in privately to protect your financial workspace."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đăng nhập riêng tư để bảo vệ không gian tài chính của bạn."
+          }
+        }
+      }
+    },
+    "auth.title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Welcome to Kaso"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chào mừng đến Kaso"
+          }
+        }
+      }
+    },
+    "auth.user.defaultName" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kaso user"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Người dùng Kaso"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

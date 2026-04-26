@@ -1,20 +1,20 @@
-# Codex CLI config recommend cho Kaso project.
-# Copy hoặc merge file này vào ~/.codex/config.toml.
-# Hoặc chạy `bash .codex/install.sh` để install tự động.
+# Recommended Codex CLI config for the Kaso project.
+# Copy or merge this file into ~/.codex/config.toml.
+# Or run `bash .codex/install.sh` for automatic installation.
 
 # === Model ===
-# gpt-5-codex là default cho coding task. Nếu có access o3/o3-mini, swap ở đây.
+# gpt-5-codex is the default for coding tasks. If you have o3/o3-mini access, swap here.
 model = "gpt-5-codex"
 model_reasoning_effort = "high"          # "minimal" | "low" | "medium" | "high"
 model_reasoning_summary = "auto"         # auto / detailed / none
 
 # === Sandbox & approval ===
-# workspace-write: Codex có thể edit file trong cwd, không touch ngoài.
-# on-failure: chỉ hỏi user khi command fail (vd: cần network ngoài sandbox).
+# workspace-write: Codex can edit files in cwd and does not touch outside.
+# on-failure: ask the user only when a command fails (for example: needs network outside sandbox).
 sandbox_mode = "workspace-write"
 approval_policy = "on-failure"
 
-# === Hide reasoning từ output để gọn hơn (tuỳ chọn) ===
+# === Hide reasoning from output to keep it concise (optional) ===
 hide_agent_reasoning = false
 
 # === History ===
@@ -23,21 +23,21 @@ persistence = "save-all"                 # save-all | none
 max_bytes = 10_000_000
 
 # === Shell environment policy ===
-# Inherit env từ shell user (DEVELOPER_DIR, PATH, ...) — cần cho xcodebuild
+# Inherit env from the user's shell (DEVELOPER_DIR, PATH, ...) — required for xcodebuild
 [shell_environment_policy]
 inherit = "all"
 ignore_default_excludes = false
 exclude = ["AWS_*", "AZURE_*", "*_TOKEN", "*_SECRET", "*_KEY"]
 
 # === Project profile ===
-# Activate bằng: codex --profile kaso
+# Activate with: codex --profile kaso
 [profiles.kaso]
 model = "gpt-5-codex"
 model_reasoning_effort = "high"
 sandbox_mode = "workspace-write"
 approval_policy = "on-failure"
 
-# Cho phép network trong sandbox cho profile này (cần cho swift package resolve)
+# Allow network in the sandbox for this profile (needed for swift package resolve)
 [profiles.kaso.sandbox_workspace_write]
 network_access = true
 exclude_tmpdir_env_var = false
@@ -49,15 +49,15 @@ writable_roots = [
     "/tmp",
 ]
 
-# === MCP servers (tuỳ chọn) ===
-# Bật khi cần. Comment out nếu chưa cài MCP server.
+# === MCP servers (optional) ===
+# Enable when needed. Comment out if the MCP server is not installed.
 
-# Filesystem MCP — đọc/ghi file ngoài cwd có kiểm soát
+# Filesystem MCP — controlled read/write outside cwd
 # [mcp_servers.filesystem]
 # command = "npx"
 # args = ["-y", "@modelcontextprotocol/server-filesystem", "/Users/vuongnguyen/dev3/kaso"]
 
-# GitHub MCP — query issue/PR
+# GitHub MCP — query issues/PRs
 # [mcp_servers.github]
 # command = "npx"
 # args = ["-y", "@modelcontextprotocol/server-github"]
@@ -70,13 +70,13 @@ writable_roots = [
 
 # === TUI customization ===
 [tui]
-# Theme có thể là: dark, light, auto
+# Theme can be: dark, light, auto
 # theme = "dark"
 
 # === Notification on completion (macOS) ===
 notify = ["osascript", "-e", "display notification \"Codex done\" with title \"Kaso\""]
 
-# === Workspace trust (tuỳ chọn) ===
-# Mark Kaso project là trusted để skip prompt mỗi lần
+# === Workspace trust (optional) ===
+# Mark the Kaso project as trusted to skip the prompt each time
 # [projects."/Users/vuongnguyen/dev3/kaso"]
 # trust_level = "trusted"

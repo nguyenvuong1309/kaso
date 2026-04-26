@@ -1,24 +1,24 @@
 ---
-description: Release pipeline — bump version, archive, upload TestFlight. Yêu cầu user confirm 2 lần.
+description: Release pipeline — bump version, archive, upload TestFlight. Requires the user to confirm twice.
 ---
 
-Release pipeline cho Kaso. **Destructive operation** — hỏi user confirm 2 lần.
+Release pipeline for Kaso. **Destructive operation** — ask the user to confirm twice.
 
 Argument: `patch` | `minor` | `major` (default `patch`).
 
 ## Pipeline
 
 ### 1. Pre-flight check
-- Branch hiện tại = `main`?
+- Current branch = `main`?
 - Working tree clean (`git status`)?
-- Toàn bộ test pass? (chạy `/kaso-audit` trước)
-- Có CHANGELOG entry cho version mới?
+- All tests pass? (run `/kaso-audit` first)
+- CHANGELOG entry exists for the new version?
 
-Nếu fail bất kỳ → abort.
+Abort if any item fails.
 
 ### 2. Bump version
-- Đọc `MARKETING_VERSION` hiện tại
-- Bump theo arg semver
+- Read current `MARKETING_VERSION`
+- Bump by semver argument
 - Update `CFBundleShortVersionString`
 
 ### 3. Build number
@@ -54,19 +54,19 @@ fastlane beta
 git tag -a "v$NEW_VERSION" -m "Release v$NEW_VERSION"
 ```
 
-KHÔNG `git push --tags` tự động — báo user push thủ công.
+Do not run `git push --tags` automatically — tell the user to push manually.
 
-## Output cuối
+## Final Output
 
 - Version: `X.Y.Z (BUILD)`
 - TestFlight processing time estimate (~10-30 min)
 - Link App Store Connect
-- Reminder: cập nhật What's New
+- Reminder: update What's New
 - Reminder: push tag manual (`git push origin v$NEW_VERSION`)
 
-## Cấm
+## Forbidden
 
-- KHÔNG release từ branch khác `main`
-- KHÔNG skip pre-flight nếu test fail
-- KHÔNG auto-push tag
-- KHÔNG approve fastlane không hỏi
+- Do not release from a branch other than `main`
+- Do not skip pre-flight if tests fail
+- Do not auto-push tags
+- Do not approve Fastlane without asking

@@ -3,24 +3,24 @@ description: Release workflow — bump version, archive, upload TestFlight
 argument-hint: [patch|minor|major] (default: patch)
 ---
 
-Release pipeline cho Kaso.
+Release pipeline for Kaso.
 
-## CẢNH BÁO
-Đây là destructive operation — thay đổi version, push tag, upload binary.
-Phải xác nhận user 2 lần trước khi thực hiện.
+## WARNING
+This is a destructive operation — it changes versions, tags releases, and uploads binaries.
+The user must confirm twice before execution.
 
 ## Pipeline
 
 1. **Pre-flight check**
-   - Branch hiện tại = `main`?
+   - Current branch = `main`?
    - Working tree clean?
-   - Toàn bộ test pass? (chạy `/audit` trước)
-   - Có CHANGELOG entry cho version mới?
+   - All tests pass? (run `/audit` first)
+   - CHANGELOG entry exists for the new version?
 
 2. **Bump version**
-   - Đọc current version từ `MARKETING_VERSION` trong project
+   - Read current version from `MARKETING_VERSION` in the project
    - Bump theo arg `${1:-patch}` (semver)
-   - Update `CFBundleShortVersionString` và `CFBundleVersion`
+   - Update `CFBundleShortVersionString` and `CFBundleVersion`
 
 3. **Generate build number**
    - `CURRENT_PROJECT_VERSION` = git commit count: `git rev-list --count HEAD`
@@ -43,7 +43,7 @@ Phải xác nhận user 2 lần trước khi thực hiện.
      -exportOptionsPlist fastlane/ExportOptions.plist
    ```
 
-6. **Upload TestFlight** (qua Fastlane — yêu cầu user confirm lần nữa)
+6. **Upload TestFlight** (through Fastlane — requires user confirmation again)
    ```bash
    fastlane beta
    ```
@@ -52,11 +52,11 @@ Phải xác nhận user 2 lần trước khi thực hiện.
    ```bash
    git tag -a "v$NEW_VERSION" -m "Release v$NEW_VERSION"
    ```
-   - KHÔNG `git push --tags` tự động — báo user push thủ công
+   - Do not run `git push --tags` automatically — tell the user to push manually
 
-## Output cuối
+## Final Output
 
-- Version mới: `X.Y.Z (BUILD)`
+- New version: `X.Y.Z (BUILD)`
 - TestFlight processing time estimate
 - Link App Store Connect
-- Reminder: cập nhật What's New trong App Store Connect
+- Reminder: update What's New in App Store Connect

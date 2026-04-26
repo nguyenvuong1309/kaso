@@ -1,24 +1,24 @@
 ---
 name: swiftui-metal-bridge
-description: Cách bridge SwiftUI ↔ Metal cho hiệu ứng custom — colorEffect, distortionEffect, layerEffect, MTKView. Trigger khi user nói về Metal shader, MSL, .colorEffect, .layerEffect, MTKView, hoặc visual effects custom.
+description: How to bridge SwiftUI ↔ Metal for custom effects — colorEffect, distortionEffect, layerEffect, MTKView. Trigger when the user mentions Metal shaders, MSL, .colorEffect, .layerEffect, MTKView, or custom visual effects.
 ---
 
-# SwiftUI ↔ Metal Bridge cho Kaso
+# SwiftUI ↔ Metal Bridge for Kaso
 
-Decision tree: chọn API nào cho hiệu ứng nào.
+Decision tree: choose the right API for each effect.
 
 ## Decision tree
 
 ```
-Cần hiệu ứng custom?
-├── Chỉ thay đổi pixel color (gradient, hue shift, glitch) → .colorEffect
-├── Cần warp/distort vị trí pixel (wave, ripple, jelly) → .distortionEffect
-├── Cần đọc layer khác để compose (blur, displacement) → .layerEffect
-├── Cần Canvas + custom drawing logic → Canvas + GraphicsContext
-└── Cần stateful render (60K+ data, particle, real-time sim) → MTKView
+Need a custom effect?
+├── Only change pixel color (gradient, hue shift, glitch) → .colorEffect
+├── Need to warp/distort pixel position (wave, ripple, jelly) → .distortionEffect
+├── Need to read another layer for composition (blur, displacement) → .layerEffect
+├── Need Canvas + custom drawing logic → Canvas + GraphicsContext
+└── Need stateful rendering (60K+ data, particles, real-time simulation) → MTKView
 ```
 
-## 1. `.colorEffect` — đơn giản nhất
+## 1. `.colorEffect` — simplest
 
 **Use case**: gradient mesh, noise, hue shift, animated color.
 
@@ -59,7 +59,7 @@ public struct AnimatedGradient: View {
 }
 ```
 
-## 2. `.distortionEffect` — warp vị trí
+## 2. `.distortionEffect` — warp position
 
 **Use case**: wave on text, jelly button, water ripple.
 
@@ -82,9 +82,9 @@ public struct AnimatedGradient: View {
 )
 ```
 
-**Lưu ý**: `maxSampleOffset` phải lớn hơn distortion tối đa, không thì pixel bị clip.
+**Note**: `maxSampleOffset` must be larger than the maximum distortion, otherwise pixels will be clipped.
 
-## 3. `.layerEffect` — đọc layer khác
+## 3. `.layerEffect` — read another layer
 
 **Use case**: variable blur (Dynamic Island), displacement map, color picker on image.
 
@@ -104,22 +104,22 @@ public struct AnimatedGradient: View {
 
 ## 4. `Canvas` + `GraphicsContext`
 
-**Use case**: 2D vector drawing, chart custom (path-based), particle nhỏ.
+**Use case**: 2D vector drawing, custom charts (path-based), small particle counts.
 
 ```swift
 Canvas { context, size in
     let path = Path { p in
-        // draw transactions as bezier
+        // draw transactions as Bezier curves
     }
     context.stroke(path, with: .linearGradient(...))
 }
 ```
 
-`GraphicsContext.drawLayer { layer in ... }` để apply Metal shader cho subset.
+Use `GraphicsContext.drawLayer { layer in ... }` to apply a Metal shader to a subset.
 
-## 5. `MTKView` qua `UIViewRepresentable`
+## 5. `MTKView` through `UIViewRepresentable`
 
-**Use case**: dữ liệu lớn (60K+ point), particle 1000+ vật thể, real-time slider sim.
+**Use case**: large datasets (60K+ points), 1000+ particles/objects, real-time slider simulations.
 
 ```swift
 import MetalKit
@@ -176,14 +176,14 @@ public final class KasoRenderer: NSObject, MTKViewDelegate {
 ## 6. Performance rules
 
 - **Target FPS**: 120 (ProMotion), fallback 60. Set `preferredFramesPerSecond`.
-- **Avoid CPU stall**: precompute trên background, GPU chỉ render
-- **Buffer reuse**: 3-buffer rotation cho `MTLBuffer` để tránh GPU/CPU sync
-- **Texture compression**: ASTC cho asset, BC7 cho macOS
-- **Profiling bắt buộc**: Instruments → Metal System Trace trước khi merge
+- **Avoid CPU stalls**: precompute in the background; GPU only renders
+- **Buffer reuse**: 3-buffer rotation for `MTLBuffer` to avoid GPU/CPU sync
+- **Texture compression**: ASTC for assets, BC7 for macOS
+- **Profiling required**: Instruments → Metal System Trace before merging
 
 ## 7. Reduce Motion fallback
 
-Mọi animation Metal phải có fallback khi user bật Reduce Motion:
+Every Metal animation must have a fallback when the user enables Reduce Motion:
 
 ```swift
 @Environment(\.accessibilityReduceMotion) var reduceMotion
@@ -199,7 +199,7 @@ var body: some View {
 
 ## 8. Test Metal output
 
-Snapshot test render output ở fixed time:
+Snapshot test rendered output at fixed times:
 
 ```swift
 @Test func gradientRendersAtT0() {
@@ -209,11 +209,11 @@ Snapshot test render output ở fixed time:
 }
 ```
 
-`precision: 0.95` vì GPU render có thể nhỏ jitter giữa device.
+Use `precision: 0.95` because GPU rendering can have small jitter across devices.
 
-## 9. Khi nào KHÔNG dùng Metal
+## 9. When NOT to Use Metal
 
-- Animation đơn giản → `withAnimation { }` đủ
-- Particle <50 → SwiftUI `TimelineView` + `Circle` đủ
-- Static visual → asset PNG + `Image` đủ
-- Complex 3D → `SceneKit` (vẫn dùng Metal backend nhưng API dễ hơn)
+- Simple animations → `withAnimation { }` is enough
+- Particle count <50 → SwiftUI `TimelineView` + `Circle` is enough
+- Static visuals → PNG asset + `Image` is enough
+- Complex 3D → `SceneKit` (still uses Metal backend, but the API is easier)

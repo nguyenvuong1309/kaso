@@ -1,19 +1,19 @@
 ---
-description: Audit + improve SwiftUI Preview cho view — multi-state, multi-device, dark mode.
+description: Audit + improve SwiftUI Preview for a view — multi-state, multi-device, dark mode.
 ---
 
-Audit `#Preview` cho view tên trong argument. Đảm bảo coverage đủ:
+Audit `#Preview` for the view named in the argument. Ensure sufficient coverage:
 
 ## Standard preview matrix
 
-Mọi component phải có preview cho:
+Every component must have previews for:
 
 1. **Default** (light, regular Dynamic Type)
 2. **Dark mode** — `.preferredColorScheme(.dark)`
 3. **Dynamic Type XL** — `.environment(\.dynamicTypeSize, .accessibility5)`
-4. **Loading state** (nếu có)
-5. **Error state** (nếu có)
-6. **Empty state** (nếu có)
+4. **Loading state** (if any)
+5. **Error state** (if any)
+6. **Empty state** (if any)
 7. **Multi-device**: iPhone SE + iPhone 16 Pro Max + iPad
 
 ## Template
@@ -42,16 +42,16 @@ Mọi component phải có preview cho:
 #Preview("iPhone SE", traits: .fixedLayout(width: 320, height: 568)) { /* ... */ }
 ```
 
-## Bước
+## Steps
 
-1. Đọc file `${VIEW_NAME}.swift`
-2. Đếm `#Preview` hiện có
-3. Liệt kê state thiếu
-4. Đề xuất mock data cho state phức tạp (`previewValue` trong dependency)
-5. Tạo preview file riêng nếu nhiều: `${VIEW_NAME}Previews.swift`
+1. Read file `${VIEW_NAME}.swift`
+2. Count existing `#Preview` blocks
+3. List missing states
+4. Propose mock data for complex states (`previewValue` in dependencies)
+5. Create a separate preview file if there are many: `${VIEW_NAME}Previews.swift`
 
-## Cấm
+## Forbidden
 
-- KHÔNG dùng `PreviewProvider` cũ — dùng `#Preview` macro
-- KHÔNG hardcode mock inline — đặt trong `PreviewMocks.swift`
-- KHÔNG bỏ qua dark mode preview
+- Do not use old `PreviewProvider` — use the `#Preview` macro
+- Do not hardcode mock data inline — place it in `PreviewMocks.swift`
+- Do not skip dark mode preview

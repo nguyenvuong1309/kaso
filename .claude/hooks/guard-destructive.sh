@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Chặn các lệnh destructive nguy hiểm chưa được user xác nhận.
-# Exit 2 = block hành động và cho Claude biết lý do.
+# Block dangerous destructive commands that the user has not confirmed.
+# Exit 2 = block the action and tell Claude the reason.
 
 set -euo pipefail
 
@@ -12,31 +12,31 @@ if [[ -z "$cmd" ]]; then
 fi
 
 block() {
-  printf 'BLOCKED: %s\n\nLý do: %s\nNếu thực sự cần, user phải chạy thủ công.\n' "$1" "$2" >&2
+  printf 'BLOCKED: %s\n\nReason: %s\nIf this is truly needed, the user must run it manually.\n' "$1" "$2" >&2
   exit 2
 }
 
 case "$cmd" in
   *"rm -rf /"*|*"rm -rf ~"*|*"rm -rf \$HOME"*)
-    block "Lệnh xoá đệ quy thư mục root/home" "Cực kỳ nguy hiểm — không bao giờ được phép"
+    block "Recursive deletion of root/home directory" "Extremely dangerous — never allowed"
     ;;
   *"git push --force"*|*"git push -f "*|*"git push --force-with-lease"*)
-    block "Force push" "Có thể overwrite work của người khác. User phải tự chạy."
+    block "Force push" "May overwrite someone else's work. The user must run it manually."
     ;;
   *"git reset --hard"*)
     if [[ "$cmd" != *"HEAD"* ]] && [[ "$cmd" != *"origin"* ]]; then
       exit 0
     fi
-    block "git reset --hard" "Mất uncommitted changes. Hỏi user trước."
+    block "git reset --hard" "Loses uncommitted changes. Ask the user first."
     ;;
   *"xcrun simctl erase all"*|*"xcrun simctl delete all"*)
-    block "Xoá toàn bộ simulator" "Mất data test, settings simulator. Hỏi user trước."
+    block "Delete all simulators" "Loses test data and simulator settings. Ask the user first."
     ;;
   *"DerivedData"*"rm"*|*"rm"*"DerivedData"*)
     exit 0
     ;;
   *"--no-verify"*)
-    block "Skip git hook bằng --no-verify" "Hook tồn tại có lý do. Fix root cause thay vì skip."
+    block "Skip git hook with --no-verify" "Hooks exist for a reason. Fix the root cause instead of skipping."
     ;;
 esac
 

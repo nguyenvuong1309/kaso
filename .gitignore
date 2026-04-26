@@ -1,0 +1,14 @@
+.DS_Store
+.build/
+.swiftpm/
+DerivedData/
+Derived/
+.tuist/
+Tuist/Dependencies/
+*.xcodeproj
+*.xcworkspace
+*.xcuserstate
+*.xcresult
+*.ipa
+*.dSYM
+.serena/

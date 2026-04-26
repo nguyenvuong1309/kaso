@@ -1,31 +1,31 @@
 ---
-description: Scaffold một TCA Feature module mới dưới Packages/Features/
+description: Scaffold a new TCA Feature module under Packages/Features/
 argument-hint: <FeatureName>
 ---
 
-Tạo module TCA feature mới với tên **$1**.
+Create a new TCA feature module named **$1**.
 
-## Bước thực hiện
+## Steps
 
-1. Tạo thư mục `Packages/Features/$1Feature/` với layout:
+1. Create the `Packages/Features/$1Feature/` directory with this layout:
    ```
    $1Feature/
    ├── Package.swift
    ├── Sources/
    │   └── $1Feature/
-   │       ├── $1Feature.swift          (Reducer)
-   │       ├── $1View.swift             (SwiftUI View)
-   │       └── $1Preview.swift          (#Preview cho dev)
+│       ├── $1Feature.swift          (Reducer)
+│       ├── $1View.swift             (SwiftUI View)
+│       └── $1Preview.swift          (#Preview for development)
    └── Tests/
        └── $1FeatureTests/
-           ├── $1FeatureTests.swift     (Reducer test với TestStore)
+           ├── $1FeatureTests.swift     (Reducer test with TestStore)
            └── $1ViewSnapshotTests.swift
    ```
 
-2. **Package.swift** phải:
+2. **Package.swift** must:
    - `swift-tools-version: 6.0`
-   - Dependency `swift-composable-architecture` từ workspace
-   - Dependency `KasoDesignSystem`, `KasoFoundation` từ workspace
+   - Dependency `swift-composable-architecture` from the workspace
+   - Dependency `KasoDesignSystem`, `KasoFoundation` from the workspace
    - Test target dependency `swift-snapshot-testing`
 
 3. **Reducer** (`$1Feature.swift`):
@@ -59,24 +59,24 @@ Tạo module TCA feature mới với tên **$1**.
 
 4. **View** (`$1View.swift`):
    - `@Bindable var store: StoreOf<$1Feature>`
-   - Body trống ban đầu, dùng token từ `KasoDesignSystem`
-   - Có `.task { await store.send(.task).finish() }`
+   - Empty initial body, using tokens from `KasoDesignSystem`
+   - Includes `.task { await store.send(.task).finish() }`
 
 5. **Test** (`$1FeatureTests.swift`):
-   - Dùng `@Test` (Swift Testing) + `TestStore`
-   - Ít nhất 1 test cho `.task`
+   - Use `@Test` (Swift Testing) + `TestStore`
+   - At least 1 test for `.task`
 
-6. Chạy `tuist generate` (hoặc `swift package generate-xcodeproj`) sau khi xong.
-7. Báo user: package đã sẵn sàng, gợi ý import vào `App` target.
+6. Run `tuist generate` (or `swift package generate-xcodeproj`) after finishing.
+7. Tell the user the package is ready and suggest importing it into the `App` target.
 
-## Kiểm tra trước khi báo done
+## Checks Before Reporting Done
 
 - File compile clean (`swift build --package-path Packages/Features/$1Feature`)
-- Tên không trùng với feature đã có (search `Packages/Features/`)
-- Đã thêm vào CLAUDE.md feature list nếu cần
+- Name does not duplicate an existing feature (search `Packages/Features/`)
+- Added to the CLAUDE.md feature list if needed
 
-## Cấm
+## Forbidden
 
-- Không tạo `ViewModel` — phải dùng Reducer
-- Không tạo file rỗng "TODO sau" — implement skeleton hoàn chỉnh
-- Không hardcode color/font — dùng `KasoDesignSystem` token
+- Do not create a `ViewModel` — must use a Reducer
+- Do not create empty "TODO later" files — implement a complete skeleton
+- Do not hardcode colors/fonts — use `KasoDesignSystem` tokens

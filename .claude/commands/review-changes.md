@@ -1,59 +1,59 @@
 ---
-description: Self-review thay đổi hiện tại theo Kaso rules trước khi commit
+description: Self-review current changes against Kaso rules before committing
 ---
 
-Review thay đổi local của Kaso theo các tiêu chí enterprise.
+Review Kaso local changes against enterprise criteria.
 
 ## Checklist
 
 ### Architecture
-- [ ] Có file Swift nào nằm sai layer? (Domain không được import Feature/Data)
-- [ ] Có ObservableObject nào mới không? → bắt buộc đổi `@Observable`
-- [ ] Có ViewModel nào mới không? → bắt buộc đổi TCA Reducer
-- [ ] Có UIKit code không cần thiết? → flag
+- [ ] Any Swift file in the wrong layer? (Domain must not import Feature/Data)
+- [ ] Any new ObservableObject? → must change to `@Observable`
+- [ ] Any new ViewModel? → must change to TCA Reducer
+- [ ] Any unnecessary UIKit code? → flag it
 
 ### Code quality
-- [ ] Có `print()` không? → đổi `Logger`
-- [ ] Có `try!` / `force unwrap`? → fix
-- [ ] Có hardcode color/font/spacing? → dùng `KasoDesignSystem` token
-- [ ] Có hardcode currency code "VND" trong UI string? → dùng formatter
+- [ ] Any `print()`? → replace with `Logger`
+- [ ] Any `try!` / `force unwrap`? → fix it
+- [ ] Any hardcoded color/font/spacing? → use `KasoDesignSystem` tokens
+- [ ] Any hardcoded currency code "VND" in UI strings? → use formatter
 
 ### Concurrency
-- [ ] `@unchecked Sendable` xuất hiện? → tìm cách remove
-- [ ] `DispatchQueue.main.async`? → đổi `await MainActor.run`
-- [ ] Reducer có capture `self` không cần thiết?
+- [ ] `@unchecked Sendable` appears? → find a way to remove it
+- [ ] `DispatchQueue.main.async`? → replace with `await MainActor.run`
+- [ ] Does a reducer capture `self` unnecessarily?
 
 ### Testing
-- [ ] Mỗi `Reducer` mới có test?
-- [ ] Mỗi `View` mới có snapshot test?
-- [ ] Coverage không drop dưới threshold?
+- [ ] Does every new `Reducer` have tests?
+- [ ] Does every new `View` have snapshot tests?
+- [ ] Does coverage stay above thresholds?
 
 ### Privacy & Security
-- [ ] Có log số tiền/tên user/SDT vào console?
-- [ ] Có gửi PII lên cloud (analytics, AI prompt)?
-- [ ] Network call có pinning?
-- [ ] Sensitive data có lưu Keychain (không UserDefaults)?
+- [ ] Any amount/user name/phone number logged to console?
+- [ ] Any PII sent to cloud (analytics, AI prompt)?
+- [ ] Do network calls have pinning?
+- [ ] Is sensitive data stored in Keychain (not UserDefaults)?
 
 ### Design & UX
-- [ ] Component mới có dark mode preview?
-- [ ] Có support Dynamic Type?
-- [ ] Animation có honor `accessibilityReduceMotion`?
-- [ ] VoiceOver label đầy đủ?
+- [ ] Do new components have dark mode previews?
+- [ ] Is Dynamic Type supported?
+- [ ] Do animations honor `accessibilityReduceMotion`?
+- [ ] Are VoiceOver labels complete?
 
 ### Localization
-- [ ] String mới có trong String Catalog?
-- [ ] Plural rules đúng cho cả tiếng Việt + Anh?
-- [ ] Format số/ngày qua `Decimal.formatted` / `Date.formatted`?
+- [ ] Are new strings in String Catalog?
+- [ ] Are plural rules correct for both Vietnamese + English?
+- [ ] Are numbers/dates formatted through `Decimal.formatted` / `Date.formatted`?
 
 ## Output
 
-Chấm điểm (0-10) cho từng nhóm, list cụ thể:
-- File:line vi phạm
+Score each group (0-10), listing specific items:
+- Violating file:line
 - Severity (blocker / major / minor)
-- Đề xuất fix
+- Suggested fix
 
-KHÔNG fix tự động — chỉ report. User quyết định.
+Do not fix automatically — report only. The user decides.
 
-## Sau review
+## After Review
 
-Nếu pass tất cả → suggest chạy `/audit` để verify CI clean.
+If everything passes → suggest running `/audit` to verify CI is clean.

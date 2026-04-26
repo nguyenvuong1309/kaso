@@ -1,12 +1,12 @@
 ---
-description: Full audit trước khi commit — lint + format + test + build clean + dead code
+description: Full pre-commit audit — lint + format + test + clean build + dead code
 ---
 
-Chạy full audit pipeline. Block commit nếu bất kỳ bước nào fail.
+Run the full audit pipeline. Block commit if any step fails.
 
 ## Pipeline
 
-Chạy tuần tự, dừng ngay khi fail:
+Run sequentially and stop immediately on failure:
 
 1. **Format check**
    ```bash
@@ -18,7 +18,7 @@ Chạy tuần tự, dừng ngay khi fail:
    swiftlint lint --quiet --strict
    ```
 
-3. **Build clean** (no warning)
+3. **Clean build** (no warnings)
    ```bash
    xcodebuild build -scheme Kaso \
      -destination 'platform=iOS Simulator,name=iPhone 16 Pro,OS=latest' \
@@ -37,17 +37,17 @@ Chạy tuần tự, dừng ngay khi fail:
    periphery scan --quiet --strict
    ```
 
-6. **Privacy manifest** — verify `PrivacyInfo.xcprivacy` exists và up-to-date với API usage
+6. **Privacy manifest** — verify `PrivacyInfo.xcprivacy` exists and is up to date with API usage
 
-7. **Bundle size check** (nếu có archive)
+7. **Bundle size check** (if an archive exists)
    ```bash
    du -sh .build/DerivedData/Build/Products/*-iphonesimulator/Kaso.app
    ```
-   Warn nếu >50MB.
+   Warn if >50MB.
 
-## Báo cáo cuối
+## Final Report
 
-| Bước | Kết quả | Thời gian |
+| Step | Result | Time |
 |------|---------|-----------|
 | Format | ✓/✗ | ?s |
 | Lint | ✓/✗ | ?s |
@@ -56,15 +56,15 @@ Chạy tuần tự, dừng ngay khi fail:
 | Dead code | ✓/✗ | ?s |
 | Privacy | ✓/✗ | ?s |
 
-## Sau khi pass
+## After Passing
 
-- Báo: "Ready to commit"
-- KHÔNG tự động commit — đợi user
-- Suggest commit message theo conventional commits
+- Report: "Ready to commit"
+- Do not commit automatically — wait for the user
+- Suggest a conventional commit message
 
-## Sau khi fail
+## After Failure
 
-- Highlight bước fail
-- Hiển thị error
-- Đề xuất fix cụ thể
-- KHÔNG suggest skip bước
+- Highlight the failed step
+- Show the error
+- Propose a specific fix
+- Do not suggest skipping the step

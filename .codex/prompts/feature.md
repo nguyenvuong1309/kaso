@@ -1,12 +1,12 @@
 ---
-description: Scaffold TCA Feature module mới dưới Packages/Features/
+description: Scaffold a new TCA Feature module under Packages/Features/
 ---
 
-Bạn được giao tạo TCA feature module mới. Tên feature lấy từ argument đầu tiên user truyền (placeholder: `$FEATURE_NAME`).
+You are tasked with creating a new TCA feature module. The feature name comes from the first user-provided argument (placeholder: `$FEATURE_NAME`).
 
-## Yêu cầu
+## Requirements
 
-Tạo cấu trúc dưới `Packages/Features/${FEATURE_NAME}Feature/`:
+Create this structure under `Packages/Features/${FEATURE_NAME}Feature/`:
 
 ```
 ${FEATURE_NAME}Feature/
@@ -15,7 +15,7 @@ ${FEATURE_NAME}Feature/
 │   └── ${FEATURE_NAME}Feature/
 │       ├── ${FEATURE_NAME}Feature.swift   (Reducer)
 │       ├── ${FEATURE_NAME}View.swift      (SwiftUI View)
-│       └── ${FEATURE_NAME}Preview.swift   (#Preview cho dev)
+│       └── ${FEATURE_NAME}Preview.swift   (#Preview for development)
 └── Tests/
     └── ${FEATURE_NAME}FeatureTests/
         ├── ${FEATURE_NAME}FeatureTests.swift
@@ -60,7 +60,7 @@ public struct ${FEATURE_NAME}Feature: Sendable {
 
 ### View
 - `@Bindable var store: StoreOf<${FEATURE_NAME}Feature>`
-- Body skeleton dùng token `KasoDesignSystem`
+- Body skeleton uses `KasoDesignSystem` tokens
 - `.task { await store.send(.task).finish() }`
 
 ### Test (Swift Testing)
@@ -82,23 +82,23 @@ struct ${FEATURE_NAME}FeatureTests {
 }
 ```
 
-## Bước thực hiện
+## Steps
 
-1. Verify tên không trùng feature đã có (`ls Packages/Features/`)
-2. Tạo thư mục + files theo template
+1. Verify the name does not duplicate an existing feature (`ls Packages/Features/`)
+2. Create directories + files from the template
 3. Build verify: `swift build --package-path Packages/Features/${FEATURE_NAME}Feature`
-4. Báo user: package sẵn sàng, gợi ý import vào `App` target
+4. Tell the user the package is ready and suggest importing it into the `App` target
 
-## Cấm
+## Forbidden
 
-- KHÔNG tạo `class ViewModel: ObservableObject`
-- KHÔNG tạo file rỗng "TODO sau" — implement skeleton hoàn chỉnh
-- KHÔNG hardcode color/font — dùng `KasoDesignSystem` token
-- KHÔNG bỏ qua test file
+- Do not create `class ViewModel: ObservableObject`
+- Do not create empty "TODO later" files — implement a complete skeleton
+- Do not hardcode colors/fonts — use `KasoDesignSystem` tokens
+- Do not skip test files
 
 ## Output
 
-Sau khi xong, in:
-- Path các file đã tạo
-- Lệnh build để user verify
-- Snippet import vào App target
+After finishing, print:
+- Paths of created files
+- Build command for user verification
+- Import snippet for the App target

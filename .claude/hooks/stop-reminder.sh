@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Khi Claude kết thúc lượt: nhắc nếu có file Swift modified mà chưa run test.
+# When Claude ends a turn: remind if Swift files are modified and tests have not run.
 
 set -euo pipefail
 
@@ -13,7 +13,7 @@ modified_swift=$(git status --porcelain 2>/dev/null | grep -E '\.(swift|metal)$'
 
 if [[ "$modified_swift" -gt 0 ]]; then
   cat <<EOF
-{"systemMessage":"⚠️  ${modified_swift} file Swift/Metal đang modified. Trước khi commit:\n  • swift test (hoặc tuist test)\n  • Snapshot test pass?\n  • Build clean không warning?"}
+{"systemMessage":"⚠️  ${modified_swift} Swift/Metal file(s) are modified. Before committing:\n  • swift test (or tuist test)\n  • Snapshot tests pass?\n  • Clean build with no warnings?"}
 EOF
 fi
 

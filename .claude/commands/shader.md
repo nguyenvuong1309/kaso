@@ -1,13 +1,13 @@
 ---
-description: Scaffold Metal shader mới với SwiftUI binding (.colorEffect / .layerEffect / MTKView)
+description: Scaffold a new Metal shader with SwiftUI binding (.colorEffect / .layerEffect / MTKView)
 argument-hint: <ShaderName> [type: color|distortion|layer|view]
 ---
 
-Tạo Metal shader mới: **$1**, type **${2:-color}**.
+Create a new Metal shader: **$1**, type **${2:-color}**.
 
 ## Layout
 
-Tạo files:
+Create files:
 ```
 Packages/DesignSystem/KasoMetalEffects/
 ├── Sources/KasoMetalEffects/
@@ -19,7 +19,7 @@ Packages/DesignSystem/KasoMetalEffects/
     └── $1SnapshotTests.swift
 ```
 
-## Template theo type
+## Template by Type
 
 ### `color` — `.colorEffect` modifier
 
@@ -60,13 +60,13 @@ public extension View {
 }
 ```
 
-### `view` — `MTKView` cho case phức tạp
+### `view` — `MTKView` for complex cases
 
-- Tạo `$1Renderer.swift` implement `MTKViewDelegate`
-- Wrap bằng `UIViewRepresentable`
-- Vertex + Fragment shader pair trong `.metal`
+- Create `$1Renderer.swift` implementing `MTKViewDelegate`
+- Wrap with `UIViewRepresentable`
+- Vertex + Fragment shader pair in `.metal`
 
-## Snapshot test (bắt buộc)
+## Snapshot Test (Required)
 
 ```swift
 import SnapshotTesting
@@ -81,17 +81,17 @@ func $1Default() throws {
 }
 ```
 
-## Quy tắc
+## Rules
 
-- DocC comment trên shader function: input/output, performance note
-- Test ít nhất 3 state: t=0, t=0.5, t=1.0
-- Compile shader bằng `xcrun metal -c` để verify trước khi commit
-- Performance target: 120fps trên iPhone 15 Pro, 60fps trên iPhone 12
+- DocC comment on the shader function: input/output, performance note
+- Test at least 3 states: t=0, t=0.5, t=1.0
+- Compile shader with `xcrun metal -c` to verify before committing
+- Performance target: 120fps on iPhone 15 Pro, 60fps on iPhone 12
 
-## Kiểm tra trước khi báo done
+## Checks Before Reporting Done
 
 - [ ] Shader compile clean
-- [ ] Modifier có `#Preview`
+- [ ] Modifier has `#Preview`
 - [ ] Snapshot test pass
-- [ ] DocC comment đầy đủ
-- [ ] Đã thử trên Reduce Motion mode (fallback hợp lý)
+- [ ] DocC comments are complete
+- [ ] Tested in Reduce Motion mode (reasonable fallback)
