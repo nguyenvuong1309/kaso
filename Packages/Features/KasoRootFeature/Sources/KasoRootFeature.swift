@@ -1,8 +1,10 @@
 import ComposableArchitecture
 import AppearanceFeature
 import AuthFeature
+import BenchmarkFeature
 import BudgetDomain
 import DebtFeature
+import FinancialAssistantFeature
 import InvestmentFeature
 import OnboardingDomain
 import OnboardingFeature
@@ -16,8 +18,10 @@ public struct KasoRootFeature: Sendable {
     public struct State: Equatable {
         public var appearance: AppearanceFeature.State
         public var auth: AuthFeature.State
+        public var benchmark: BenchmarkFeature.State
         public var onboarding: OnboardingFeature.State
         public var transaction: TransactionFeature.State
+        public var assistant: FinancialAssistantFeature.State
         public var wealth: WealthFeature.State
         public var investment: InvestmentFeature.State
         public var wellness: WellnessFeature.State
@@ -26,8 +30,10 @@ public struct KasoRootFeature: Sendable {
         public init(
             appearance: AppearanceFeature.State = AppearanceFeature.State(),
             auth: AuthFeature.State = AuthFeature.State(),
+            benchmark: BenchmarkFeature.State = BenchmarkFeature.State(),
             onboarding: OnboardingFeature.State = OnboardingFeature.State(),
             transaction: TransactionFeature.State = TransactionFeature.State(),
+            assistant: FinancialAssistantFeature.State = FinancialAssistantFeature.State(),
             wealth: WealthFeature.State = WealthFeature.State(),
             investment: InvestmentFeature.State = InvestmentFeature.State(),
             wellness: WellnessFeature.State = WellnessFeature.State(),
@@ -35,8 +41,10 @@ public struct KasoRootFeature: Sendable {
         ) {
             self.appearance = appearance
             self.auth = auth
+            self.benchmark = benchmark
             self.onboarding = onboarding
             self.transaction = transaction
+            self.assistant = assistant
             self.wealth = wealth
             self.investment = investment
             self.wellness = wellness
@@ -48,8 +56,10 @@ public struct KasoRootFeature: Sendable {
         case task
         case appearance(AppearanceFeature.Action)
         case auth(AuthFeature.Action)
+        case benchmark(BenchmarkFeature.Action)
         case onboarding(OnboardingFeature.Action)
         case transaction(TransactionFeature.Action)
+        case assistant(FinancialAssistantFeature.Action)
         case wealth(WealthFeature.Action)
         case investment(InvestmentFeature.Action)
         case wellness(WellnessFeature.Action)
@@ -67,12 +77,20 @@ public struct KasoRootFeature: Sendable {
             AuthFeature()
         }
 
+        Scope(state: \.benchmark, action: \.benchmark) {
+            BenchmarkFeature()
+        }
+
         Scope(state: \.onboarding, action: \.onboarding) {
             OnboardingFeature()
         }
 
         Scope(state: \.transaction, action: \.transaction) {
             TransactionFeature()
+        }
+
+        Scope(state: \.assistant, action: \.assistant) {
+            FinancialAssistantFeature()
         }
 
         Scope(state: \.wealth, action: \.wealth) {
@@ -102,7 +120,8 @@ public struct KasoRootFeature: Sendable {
             case let .onboarding(.profileSaved(profile)):
                 return .send(.transaction(.budgetsUpdated(Self.budgets(from: profile))))
 
-            case .appearance, .auth, .onboarding, .transaction, .wealth, .investment, .wellness, .debt:
+            case .appearance, .auth, .benchmark, .onboarding, .transaction, .assistant,
+                 .wealth, .investment, .wellness, .debt:
                 return .none
             }
         }

@@ -1,6 +1,40 @@
 {
   "sourceLanguage" : "vi",
   "strings" : {
+    "wellness.section.compatibility" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Compatibility"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hợp nhau"
+          }
+        }
+      }
+    },
+    "wellness.section.freelancer" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Freelancer"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Freelancer"
+          }
+        }
+      }
+    },
     "wellness.section.hoursOfLife" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -34,6 +68,23 @@
         }
       }
     },
+    "wellness.section.legacy" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Legacy"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Legacy"
+          }
+        }
+      }
+    },
     "wellness.section.phantomExpense" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -47,6 +98,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Suýt tiêu"
+          }
+        }
+      }
+    },
+    "wellness.section.sleepCorrelation" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sleep"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Giấc ngủ"
           }
         }
       }

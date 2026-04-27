@@ -1,7 +1,7 @@
 # Kaso Feature Tracking
 
 > Checklist theo `plan.md` để theo dõi tính năng đã làm và chưa làm.
-> Cập nhật: 2026-04-27 (chiều).
+> Cập nhật: 2026-04-27 (tối).
 
 ## Quy ước
 
@@ -26,18 +26,24 @@
 - [x] `3.2` Gợi ý cắt giảm thông minh: đã phân tích baseline chi tiêu cục bộ và đưa ra mục tiêu tiết kiệm cụ thể trên dashboard.
 - [x] `3.3` Dự báo số dư cuối tháng: đã dự báo chi tiêu/số dư dựa trên nhịp chi hiện tại và lịch sử 3 tháng.
 - [x] `3.4` Phân tích theo thời gian: đã nhận diện ngày/giờ chi tiêu cao và đột biến sau 20h trên dashboard, xử lý cục bộ không thu GPS.
+- [x] `3.5` AI chatbot tài chính cá nhân: đã có trợ lý tài chính privacy-first dạng chat, phân loại câu hỏi cục bộ, trả lời dựa trên giao dịch thật, số dư dự báo, danh mục chi nhiều và gợi ý cắt giảm; không gửi PII lên cloud AI.
 - [x] `4.1` Tạo mục tiêu tiết kiệm: đã có CRUD mục tiêu tiết kiệm, progress/status trên dashboard và persistence mã hoá.
 - [x] `4.2` Kết nối mục tiêu với chi tiêu thực: đã hiển thị tác động ngày chậm mục tiêu khi danh mục vượt ngân sách.
 - [x] `4.3` Quỹ khẩn cấp: đã gợi ý quỹ 6 tháng chi phí, coverage hiện tại và mức nên nạp hàng tháng.
 - [x] `4.4` Mô phỏng nghỉ hưu: đã mô phỏng mục tiêu tài sản, số năm tới mục tiêu và giả định lợi suất/hệ số ngay trên dashboard.
 - [x] `5.1` Báo cáo so sánh tháng/năm: đã so sánh chi tiêu tháng hiện tại và YTD với kỳ trước/cùng kỳ năm trước.
 - [x] `5.2` Xuất báo cáo PDF: đã tạo báo cáo PDF cục bộ gồm summary tháng, phân bổ danh mục, forecast, so sánh kỳ và giao dịch gần đây.
+- [x] `5.3` Benchmark ẩn danh: đã có sheet benchmark privacy-first, so sánh chi tiêu tháng hiện tại với median cohort bundled theo thành phố/tuổi/thu nhập, không upload dữ liệu cá nhân.
 - [x] `5.4` Xuất dữ liệu CSV: đã có domain exporter và ShareLink export CSV từ dashboard.
 - [x] `10.1` Theo dõi tài sản & Net worth: đã có tab tài sản ròng, nhập tài sản/khoản nợ, lưu mã hoá, breakdown và lịch sử tăng trưởng tháng.
 - [x] `10.3` Theo dõi nợ & khoản vay: đã có CRUD khoản vay, lịch trả nợ, tổng dư nợ/lãi phải trả, mô phỏng trả thêm và tự đồng bộ liability vào net worth.
 - [x] `14.2` No-spend day tracker: đã có streak, day dots, milestone chúc mừng và ước tính tiền tiết kiệm theo ngày không chi.
 - [x] `17.2` Phantom expense ledger: đã có sổ khoản suýt tiêu, tổng kết tháng, breakdown danh mục, CRUD và persistence mã hoá.
 - [x] `17.3` Hours of life converter: đã có tab Wellness gom HoursOfLifeFeature + PhantomExpenseFeature, cấu hình thu nhập thực nhận/giờ làm, calculator quy đổi và danh sách giao dịch gần đây quy ra giờ làm; fallback từ onboarding income khi chưa cấu hình; lưu mã hoá keychain.
+- [x] `18.1` Money compatibility test cho cặp đôi: đã có domain scoring 6 chiều, quiz self/partner bằng TCA, result insight, conversation starters, share card 9:16 và ghép vào tab Wellness.
+- [x] `18.2` Freelancer income smoothing: đã có domain rolling-average, quỹ đệm, tax provision, reminder, encrypted persistence, TCA dashboard và ghép vào tab Wellness.
+- [x] `18.3` Sleep × spending correlation: đã có analyzer Pearson on-device, HealthKit sleep client, privacy disclaimer, scatter/breakdown UI, period filter và ghép vào tab Wellness.
+- [x] `18.4` Digital financial legacy: đã có vault mã hoá cục bộ, Face ID/passcode auth client, CRUD tài khoản, hướng dẫn gia đình, export `.kasovault` mã hoá password và ghép vào tab Wellness.
 
 ## 1. Tính năng cốt lõi (Free tier)
 
@@ -62,7 +68,7 @@
 - [x] `3.2` Gợi ý cắt giảm thông minh 🟡 - Đã có `SpendingReductionSuggestionEngine` so sánh chi tiêu hiện tại với baseline 3 tháng và dashboard hiển thị mức có thể tiết kiệm.
 - [x] `3.3` Dự báo số dư cuối tháng 🟡 - Đã có `MonthlyBalanceForecaster` dùng nhịp chi hiện tại + lịch sử 3 tháng để dự báo chi tiêu và số dư cuối tháng.
 - [x] `3.4` Phân tích theo thời gian 🟡 - Đã có `TimeSpendingAnalyzer` nhận diện ngày/giờ chi tiêu cao và đột biến sau 20h; không thu GPS để giữ privacy mặc định.
-- [ ] `3.5` AI chatbot tài chính cá nhân 🔴
+- [x] `3.5` AI chatbot tài chính cá nhân 🔴 - Đã có `FinancialAssistantFeature` dạng sheet toàn app, engine phân loại intent on-device cho câu hỏi số dư, khả năng chi trả, danh mục chi nhiều và cắt giảm; dùng dữ liệu giao dịch cục bộ qua TCA dependency, không gọi cloud AI/không gửi PII.
 
 ## 4. Mục tiêu tài chính
 
@@ -75,7 +81,7 @@
 
 - [x] `5.1` Báo cáo so sánh tháng/năm 🟡 - Đã có `SpendingComparisonReporter` và dashboard report so sánh tháng hiện tại với tháng trước, YTD với cùng kỳ năm trước.
 - [x] `5.2` Xuất báo cáo PDF 🟡 - Đã có model report, SwiftUI PDF renderer bằng `ImageRenderer`, ShareLink export PDF từ dashboard và nội dung tạo cục bộ trên thiết bị.
-- [ ] `5.3` Benchmark ẩn danh 🟡
+- [x] `5.3` Benchmark ẩn danh 🟡 - Đã có `AnonymousBenchmarkReporter` và `BenchmarkFeature` so sánh chi tiêu theo danh mục với median cohort ẩn danh bundled/local; user chọn thành phố, nhóm tuổi, income band; không gửi transaction/PII ra server.
 - [x] `5.4` Xuất dữ liệu CSV 🟡 - Đã có `TransactionCSVExporter` domain và ShareLink export file CSV từ dashboard.
 
 ## 6. Chia sẻ & Gia đình
@@ -159,10 +165,10 @@
 
 ## 18. Ngách chuyên biệt & Wellness
 
-- [ ] `18.1` Money compatibility test cho cặp đôi 🔵
-- [ ] `18.2` Freelancer income smoothing 🟡
-- [ ] `18.3` Sleep × spending correlation 🟡
-- [ ] `18.4` Digital financial legacy 🔴
+- [x] `18.1` Money compatibility test cho cặp đôi 🔵 - Đã có `CompatibilityDomain`, `CompatibilityFeature`, quiz self/partner, score theo 6 chiều, conflict insights, conversation starters, share card và section trong tab Wellness.
+- [x] `18.2` Freelancer income smoothing 🟡 - Đã có `FreelancerDomain`, rolling-average 3/6/12 tháng, quỹ đệm, tax provision, reminder low-buffer/slow-season, `FreelancerFeature`, encrypted store và tab Wellness.
+- [x] `18.3` Sleep × spending correlation 🟡 - Đã có `SleepCorrelationDomain`, builder kết hợp sleep sample + transaction, HealthKit client, phân tích Pearson on-device, disclaimer privacy, scatter/breakdown UI và tab Wellness.
+- [x] `18.4` Digital financial legacy 🔴 - Đã có `LegacyDomain`, vault model, AES-GCM export password với PBKDF2-HMAC-SHA256, encrypted local store, biometric auth client, account/instruction UI và export `.kasovault`.
 
 ---
 
@@ -907,7 +913,7 @@ LegacyFeature
 - [x] Giai đoạn 1 - MVP: đã có onboarding cá nhân hoá, dashboard tháng, nhập giao dịch thủ công đầy đủ, phân danh mục tuỳ chỉnh, ngân sách theo danh mục, lịch sử giao dịch, chủ đề/dark mode, no-spend day tracker, hours of life converter và phantom expense ledger cơ bản — đủ scope free tier theo `plan.md` Giai đoạn 1.
 - [ ] Giai đoạn 2 - Killer feature
 - [ ] Giai đoạn 3 - Retention
-- [ ] Giai đoạn 4 - Differentiation
+- [x] Giai đoạn 4 - Differentiation: đã có money compatibility test và freelancer income smoothing MVP trong Wellness.
 - [ ] Giai đoạn 5 - Growth
 - [ ] Giai đoạn 6 - Expansion
 
@@ -919,4 +925,5 @@ LegacyFeature
 - [x] Test reducer/domain cho các module hiện có.
 - [x] Persistence giao dịch thật sự: app dùng `EncryptedTransactionStore` với file mã hoá và key trong Keychain.
 - [x] Domain foundation cho subscription detection, anomaly detection, CSV export, no-spend tracking, saving goals, investment portfolio, phantom expense ledger và hours-of-life conversion.
-- [x] Tab `Wellness` trong root composition gom `HoursOfLifeFeature` + `PhantomExpenseFeature` qua segmented picker để tránh thêm tab thứ 6.
+- [x] Tab `Wellness` trong root composition gom `HoursOfLifeFeature`, `PhantomExpenseFeature`, `CompatibilityFeature`, `FreelancerFeature`, `SleepCorrelationFeature` và `LegacyFeature` qua segmented picker để tránh thêm tab thứ 6.
+- [x] Persistence mã hoá mới cho `FreelancerProfile` và `LegacyVault`.

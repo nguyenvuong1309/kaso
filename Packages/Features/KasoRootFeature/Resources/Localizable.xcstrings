@@ -1,6 +1,38 @@
 {
   "sourceLanguage": "vi",
   "strings": {
+    "root.assistant.open": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ask assistant"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hỏi trợ lý"
+          }
+        }
+      }
+    },
+    "root.benchmark.open": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Benchmark"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Benchmark"
+          }
+        }
+      }
+    },
     "root.tab.transactions": {
       "localizations": {
         "en": {

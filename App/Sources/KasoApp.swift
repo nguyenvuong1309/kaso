@@ -1,9 +1,15 @@
 import SwiftUI
+import BenchmarkFeature
 import DebtFeature
+import FinancialAssistantFeature
+import FreelancerFeature
 import HoursOfLifeFeature
 import InvestmentFeature
 import KasoRootFeature
+import LegacyFeature
 import PersistenceKit
+import SleepCorrelationDomain
+import SleepCorrelationFeature
 
 @main
 struct KasoApp: App {
@@ -12,9 +18,11 @@ struct KasoApp: App {
     private let budgetStore = EncryptedBudgetStore()
     private let categoryStore = EncryptedTransactionCategoryStore()
     private let debtStore = EncryptedDebtStore()
+    private let freelancerProfileStore = EncryptedFreelancerProfileStore()
     private let holdingStore = EncryptedHoldingStore()
     private let priceQuoteStore = EncryptedPriceQuoteStore()
     private let targetAllocationStore = EncryptedTargetAllocationStore()
+    private let legacyVaultStore = EncryptedLegacyVaultStore()
     private let phantomExpenseStore = EncryptedPhantomExpenseStore()
     private let hoursOfLifeConfigurationStore = EncryptedHoursOfLifeConfigurationStore()
     private let assetStore = EncryptedAssetStore()
@@ -30,14 +38,22 @@ struct KasoApp: App {
             KasoRootView(
                 appearanceSettingsRepository: appearanceStore.repository(),
                 authRepository: authStore.repository(),
+                benchmarkContextClient: benchmarkContextClient,
                 budgetRepository: budgetStore.repository(),
                 categoryRepository: categoryStore.repository(),
                 debtRepository: debtStore.repository(),
                 debtLiabilitySyncClient: debtLiabilitySyncClient,
+                financialAssistantContextClient: financialAssistantContextClient,
+                freelancerProfileRepository: freelancerProfileStore.repository(),
                 holdingRepository: holdingStore.repository(),
                 priceQuoteRepository: priceQuoteStore.repository(),
                 targetAllocationRepository: targetAllocationStore.repository(),
                 investmentAssetSyncClient: investmentAssetSyncClient,
+                healthSleepClient: healthSleepClient,
+                sleepCorrelationDataClient: sleepCorrelationDataClient,
+                legacyVaultRepository: legacyVaultStore.repository(),
+                biometricAuthClient: .live,
+                legacyExportFileClient: .live,
                 phantomExpenseRepository: phantomExpenseStore.repository(),
                 hoursOfLifeConfigurationRepository: hoursOfLifeConfigurationStore.repository(),
                 hoursOfLifeContextClient: hoursOfLifeContextClient,
@@ -65,11 +81,52 @@ struct KasoApp: App {
         )
     }
 
+    private var financialAssistantContextClient: FinancialAssistantContextClient {
+        let transactionRepository = transactionStore.repository()
+        return FinancialAssistantContextClient(
+            loadTransactions: {
+                try await transactionRepository.fetchAll()
+            }
+        )
+    }
+
+    private var benchmarkContextClient: BenchmarkContextClient {
+        let transactionRepository = transactionStore.repository()
+        let onboardingRepository = onboardingStore.repository()
+        return BenchmarkContextClient(
+            loadTransactions: {
+                try await transactionRepository.fetchAll()
+            },
+            defaultMonthlyIncome: {
+                try await onboardingRepository.load()?.monthlyIncome
+            }
+        )
+    }
+
     private var debtLiabilitySyncClient: DebtLiabilitySyncClient {
         let liabilityRepository = liabilityStore.repository()
         return DebtLiabilitySyncClient(
             replaceAutoTracked: { liabilities in
                 try await liabilityRepository.replaceAutoTracked(liabilities)
+            }
+        )
+    }
+
+    private var healthSleepClient: HealthSleepClient {
+        .live
+    }
+
+    private var sleepCorrelationDataClient: SleepCorrelationDataClient {
+        let transactionRepository = transactionStore.repository()
+        let sleepClient = HealthSleepClient.live
+        return SleepCorrelationDataClient(
+            loadDataPoints: {
+                let sleepSamples = try await sleepClient.sleepSamples()
+                let transactions = try await transactionRepository.fetchAll()
+                return SleepSpendingDataBuilder.makeDataPoints(
+                    sleepSamples: sleepSamples,
+                    transactions: transactions
+                )
             }
         )
     }

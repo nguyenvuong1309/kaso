@@ -1,7 +1,11 @@
 import ComposableArchitecture
+import CompatibilityFeature
+import FreelancerFeature
 import HoursOfLifeFeature
 import KasoDesignSystem
+import LegacyFeature
 import PhantomExpenseFeature
+import SleepCorrelationFeature
 import SwiftUI
 
 public struct WellnessView: View {
@@ -36,6 +40,22 @@ public struct WellnessView: View {
             case .phantomExpense:
                 PhantomExpenseView(
                     store: store.scope(state: \.phantomExpense, action: \.phantomExpense)
+                )
+            case .compatibility:
+                CompatibilityView(
+                    store: store.scope(state: \.compatibility, action: \.compatibility)
+                )
+            case .freelancer:
+                FreelancerView(
+                    store: store.scope(state: \.freelancer, action: \.freelancer)
+                )
+            case .sleepCorrelation:
+                SleepCorrelationView(
+                    store: store.scope(state: \.sleepCorrelation, action: \.sleepCorrelation)
+                )
+            case .legacy:
+                LegacyView(
+                    store: store.scope(state: \.legacy, action: \.legacy)
                 )
             }
         }
