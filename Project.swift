@@ -54,6 +54,8 @@ let project = Project(
             entitlements: .file(path: "App/Entitlements/Kaso.entitlements"),
             dependencies: [
                 .target(name: "DebtFeature"),
+                .target(name: "HoursOfLifeFeature"),
+                .target(name: "InvestmentFeature"),
                 .target(name: "KasoRootFeature"),
                 .target(name: "PersistenceKit"),
             ],
@@ -355,6 +357,64 @@ let project = Project(
             settings: projectSettings
         ),
         .target(
+            name: "InvestmentDomain",
+            destinations: destinations,
+            product: .framework,
+            bundleId: "\(bundlePrefix).investment-domain",
+            deploymentTargets: deploymentTarget,
+            infoPlist: .default,
+            buildableFolders: [
+                "Packages/Domain/InvestmentDomain/Sources",
+            ],
+            dependencies: [
+                .target(name: "WealthDomain"),
+            ],
+            settings: projectSettings
+        ),
+        .target(
+            name: "InvestmentDomainTests",
+            destinations: destinations,
+            product: .unitTests,
+            bundleId: "\(bundlePrefix).investment-domain-tests",
+            deploymentTargets: deploymentTarget,
+            infoPlist: .default,
+            buildableFolders: [
+                "Packages/Domain/InvestmentDomain/Tests",
+            ],
+            dependencies: [
+                .target(name: "InvestmentDomain"),
+                .target(name: "WealthDomain"),
+            ],
+            settings: projectSettings
+        ),
+        .target(
+            name: "PhantomExpenseDomain",
+            destinations: destinations,
+            product: .framework,
+            bundleId: "\(bundlePrefix).phantom-expense-domain",
+            deploymentTargets: deploymentTarget,
+            infoPlist: .default,
+            buildableFolders: [
+                "Packages/Domain/PhantomExpenseDomain/Sources",
+            ],
+            settings: projectSettings
+        ),
+        .target(
+            name: "PhantomExpenseDomainTests",
+            destinations: destinations,
+            product: .unitTests,
+            bundleId: "\(bundlePrefix).phantom-expense-domain-tests",
+            deploymentTargets: deploymentTarget,
+            infoPlist: .default,
+            buildableFolders: [
+                "Packages/Domain/PhantomExpenseDomain/Tests",
+            ],
+            dependencies: [
+                .target(name: "PhantomExpenseDomain"),
+            ],
+            settings: projectSettings
+        ),
+        .target(
             name: "BudgetDomain",
             destinations: destinations,
             product: .framework,
@@ -432,10 +492,13 @@ let project = Project(
                 .target(name: "BudgetDomain"),
                 .target(name: "DebtDomain"),
                 .target(name: "GoalDomain"),
+                .target(name: "InvestmentDomain"),
                 .target(name: "KasoFoundation"),
                 .target(name: "OnboardingDomain"),
+                .target(name: "PhantomExpenseDomain"),
                 .target(name: "TransactionDomain"),
                 .target(name: "WealthDomain"),
+                .target(name: "WellnessDomain"),
             ],
             settings: projectSettings
         ),
@@ -454,9 +517,12 @@ let project = Project(
                 .target(name: "BudgetDomain"),
                 .target(name: "DebtDomain"),
                 .target(name: "GoalDomain"),
+                .target(name: "InvestmentDomain"),
                 .target(name: "PersistenceKit"),
+                .target(name: "PhantomExpenseDomain"),
                 .target(name: "TransactionDomain"),
                 .target(name: "WealthDomain"),
+                .target(name: "WellnessDomain"),
             ],
             settings: projectSettings
         ),
@@ -584,12 +650,19 @@ let project = Project(
                 .target(name: "BudgetDomain"),
                 .target(name: "DebtFeature"),
                 .target(name: "GoalDomain"),
+                .target(name: "HoursOfLifeFeature"),
+                .target(name: "InvestmentDomain"),
+                .target(name: "InvestmentFeature"),
                 .target(name: "OnboardingDomain"),
                 .target(name: "OnboardingFeature"),
+                .target(name: "PhantomExpenseDomain"),
+                .target(name: "PhantomExpenseFeature"),
                 .target(name: "TransactionDomain"),
                 .target(name: "TransactionFeature"),
                 .target(name: "WealthDomain"),
                 .target(name: "WealthFeature"),
+                .target(name: "WellnessDomain"),
+                .target(name: "WellnessFeature"),
                 .package(product: "ComposableArchitecture"),
             ],
             settings: projectSettings
@@ -692,6 +765,78 @@ let project = Project(
             settings: projectSettings
         ),
         .target(
+            name: "InvestmentFeature",
+            destinations: destinations,
+            product: .staticFramework,
+            bundleId: "\(bundlePrefix).investment-feature",
+            deploymentTargets: deploymentTarget,
+            infoPlist: .default,
+            buildableFolders: [
+                "Packages/Features/InvestmentFeature/Sources",
+                "Packages/Features/InvestmentFeature/Resources",
+            ],
+            dependencies: [
+                .target(name: "InvestmentDomain"),
+                .target(name: "KasoDesignSystem"),
+                .target(name: "WealthDomain"),
+                .package(product: "ComposableArchitecture"),
+            ],
+            settings: projectSettings
+        ),
+        .target(
+            name: "InvestmentFeatureTests",
+            destinations: destinations,
+            product: .unitTests,
+            bundleId: "\(bundlePrefix).investment-feature-tests",
+            deploymentTargets: deploymentTarget,
+            infoPlist: .default,
+            buildableFolders: [
+                "Packages/Features/InvestmentFeature/Tests",
+            ],
+            dependencies: [
+                .target(name: "InvestmentDomain"),
+                .target(name: "InvestmentFeature"),
+                .target(name: "WealthDomain"),
+                .package(product: "ComposableArchitecture"),
+            ],
+            settings: projectSettings
+        ),
+        .target(
+            name: "PhantomExpenseFeature",
+            destinations: destinations,
+            product: .staticFramework,
+            bundleId: "\(bundlePrefix).phantom-expense-feature",
+            deploymentTargets: deploymentTarget,
+            infoPlist: .default,
+            buildableFolders: [
+                "Packages/Features/PhantomExpenseFeature/Sources",
+                "Packages/Features/PhantomExpenseFeature/Resources",
+            ],
+            dependencies: [
+                .target(name: "KasoDesignSystem"),
+                .target(name: "PhantomExpenseDomain"),
+                .package(product: "ComposableArchitecture"),
+            ],
+            settings: projectSettings
+        ),
+        .target(
+            name: "PhantomExpenseFeatureTests",
+            destinations: destinations,
+            product: .unitTests,
+            bundleId: "\(bundlePrefix).phantom-expense-feature-tests",
+            deploymentTargets: deploymentTarget,
+            infoPlist: .default,
+            buildableFolders: [
+                "Packages/Features/PhantomExpenseFeature/Tests",
+            ],
+            dependencies: [
+                .target(name: "PhantomExpenseDomain"),
+                .target(name: "PhantomExpenseFeature"),
+                .package(product: "ComposableArchitecture"),
+            ],
+            settings: projectSettings
+        ),
+        .target(
             name: "WealthFeature",
             destinations: destinations,
             product: .staticFramework,
@@ -721,6 +866,80 @@ let project = Project(
             ],
             dependencies: [
                 .target(name: "WealthFeature"),
+                .package(product: "ComposableArchitecture"),
+            ],
+            settings: projectSettings
+        ),
+        .target(
+            name: "HoursOfLifeFeature",
+            destinations: destinations,
+            product: .staticFramework,
+            bundleId: "\(bundlePrefix).hours-of-life-feature",
+            deploymentTargets: deploymentTarget,
+            infoPlist: .default,
+            buildableFolders: [
+                "Packages/Features/HoursOfLifeFeature/Sources",
+                "Packages/Features/HoursOfLifeFeature/Resources",
+            ],
+            dependencies: [
+                .target(name: "KasoDesignSystem"),
+                .target(name: "TransactionDomain"),
+                .target(name: "WellnessDomain"),
+                .package(product: "ComposableArchitecture"),
+            ],
+            settings: projectSettings
+        ),
+        .target(
+            name: "HoursOfLifeFeatureTests",
+            destinations: destinations,
+            product: .unitTests,
+            bundleId: "\(bundlePrefix).hours-of-life-feature-tests",
+            deploymentTargets: deploymentTarget,
+            infoPlist: .default,
+            buildableFolders: [
+                "Packages/Features/HoursOfLifeFeature/Tests",
+            ],
+            dependencies: [
+                .target(name: "HoursOfLifeFeature"),
+                .target(name: "TransactionDomain"),
+                .target(name: "WellnessDomain"),
+                .package(product: "ComposableArchitecture"),
+            ],
+            settings: projectSettings
+        ),
+        .target(
+            name: "WellnessFeature",
+            destinations: destinations,
+            product: .staticFramework,
+            bundleId: "\(bundlePrefix).wellness-feature",
+            deploymentTargets: deploymentTarget,
+            infoPlist: .default,
+            buildableFolders: [
+                "Packages/Features/WellnessFeature/Sources",
+                "Packages/Features/WellnessFeature/Resources",
+            ],
+            dependencies: [
+                .target(name: "HoursOfLifeFeature"),
+                .target(name: "KasoDesignSystem"),
+                .target(name: "PhantomExpenseFeature"),
+                .package(product: "ComposableArchitecture"),
+            ],
+            settings: projectSettings
+        ),
+        .target(
+            name: "WellnessFeatureTests",
+            destinations: destinations,
+            product: .unitTests,
+            bundleId: "\(bundlePrefix).wellness-feature-tests",
+            deploymentTargets: deploymentTarget,
+            infoPlist: .default,
+            buildableFolders: [
+                "Packages/Features/WellnessFeature/Tests",
+            ],
+            dependencies: [
+                .target(name: "HoursOfLifeFeature"),
+                .target(name: "PhantomExpenseFeature"),
+                .target(name: "WellnessFeature"),
                 .package(product: "ComposableArchitecture"),
             ],
             settings: projectSettings

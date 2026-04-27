@@ -33,6 +33,38 @@
         }
       }
     },
+    "root.tab.investments": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Investments"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đầu tư"
+          }
+        }
+      }
+    },
+    "root.tab.wellness": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wellness"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đời sống"
+          }
+        }
+      }
+    },
     "root.tab.wealth": {
       "localizations": {
         "en": {

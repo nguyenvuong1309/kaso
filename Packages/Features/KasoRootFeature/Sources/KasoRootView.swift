@@ -8,12 +8,19 @@ import BudgetDomain
 import DebtDomain
 import DebtFeature
 import GoalDomain
+import HoursOfLifeFeature
+import InvestmentDomain
+import InvestmentFeature
 import OnboardingDomain
 import OnboardingFeature
+import PhantomExpenseDomain
+import PhantomExpenseFeature
 import TransactionDomain
 import TransactionFeature
 import WealthDomain
 import WealthFeature
+import WellnessDomain
+import WellnessFeature
 
 public struct KasoRootView: View {
     @Bindable private var store: StoreOf<KasoRootFeature>
@@ -25,6 +32,13 @@ public struct KasoRootView: View {
         categoryRepository: TransactionCategoryRepository = .empty,
         debtRepository: DebtRepository = .empty,
         debtLiabilitySyncClient: DebtLiabilitySyncClient = .empty,
+        holdingRepository: HoldingRepository = .empty,
+        priceQuoteRepository: PriceQuoteRepository = .empty,
+        targetAllocationRepository: TargetAllocationRepository = .empty,
+        investmentAssetSyncClient: InvestmentAssetSyncClient = .empty,
+        phantomExpenseRepository: PhantomExpenseRepository = .empty,
+        hoursOfLifeConfigurationRepository: HoursOfLifeConfigurationRepository = .empty,
+        hoursOfLifeContextClient: HoursOfLifeContextClient = .empty,
         assetRepository: AssetRepository = .empty,
         liabilityRepository: LiabilityRepository = .empty,
         netWorthSnapshotRepository: NetWorthSnapshotRepository = .empty,
@@ -42,6 +56,13 @@ public struct KasoRootView: View {
             $0.transactionCategoryRepository = categoryRepository
             $0.debtRepository = debtRepository
             $0.debtLiabilitySyncClient = debtLiabilitySyncClient
+            $0.holdingRepository = holdingRepository
+            $0.priceQuoteRepository = priceQuoteRepository
+            $0.targetAllocationRepository = targetAllocationRepository
+            $0.investmentAssetSyncClient = investmentAssetSyncClient
+            $0.phantomExpenseRepository = phantomExpenseRepository
+            $0.hoursOfLifeConfigurationRepository = hoursOfLifeConfigurationRepository
+            $0.hoursOfLifeContextClient = hoursOfLifeContextClient
             $0.assetRepository = assetRepository
             $0.liabilityRepository = liabilityRepository
             $0.netWorthSnapshotRepository = netWorthSnapshotRepository
@@ -98,6 +119,34 @@ public struct KasoRootView: View {
                             Text("root.tab.wealth", bundle: .module)
                         } icon: {
                             Image(systemName: "chart.pie")
+                        }
+                    }
+
+                    InvestmentView(
+                        store: store.scope(
+                            state: \.investment,
+                            action: \.investment
+                        )
+                    )
+                    .tabItem {
+                        Label {
+                            Text("root.tab.investments", bundle: .module)
+                        } icon: {
+                            Image(systemName: "chart.line.uptrend.xyaxis")
+                        }
+                    }
+
+                    WellnessView(
+                        store: store.scope(
+                            state: \.wellness,
+                            action: \.wellness
+                        )
+                    )
+                    .tabItem {
+                        Label {
+                            Text("root.tab.wellness", bundle: .module)
+                        } icon: {
+                            Image(systemName: "sparkles")
                         }
                     }
 

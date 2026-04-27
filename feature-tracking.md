@@ -1,7 +1,7 @@
 # Kaso Feature Tracking
 
 > Checklist theo `plan.md` để theo dõi tính năng đã làm và chưa làm.
-> Cập nhật: 2026-04-26.
+> Cập nhật: 2026-04-27 (chiều).
 
 ## Quy ước
 
@@ -36,6 +36,8 @@
 - [x] `10.1` Theo dõi tài sản & Net worth: đã có tab tài sản ròng, nhập tài sản/khoản nợ, lưu mã hoá, breakdown và lịch sử tăng trưởng tháng.
 - [x] `10.3` Theo dõi nợ & khoản vay: đã có CRUD khoản vay, lịch trả nợ, tổng dư nợ/lãi phải trả, mô phỏng trả thêm và tự đồng bộ liability vào net worth.
 - [x] `14.2` No-spend day tracker: đã có streak, day dots, milestone chúc mừng và ước tính tiền tiết kiệm theo ngày không chi.
+- [x] `17.2` Phantom expense ledger: đã có sổ khoản suýt tiêu, tổng kết tháng, breakdown danh mục, CRUD và persistence mã hoá.
+- [x] `17.3` Hours of life converter: đã có tab Wellness gom HoursOfLifeFeature + PhantomExpenseFeature, cấu hình thu nhập thực nhận/giờ làm, calculator quy đổi và danh sách giao dịch gần đây quy ra giờ làm; fallback từ onboarding income khi chưa cấu hình; lưu mã hoá keychain.
 
 ## 1. Tính năng cốt lõi (Free tier)
 
@@ -106,7 +108,7 @@
 ## 10. Đầu tư & Tài sản
 
 - [x] `10.1` Theo dõi tài sản & Net worth 🟡 - Đã có `WealthDomain`, `WealthFeature`, encrypted stores cho asset/liability/snapshot, tab tài sản ròng, CRUD tài sản/khoản nợ, breakdown theo loại và lịch sử net worth 6 tháng.
-- [ ] `10.2` Danh mục đầu tư 🔴
+- [ ] `10.2` Danh mục đầu tư 🔴 - Một phần: đã có `InvestmentDomain`, tab đầu tư TCA, nhập holdings/giá hiện tại thủ công, tính lãi/lỗ, phân bổ, gợi ý tái cân bằng, lưu mã hoá và đồng bộ asset auto-tracked sang net worth; thiếu market-price provider tự động có certificate pinning.
 - [x] `10.3` Theo dõi nợ & khoản vay 🟡 - Đã có `DebtDomain`, `DebtFeature`, encrypted debt store, CRUD khoản vay, amortization schedule, tổng lãi/khoản trả hàng tháng, mô phỏng trả thêm và sync auto-tracked liability vào net worth.
 
 ## 11. UX & Tiện lợi
@@ -151,8 +153,8 @@
 ## 17. Tâm lý mở rộng
 
 - [ ] `17.1` Cooling-off period cho mua bốc đồng 🟡
-- [ ] `17.2` Phantom expense ledger 🟢
-- [ ] `17.3` Hours of life converter 🟢 - Một phần: đã có `WellnessDomain` quy đổi số tiền sang giờ/phút làm việc; thiếu UI và cấu hình thu nhập/giờ làm.
+- [x] `17.2` Phantom expense ledger 🟢 - Đã có sổ khoản suýt tiêu, tổng tiền tránh chi trong tháng, breakdown theo nhóm, thêm/sửa/xoá và lưu mã hoá.
+- [x] `17.3` Hours of life converter 🟢 - Đã có `HoursOfLifeFeature` TCA, tab Wellness mới, cấu hình thu nhập thực nhận và giờ làm trung bình/tháng (lưu mã hoá keychain), fallback từ onboarding income, calculator quy đổi nhanh và danh sách giao dịch gần đây quy ra giờ/phút làm việc.
 - [ ] `17.4` Money therapist mode 🟡
 
 ## 18. Ngách chuyên biệt & Wellness
@@ -161,6 +163,737 @@
 - [ ] `18.2` Freelancer income smoothing 🟡
 - [ ] `18.3` Sleep × spending correlation 🟡
 - [ ] `18.4` Digital financial legacy 🔴
+
+---
+
+## Kế hoạch chi tiết: Nhóm 18 — Ngách chuyên biệt & Wellness
+
+> Cập nhật: 2026-04-27. Phân tích chi tiết từng tính năng, bao gồm domain model, TCA structure, view components, animation/transition và lộ trình triển khai.
+
+### Tổng quan nhóm
+
+| # | Tính năng | Tier | Phase | Độ phức tạp | Viral potential |
+|---|---|---|---|---|---|
+| 18.1 | Money compatibility test | 🔵 Family | Phase 5 | Trung bình | ⭐⭐⭐⭐⭐ |
+| 18.2 | Freelancer income smoothing | 🟡 Pro | Phase 4 | Cao | ⭐⭐⭐ |
+| 18.3 | Sleep × spending correlation | 🟡 Pro | Phase 6 | Cao | ⭐⭐⭐⭐ |
+| 18.4 | Digital financial legacy | 🔴 Pro | Phase 6+ | Rất cao | ⭐⭐ |
+
+---
+
+### 18.1 Money Compatibility Test cho cặp đôi 🔵
+
+#### Mục tiêu sản phẩm
+Viral driver tự nhiên: một người có lý do mời partner cùng làm test trước khi bật Family account. Test phân tích 6 chiều xung đột tiền bạc phổ biến trong cặp đôi. Kết quả được thiết kế để dễ share lên Instagram Story.
+
+#### Domain model (`Packages/Domain/CompatibilityDomain/`)
+
+```
+CompatibilityQuestion
+├── id: UUID
+├── dimension: CompatibilityDimension   // 6 chiều
+├── text: String
+├── options: [CompatibilityOption]      // 4 lựa chọn, có weight
+└── weight: Double                      // trọng số trong tổng điểm
+
+CompatibilityDimension (enum)
+├── spendingStyle      // tiết kiệm vs chi tiêu tự do
+├── riskTolerance      // chịu rủi ro đầu tư
+├── debtAttitude       // quan điểm về nợ
+├── splittingApproach  // chia tiền trong mối quan hệ
+├── familySupport      // hỗ trợ gia đình hai bên
+└── futureGoals        // ưu tiên dài hạn
+
+CompatibilityAnswer
+├── questionId: UUID
+├── selectedOptionIndex: Int
+└── respondent: Respondent              // .self | .partner
+
+CompatibilityResult
+├── overallScore: Double                // 0–100
+├── dimensionScores: [CompatibilityDimension: Double]
+├── compatibilityType: CompatibilityType
+├── highlightedConflicts: [ConflictInsight]
+├── conversationStarters: [String]
+└── generatedAt: Date
+
+CompatibilityType (enum)
+├── perfectMatch       // 85–100
+├── strongFoundation   // 70–84
+├── workInProgress     // 50–69
+├── oppositesAttract   // 30–49
+└── needsAlignment     // 0–29
+```
+
+#### TCA Feature structure (`Packages/Features/CompatibilityFeature/`)
+
+```
+CompatibilityFeature
+├── State
+│   ├── phase: Phase         // .intro | .selfQuiz | .partnerQuiz | .result | .share
+│   ├── questions: [CompatibilityQuestion]
+│   ├── selfAnswers: [CompatibilityAnswer]
+│   ├── partnerAnswers: [CompatibilityAnswer]
+│   ├── currentQuestionIndex: Int
+│   ├── result: CompatibilityResult?
+│   ├── isAnimatingReveal: Bool
+│   └── shareImage: CGImage?
+│
+├── Action
+│   ├── startSelfQuiz
+│   ├── answerQuestion(questionId: UUID, optionIndex: Int)
+│   ├── nextQuestion
+│   ├── switchToPartnerQuiz
+│   ├── calculateResult
+│   ├── resultCalculated(CompatibilityResult)
+│   ├── triggerRevealAnimation
+│   ├── generateShareImage
+│   └── shareImageGenerated(CGImage)
+│
+└── Reducer
+    ├── answerQuestion → cập nhật selfAnswers/partnerAnswers theo phase
+    ├── calculateResult → CompatibilityCalculator.calculate(self:partner:)
+    └── generateShareImage → ImageRenderer render CompatibilityShareCard
+```
+
+#### View components
+
+```
+CompatibilityView (root)
+├── CompatibilityIntroView
+│   └── illustration + "Bắt đầu" CTA
+│
+├── CompatibilityQuizView
+│   ├── QuizProgressBar          // animated step indicator
+│   ├── QuizQuestionCard         // câu hỏi với card flip transition
+│   └── QuizOptionRow × 4       // tap → scale bounce + check mark
+│
+├── CompatibilityTransitionView  // "Giờ đến lượt partner" separator
+│
+├── CompatibilityResultView
+│   ├── CompatibilityScoreRing   // Metal circular gauge animated
+│   ├── DimensionRadarChart      // Metal radar chart 6 chiều
+│   ├── ConflictInsightList      // accordion expand/collapse
+│   └── ConversationStarterCards // horizontal scroll
+│
+└── CompatibilityShareCard       // off-screen render → CGImage
+    ├── score badge
+    ├── radar mini chart
+    └── Kaso branding
+```
+
+#### Animation & Transition chi tiết
+
+**A. Quiz card flip (câu hỏi mới)**
+- SwiftUI `.rotation3DEffect` + `.opacity`
+- Khi chuyển câu: card cũ flip 90° ra → card mới flip 90° vào
+- Duration: 0.35s, easing: `.easeInOut`
+- Reduce Motion fallback: `.opacity` fade 0.2s
+
+```swift
+// CardFlipModifier
+struct CardFlipModifier: ViewModifier {
+    let isFlipped: Bool
+    func body(content: Content) -> some View {
+        content
+            .rotation3DEffect(.degrees(isFlipped ? 90 : 0), axis: (x: 0, y: 1, z: 0))
+            .animation(.easeInOut(duration: 0.35), value: isFlipped)
+    }
+}
+```
+
+**B. Option row selection (chọn đáp án)**
+- Scale: 1.0 → 1.04 → 1.0 (spring, stiffness 400, damping 15)
+- Background fill animate từ `surface` → `accent` trong 0.2s
+- Check mark: scale 0 → 1 với `.bouncy` spring
+- Haptic: `.selectionChanged` ngay khi tap
+
+**C. Progress bar (bước tiến quiz)**
+- Capsule fill animate với `.spring(response: 0.5)`
+- Step dots: chấm active scale 1.0 → 1.3 với bounce
+
+**D. Transition Self → Partner quiz**
+- Full-screen overlay slide up từ bottom
+- Background blur `.ultraThinMaterial` fade in
+- Avatar/name của partner animate in với delay cascade
+- Duration: 0.45s, `.spring(dampingFraction: 0.8)`
+
+**E. Result reveal (Metal shader)**
+
+File: `Packages/Features/CompatibilityFeature/Sources/Shaders/compatibility_reveal.metal`
+
+```metal
+// Ripple reveal từ tâm màn hình ra ngoài
+[[ stitchable ]] half4 compatibilityReveal(
+    float2 position,
+    SwiftUI::Layer layer,
+    float time,
+    float2 center
+) {
+    float dist = distance(position, center);
+    float wave = smoothstep(time * 1.5 - 0.3, time * 1.5, dist / 600.0);
+    half4 color = layer.sample(position);
+    return mix(half4(0, 0, 0, 0), color, 1.0 - wave);
+}
+```
+
+- Timeline: 0s score ring, 0.3s radar chart, 0.8s conflicts list stagger in
+- Score ring: stroke draw animate từ 0 → target angle (Metal circular path)
+- Số score: count-up từ 0 → final (`withAnimation(.linear(duration: 1.2))`)
+
+**F. Radar chart (Metal)**
+
+File: `Packages/Features/CompatibilityFeature/Sources/Shaders/radar_chart.metal`
+
+- Vẽ 2 polygon: self (xanh) vs partner (cam), blend overlay
+- Animate: scale từ 0 → 1 theo từng axis với stagger 0.1s mỗi axis
+- Input uniforms: 6 điểm self[], 6 điểm partner[], animationProgress (0→1)
+- SwiftUI `TimelineView` feed `animationProgress` vào Metal uniform
+- Reduce Motion: static polygon, bỏ animate
+
+**G. Share card generation**
+- `ImageRenderer` render `CompatibilityShareCard` off-screen
+- Resolution: 1080×1920 (9:16 Story ratio), scale 3×
+- Gradient nền dựa theo `CompatibilityType` (mỗi type 1 màu đặc trưng)
+- `ShareLink` với `.compatibilityResult` activity type
+
+#### Tests
+
+```swift
+// CompatibilityDomainTests
+@Test("perfect match scores 85–100 khi tất cả answer giống nhau")
+@Test("opposites attract khi 5/6 dimension ngược chiều hoàn toàn")
+@Test("conflict highlights chỉ xuất hiện cho dimension score < 40")
+@Test("conversationStarters không rỗng với mọi CompatibilityType")
+
+// CompatibilityFeatureTests (TestStore)
+@Test("answerQuestion cập nhật đúng selfAnswers khi phase == .selfQuiz")
+@Test("calculateResult gửi đúng Action.resultCalculated")
+@Test("phase chuyển sang .partnerQuiz sau khi tất cả câu self done")
+```
+
+#### Snapshot tests
+- `CompatibilityQuizView` — light/dark/DT XL
+- `CompatibilityResultView` mỗi `CompatibilityType` × light/dark
+- `CompatibilityShareCard` × 5 type
+
+---
+
+### 18.2 Freelancer Income Smoothing 🟡
+
+#### Mục tiêu sản phẩm
+Giải quyết pain point của freelancer, tài xế công nghệ, seller online: thu nhập lên xuống bất thường khiến không biết mình "giàu" hay "nghèo" tháng này. App tính "lương ảo" ổn định, quản lý quỹ đệm và nhắc các khoản chi phí freelancer hay quên.
+
+#### Domain model (`Packages/Domain/FreelancerDomain/`)
+
+```
+FreelancerProfile
+├── id: UUID
+├── monthlyIncomes: [MonthlyIncome]     // lịch sử thu nhập thực
+├── smoothingWindowMonths: Int          // rolling average window (3/6/12)
+├── bufferTargetMultiplier: Double      // tháng buffer muốn giữ (1.5–3.0)
+├── workType: WorkType                  // .freelancer | .gigDriver | .onlineSeller | .other
+└── taxRate: Double?                    // % thuế TNCN ước tính
+
+MonthlyIncome
+├── month: YearMonth
+├── grossAmount: Decimal
+├── deductions: [IncomeDeduction]       // thuế, chi phí kinh doanh
+└── netAmount: Decimal
+
+FreelancerSmoothedView
+├── smoothedMonthlyIncome: Decimal      // rolling average sau deduction
+├── bufferBalance: Decimal             // quỹ đệm hiện có
+├── bufferTarget: Decimal              // mục tiêu quỹ đệm
+├── bufferCoverage: Double             // tháng có thể cover
+├── currentMonthSurplus: Decimal       // thu thực - smoothed = vào buffer
+├── currentMonthDeficit: Decimal       // tháng thấp điểm: rút buffer
+└── taxProvision: Decimal              // dự phòng thuế hàng tháng
+
+FreelancerReminder (enum)
+├── taxDeadline(amount: Decimal, dueDate: Date)
+├── insuranceRenewal(provider: String, dueDate: Date)
+├── lowBuffer(monthsCovered: Double)
+└── slowSeasonAlert(historicalPattern: String)
+```
+
+#### TCA Feature structure (`Packages/Features/FreelancerFeature/`)
+
+```
+FreelancerFeature
+├── State
+│   ├── profile: FreelancerProfile?
+│   ├── smoothedView: FreelancerSmoothedView?
+│   ├── incomeHistory: [MonthlyIncome]
+│   ├── reminders: [FreelancerReminder]
+│   ├── isEditingProfile: Bool
+│   ├── isAddingIncome: Bool
+│   └── selectedWindow: SmoothingWindow  // .threeMonths | .sixMonths | .twelveMonths
+│
+├── Action
+│   ├── task
+│   ├── profileLoaded(FreelancerProfile?)
+│   ├── addIncome(MonthlyIncome)
+│   ├── incomeSaved
+│   ├── changeSmootingWindow(SmoothingWindow)
+│   ├── viewComputed(FreelancerSmoothedView)
+│   └── remindersTapped(FreelancerReminder)
+│
+└── Dependency: FreelancerRepository
+    ├── loadProfile: () async throws -> FreelancerProfile?
+    ├── saveIncome: (MonthlyIncome) async throws -> Void
+    └── computeSmoothedView: (FreelancerProfile, SmoothingWindow) -> FreelancerSmoothedView
+```
+
+#### View components
+
+```
+FreelancerDashboardView
+├── SmoothedIncomeCard
+│   ├── "Lương ảo tháng này" header
+│   ├── số tiền lớn (animated count-up khi load)
+│   └── so sánh với tháng thực + delta badge
+│
+├── BufferStatusCard
+│   ├── BufferLiquidGauge       // Metal liquid fill animation
+│   ├── "X tháng coverage" label
+│   └── surplus/deficit indicator
+│
+├── IncomeHistoryChart           // bar chart 12 tháng + smoothed line overlay
+│   └── Metal bar + line composite chart
+│
+├── SmoothingWindowPicker        // segment control 3M / 6M / 12M
+│
+├── FreelancerReminderList       // reminders theo priority
+│
+└── AddIncomeSheet
+    ├── month picker
+    ├── gross amount field
+    └── deduction entries (tax, business costs)
+```
+
+#### Animation & Transition chi tiết
+
+**A. Buffer liquid gauge (Metal shader — MTKView)**
+
+File: `Packages/Features/FreelancerFeature/Sources/Shaders/liquid_gauge.metal`
+
+```metal
+// Sóng nước trong hình tròn, fill theo bufferCoverage
+[[ stitchable ]] half4 liquidGauge(
+    float2 position,
+    SwiftUI::Layer layer,
+    float time,
+    float fillLevel,    // 0.0 → 1.0
+    float2 size
+) {
+    float2 uv = position / size;
+    float wave = sin(uv.x * 8.0 + time * 2.0) * 0.02
+               + cos(uv.x * 5.0 + time * 3.1) * 0.01;
+    float threshold = 1.0 - fillLevel + wave;
+    float alpha = smoothstep(threshold + 0.01, threshold - 0.01, uv.y);
+    // xanh lá: đủ buffer, vàng: cảnh báo, đỏ: nguy hiểm
+    half4 fillColor = fillLevel > 0.5
+        ? half4(0.2, 0.8, 0.4, 1.0)
+        : fillLevel > 0.25
+            ? half4(1.0, 0.75, 0.1, 1.0)
+            : half4(0.9, 0.25, 0.2, 1.0);
+    return mix(half4(0,0,0,0), fillColor, alpha);
+}
+```
+
+- `MTKView` cho animation real-time 60fps
+- Reduce Motion: static capsule progress bar thay thế
+
+**B. Income history chart (Metal)**
+
+File: `Packages/Features/FreelancerFeature/Sources/Shaders/income_chart.metal`
+
+- 12 bar vẽ Metal, animate grow từ bottom lên khi appear
+- Stagger 0.05s mỗi bar (`i * 0.05s` delay)
+- Smoothed line: cubic Bézier path, stroke animate trái → phải
+- Khi chuyển smoothing window: bars animate cross-fade 0.4s ease
+
+**C. Smoothing window transition**
+- Segment control change → bar chart cross-fade + line redraw 0.4s
+- "Lương ảo" count-up/count-down đến giá trị mới
+
+**D. Add income sheet**
+- Amount field: tự động format VND khi nhập
+- Save: sheet dismiss + bar mới animate grow vào chart
+- Haptic: `.notificationOccurred(.success)`
+
+#### Tests
+
+```swift
+// FreelancerDomainTests
+@Test("smoothedIncome là average đúng khi window = 3 tháng")
+@Test("bufferCoverage = bufferBalance / smoothedMonthlyIncome")
+@Test("surplus = grossNet - smoothedIncome, không âm")
+@Test("deficit chỉ xảy ra khi tháng thực thấp hơn smoothed")
+@Test("taxProvision = netIncome * taxRate / 12")
+
+// FreelancerFeatureTests
+@Test("changeSmootingWindow recompute SmoothedView ngay lập tức")
+@Test("addIncome append vào incomeHistory và trigger recompute")
+```
+
+---
+
+### 18.3 Sleep × Spending Correlation 🟡
+
+#### Mục tiêu sản phẩm
+"Wow feature" — kết nối HealthKit sleep data với transaction history để tìm correlation cá nhân. Privacy-first: toàn bộ phân tích on-device. Hiển thị insight chỉ khi có đủ dữ liệu (≥ 21 ngày).
+
+#### Domain model (`Packages/Domain/SleepCorrelationDomain/`)
+
+```
+SleepSpendingDataPoint
+├── date: Date
+├── sleepHours: Double          // từ HKCategoryValueSleepAnalysis
+├── sleepQuality: SleepQuality  // .poor(<6h) | .fair(6-7h) | .good(7-9h)
+├── totalSpending: Decimal
+├── transactionCount: Int
+└── categories: [CategorySpending]
+
+SleepCorrelationInsight
+├── correlationCoefficient: Double  // Pearson -1 → 1
+├── significance: StatisticalSignificance  // .insufficient | .weak | .moderate | .strong
+├── pattern: SpendingPattern?
+├── dataPointCount: Int
+├── insights: [String]
+└── disclaimer: String              // luôn hiển thị, không thể tắt
+
+SpendingPattern (enum)
+├── moreSleepLessSpending(avgDiff: Decimal)
+├── lessSleepMoreSpending(avgDiff: Decimal)
+├── lessSleepMoreImpulse(categories: [TransactionCategory])
+└── noSignificantPattern
+
+SleepCorrelationPeriod
+├── all
+├── lastThirtyDays
+└── lastNinetyDays
+```
+
+#### TCA Feature structure (`Packages/Features/SleepCorrelationFeature/`)
+
+```
+SleepCorrelationFeature
+├── State
+│   ├── healthKitAuthStatus: HKAuthorizationStatus
+│   ├── dataPoints: [SleepSpendingDataPoint]
+│   ├── insight: SleepCorrelationInsight?
+│   ├── selectedPeriod: SleepCorrelationPeriod
+│   ├── isLoading: Bool
+│   └── isInsightExpanded: Bool
+│
+├── Action
+│   ├── task
+│   ├── requestHealthKitPermission
+│   ├── healthKitPermissionResponse(Bool)
+│   ├── dataLoaded([SleepSpendingDataPoint])
+│   ├── insightComputed(SleepCorrelationInsight)
+│   ├── changePeriod(SleepCorrelationPeriod)
+│   └── expandInsight
+│
+└── Dependency
+    ├── HealthKitClient: requestSleepData, requestAuthorization
+    └── SleepCorrelationAnalyzer: compute(dataPoints:) -> SleepCorrelationInsight
+```
+
+#### View components
+
+```
+SleepCorrelationView
+├── HealthKitPermissionBanner    // nếu chưa cấp quyền
+│
+├── SleepScatterPlotView         // Metal scatter plot chính
+│   ├── trục X: giờ ngủ (4–10h)
+│   ├── trục Y: tổng chi tiêu ngày hôm sau
+│   ├── mỗi dot = 1 ngày (size theo transactionCount)
+│   └── regression line overlay (nếu có significant correlation)
+│
+├── CorrelationInsightCard
+│   ├── CorrelationStrengthBadge  // chip màu theo strength
+│   ├── insight text
+│   └── disclaimer footer (always visible)
+│
+├── SleepQualityBreakdown         // 3 cột: poor/fair/good × avg spending
+│
+├── PeriodPicker                  // 30 ngày / 90 ngày
+│
+└── InsufficientDataView          // khi < 21 data points
+    └── "Cần thêm X ngày dữ liệu" progress indicator
+```
+
+#### Animation & Transition chi tiết
+
+**A. Scatter plot (Metal shader + MTKView)**
+
+File: `Packages/Features/SleepCorrelationFeature/Sources/Shaders/scatter_plot.metal`
+
+```metal
+// Render N dots, mỗi dot glow theo spending amount
+// Dots spawn từ origin với stagger, float vào vị trí đúng
+[[ stitchable ]] half4 scatterDot(
+    float2 position,
+    float2 dotCenter,
+    float radius,
+    float glowRadius,
+    half4 color,
+    float animationProgress
+) {
+    float dist = distance(position, dotCenter);
+    float scale = animationProgress;
+    float filled = smoothstep(radius * scale, radius * scale - 1.0, dist);
+    float glow = smoothstep(glowRadius * scale, radius * scale, dist) * 0.3;
+    return color * (filled + glow);
+}
+```
+
+- Dots stagger animate in: `i * 0.03s` delay, spring bounce khi arrive
+- Tap dot: scale 1.0 → 1.6, tooltip popup với ngày + số liệu
+- Regression line: stroke draw animate 1.5s sau khi tất cả dots đã in
+
+**B. Correlation strength badge**
+- Gradient animate khi insight compute xong
+- `.weak` → vàng, `.moderate` → cam, `.strong` → xanh lá / đỏ (dương/âm)
+- Số correlation coefficient count-up từ 0.00 → final
+
+**C. Sleep quality breakdown bars**
+- 3 bars animate grow từ bottom với stagger 0.15s
+- Chuyển period: animate từ giá trị cũ → mới (không flash)
+
+**D. Permission flow**
+- Banner slide down từ top, sau khi cho phép: fade out + scatter plot animate in
+- Loading skeleton shimmer khi fetch data
+
+**E. Insufficient data state**
+- Circular progress: X/21 ngày, animate 0 → X/21 khi appear
+
+#### Privacy implementation
+- `SleepCorrelationAnalyzer` chạy hoàn toàn on-device
+- Không log health data qua `Logger`
+- Health data không persist vào encrypted store — đọc real-time từ HealthKit
+- Disclaimer hardcoded, không thể bị xoá bởi user preferences
+
+#### Tests
+
+```swift
+// SleepCorrelationDomainTests
+@Test("correlationCoefficient > 0.5 khi spending tăng theo sleep giảm")
+@Test("significance = .insufficient khi < 21 data points")
+@Test("noSignificantPattern khi |correlation| < 0.2")
+@Test("insights array không rỗng khi significance != .insufficient")
+
+// SleepCorrelationFeatureTests
+@Test("requestHealthKitPermission chỉ gọi 1 lần nếu đã có permission")
+@Test("changePeriod recompute insight từ filtered dataPoints")
+@Test("isLoading = true trong khi fetch, false sau dataLoaded")
+```
+
+---
+
+### 18.4 Digital Financial Legacy 🔴
+
+#### Mục tiêu sản phẩm
+Kho lưu trữ cá nhân mã hoá cho toàn bộ tài sản số — để gia đình tiếp quản nếu xảy ra sự cố. **Phase 6+ vì độ nhạy cảm bảo mật và pháp lý cực cao.** Không có server, không sync cloud, chỉ export file mã hoá.
+
+#### Domain model (`Packages/Domain/LegacyDomain/`)
+
+```
+LegacyVault
+├── id: UUID
+├── owner: String
+├── createdAt: Date
+├── lastUpdatedAt: Date
+├── financialAccounts: [LegacyAccount]
+├── insurancePolicies: [LegacyInsurance]
+├── investments: [LegacyInvestment]
+├── debts: [LegacyDebt]
+├── digitalAssets: [LegacyDigitalAsset]
+├── instructions: String              // hướng dẫn cho gia đình
+└── emergencyContacts: [EmergencyContact]
+
+LegacyAccount
+├── id: UUID
+├── institutionName: String
+├── accountType: AccountType          // .bank | .wallet | .crypto | .brokerage
+├── lastFourDigits: String?
+├── approximateBalance: Decimal?
+├── contactInfo: String
+└── notes: String?
+
+LegacyExportPackage
+├── vaultData: Data                   // AES-256-GCM encrypted
+├── encryptionHint: String            // gợi ý nhớ password (không lưu password)
+├── exportedAt: Date
+└── version: Int
+```
+
+#### TCA Feature structure (`Packages/Features/LegacyFeature/`)
+
+```
+LegacyFeature
+├── State
+│   ├── vault: LegacyVault?
+│   ├── isLocked: Bool               // require re-auth để xem
+│   ├── authenticationState: AuthState
+│   ├── editingAccount: LegacyAccount?
+│   ├── isExporting: Bool
+│   ├── exportPassword: String       // không persist
+│   └── confirmPassword: String      // không persist
+│
+├── Action
+│   ├── task
+│   ├── authenticate
+│   ├── authenticationResult(Bool)
+│   ├── addAccount(LegacyAccount)
+│   ├── deleteAccount(id: UUID)
+│   ├── exportVault(password: String)
+│   ├── vaultExported(Data)
+│   └── lock
+│
+└── Dependency
+    ├── LegacyVaultStore: encrypted Keychain-backed storage
+    ├── BiometricAuthClient: Face ID / Touch ID
+    └── LegacyExporter: encrypt(vault:password:) -> Data
+```
+
+#### View components
+
+```
+LegacyView
+├── LegacyLockedView             // Khi chưa auth
+│   ├── lock icon (animated pulse)
+│   └── "Mở bằng Face ID" / passcode fallback
+│
+├── LegacyDashboardView          // Sau khi auth
+│   ├── VaultSummaryCard         // tổng số account, insurance, investment
+│   ├── LegacyAccountSection     // danh sách account theo type
+│   ├── LegacyInsuranceSection
+│   ├── LegacyInvestmentSection
+│   ├── InstructionsCard         // free text cho gia đình
+│   └── ExportButton             // export file mã hoá
+│
+├── LegacyAccountEditorSheet
+│   └── form thêm/sửa account
+│
+└── LegacyExportSheet
+    ├── password input (double confirm)
+    ├── strength indicator
+    └── export/share file .kasovault
+```
+
+#### Security implementation
+- **Encryption**: AES-256-GCM qua CryptoKit, key từ user password + PBKDF2 (100,000 iterations)
+- **Storage**: chỉ in-memory khi đang dùng, encrypted blob trong Keychain
+- **Auth**: Face ID / Touch ID bắt buộc, auto-lock sau 3 phút background
+- **Export**: `.kasovault` file — encrypted, không thể đọc không có password
+- **No cloud**: tuyệt đối không sync iCloud hay bất kỳ server
+- **Audit log**: mỗi lần mở vault ghi local timestamp (không ghi nội dung)
+
+#### Animation & Transition chi tiết
+
+**A. Lock/unlock transition**
+- `LegacyLockedView` → `LegacyDashboardView`: blur dissolve (`.blur(radius:)` animate 0→0)
+- Lock icon: gentle pulse (`scaleEffect` 1.0 → 1.05 → 1.0, repeat) khi waiting auth
+- Sau auth thành công: lock icon scale down → 0, content fade in
+
+**B. Account list**
+- Section expand/collapse: custom chevron rotate animation
+- Add account: item animate in từ top với spring bounce
+- Delete: swipe action + `.transition(.asymmetric(insertion: .push(from: .trailing), removal: .push(from: .trailing)))`
+
+**C. Export sheet**
+- Password strength bar fill animate khi gõ
+- Strength màu: `weak` đỏ → `fair` vàng → `strong` xanh
+- Export success: checkmark animate in + Metal confetti particle
+- Haptic: `.notificationOccurred(.success)`
+
+**D. Auto-lock countdown**
+- Progress ring góc trên khi sắp lock (hiện 30s trước)
+- Tap ring để extend thêm 3 phút
+- Lock transition: blur animate nhanh 0.2s + haptic `.impactOccurred(intensity: 0.3)`
+
+#### Tests
+
+```swift
+// LegacyDomainTests
+@Test("encrypt → decrypt với đúng password trả về vault gốc")
+@Test("decrypt với sai password throw LegacyError.invalidPassword")
+@Test("export package version tăng đơn điệu theo mỗi lần export")
+
+// LegacyFeatureTests
+@Test("vault chỉ accessible sau khi authenticationResult(true)")
+@Test("lock action set isLocked = true ngay lập tức")
+@Test("exportVault không persist password vào state sau khi done")
+```
+
+---
+
+### Lộ trình triển khai nhóm 18
+
+```
+Phase 4 (tuần 15–18)
+└── 18.2 Freelancer income smoothing
+    ├── Tuần 15: FreelancerDomain + tests
+    ├── Tuần 16: FreelancerFeature + liquid gauge Metal shader
+    ├── Tuần 17: Income chart Metal shader + UI
+    └── Tuần 18: Reminders + snapshot tests + lint
+
+Phase 5 (tuần 19–22)
+└── 18.1 Money compatibility test
+    ├── Tuần 19: CompatibilityDomain + algorithm + tests
+    ├── Tuần 20: Quiz flow UI + card flip animation
+    ├── Tuần 21: Result view + Metal radar chart + reveal shader
+    └── Tuần 22: Share card + snapshot + accessibility audit
+
+Phase 6 (tháng 6+)
+├── 18.3 Sleep × spending correlation
+│   ├── Tuần 1–2: HealthKit + SleepCorrelationDomain + tests
+│   ├── Tuần 3–4: Scatter plot Metal shader + MTKView
+│   └── Tuần 5: Privacy audit + insight cards + snapshot
+└── 18.4 Digital financial legacy
+    ├── Tuần 1–2: LegacyDomain + CryptoKit encryption + tests
+    ├── Tuần 3–4: LegacyFeature + biometric auth + UI
+    └── Tuần 5–6: Export flow + security review
+```
+
+### Dependency graph nhóm 18
+
+```
+CompatibilityFeature
+└── CompatibilityDomain (mới, standalone)
+
+FreelancerFeature
+├── FreelancerDomain (mới)
+└── TransactionDomain (đọc giao dịch để tính toán)
+
+SleepCorrelationFeature
+├── SleepCorrelationDomain (mới)
+├── HealthKitClient (mới dependency trong Core)
+└── TransactionDomain (đọc lịch sử chi tiêu)
+
+LegacyFeature
+├── LegacyDomain (mới, standalone)
+└── CryptoKit (Apple native, không thêm dependency)
+```
+
+### Checklist trước khi ship mỗi tính năng
+
+- [ ] Domain tests coverage ≥ 90%
+- [ ] TCA `TestStore` cho mọi Action
+- [ ] Snapshot tests light + dark + Dynamic Type XL
+- [ ] Reduce Motion fallback cho mọi animation
+- [ ] Accessibility: VoiceOver label cho mọi interactive element
+- [ ] Privacy manifest nếu dùng HealthKit
+- [ ] Không có `print()` hoặc PII trong `Logger`
+- [ ] `tuist build` không warning
+- [ ] `swiftlint` + `swiftformat` pass
+
+---
 
 ## 19. Pricing
 
@@ -171,7 +904,7 @@
 
 ## 20. Lộ trình phát triển
 
-- [ ] Giai đoạn 1 - MVP: Một phần, đã có onboarding, dashboard, nhập giao dịch thủ công đầy đủ, phân danh mục tuỳ chỉnh, ngân sách theo danh mục, lịch sử giao dịch, chủ đề/dark mode và persistence mã hoá.
+- [x] Giai đoạn 1 - MVP: đã có onboarding cá nhân hoá, dashboard tháng, nhập giao dịch thủ công đầy đủ, phân danh mục tuỳ chỉnh, ngân sách theo danh mục, lịch sử giao dịch, chủ đề/dark mode, no-spend day tracker, hours of life converter và phantom expense ledger cơ bản — đủ scope free tier theo `plan.md` Giai đoạn 1.
 - [ ] Giai đoạn 2 - Killer feature
 - [ ] Giai đoạn 3 - Retention
 - [ ] Giai đoạn 4 - Differentiation
@@ -185,4 +918,5 @@
 - [x] Design tokens cơ bản trong `KasoDesignSystem`.
 - [x] Test reducer/domain cho các module hiện có.
 - [x] Persistence giao dịch thật sự: app dùng `EncryptedTransactionStore` với file mã hoá và key trong Keychain.
-- [x] Domain foundation cho subscription detection, anomaly detection, CSV export, no-spend tracking, saving goals và hours-of-life conversion.
+- [x] Domain foundation cho subscription detection, anomaly detection, CSV export, no-spend tracking, saving goals, investment portfolio, phantom expense ledger và hours-of-life conversion.
+- [x] Tab `Wellness` trong root composition gom `HoursOfLifeFeature` + `PhantomExpenseFeature` qua segmented picker để tránh thêm tab thứ 6.

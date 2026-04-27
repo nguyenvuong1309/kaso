@@ -1,0 +1,56 @@
+{
+  "sourceLanguage" : "vi",
+  "strings" : {
+    "wellness.section.hoursOfLife" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Life hours"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Giờ sống"
+          }
+        }
+      }
+    },
+    "wellness.section.label" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wellness section"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mục Đời sống"
+          }
+        }
+      }
+    },
+    "wellness.section.phantomExpense" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Avoided"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Suýt tiêu"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.1"
+}

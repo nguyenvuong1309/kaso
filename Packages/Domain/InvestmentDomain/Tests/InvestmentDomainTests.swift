@@ -34,8 +34,10 @@ func portfolioMetricsWithQuotes() throws {
 
     #expect(metrics.holdingMetrics.count == 2)
     #expect(metrics.coveredHoldingCount == 2)
-    #expect(metrics.marketValue == 100 * 75_000 + 100 * 110_000)
-    #expect(metrics.totalCost == 100 * 70_000 + 50 * 90_000 + 50 * 100_000)
+    let expectedMarketValue: Decimal = 100 * 75_000 + 100 * 110_000
+    let expectedTotalCost: Decimal = 100 * 70_000 + 50 * 90_000 + 50 * 100_000
+    #expect(decimalEquals(metrics.marketValue, expectedMarketValue))
+    #expect(decimalEquals(metrics.totalCost, expectedTotalCost))
     #expect(metrics.unrealizedPL == metrics.marketValue - metrics.totalCost)
     #expect(metrics.unrealizedPLPercent > 0)
     #expect(metrics.hasMissingQuotes == false)
@@ -203,4 +205,8 @@ private func fixedDate(year: Int, month: Int, day: Int) throws -> Date {
             day: day
         ).date
     )
+}
+
+private func decimalEquals(_ lhs: Decimal, _ rhs: Decimal) -> Bool {
+    NSDecimalNumber(decimal: lhs).compare(NSDecimalNumber(decimal: rhs)) == .orderedSame
 }

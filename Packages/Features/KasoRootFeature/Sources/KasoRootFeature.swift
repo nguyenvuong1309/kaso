@@ -3,10 +3,12 @@ import AppearanceFeature
 import AuthFeature
 import BudgetDomain
 import DebtFeature
+import InvestmentFeature
 import OnboardingDomain
 import OnboardingFeature
 import TransactionFeature
 import WealthFeature
+import WellnessFeature
 
 @Reducer
 public struct KasoRootFeature: Sendable {
@@ -17,6 +19,8 @@ public struct KasoRootFeature: Sendable {
         public var onboarding: OnboardingFeature.State
         public var transaction: TransactionFeature.State
         public var wealth: WealthFeature.State
+        public var investment: InvestmentFeature.State
+        public var wellness: WellnessFeature.State
         public var debt: DebtFeature.State
 
         public init(
@@ -25,6 +29,8 @@ public struct KasoRootFeature: Sendable {
             onboarding: OnboardingFeature.State = OnboardingFeature.State(),
             transaction: TransactionFeature.State = TransactionFeature.State(),
             wealth: WealthFeature.State = WealthFeature.State(),
+            investment: InvestmentFeature.State = InvestmentFeature.State(),
+            wellness: WellnessFeature.State = WellnessFeature.State(),
             debt: DebtFeature.State = DebtFeature.State()
         ) {
             self.appearance = appearance
@@ -32,6 +38,8 @@ public struct KasoRootFeature: Sendable {
             self.onboarding = onboarding
             self.transaction = transaction
             self.wealth = wealth
+            self.investment = investment
+            self.wellness = wellness
             self.debt = debt
         }
     }
@@ -43,6 +51,8 @@ public struct KasoRootFeature: Sendable {
         case onboarding(OnboardingFeature.Action)
         case transaction(TransactionFeature.Action)
         case wealth(WealthFeature.Action)
+        case investment(InvestmentFeature.Action)
+        case wellness(WellnessFeature.Action)
         case debt(DebtFeature.Action)
     }
 
@@ -69,6 +79,14 @@ public struct KasoRootFeature: Sendable {
             WealthFeature()
         }
 
+        Scope(state: \.investment, action: \.investment) {
+            InvestmentFeature()
+        }
+
+        Scope(state: \.wellness, action: \.wellness) {
+            WellnessFeature()
+        }
+
         Scope(state: \.debt, action: \.debt) {
             DebtFeature()
         }
@@ -84,7 +102,7 @@ public struct KasoRootFeature: Sendable {
             case let .onboarding(.profileSaved(profile)):
                 return .send(.transaction(.budgetsUpdated(Self.budgets(from: profile))))
 
-            case .appearance, .auth, .onboarding, .transaction, .wealth, .debt:
+            case .appearance, .auth, .onboarding, .transaction, .wealth, .investment, .wellness, .debt:
                 return .none
             }
         }

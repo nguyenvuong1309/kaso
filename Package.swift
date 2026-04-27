@@ -2,6 +2,12 @@
 
 import PackageDescription
 
+let tca: Target.Dependency = .product(
+    name: "ComposableArchitecture",
+    package: "swift-composable-architecture"
+)
+let featureResources: [Resource] = [.process("../Resources")]
+
 let package = Package(
     name: "Kaso",
     defaultLocalization: "vi",
@@ -23,6 +29,8 @@ let package = Package(
         .library(name: "WellnessDomain", targets: ["WellnessDomain"]),
         .library(name: "WealthDomain", targets: ["WealthDomain"]),
         .library(name: "DebtDomain", targets: ["DebtDomain"]),
+        .library(name: "InvestmentDomain", targets: ["InvestmentDomain"]),
+        .library(name: "PhantomExpenseDomain", targets: ["PhantomExpenseDomain"]),
         .library(name: "BudgetDomain", targets: ["BudgetDomain"]),
         .library(name: "OnboardingDomain", targets: ["OnboardingDomain"]),
         .library(name: "PersistenceKit", targets: ["PersistenceKit"]),
@@ -33,6 +41,10 @@ let package = Package(
         .library(name: "TransactionFeature", targets: ["TransactionFeature"]),
         .library(name: "WealthFeature", targets: ["WealthFeature"]),
         .library(name: "DebtFeature", targets: ["DebtFeature"]),
+        .library(name: "InvestmentFeature", targets: ["InvestmentFeature"]),
+        .library(name: "PhantomExpenseFeature", targets: ["PhantomExpenseFeature"]),
+        .library(name: "HoursOfLifeFeature", targets: ["HoursOfLifeFeature"]),
+        .library(name: "WellnessFeature", targets: ["WellnessFeature"]),
     ],
     dependencies: [
         .package(
@@ -45,13 +57,13 @@ let package = Package(
             name: "Kaso",
             dependencies: [
                 "DebtFeature",
+                "HoursOfLifeFeature",
+                "InvestmentFeature",
                 "KasoRootFeature",
                 "PersistenceKit",
             ],
             path: "App/Sources",
-            resources: [
-                .process("../Resources"),
-            ]
+            resources: featureResources
         ),
         .target(
             name: "KasoFoundation",
@@ -181,6 +193,32 @@ let package = Package(
             path: "Packages/Domain/DebtDomain/Tests"
         ),
         .target(
+            name: "InvestmentDomain",
+            dependencies: [
+                "WealthDomain",
+            ],
+            path: "Packages/Domain/InvestmentDomain/Sources"
+        ),
+        .testTarget(
+            name: "InvestmentDomainTests",
+            dependencies: [
+                "InvestmentDomain",
+                "WealthDomain",
+            ],
+            path: "Packages/Domain/InvestmentDomain/Tests"
+        ),
+        .target(
+            name: "PhantomExpenseDomain",
+            path: "Packages/Domain/PhantomExpenseDomain/Sources"
+        ),
+        .testTarget(
+            name: "PhantomExpenseDomainTests",
+            dependencies: [
+                "PhantomExpenseDomain",
+            ],
+            path: "Packages/Domain/PhantomExpenseDomain/Tests"
+        ),
+        .target(
             name: "BudgetDomain",
             dependencies: [
                 "TransactionDomain",
@@ -218,10 +256,13 @@ let package = Package(
                 "BudgetDomain",
                 "DebtDomain",
                 "GoalDomain",
+                "InvestmentDomain",
                 "KasoFoundation",
                 "OnboardingDomain",
+                "PhantomExpenseDomain",
                 "TransactionDomain",
                 "WealthDomain",
+                "WellnessDomain",
             ],
             path: "Packages/Data/PersistenceKit/Sources"
         ),
@@ -232,9 +273,12 @@ let package = Package(
                 "BudgetDomain",
                 "DebtDomain",
                 "GoalDomain",
+                "InvestmentDomain",
                 "PersistenceKit",
+                "PhantomExpenseDomain",
                 "TransactionDomain",
                 "WealthDomain",
+                "WellnessDomain",
             ],
             path: "Packages/Data/PersistenceKit/Tests"
         ),
@@ -243,24 +287,16 @@ let package = Package(
             dependencies: [
                 "AuthDomain",
                 "KasoDesignSystem",
-                .product(
-                    name: "ComposableArchitecture",
-                    package: "swift-composable-architecture"
-                ),
+                tca,
             ],
             path: "Packages/Features/AuthFeature/Sources",
-            resources: [
-                .process("../Resources"),
-            ]
+            resources: featureResources
         ),
         .testTarget(
             name: "AuthFeatureTests",
             dependencies: [
                 "AuthFeature",
-                .product(
-                    name: "ComposableArchitecture",
-                    package: "swift-composable-architecture"
-                ),
+                tca,
             ],
             path: "Packages/Features/AuthFeature/Tests"
         ),
@@ -269,24 +305,16 @@ let package = Package(
             dependencies: [
                 "AppearanceDomain",
                 "KasoDesignSystem",
-                .product(
-                    name: "ComposableArchitecture",
-                    package: "swift-composable-architecture"
-                ),
+                tca,
             ],
             path: "Packages/Features/AppearanceFeature/Sources",
-            resources: [
-                .process("../Resources"),
-            ]
+            resources: featureResources
         ),
         .testTarget(
             name: "AppearanceFeatureTests",
             dependencies: [
                 "AppearanceFeature",
-                .product(
-                    name: "ComposableArchitecture",
-                    package: "swift-composable-architecture"
-                ),
+                tca,
             ],
             path: "Packages/Features/AppearanceFeature/Tests"
         ),
@@ -296,15 +324,10 @@ let package = Package(
                 "KasoDesignSystem",
                 "OnboardingDomain",
                 "TransactionDomain",
-                .product(
-                    name: "ComposableArchitecture",
-                    package: "swift-composable-architecture"
-                ),
+                tca,
             ],
             path: "Packages/Features/OnboardingFeature/Sources",
-            resources: [
-                .process("../Resources"),
-            ]
+            resources: featureResources
         ),
         .testTarget(
             name: "OnboardingFeatureTests",
@@ -312,10 +335,7 @@ let package = Package(
                 "OnboardingDomain",
                 "OnboardingFeature",
                 "TransactionDomain",
-                .product(
-                    name: "ComposableArchitecture",
-                    package: "swift-composable-architecture"
-                ),
+                tca,
             ],
             path: "Packages/Features/OnboardingFeature/Tests"
         ),
@@ -329,21 +349,23 @@ let package = Package(
                 "BudgetDomain",
                 "DebtFeature",
                 "GoalDomain",
+                "HoursOfLifeFeature",
+                "InvestmentDomain",
+                "InvestmentFeature",
                 "OnboardingDomain",
                 "OnboardingFeature",
+                "PhantomExpenseDomain",
+                "PhantomExpenseFeature",
                 "TransactionDomain",
                 "TransactionFeature",
                 "WealthDomain",
                 "WealthFeature",
-                .product(
-                    name: "ComposableArchitecture",
-                    package: "swift-composable-architecture"
-                ),
+                "WellnessDomain",
+                "WellnessFeature",
+                tca,
             ],
             path: "Packages/Features/KasoRootFeature/Sources",
-            resources: [
-                .process("../Resources"),
-            ]
+            resources: featureResources
         ),
         .testTarget(
             name: "KasoRootFeatureTests",
@@ -352,10 +374,7 @@ let package = Package(
                 "KasoRootFeature",
                 "OnboardingDomain",
                 "TransactionDomain",
-                .product(
-                    name: "ComposableArchitecture",
-                    package: "swift-composable-architecture"
-                ),
+                tca,
             ],
             path: "Packages/Features/KasoRootFeature/Tests"
         ),
@@ -369,15 +388,10 @@ let package = Package(
                 "SubscriptionDomain",
                 "TransactionDomain",
                 "WellnessDomain",
-                .product(
-                    name: "ComposableArchitecture",
-                    package: "swift-composable-architecture"
-                ),
+                tca,
             ],
             path: "Packages/Features/TransactionFeature/Sources",
-            resources: [
-                .process("../Resources"),
-            ]
+            resources: featureResources
         ),
         .testTarget(
             name: "TransactionFeatureTests",
@@ -387,10 +401,7 @@ let package = Package(
                 "SubscriptionDomain",
                 "TransactionFeature",
                 "WellnessDomain",
-                .product(
-                    name: "ComposableArchitecture",
-                    package: "swift-composable-architecture"
-                ),
+                tca,
             ],
             path: "Packages/Features/TransactionFeature/Tests"
         ),
@@ -400,50 +411,116 @@ let package = Package(
                 "DebtDomain",
                 "KasoDesignSystem",
                 "WealthDomain",
-                .product(
-                    name: "ComposableArchitecture",
-                    package: "swift-composable-architecture"
-                ),
+                tca,
             ],
             path: "Packages/Features/DebtFeature/Sources",
-            resources: [
-                .process("../Resources"),
-            ]
+            resources: featureResources
         ),
         .testTarget(
             name: "DebtFeatureTests",
             dependencies: [
                 "DebtFeature",
-                .product(
-                    name: "ComposableArchitecture",
-                    package: "swift-composable-architecture"
-                ),
+                tca,
             ],
             path: "Packages/Features/DebtFeature/Tests"
+        ),
+        .target(
+            name: "InvestmentFeature",
+            dependencies: [
+                "InvestmentDomain",
+                "KasoDesignSystem",
+                "WealthDomain",
+                tca,
+            ],
+            path: "Packages/Features/InvestmentFeature/Sources",
+            resources: featureResources
+        ),
+        .testTarget(
+            name: "InvestmentFeatureTests",
+            dependencies: [
+                "InvestmentDomain",
+                "InvestmentFeature",
+                "WealthDomain",
+                tca,
+            ],
+            path: "Packages/Features/InvestmentFeature/Tests"
+        ),
+        .target(
+            name: "PhantomExpenseFeature",
+            dependencies: [
+                "KasoDesignSystem",
+                "PhantomExpenseDomain",
+                tca,
+            ],
+            path: "Packages/Features/PhantomExpenseFeature/Sources",
+            resources: featureResources
+        ),
+        .testTarget(
+            name: "PhantomExpenseFeatureTests",
+            dependencies: [
+                "PhantomExpenseDomain",
+                "PhantomExpenseFeature",
+                tca,
+            ],
+            path: "Packages/Features/PhantomExpenseFeature/Tests"
+        ),
+        .target(
+            name: "HoursOfLifeFeature",
+            dependencies: [
+                "KasoDesignSystem",
+                "TransactionDomain",
+                "WellnessDomain",
+                tca,
+            ],
+            path: "Packages/Features/HoursOfLifeFeature/Sources",
+            resources: featureResources
+        ),
+        .testTarget(
+            name: "HoursOfLifeFeatureTests",
+            dependencies: [
+                "HoursOfLifeFeature",
+                "TransactionDomain",
+                "WellnessDomain",
+                tca,
+            ],
+            path: "Packages/Features/HoursOfLifeFeature/Tests"
+        ),
+        .target(
+            name: "WellnessFeature",
+            dependencies: [
+                "HoursOfLifeFeature",
+                "KasoDesignSystem",
+                "PhantomExpenseFeature",
+                tca,
+            ],
+            path: "Packages/Features/WellnessFeature/Sources",
+            resources: featureResources
+        ),
+        .testTarget(
+            name: "WellnessFeatureTests",
+            dependencies: [
+                "HoursOfLifeFeature",
+                "PhantomExpenseFeature",
+                "WellnessFeature",
+                tca,
+            ],
+            path: "Packages/Features/WellnessFeature/Tests"
         ),
         .target(
             name: "WealthFeature",
             dependencies: [
                 "KasoDesignSystem",
                 "WealthDomain",
-                .product(
-                    name: "ComposableArchitecture",
-                    package: "swift-composable-architecture"
-                ),
+                tca,
             ],
             path: "Packages/Features/WealthFeature/Sources",
-            resources: [
-                .process("../Resources"),
-            ]
+            resources: featureResources
         ),
         .testTarget(
             name: "WealthFeatureTests",
             dependencies: [
                 "WealthFeature",
-                .product(
-                    name: "ComposableArchitecture",
-                    package: "swift-composable-architecture"
-                ),
+                tca,
             ],
             path: "Packages/Features/WealthFeature/Tests"
         ),
