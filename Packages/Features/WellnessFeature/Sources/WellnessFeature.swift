@@ -1,6 +1,7 @@
 import ComposableArchitecture
 import CompatibilityFeature
 import FreelancerFeature
+import GamificationFeature
 import HoursOfLifeFeature
 import LegacyFeature
 import PhantomExpenseFeature
@@ -9,6 +10,7 @@ import SleepCorrelationFeature
 @Reducer
 public struct WellnessFeature: Sendable {
     public enum Section: String, CaseIterable, Equatable, Sendable, Identifiable {
+        case gamification
         case hoursOfLife
         case phantomExpense
         case compatibility
@@ -22,6 +24,8 @@ public struct WellnessFeature: Sendable {
 
         public var titleKey: String {
             switch self {
+            case .gamification:
+                "wellness.section.gamification"
             case .hoursOfLife:
                 "wellness.section.hoursOfLife"
             case .phantomExpense:
@@ -41,6 +45,7 @@ public struct WellnessFeature: Sendable {
     @ObservableState
     public struct State: Equatable {
         public var section: Section
+        public var gamification: GamificationFeature.State
         public var hoursOfLife: HoursOfLifeFeature.State
         public var phantomExpense: PhantomExpenseFeature.State
         public var compatibility: CompatibilityFeature.State
@@ -49,7 +54,8 @@ public struct WellnessFeature: Sendable {
         public var legacy: LegacyFeature.State
 
         public init(
-            section: Section = .hoursOfLife,
+            section: Section = .gamification,
+            gamification: GamificationFeature.State = GamificationFeature.State(),
             hoursOfLife: HoursOfLifeFeature.State = HoursOfLifeFeature.State(),
             phantomExpense: PhantomExpenseFeature.State = PhantomExpenseFeature.State(),
             compatibility: CompatibilityFeature.State = CompatibilityFeature.State(),
@@ -58,6 +64,7 @@ public struct WellnessFeature: Sendable {
             legacy: LegacyFeature.State = LegacyFeature.State()
         ) {
             self.section = section
+            self.gamification = gamification
             self.hoursOfLife = hoursOfLife
             self.phantomExpense = phantomExpense
             self.compatibility = compatibility
@@ -69,6 +76,7 @@ public struct WellnessFeature: Sendable {
 
     public enum Action: Equatable, Sendable {
         case sectionChanged(Section)
+        case gamification(GamificationFeature.Action)
         case hoursOfLife(HoursOfLifeFeature.Action)
         case phantomExpense(PhantomExpenseFeature.Action)
         case compatibility(CompatibilityFeature.Action)
@@ -80,6 +88,10 @@ public struct WellnessFeature: Sendable {
     public init() {}
 
     public var body: some Reducer<State, Action> {
+        Scope(state: \.gamification, action: \.gamification) {
+            GamificationFeature()
+        }
+
         Scope(state: \.hoursOfLife, action: \.hoursOfLife) {
             HoursOfLifeFeature()
         }
@@ -110,7 +122,7 @@ public struct WellnessFeature: Sendable {
                 state.section = section
                 return .none
 
-            case .hoursOfLife, .phantomExpense, .compatibility,
+            case .gamification, .hoursOfLife, .phantomExpense, .compatibility,
                  .freelancer, .sleepCorrelation, .legacy:
                 return .none
             }

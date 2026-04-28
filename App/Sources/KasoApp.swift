@@ -3,6 +3,7 @@ import BenchmarkFeature
 import DebtFeature
 import FinancialAssistantFeature
 import FreelancerFeature
+import GamificationFeature
 import HoursOfLifeFeature
 import InvestmentFeature
 import KasoRootFeature
@@ -19,6 +20,7 @@ struct KasoApp: App {
     private let categoryStore = EncryptedTransactionCategoryStore()
     private let debtStore = EncryptedDebtStore()
     private let freelancerProfileStore = EncryptedFreelancerProfileStore()
+    private let gamificationProfileStore = EncryptedGamificationProfileStore()
     private let holdingStore = EncryptedHoldingStore()
     private let priceQuoteStore = EncryptedPriceQuoteStore()
     private let targetAllocationStore = EncryptedTargetAllocationStore()
@@ -45,6 +47,8 @@ struct KasoApp: App {
                 debtLiabilitySyncClient: debtLiabilitySyncClient,
                 financialAssistantContextClient: financialAssistantContextClient,
                 freelancerProfileRepository: freelancerProfileStore.repository(),
+                gamificationProfileRepository: gamificationProfileStore.repository(),
+                gamificationContextClient: gamificationContextClient,
                 holdingRepository: holdingStore.repository(),
                 priceQuoteRepository: priceQuoteStore.repository(),
                 targetAllocationRepository: targetAllocationStore.repository(),
@@ -66,6 +70,19 @@ struct KasoApp: App {
                 transactionRepository: transactionStore.repository()
             )
         }
+    }
+
+    private var gamificationContextClient: GamificationContextClient {
+        let transactionRepository = transactionStore.repository()
+        let budgetRepository = budgetStore.repository()
+        return GamificationContextClient(
+            loadTransactions: {
+                try await transactionRepository.fetchAll()
+            },
+            loadBudgets: {
+                try await budgetRepository.fetchAll()
+            }
+        )
     }
 
     private var hoursOfLifeContextClient: HoursOfLifeContextClient {

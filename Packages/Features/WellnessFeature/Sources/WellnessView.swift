@@ -1,6 +1,7 @@
 import ComposableArchitecture
 import CompatibilityFeature
 import FreelancerFeature
+import GamificationFeature
 import HoursOfLifeFeature
 import KasoDesignSystem
 import LegacyFeature
@@ -17,22 +18,28 @@ public struct WellnessView: View {
 
     public var body: some View {
         VStack(spacing: 0) {
-            Picker(
-                selection: $store.section.sending(\.sectionChanged)
-            ) {
-                ForEach(WellnessFeature.Section.allCases) { section in
-                    Text(LocalizedStringKey(section.titleKey), bundle: .module)
-                        .tag(section)
+            ScrollView(.horizontal, showsIndicators: false) {
+                Picker(
+                    selection: $store.section.sending(\.sectionChanged)
+                ) {
+                    ForEach(WellnessFeature.Section.allCases) { section in
+                        Text(LocalizedStringKey(section.titleKey), bundle: .module)
+                            .tag(section)
+                    }
+                } label: {
+                    Text("wellness.section.label", bundle: .module)
                 }
-            } label: {
-                Text("wellness.section.label", bundle: .module)
+                .pickerStyle(.segmented)
+                .padding(.horizontal, Spacing.md)
+                .padding(.vertical, Spacing.sm)
             }
-            .pickerStyle(.segmented)
-            .padding(.horizontal, Spacing.md)
-            .padding(.vertical, Spacing.sm)
             .background(Color.kaso.surfacePrimary)
 
             switch store.section {
+            case .gamification:
+                GamificationView(
+                    store: store.scope(state: \.gamification, action: \.gamification)
+                )
             case .hoursOfLife:
                 HoursOfLifeView(
                     store: store.scope(state: \.hoursOfLife, action: \.hoursOfLife)

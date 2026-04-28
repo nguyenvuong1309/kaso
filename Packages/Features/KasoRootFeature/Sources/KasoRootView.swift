@@ -11,6 +11,8 @@ import DebtFeature
 import FinancialAssistantFeature
 import FreelancerDomain
 import FreelancerFeature
+import GamificationDomain
+import GamificationFeature
 import GoalDomain
 import HoursOfLifeFeature
 import InvestmentDomain
@@ -43,6 +45,8 @@ public struct KasoRootView: View {
         debtLiabilitySyncClient: DebtLiabilitySyncClient = .empty,
         financialAssistantContextClient: FinancialAssistantContextClient = .empty,
         freelancerProfileRepository: FreelancerProfileRepository = .empty,
+        gamificationProfileRepository: GamificationProfileRepository = .empty,
+        gamificationContextClient: GamificationContextClient = .empty,
         holdingRepository: HoldingRepository = .empty,
         priceQuoteRepository: PriceQuoteRepository = .empty,
         targetAllocationRepository: TargetAllocationRepository = .empty,
@@ -75,6 +79,8 @@ public struct KasoRootView: View {
             $0.debtLiabilitySyncClient = debtLiabilitySyncClient
             $0.financialAssistantContextClient = financialAssistantContextClient
             $0.freelancerProfileRepository = freelancerProfileRepository
+            $0.gamificationProfileRepository = gamificationProfileRepository
+            $0.gamificationContextClient = gamificationContextClient
             $0.holdingRepository = holdingRepository
             $0.priceQuoteRepository = priceQuoteRepository
             $0.targetAllocationRepository = targetAllocationRepository

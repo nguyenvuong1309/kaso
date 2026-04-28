@@ -16,4 +16,8 @@ func sectionChangeUpdatesSelectedSection() async {
     await store.send(.sectionChanged(.hoursOfLife)) {
         $0.section = .hoursOfLife
     }
+
+    await store.send(.sectionChanged(.gamification)) {
+        $0.section = .gamification
+    }
 }

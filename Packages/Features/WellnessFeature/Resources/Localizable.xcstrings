@@ -35,6 +35,23 @@
         }
       }
     },
+    "wellness.section.gamification" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Streak"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chuỗi ngày"
+          }
+        }
+      }
+    },
     "wellness.section.hoursOfLife" : {
       "extractionState" : "stale",
       "localizations" : {

@@ -147,25 +147,32 @@ let domainSpecs = [
     ModuleSpec("LegacyDomain"),
     ModuleSpec("BudgetDomain", dependencies: ["TransactionDomain"]),
     ModuleSpec("OnboardingDomain", dependencies: ["TransactionDomain"]),
+    ModuleSpec(
+        "GamificationDomain",
+        dependencies: ["BudgetDomain", "TransactionDomain"],
+        testDependencies: ["BudgetDomain", "TransactionDomain"]
+    ),
 ]
 
 let persistenceDependencies = [
     "AppearanceDomain", "AuthDomain", "BudgetDomain", "DebtDomain",
-    "FreelancerDomain", "GoalDomain", "InvestmentDomain", "KasoFoundation",
-    "LegacyDomain", "OnboardingDomain", "PhantomExpenseDomain",
+    "FreelancerDomain", "GamificationDomain", "GoalDomain", "InvestmentDomain",
+    "KasoFoundation", "LegacyDomain", "OnboardingDomain", "PhantomExpenseDomain",
     "TransactionDomain", "WealthDomain", "WellnessDomain",
 ]
 let persistenceTestDependencies = [
     "AppearanceDomain", "BudgetDomain", "DebtDomain", "FreelancerDomain",
-    "GoalDomain", "InvestmentDomain", "LegacyDomain", "PersistenceKit",
-    "PhantomExpenseDomain", "TransactionDomain", "WealthDomain", "WellnessDomain",
+    "GamificationDomain", "GoalDomain", "InvestmentDomain", "LegacyDomain",
+    "PersistenceKit", "PhantomExpenseDomain", "TransactionDomain", "WealthDomain",
+    "WellnessDomain",
 ]
 
 let rootFeatureDependencies = [
     "AppearanceDomain", "AppearanceFeature", "AuthDomain", "AuthFeature",
-    "BenchmarkFeature", "BudgetDomain", "DebtFeature", "FinancialAssistantFeature", "FreelancerDomain",
-    "FreelancerFeature", "GoalDomain", "HoursOfLifeFeature", "InvestmentDomain",
-    "InvestmentFeature", "KasoDesignSystem", "LegacyDomain", "LegacyFeature",
+    "BenchmarkFeature", "BudgetDomain", "DebtFeature", "FinancialAssistantFeature",
+    "FreelancerDomain", "FreelancerFeature", "GamificationDomain", "GamificationFeature",
+    "GoalDomain", "HoursOfLifeFeature", "InvestmentDomain", "InvestmentFeature",
+    "KasoDesignSystem", "LegacyDomain", "LegacyFeature",
     "OnboardingDomain", "OnboardingFeature",
     "PhantomExpenseDomain", "PhantomExpenseFeature", "SleepCorrelationFeature",
     "TransactionDomain", "TransactionFeature", "WealthDomain", "WealthFeature",
@@ -247,15 +254,25 @@ let featureSpecs = [
         testDependencies: ["TransactionDomain", "WellnessDomain"]
     ),
     ModuleSpec(
-        "WellnessFeature",
+        "GamificationFeature",
         dependencies: [
-            "CompatibilityFeature", "FreelancerFeature", "HoursOfLifeFeature",
-            "KasoDesignSystem", "LegacyFeature", "PhantomExpenseFeature",
-            "SleepCorrelationFeature",
+            "BudgetDomain", "GamificationDomain", "KasoDesignSystem", "TransactionDomain",
         ],
         testDependencies: [
-            "CompatibilityFeature", "FreelancerFeature", "HoursOfLifeFeature",
-            "LegacyFeature", "PhantomExpenseFeature", "SleepCorrelationFeature",
+            "BudgetDomain", "GamificationDomain", "TransactionDomain",
+        ]
+    ),
+    ModuleSpec(
+        "WellnessFeature",
+        dependencies: [
+            "CompatibilityFeature", "FreelancerFeature", "GamificationFeature",
+            "HoursOfLifeFeature", "KasoDesignSystem", "LegacyFeature",
+            "PhantomExpenseFeature", "SleepCorrelationFeature",
+        ],
+        testDependencies: [
+            "CompatibilityFeature", "FreelancerFeature", "GamificationFeature",
+            "HoursOfLifeFeature", "LegacyFeature", "PhantomExpenseFeature",
+            "SleepCorrelationFeature",
         ]
     ),
 ]
@@ -293,7 +310,7 @@ let appTarget = Target.target(
     entitlements: .file(path: "App/Entitlements/Kaso.entitlements"),
     dependencies: targetDependencies([
         "BenchmarkFeature", "DebtFeature", "FinancialAssistantFeature", "FreelancerFeature",
-        "HoursOfLifeFeature", "InvestmentFeature", "KasoRootFeature",
+        "GamificationFeature", "HoursOfLifeFeature", "InvestmentFeature", "KasoRootFeature",
         "LegacyFeature", "PersistenceKit", "SleepCorrelationDomain",
         "SleepCorrelationFeature",
     ]),

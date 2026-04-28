@@ -1,7 +1,7 @@
 # Kaso Feature Tracking
 
 > Checklist theo `plan.md` để theo dõi tính năng đã làm và chưa làm.
-> Cập nhật: 2026-04-27 (tối).
+> Cập nhật: 2026-04-28.
 
 ## Quy ước
 
@@ -44,6 +44,10 @@
 - [x] `18.2` Freelancer income smoothing: đã có domain rolling-average, quỹ đệm, tax provision, reminder, encrypted persistence, TCA dashboard và ghép vào tab Wellness.
 - [x] `18.3` Sleep × spending correlation: đã có analyzer Pearson on-device, HealthKit sleep client, privacy disclaimer, scatter/breakdown UI, period filter và ghép vào tab Wellness.
 - [x] `18.4` Digital financial legacy: đã có vault mã hoá cục bộ, Face ID/passcode auth client, CRUD tài khoản, hướng dẫn gia đình, export `.kasovault` mã hoá password và ghép vào tab Wellness.
+- [x] `7.1` Streak & điểm thưởng: đã có `GamificationDomain`, calculator on-device tính streak/level từ giao dịch và budget, encrypted profile store, `GamificationFeature` TCA, dashboard với streak ring, điểm thưởng, milestone grid, recent rewards và alert chúc mừng khi đạt milestone; ghép vào tab Wellness.
+- [x] `7.2` Huy hiệu & thành tích: đã có `Achievement`, `AchievementCalculator` on-device đánh giá 13 huy hiệu chia 4 nhóm (consistency/discipline/explorer/rewardTier), tích hợp vào `GamificationCalculator.evaluate`, persistence backward-compat trong `GamificationProfile`, card grid theo nhóm với progress bar, alert chúc mừng khi mở huy hiệu mới và queue dismiss nhiều huy hiệu cùng lúc.
+- [x] `7.3` Level tài chính: đã có `FinancialLevel` 7 hạng (sprout → bronze → silver → gold → platinum → diamond → legend) theo XP từ `totalPoints`, `FinancialLevelProgress` tính tỉ lệ và XP còn lại tới hạng kế, tích hợp vào `GamificationCalculator` với `lastNotifiedFinancialLevel` để chỉ celebrate khi lên hạng thực sự (không spam cho user cũ), card mới ở đầu dashboard với badge gradient, perk text và progress bar, alert "Lên hạng tài chính" priority cao nhất so với milestone/achievement.
+- [x] `7.4` Weekly challenge: đã có `WeeklyChallenge` + 5 loại (dailyStreak, noSpendDays, budgetKeeper, categoryVariety, incomeLogger), `WeeklyChallengeGenerator` rotate deterministic theo ISO week (Mon-first), `WeeklyChallengeEvaluator` tính progress từ transactions/rewardEvents trong tuần, tích hợp vào `GamificationCalculator` để re-evaluate active challenge → archive khi sang tuần mới (cap 12 tuần) → generate mới; reward bonus XP `weeklyChallengeCompleted` (80–200 XP tuỳ loại); UI card đặt sau Financial Level với progress bar, days remaining, badge completed; alert celebration ưu tiên sau Financial Level.
 
 ## 1. Tính năng cốt lõi (Free tier)
 
@@ -92,10 +96,10 @@
 
 ## 7. Gamification
 
-- [ ] `7.1` Streak & điểm thưởng 🟢
-- [ ] `7.2` Huy hiệu & thành tích 🟢
-- [ ] `7.3` Level tài chính 🟢
-- [ ] `7.4` Weekly challenge 🟡
+- [x] `7.1` Streak & điểm thưởng 🟢 - Đã có `GamificationDomain`, `GamificationCalculator` đánh giá streak/level dựa trên giao dịch hôm nay + budget, encrypted profile store, `GamificationFeature` TCA, view với streak ring animated, points card, milestones grid và recent rewards; cập nhật khi mở tab Wellness, idempotent trong cùng ngày, alert chúc mừng khi đạt cột mốc 3/7/30/100 ngày.
+- [x] `7.2` Huy hiệu & thành tích 🟢 - Đã có `Achievement` + `AchievementCategory` (4 nhóm), `AchievementProgress`, `AchievementCalculator` on-device tính 13 huy hiệu (firstSteps, weekWarrior/monthlyMaster/centuryClub, noSpendNovice/Champion, budgetGuardian, categoryCollector, dualLogger, earlyBird, nightOwl, rewardCollector/eliteCollector); `GamificationProfile.unlockedAchievements` lưu mã hoá kèm decoder backward-compat; UI card mới với grid theo nhóm, progress bar có Reduce Motion fallback, badge unlocked, alert chúc mừng queue khi mở nhiều huy hiệu cùng lúc.
+- [x] `7.3` Level tài chính 🟢 - Đã có `FinancialLevel` (sprout/bronze/silver/gold/platinum/diamond/legend) với threshold XP từ 0 → 25.000, `FinancialLevelProgress` tính ratio + XP còn lại tới hạng kế; `GamificationCalculator.evaluate` cập nhật `lastNotifiedFinancialLevel` chỉ celebrate khi lên hạng (không spam profile cũ); UI card mới đặt đầu dashboard có badge gradient theo hạng, perk text VI/EN, progress bar animated (Reduce Motion fallback) và metrics tổng XP / XP còn lại; alert "Lên hạng tài chính" độ ưu tiên cao nhất; persistence backward-compat decode profile thiếu trường mới.
+- [x] `7.4` Weekly challenge 🟡 - Đã có `WeeklyChallengeKind` 5 loại + `WeeklyChallenge` struct, `WeeklyChallengeGenerator.startOfWeek/challenge` Mon-first deterministic theo ISO week-of-year, `WeeklyChallengeEvaluator` per-kind tính progress từ transactions/rewardEvents trong cửa sổ tuần; `GamificationCalculator` re-evaluate active challenge mỗi lần `task` → archive (cap 12) khi tuần thay → generate mới, fire `weeklyChallengeCompleted` RewardEvent + bonus XP khi vừa complete; UI `GamificationWeeklyChallengeCard` icon/title/description, progress bar animated (Reduce Motion), `daysLeft` chip, badge "Đã hoàn thành" và reward XP preview; alert celebration ưu tiên sau Financial Level; backward-compat decode profile thiếu activeWeeklyChallenge/completedWeeklyChallenges.
 
 ## 8. Xã hội & Viral
 
@@ -911,7 +915,7 @@ LegacyFeature
 ## 20. Lộ trình phát triển
 
 - [x] Giai đoạn 1 - MVP: đã có onboarding cá nhân hoá, dashboard tháng, nhập giao dịch thủ công đầy đủ, phân danh mục tuỳ chỉnh, ngân sách theo danh mục, lịch sử giao dịch, chủ đề/dark mode, no-spend day tracker, hours of life converter và phantom expense ledger cơ bản — đủ scope free tier theo `plan.md` Giai đoạn 1.
-- [ ] Giai đoạn 2 - Killer feature
+- [x] Giai đoạn 2 - Killer feature: đã hoàn thành toàn bộ Gamification — 7.1 streak & điểm thưởng, 7.2 huy hiệu & thành tích, 7.3 level tài chính và 7.4 weekly challenge.
 - [ ] Giai đoạn 3 - Retention
 - [x] Giai đoạn 4 - Differentiation: đã có money compatibility test và freelancer income smoothing MVP trong Wellness.
 - [ ] Giai đoạn 5 - Growth
@@ -925,5 +929,5 @@ LegacyFeature
 - [x] Test reducer/domain cho các module hiện có.
 - [x] Persistence giao dịch thật sự: app dùng `EncryptedTransactionStore` với file mã hoá và key trong Keychain.
 - [x] Domain foundation cho subscription detection, anomaly detection, CSV export, no-spend tracking, saving goals, investment portfolio, phantom expense ledger và hours-of-life conversion.
-- [x] Tab `Wellness` trong root composition gom `HoursOfLifeFeature`, `PhantomExpenseFeature`, `CompatibilityFeature`, `FreelancerFeature`, `SleepCorrelationFeature` và `LegacyFeature` qua segmented picker để tránh thêm tab thứ 6.
-- [x] Persistence mã hoá mới cho `FreelancerProfile` và `LegacyVault`.
+- [x] Tab `Wellness` trong root composition gom `GamificationFeature`, `HoursOfLifeFeature`, `PhantomExpenseFeature`, `CompatibilityFeature`, `FreelancerFeature`, `SleepCorrelationFeature` và `LegacyFeature` qua segmented picker scrollable để tránh thêm tab thứ 6.
+- [x] Persistence mã hoá mới cho `FreelancerProfile`, `LegacyVault` và `GamificationProfile`.
