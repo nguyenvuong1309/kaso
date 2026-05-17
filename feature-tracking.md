@@ -1,7 +1,7 @@
 # Kaso Feature Tracking
 
 > Checklist theo `plan.md` để theo dõi tính năng đã làm và chưa làm.
-> Cập nhật: 2026-04-28.
+> Cập nhật: 2026-05-17.
 
 ## Quy ước
 
@@ -143,9 +143,9 @@
 
 ## 14. Tiết kiệm tự động
 
-- [ ] `14.1` Round-up tiết kiệm 🟡
+- [x] `14.1` Round-up tiết kiệm 🟡 - Đã có `RoundUpDomain` với `RoundUpStep`, `RoundUpRule`, `RoundUpCalculator` làm tròn lên step kế tiếp; `RoundUpFeature` TCA với toggle bật/tắt, picker step (1k/5k/10k/50k), simulator nhập thử số tiền và xem phần làm tròn, lịch sử entries thủ công, persistence mã hoá qua `EncryptedRoundUpStore` (rule + entries trong cùng blob AES-GCM); ghép vào tab Wellness.
 - [x] `14.2` No-spend day tracker 🟢 - Đã có `WellnessDomain`, dashboard current/longest streak + day dots, milestone chúc mừng và ước tính tiết kiệm dựa trên ngày có chi tiêu trung bình.
-- [ ] `14.3` Guilt-free budget 🟡
+- [x] `14.3` Guilt-free budget 🟡 - Đã có `GuiltFreeBudgetDomain` với `GuiltFreeBudgetConfiguration` (income, savings, emergency, fixed costs có kind: housing/utilities/insurance/loan/savings/emergencyFund/other), `GuiltFreeBudgetCalculator` tính `freeMoney = income − fixedCosts − savings − emergency`, health enum (healthy/tight/overspending/incomeMissing) và daily allowance theo ngày còn lại trong tháng; `GuiltFreeBudgetFeature` TCA quản lý editor income + CRUD fixed costs; UI card headline xanh khi healthy + breakdown bar phân bổ + danh sách fixed costs; persistence mã hoá `EncryptedGuiltFreeBudgetConfigurationStore`; ghép vào tab Wellness.
 
 ## 15. Xã hội & Địa lý
 
@@ -162,7 +162,7 @@
 
 ## 17. Tâm lý mở rộng
 
-- [ ] `17.1` Cooling-off period cho mua bốc đồng 🟡
+- [x] `17.1` Cooling-off period cho mua bốc đồng 🟡 - Đã có `CoolingOffDomain` với `PurchasePlan` (status waiting/approved/cancelled/expired), `CoolingPeriod` (1d/3d/1w/2w), `CoolingOffPolicy` (threshold mặc định 500k→1d, 2M→3d, 5M→1w, 20M→2w), `PurchasePlanSummaryBuilder` chia waiting/ready/decided và tính tổng đã tránh chi, `OpportunityCostCalculator` quy ra giờ làm/ngày trễ goal/tháng emergency; `CoolingOffFeature` TCA: editor tự đề xuất cooling period theo amount (override được), action approve/cancel/delete, ProgressView countdown, summary card tiền đã tránh + waiting; persistence mã hoá `EncryptedPurchasePlanStore` lưu plans + policy chung blob; ghép vào tab Wellness.
 - [x] `17.2` Phantom expense ledger 🟢 - Đã có sổ khoản suýt tiêu, tổng tiền tránh chi trong tháng, breakdown theo nhóm, thêm/sửa/xoá và lưu mã hoá.
 - [x] `17.3` Hours of life converter 🟢 - Đã có `HoursOfLifeFeature` TCA, tab Wellness mới, cấu hình thu nhập thực nhận và giờ làm trung bình/tháng (lưu mã hoá keychain), fallback từ onboarding income, calculator quy đổi nhanh và danh sách giao dịch gần đây quy ra giờ/phút làm việc.
 - [ ] `17.4` Money therapist mode 🟡
@@ -916,7 +916,7 @@ LegacyFeature
 
 - [x] Giai đoạn 1 - MVP: đã có onboarding cá nhân hoá, dashboard tháng, nhập giao dịch thủ công đầy đủ, phân danh mục tuỳ chỉnh, ngân sách theo danh mục, lịch sử giao dịch, chủ đề/dark mode, no-spend day tracker, hours of life converter và phantom expense ledger cơ bản — đủ scope free tier theo `plan.md` Giai đoạn 1.
 - [x] Giai đoạn 2 - Killer feature: đã hoàn thành toàn bộ Gamification — 7.1 streak & điểm thưởng, 7.2 huy hiệu & thành tích, 7.3 level tài chính và 7.4 weekly challenge.
-- [ ] Giai đoạn 3 - Retention
+- [x] Giai đoạn 3 - Retention: đã hoàn thành 14.1 Round-up tiết kiệm, 14.3 Guilt-free budget và 17.1 Cooling-off period trong tab Wellness. AI insight, dự báo, mục tiêu tài chính, gamification đầy đủ đã có sẵn từ các phase trước.
 - [x] Giai đoạn 4 - Differentiation: đã có money compatibility test và freelancer income smoothing MVP trong Wellness.
 - [ ] Giai đoạn 5 - Growth
 - [ ] Giai đoạn 6 - Expansion

@@ -1,13 +1,20 @@
 import ComposableArchitecture
 import CompatibilityFeature
+import CoolingOffFeature
 import FreelancerFeature
 import GamificationFeature
+import GuiltFreeBudgetFeature
 import HoursOfLifeFeature
 import KasoDesignSystem
 import LegacyFeature
+import MoodJournalFeature
 import PhantomExpenseFeature
+import RegretScoreFeature
+import RoundUpFeature
 import SleepCorrelationFeature
+import SpendingCalendarFeature
 import SwiftUI
+import WhatIfFeature
 
 public struct WellnessView: View {
     @Bindable private var store: StoreOf<WellnessFeature>
@@ -44,9 +51,37 @@ public struct WellnessView: View {
                 HoursOfLifeView(
                     store: store.scope(state: \.hoursOfLife, action: \.hoursOfLife)
                 )
+            case .spendingCalendar:
+                SpendingCalendarView(
+                    store: store.scope(state: \.spendingCalendar, action: \.spendingCalendar)
+                )
+            case .whatIf:
+                WhatIfView(
+                    store: store.scope(state: \.whatIf, action: \.whatIf)
+                )
             case .phantomExpense:
                 PhantomExpenseView(
                     store: store.scope(state: \.phantomExpense, action: \.phantomExpense)
+                )
+            case .roundUp:
+                RoundUpView(
+                    store: store.scope(state: \.roundUp, action: \.roundUp)
+                )
+            case .guiltFreeBudget:
+                GuiltFreeBudgetView(
+                    store: store.scope(state: \.guiltFreeBudget, action: \.guiltFreeBudget)
+                )
+            case .coolingOff:
+                CoolingOffView(
+                    store: store.scope(state: \.coolingOff, action: \.coolingOff)
+                )
+            case .moodJournal:
+                MoodJournalView(
+                    store: store.scope(state: \.moodJournal, action: \.moodJournal)
+                )
+            case .regretScore:
+                RegretScoreView(
+                    store: store.scope(state: \.regretScore, action: \.regretScore)
                 )
             case .compatibility:
                 CompatibilityView(

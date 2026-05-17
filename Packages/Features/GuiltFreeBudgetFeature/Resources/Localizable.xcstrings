@@ -1,0 +1,282 @@
+{
+  "sourceLanguage" : "vi",
+  "strings" : {
+    "guiltFree.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Guilt-free budget" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tiền tự do" } }
+      }
+    },
+    "guiltFree.headline.freeMoney" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Free to spend" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tiền tự do" } }
+      }
+    },
+    "guiltFree.headline.dailyAllowance" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Per remaining day" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Bình quân ngày còn lại" } }
+      }
+    },
+    "guiltFree.health.healthy" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "You've taken care of the essentials — enjoy this." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Bạn đã lo đủ phần thiết yếu rồi — cứ tận hưởng đi." } }
+      }
+    },
+    "guiltFree.health.tight" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Things are tight this month. Spend mindfully." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tháng này hơi chật, nên cân nhắc khi chi tiêu." } }
+      }
+    },
+    "guiltFree.health.overspending" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Allocations exceed income — adjust to free up money." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Các khoản đã vượt thu nhập — cân lại để có tiền tự do." } }
+      }
+    },
+    "guiltFree.health.incomeMissing" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Add your monthly income to see your free money." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Hãy nhập thu nhập tháng để thấy tiền tự do." } }
+      }
+    },
+    "guiltFree.breakdown.headline" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "How income is allocated" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Phân bổ thu nhập" } }
+      }
+    },
+    "guiltFree.breakdown.accessibility" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Income allocation chart" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Biểu đồ phân bổ thu nhập" } }
+      }
+    },
+    "guiltFree.breakdown.fixedCosts" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Fixed costs" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Chi phí cố định" } }
+      }
+    },
+    "guiltFree.breakdown.savings" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Savings + emergency" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tiết kiệm + quỹ khẩn cấp" } }
+      }
+    },
+    "guiltFree.breakdown.freeMoney" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Free money" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tiền tự do" } }
+      }
+    },
+    "guiltFree.breakdown.shortfall" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Shortfall" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Phần thiếu" } }
+      }
+    },
+    "guiltFree.income.headline" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Income & savings" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Thu nhập & tiết kiệm" } }
+      }
+    },
+    "guiltFree.income.edit" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Edit" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Sửa" } }
+      }
+    },
+    "guiltFree.income.editorTitle" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Income & savings" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Thu nhập & tiết kiệm" } }
+      }
+    },
+    "guiltFree.income.monthly" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Monthly income" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Thu nhập tháng" } }
+      }
+    },
+    "guiltFree.income.monthly.footer" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Net income after tax, in VND." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Thu nhập thực nhận sau thuế, đơn vị VND." } }
+      }
+    },
+    "guiltFree.income.savings" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Monthly savings goal" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Mục tiêu tiết kiệm tháng" } }
+      }
+    },
+    "guiltFree.income.savings.footer" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Amount earmarked for savings goals." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Khoản dành cho mục tiêu tiết kiệm." } }
+      }
+    },
+    "guiltFree.income.emergency" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Emergency fund top-up" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Nạp quỹ khẩn cấp" } }
+      }
+    },
+    "guiltFree.income.emergency.footer" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Optional monthly contribution to your emergency fund." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Khoản nạp thêm vào quỹ khẩn cấp mỗi tháng (tuỳ chọn)." } }
+      }
+    },
+    "guiltFree.fixedCosts.headline" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Fixed costs" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Chi phí cố định" } }
+      }
+    },
+    "guiltFree.fixedCosts.add" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Add" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Thêm" } }
+      }
+    },
+    "guiltFree.fixedCosts.empty" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "No fixed costs yet. Add rent, utilities, insurance…" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Chưa có chi phí cố định. Thêm tiền nhà, điện nước, bảo hiểm…" } }
+      }
+    },
+    "guiltFree.fixedCosts.kind" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Category" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Loại" } }
+      }
+    },
+    "guiltFree.fixedCosts.namePlaceholder" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Name (e.g. Rent)" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tên (VD: Tiền nhà)" } }
+      }
+    },
+    "guiltFree.fixedCosts.amountPlaceholder" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Amount" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Số tiền" } }
+      }
+    },
+    "guiltFree.fixedCosts.editAction" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Edit" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Sửa" } }
+      }
+    },
+    "guiltFree.fixedCosts.deleteAction" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Delete" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Xoá" } }
+      }
+    },
+    "guiltFree.fixedCosts.menu" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "More actions" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Thao tác khác" } }
+      }
+    },
+    "guiltFree.fixedCosts.editorTitleNew" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "New fixed cost" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Chi phí cố định mới" } }
+      }
+    },
+    "guiltFree.fixedCosts.editorTitleEdit" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Edit fixed cost" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Sửa chi phí cố định" } }
+      }
+    },
+    "guiltFree.fixedCost.kind.housing" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Housing" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Nhà ở" } }
+      }
+    },
+    "guiltFree.fixedCost.kind.utilities" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Utilities" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Điện nước & internet" } }
+      }
+    },
+    "guiltFree.fixedCost.kind.insurance" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Insurance" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Bảo hiểm" } }
+      }
+    },
+    "guiltFree.fixedCost.kind.loanRepayment" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Loan repayment" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Trả nợ vay" } }
+      }
+    },
+    "guiltFree.fixedCost.kind.savings" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Savings" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tiết kiệm" } }
+      }
+    },
+    "guiltFree.fixedCost.kind.emergencyFund" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Emergency fund" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Quỹ khẩn cấp" } }
+      }
+    },
+    "guiltFree.fixedCost.kind.other" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Other" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Khác" } }
+      }
+    },
+    "guiltFree.cancel" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Cancel" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Huỷ" } }
+      }
+    },
+    "guiltFree.save" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Save" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Lưu" } }
+      }
+    },
+    "guiltFree.error.loadFailed" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Could not load configuration." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Không tải được cấu hình." } }
+      }
+    },
+    "guiltFree.error.saveFailed" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Could not save changes." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Không lưu được thay đổi." } }
+      }
+    },
+    "guiltFree.error.invalidAmount" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Amount must be a positive number." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Số tiền phải lớn hơn 0." } }
+      }
+    },
+    "guiltFree.error.nameRequired" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Please give this cost a name." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Vui lòng đặt tên cho khoản chi này." } }
+      }
+    }
+  },
+  "version" : "1.0"
+}

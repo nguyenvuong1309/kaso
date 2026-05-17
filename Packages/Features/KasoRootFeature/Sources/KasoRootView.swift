@@ -6,6 +6,8 @@ import AuthDomain
 import AuthFeature
 import BenchmarkFeature
 import BudgetDomain
+import CoolingOffDomain
+import CoolingOffFeature
 import DebtDomain
 import DebtFeature
 import FinancialAssistantFeature
@@ -14,23 +16,35 @@ import FreelancerFeature
 import GamificationDomain
 import GamificationFeature
 import GoalDomain
+import GuiltFreeBudgetDomain
+import GuiltFreeBudgetFeature
 import HoursOfLifeFeature
 import InvestmentDomain
 import InvestmentFeature
 import KasoDesignSystem
 import LegacyDomain
 import LegacyFeature
+import MoodJournalDomain
+import MoodJournalFeature
 import OnboardingDomain
 import OnboardingFeature
 import PhantomExpenseDomain
 import PhantomExpenseFeature
+import RegretScoreDomain
+import RegretScoreFeature
+import RoundUpDomain
+import RoundUpFeature
 import SleepCorrelationFeature
+import SpendingCalendarDomain
+import SpendingCalendarFeature
 import TransactionDomain
 import TransactionFeature
 import WealthDomain
 import WealthFeature
 import WellnessDomain
 import WellnessFeature
+import WhatIfDomain
+import WhatIfFeature
 
 public struct KasoRootView: View {
     @Bindable private var store: StoreOf<KasoRootFeature>
@@ -41,12 +55,14 @@ public struct KasoRootView: View {
         benchmarkContextClient: BenchmarkContextClient = .empty,
         budgetRepository: BudgetRepository = .empty,
         categoryRepository: TransactionCategoryRepository = .empty,
+        coolingOffRepository: PurchasePlanRepository = .empty,
         debtRepository: DebtRepository = .empty,
         debtLiabilitySyncClient: DebtLiabilitySyncClient = .empty,
         financialAssistantContextClient: FinancialAssistantContextClient = .empty,
         freelancerProfileRepository: FreelancerProfileRepository = .empty,
         gamificationProfileRepository: GamificationProfileRepository = .empty,
         gamificationContextClient: GamificationContextClient = .empty,
+        guiltFreeBudgetRepository: GuiltFreeBudgetRepository = .empty,
         holdingRepository: HoldingRepository = .empty,
         priceQuoteRepository: PriceQuoteRepository = .empty,
         targetAllocationRepository: TargetAllocationRepository = .empty,
@@ -56,6 +72,7 @@ public struct KasoRootView: View {
         legacyVaultRepository: LegacyVaultRepository = .empty,
         biometricAuthClient: BiometricAuthClient = .empty,
         legacyExportFileClient: LegacyExportFileClient = .empty,
+        moodJournalRepository: MoodJournalRepository = .empty,
         phantomExpenseRepository: PhantomExpenseRepository = .empty,
         hoursOfLifeConfigurationRepository: HoursOfLifeConfigurationRepository = .empty,
         hoursOfLifeContextClient: HoursOfLifeContextClient = .empty,
@@ -64,8 +81,13 @@ public struct KasoRootView: View {
         netWorthSnapshotRepository: NetWorthSnapshotRepository = .empty,
         onboardingProfileRepository: OnboardingProfileRepository = .empty,
         receiptImageRepository: ReceiptImageRepository = .empty,
+        regretRatingRepository: RegretRatingRepository = .empty,
+        regretReminderContextClient: RegretReminderContextClient = .empty,
+        roundUpRepository: RoundUpRepository = .empty,
         savingGoalRepository: SavingGoalRepository = .empty,
-        transactionRepository: TransactionRepository = .empty
+        spendingCalendarContextClient: SpendingCalendarContextClient = .empty,
+        transactionRepository: TransactionRepository = .empty,
+        whatIfBaselineClient: WhatIfBaselineClient = .empty
     ) {
         store = Store(initialState: KasoRootFeature.State()) {
             KasoRootFeature()
@@ -75,12 +97,14 @@ public struct KasoRootView: View {
             $0.benchmarkContextClient = benchmarkContextClient
             $0.budgetRepository = budgetRepository
             $0.transactionCategoryRepository = categoryRepository
+            $0.purchasePlanRepository = coolingOffRepository
             $0.debtRepository = debtRepository
             $0.debtLiabilitySyncClient = debtLiabilitySyncClient
             $0.financialAssistantContextClient = financialAssistantContextClient
             $0.freelancerProfileRepository = freelancerProfileRepository
             $0.gamificationProfileRepository = gamificationProfileRepository
             $0.gamificationContextClient = gamificationContextClient
+            $0.guiltFreeBudgetRepository = guiltFreeBudgetRepository
             $0.holdingRepository = holdingRepository
             $0.priceQuoteRepository = priceQuoteRepository
             $0.targetAllocationRepository = targetAllocationRepository
@@ -90,6 +114,7 @@ public struct KasoRootView: View {
             $0.legacyVaultRepository = legacyVaultRepository
             $0.biometricAuthClient = biometricAuthClient
             $0.legacyExportFileClient = legacyExportFileClient
+            $0.moodJournalRepository = moodJournalRepository
             $0.phantomExpenseRepository = phantomExpenseRepository
             $0.hoursOfLifeConfigurationRepository = hoursOfLifeConfigurationRepository
             $0.hoursOfLifeContextClient = hoursOfLifeContextClient
@@ -98,8 +123,13 @@ public struct KasoRootView: View {
             $0.netWorthSnapshotRepository = netWorthSnapshotRepository
             $0.onboardingProfileRepository = onboardingProfileRepository
             $0.receiptImageRepository = receiptImageRepository
+            $0.regretRatingRepository = regretRatingRepository
+            $0.regretReminderContextClient = regretReminderContextClient
+            $0.roundUpRepository = roundUpRepository
             $0.savingGoalRepository = savingGoalRepository
+            $0.spendingCalendarContextClient = spendingCalendarContextClient
             $0.transactionRepository = transactionRepository
+            $0.whatIfBaselineClient = whatIfBaselineClient
         }
     }
 

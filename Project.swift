@@ -14,6 +14,7 @@ let projectSettings = Settings.settings(base: baseSettings)
 let appSettings = Settings.settings(
     base: baseSettings.merging([
         "ASSETCATALOG_COMPILER_APPICON_NAME": "AppIcon",
+        "APPINTENTS_PACKAGE_DEPENDENCIES": "QuickEntryIntent",
     ]) { _, appValue in appValue }
 )
 
@@ -152,31 +153,48 @@ let domainSpecs = [
         dependencies: ["BudgetDomain", "TransactionDomain"],
         testDependencies: ["BudgetDomain", "TransactionDomain"]
     ),
+    ModuleSpec("RoundUpDomain"),
+    ModuleSpec("GuiltFreeBudgetDomain"),
+    ModuleSpec("CoolingOffDomain"),
+    ModuleSpec("MoodJournalDomain"),
+    ModuleSpec("RegretScoreDomain"),
+    ModuleSpec("WhatIfDomain"),
+    ModuleSpec("SpendingCalendarDomain"),
 ]
 
 let persistenceDependencies = [
-    "AppearanceDomain", "AuthDomain", "BudgetDomain", "DebtDomain",
-    "FreelancerDomain", "GamificationDomain", "GoalDomain", "InvestmentDomain",
-    "KasoFoundation", "LegacyDomain", "OnboardingDomain", "PhantomExpenseDomain",
+    "AppearanceDomain", "AuthDomain", "BudgetDomain", "CoolingOffDomain",
+    "DebtDomain", "FreelancerDomain", "GamificationDomain", "GoalDomain",
+    "GuiltFreeBudgetDomain", "InvestmentDomain",
+    "KasoFoundation", "LegacyDomain", "MoodJournalDomain", "OnboardingDomain",
+    "PhantomExpenseDomain", "RegretScoreDomain", "RoundUpDomain",
     "TransactionDomain", "WealthDomain", "WellnessDomain",
 ]
 let persistenceTestDependencies = [
-    "AppearanceDomain", "BudgetDomain", "DebtDomain", "FreelancerDomain",
-    "GamificationDomain", "GoalDomain", "InvestmentDomain", "LegacyDomain",
-    "PersistenceKit", "PhantomExpenseDomain", "TransactionDomain", "WealthDomain",
-    "WellnessDomain",
+    "AppearanceDomain", "BudgetDomain", "CoolingOffDomain", "DebtDomain",
+    "FreelancerDomain", "GamificationDomain", "GoalDomain", "GuiltFreeBudgetDomain",
+    "InvestmentDomain", "LegacyDomain", "MoodJournalDomain",
+    "PersistenceKit", "PhantomExpenseDomain", "RegretScoreDomain",
+    "RoundUpDomain", "TransactionDomain", "WealthDomain", "WellnessDomain",
 ]
 
 let rootFeatureDependencies = [
     "AppearanceDomain", "AppearanceFeature", "AuthDomain", "AuthFeature",
-    "BenchmarkFeature", "BudgetDomain", "DebtFeature", "FinancialAssistantFeature",
+    "BenchmarkFeature", "BudgetDomain", "CoolingOffDomain", "CoolingOffFeature",
+    "DebtFeature", "FinancialAssistantFeature",
     "FreelancerDomain", "FreelancerFeature", "GamificationDomain", "GamificationFeature",
-    "GoalDomain", "HoursOfLifeFeature", "InvestmentDomain", "InvestmentFeature",
+    "GoalDomain", "GuiltFreeBudgetDomain", "GuiltFreeBudgetFeature",
+    "HoursOfLifeFeature", "InvestmentDomain", "InvestmentFeature",
     "KasoDesignSystem", "LegacyDomain", "LegacyFeature",
+    "MoodJournalDomain", "MoodJournalFeature",
     "OnboardingDomain", "OnboardingFeature",
-    "PhantomExpenseDomain", "PhantomExpenseFeature", "SleepCorrelationFeature",
+    "PhantomExpenseDomain", "PhantomExpenseFeature",
+    "RegretScoreDomain", "RegretScoreFeature",
+    "RoundUpDomain", "RoundUpFeature",
+    "SleepCorrelationFeature",
+    "SpendingCalendarDomain", "SpendingCalendarFeature",
     "TransactionDomain", "TransactionFeature", "WealthDomain", "WealthFeature",
-    "WellnessDomain", "WellnessFeature",
+    "WellnessDomain", "WellnessFeature", "WhatIfDomain", "WhatIfFeature",
 ]
 
 let featureSpecs = [
@@ -263,16 +281,57 @@ let featureSpecs = [
         ]
     ),
     ModuleSpec(
+        "RoundUpFeature",
+        dependencies: ["KasoDesignSystem", "RoundUpDomain"],
+        testDependencies: ["RoundUpDomain"]
+    ),
+    ModuleSpec(
+        "GuiltFreeBudgetFeature",
+        dependencies: ["GuiltFreeBudgetDomain", "KasoDesignSystem"],
+        testDependencies: ["GuiltFreeBudgetDomain"]
+    ),
+    ModuleSpec(
+        "CoolingOffFeature",
+        dependencies: ["CoolingOffDomain", "KasoDesignSystem"],
+        testDependencies: ["CoolingOffDomain"]
+    ),
+    ModuleSpec(
+        "MoodJournalFeature",
+        dependencies: ["KasoDesignSystem", "MoodJournalDomain"],
+        testDependencies: ["MoodJournalDomain"]
+    ),
+    ModuleSpec(
+        "RegretScoreFeature",
+        dependencies: ["KasoDesignSystem", "RegretScoreDomain"],
+        testDependencies: ["RegretScoreDomain"]
+    ),
+    ModuleSpec(
+        "WhatIfFeature",
+        dependencies: ["KasoDesignSystem", "WhatIfDomain"],
+        testDependencies: ["WhatIfDomain"]
+    ),
+    ModuleSpec(
+        "SpendingCalendarFeature",
+        dependencies: ["KasoDesignSystem", "SpendingCalendarDomain"],
+        testDependencies: ["SpendingCalendarDomain"]
+    ),
+    ModuleSpec(
         "WellnessFeature",
         dependencies: [
-            "CompatibilityFeature", "FreelancerFeature", "GamificationFeature",
+            "CompatibilityFeature", "CoolingOffFeature", "FreelancerFeature",
+            "GamificationFeature", "GuiltFreeBudgetFeature",
             "HoursOfLifeFeature", "KasoDesignSystem", "LegacyFeature",
-            "PhantomExpenseFeature", "SleepCorrelationFeature",
+            "MoodJournalFeature", "PhantomExpenseFeature", "RegretScoreFeature",
+            "RoundUpFeature", "SleepCorrelationFeature",
+            "SpendingCalendarFeature", "WhatIfFeature",
         ],
         testDependencies: [
-            "CompatibilityFeature", "FreelancerFeature", "GamificationFeature",
-            "HoursOfLifeFeature", "LegacyFeature", "PhantomExpenseFeature",
-            "SleepCorrelationFeature",
+            "CompatibilityFeature", "CoolingOffFeature", "FreelancerFeature",
+            "GamificationFeature", "GuiltFreeBudgetFeature",
+            "HoursOfLifeFeature", "LegacyFeature", "MoodJournalFeature",
+            "PhantomExpenseFeature", "RegretScoreFeature",
+            "RoundUpFeature", "SleepCorrelationFeature",
+            "SpendingCalendarFeature", "WhatIfFeature",
         ]
     ),
 ]
@@ -311,7 +370,7 @@ let appTarget = Target.target(
     dependencies: targetDependencies([
         "BenchmarkFeature", "DebtFeature", "FinancialAssistantFeature", "FreelancerFeature",
         "GamificationFeature", "HoursOfLifeFeature", "InvestmentFeature", "KasoRootFeature",
-        "LegacyFeature", "PersistenceKit", "SleepCorrelationDomain",
+        "LegacyFeature", "PersistenceKit", "QuickEntryIntent", "SleepCorrelationDomain",
         "SleepCorrelationFeature",
     ]),
     settings: appSettings
@@ -332,6 +391,21 @@ let dataTargets = [
     ),
 ]
 
+let quickEntryIntentTargets: [Target] = [
+    moduleTarget(
+        name: "QuickEntryIntent",
+        product: .staticFramework,
+        buildableFolders: ["Packages/Features/QuickEntryIntent/Sources"],
+        dependencies: ["PersistenceKit", "TransactionDomain"]
+    ),
+    moduleTarget(
+        name: "QuickEntryIntentTests",
+        product: .unitTests,
+        buildableFolders: ["Packages/Features/QuickEntryIntent/Tests"],
+        dependencies: ["QuickEntryIntent", "PersistenceKit", "TransactionDomain"]
+    ),
+]
+
 let project = Project(
     name: "Kaso",
     organizationName: organizationName,
@@ -347,4 +421,5 @@ let project = Project(
         + domainSpecs.flatMap(domainTargets)
         + dataTargets
         + featureSpecs.flatMap(featureTargets)
+        + quickEntryIntentTargets
 )

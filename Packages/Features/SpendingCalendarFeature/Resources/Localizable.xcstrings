@@ -1,0 +1,78 @@
+{
+  "sourceLanguage" : "vi",
+  "strings" : {
+    "calendar.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Spending calendar" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Lịch chi tiêu" } }
+      }
+    },
+    "calendar.previousMonth" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Previous month" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tháng trước" } }
+      }
+    },
+    "calendar.nextMonth" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Next month" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tháng sau" } }
+      }
+    },
+    "calendar.today" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Today" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Hôm nay" } }
+      }
+    },
+    "calendar.actualTotal" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Spent so far" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Đã chi" } }
+      }
+    },
+    "calendar.forecastTotal" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Forecast remaining" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Dự báo còn lại" } }
+      }
+    },
+    "calendar.cellLabel" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%1$@: %2$@" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "%1$@: %2$@" } }
+      }
+    },
+    "calendar.topDay.headline" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Highest spending day" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Ngày chi nhiều nhất" } }
+      }
+    },
+    "calendar.day.actual" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Actual" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Thực tế" } }
+      }
+    },
+    "calendar.day.forecast" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Forecast" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Dự báo" } }
+      }
+    },
+    "calendar.day.empty" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "No items to show." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Chưa có khoản nào." } }
+      }
+    },
+    "calendar.error.loadFailed" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Could not load calendar data." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Không tải được dữ liệu lịch." } }
+      }
+    }
+  },
+  "version" : "1.0"
+}

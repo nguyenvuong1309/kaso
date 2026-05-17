@@ -1,0 +1,348 @@
+{
+  "sourceLanguage" : "vi",
+  "strings" : {
+    "coolingOff.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Cooling-off" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Hàng chờ mua" } }
+      }
+    },
+    "coolingOff.add" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Add to waitlist" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Thêm vào hàng chờ" } }
+      }
+    },
+    "coolingOff.cancel" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Cancel" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Huỷ" } }
+      }
+    },
+    "coolingOff.save" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Save" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Lưu" } }
+      }
+    },
+    "coolingOff.summary.headline" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Money saved by waiting" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Đã tránh chi nhờ chờ" } }
+      }
+    },
+    "coolingOff.summary.avoidedSubtitle" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Total amount of plans you decided to skip." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tổng tiền các kế hoạch bạn quyết định không mua." } }
+      }
+    },
+    "coolingOff.summary.waiting" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "On waitlist" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Đang chờ" } }
+      }
+    },
+    "coolingOff.summary.waitingAmount" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Pending total" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tổng đang chờ" } }
+      }
+    },
+    "coolingOff.section.ready" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Ready to decide" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Sẵn sàng quyết định" } }
+      }
+    },
+    "coolingOff.section.ready.subtitle" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Time is up — do you still want to buy these?" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Đã hết thời gian chờ — bạn còn muốn mua không?" } }
+      }
+    },
+    "coolingOff.section.waiting" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Cooling off" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Đang chờ" } }
+      }
+    },
+    "coolingOff.section.waiting.subtitle" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Let time decide if these are worth buying." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Để thời gian giúp bạn quyết có nên mua không." } }
+      }
+    },
+    "coolingOff.section.waiting.empty" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Nothing waiting. Tap + to add a planned purchase." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Chưa có gì đang chờ. Bấm + để thêm kế hoạch mua." } }
+      }
+    },
+    "coolingOff.section.history" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Past decisions" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Quyết định trước đây" } }
+      }
+    },
+    "coolingOff.section.history.subtitle" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Approved or skipped plans." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Các kế hoạch đã duyệt hoặc bỏ qua." } }
+      }
+    },
+    "coolingOff.editor.titleNew" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "New planned purchase" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Kế hoạch mua mới" } }
+      }
+    },
+    "coolingOff.editor.titleEdit" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Edit plan" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Sửa kế hoạch" } }
+      }
+    },
+    "coolingOff.editor.purchase" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "What you want to buy" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Bạn muốn mua gì" } }
+      }
+    },
+    "coolingOff.editor.titlePlaceholder" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Title (e.g. AirPods Pro)" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tên (VD: AirPods Pro)" } }
+      }
+    },
+    "coolingOff.editor.amountPlaceholder" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Amount" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Số tiền" } }
+      }
+    },
+    "coolingOff.editor.category" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Category" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Loại" } }
+      }
+    },
+    "coolingOff.editor.period" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Cooling period" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Thời gian chờ" } }
+      }
+    },
+    "coolingOff.editor.periodHeader" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Wait before buying" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Chờ trước khi mua" } }
+      }
+    },
+    "coolingOff.editor.periodFooter" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Suggested automatically from amount. You can override if needed." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tự đề xuất theo số tiền. Bạn có thể chỉnh lại nếu muốn." } }
+      }
+    },
+    "coolingOff.editor.useSuggested" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Use suggested period" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Dùng thời gian đề xuất" } }
+      }
+    },
+    "coolingOff.editor.note" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Reason (optional)" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Lý do (tuỳ chọn)" } }
+      }
+    },
+    "coolingOff.editor.notePlaceholder" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Why do you want this?" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Vì sao bạn muốn mua món này?" } }
+      }
+    },
+    "coolingOff.action.approve" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Approve" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Đồng ý mua" } }
+      }
+    },
+    "coolingOff.action.cancel" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Skip" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Bỏ qua" } }
+      }
+    },
+    "coolingOff.action.edit" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Edit plan" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Sửa kế hoạch" } }
+      }
+    },
+    "coolingOff.action.delete" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Delete plan" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Xoá kế hoạch" } }
+      }
+    },
+    "coolingOff.row.remaining" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%@ remaining" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Còn %@" } }
+      }
+    },
+    "coolingOff.row.ready" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Cooling complete — decide now" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Hết thời gian chờ — đến lúc quyết định" } }
+      }
+    },
+    "coolingOff.row.decidedAt" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Decided on %@" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Quyết định ngày %@" } }
+      }
+    },
+    "coolingOff.status.waiting" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Waiting" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Đang chờ" } }
+      }
+    },
+    "coolingOff.status.ready" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Ready" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Sẵn sàng" } }
+      }
+    },
+    "coolingOff.status.approved" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Approved" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Đã mua" } }
+      }
+    },
+    "coolingOff.status.cancelled" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Skipped" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Đã bỏ qua" } }
+      }
+    },
+    "coolingOff.status.expired" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Expired" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Hết hạn" } }
+      }
+    },
+    "coolingOff.period.oneDay" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "1 day" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "1 ngày" } }
+      }
+    },
+    "coolingOff.period.threeDays" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "3 days" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "3 ngày" } }
+      }
+    },
+    "coolingOff.period.oneWeek" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "1 week" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "1 tuần" } }
+      }
+    },
+    "coolingOff.period.twoWeeks" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "2 weeks" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "2 tuần" } }
+      }
+    },
+    "coolingOff.category.fashion" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Fashion" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Thời trang" } }
+      }
+    },
+    "coolingOff.category.electronics" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Electronics" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Điện tử" } }
+      }
+    },
+    "coolingOff.category.home" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Home" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Đồ gia dụng" } }
+      }
+    },
+    "coolingOff.category.travel" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Travel" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Du lịch" } }
+      }
+    },
+    "coolingOff.category.entertainment" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Entertainment" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Giải trí" } }
+      }
+    },
+    "coolingOff.category.foodDrink" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Food & drink" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Ăn uống" } }
+      }
+    },
+    "coolingOff.category.beauty" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Beauty" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Làm đẹp" } }
+      }
+    },
+    "coolingOff.category.hobby" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Hobby" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Sở thích" } }
+      }
+    },
+    "coolingOff.category.other" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Other" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Khác" } }
+      }
+    },
+    "coolingOff.error.loadFailed" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Could not load the waitlist." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Không tải được hàng chờ." } }
+      }
+    },
+    "coolingOff.error.saveFailed" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Could not save changes." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Không lưu được thay đổi." } }
+      }
+    },
+    "coolingOff.error.deleteFailed" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Could not delete the plan." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Không xoá được kế hoạch." } }
+      }
+    },
+    "coolingOff.error.titleRequired" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Please name what you want to buy." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Vui lòng nhập tên món muốn mua." } }
+      }
+    },
+    "coolingOff.error.amountMustBePositive" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Amount must be a positive number." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Số tiền phải lớn hơn 0." } }
+      }
+    }
+  },
+  "version" : "1.0"
+}

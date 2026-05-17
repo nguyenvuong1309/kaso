@@ -14,12 +14,18 @@ let libraryProductNames = [
     "WealthDomain", "DebtDomain", "InvestmentDomain",
     "PhantomExpenseDomain", "CompatibilityDomain", "FreelancerDomain",
     "SleepCorrelationDomain", "LegacyDomain", "BudgetDomain",
-    "OnboardingDomain", "PersistenceKit", "AppearanceFeature",
+    "OnboardingDomain", "RoundUpDomain", "GuiltFreeBudgetDomain",
+    "CoolingOffDomain", "MoodJournalDomain", "RegretScoreDomain",
+    "WhatIfDomain", "SpendingCalendarDomain",
+    "PersistenceKit", "AppearanceFeature",
     "AuthFeature", "BenchmarkFeature", "OnboardingFeature", "KasoRootFeature",
     "FinancialAssistantFeature", "TransactionFeature", "WealthFeature", "DebtFeature",
     "InvestmentFeature", "PhantomExpenseFeature", "CompatibilityFeature",
     "FreelancerFeature", "SleepCorrelationFeature", "LegacyFeature",
-    "HoursOfLifeFeature", "WellnessFeature",
+    "HoursOfLifeFeature", "RoundUpFeature", "GuiltFreeBudgetFeature",
+    "CoolingOffFeature", "MoodJournalFeature", "RegretScoreFeature",
+    "WhatIfFeature", "SpendingCalendarFeature",
+    "WellnessFeature", "QuickEntryIntent",
 ]
 
 func sourceTarget(
@@ -52,25 +58,34 @@ func testTarget(
 }
 
 let persistenceDependencies: [Target.Dependency] = [
-    "AppearanceDomain", "AuthDomain", "BudgetDomain", "DebtDomain",
-    "FreelancerDomain", "GoalDomain", "InvestmentDomain", "KasoFoundation",
-    "LegacyDomain", "OnboardingDomain", "PhantomExpenseDomain",
-    "TransactionDomain", "WealthDomain", "WellnessDomain",
+    "AppearanceDomain", "AuthDomain", "BudgetDomain", "CoolingOffDomain",
+    "DebtDomain", "FreelancerDomain", "GoalDomain", "GuiltFreeBudgetDomain",
+    "InvestmentDomain", "KasoFoundation",
+    "LegacyDomain", "MoodJournalDomain", "OnboardingDomain", "PhantomExpenseDomain",
+    "RegretScoreDomain", "RoundUpDomain", "TransactionDomain", "WealthDomain",
+    "WellnessDomain",
 ]
 let persistenceTestDependencies: [Target.Dependency] = [
-    "AppearanceDomain", "BudgetDomain", "DebtDomain", "GoalDomain",
-    "FreelancerDomain", "InvestmentDomain", "LegacyDomain", "PersistenceKit",
-    "PhantomExpenseDomain", "TransactionDomain", "WealthDomain", "WellnessDomain",
+    "AppearanceDomain", "BudgetDomain", "CoolingOffDomain", "DebtDomain", "GoalDomain",
+    "FreelancerDomain", "GuiltFreeBudgetDomain", "InvestmentDomain", "LegacyDomain",
+    "MoodJournalDomain", "PersistenceKit", "PhantomExpenseDomain", "RegretScoreDomain",
+    "RoundUpDomain", "TransactionDomain", "WealthDomain", "WellnessDomain",
 ]
 let rootFeatureDependencies: [Target.Dependency] = [
     "AppearanceDomain", "AppearanceFeature", "AuthDomain", "AuthFeature",
-    "BenchmarkFeature", "BudgetDomain", "DebtFeature", "FinancialAssistantFeature", "FreelancerDomain",
-    "FreelancerFeature", "GoalDomain", "HoursOfLifeFeature", "InvestmentDomain",
+    "BenchmarkFeature", "BudgetDomain", "CoolingOffDomain", "CoolingOffFeature",
+    "DebtFeature", "FinancialAssistantFeature", "FreelancerDomain",
+    "FreelancerFeature", "GoalDomain", "GuiltFreeBudgetDomain", "GuiltFreeBudgetFeature",
+    "HoursOfLifeFeature", "InvestmentDomain",
     "InvestmentFeature", "KasoDesignSystem", "LegacyDomain", "LegacyFeature",
+    "MoodJournalDomain", "MoodJournalFeature",
     "OnboardingDomain", "OnboardingFeature",
-    "PhantomExpenseDomain", "PhantomExpenseFeature", "TransactionDomain",
+    "PhantomExpenseDomain", "PhantomExpenseFeature", "RegretScoreDomain", "RegretScoreFeature",
+    "RoundUpDomain", "RoundUpFeature", "SpendingCalendarDomain", "SpendingCalendarFeature",
+    "TransactionDomain",
     "SleepCorrelationFeature", "TransactionFeature", "WealthDomain",
-    "WealthFeature", "WellnessDomain", "WellnessFeature", tca,
+    "WealthFeature", "WellnessDomain", "WellnessFeature", "WhatIfDomain", "WhatIfFeature",
+    tca,
 ]
 let transactionFeatureDependencies: [Target.Dependency] = [
     "BudgetDomain", "GoalDomain", "InsightDomain", "KasoDesignSystem",
@@ -99,7 +114,7 @@ let package = Package(
             dependencies: [
                 "BenchmarkFeature", "DebtFeature", "FinancialAssistantFeature", "FreelancerFeature",
                 "HoursOfLifeFeature", "InvestmentFeature", "KasoRootFeature",
-                "LegacyFeature", "PersistenceKit", "SleepCorrelationDomain",
+                "LegacyFeature", "PersistenceKit", "QuickEntryIntent", "SleepCorrelationDomain",
                 "SleepCorrelationFeature",
             ],
             path: "App/Sources",
@@ -185,6 +200,51 @@ let package = Package(
             "OnboardingDomainTests",
             ["OnboardingDomain", "TransactionDomain"],
             path: "Packages/Domain/OnboardingDomain/Tests"
+        ),
+        sourceTarget("RoundUpDomain", path: "Packages/Domain/RoundUpDomain/Sources"),
+        testTarget(
+            "RoundUpDomainTests",
+            ["RoundUpDomain"],
+            path: "Packages/Domain/RoundUpDomain/Tests"
+        ),
+        sourceTarget(
+            "GuiltFreeBudgetDomain",
+            path: "Packages/Domain/GuiltFreeBudgetDomain/Sources"
+        ),
+        testTarget(
+            "GuiltFreeBudgetDomainTests",
+            ["GuiltFreeBudgetDomain"],
+            path: "Packages/Domain/GuiltFreeBudgetDomain/Tests"
+        ),
+        sourceTarget("CoolingOffDomain", path: "Packages/Domain/CoolingOffDomain/Sources"),
+        testTarget(
+            "CoolingOffDomainTests",
+            ["CoolingOffDomain"],
+            path: "Packages/Domain/CoolingOffDomain/Tests"
+        ),
+        sourceTarget("MoodJournalDomain", path: "Packages/Domain/MoodJournalDomain/Sources"),
+        testTarget(
+            "MoodJournalDomainTests",
+            ["MoodJournalDomain"],
+            path: "Packages/Domain/MoodJournalDomain/Tests"
+        ),
+        sourceTarget("RegretScoreDomain", path: "Packages/Domain/RegretScoreDomain/Sources"),
+        testTarget(
+            "RegretScoreDomainTests",
+            ["RegretScoreDomain"],
+            path: "Packages/Domain/RegretScoreDomain/Tests"
+        ),
+        sourceTarget("WhatIfDomain", path: "Packages/Domain/WhatIfDomain/Sources"),
+        testTarget(
+            "WhatIfDomainTests",
+            ["WhatIfDomain"],
+            path: "Packages/Domain/WhatIfDomain/Tests"
+        ),
+        sourceTarget("SpendingCalendarDomain", path: "Packages/Domain/SpendingCalendarDomain/Sources"),
+        testTarget(
+            "SpendingCalendarDomainTests",
+            ["SpendingCalendarDomain"],
+            path: "Packages/Domain/SpendingCalendarDomain/Tests"
         ),
         sourceTarget("PersistenceKit", persistenceDependencies, path: "Packages/Data/PersistenceKit/Sources"),
         testTarget("PersistenceKitTests", persistenceTestDependencies, path: "Packages/Data/PersistenceKit/Tests"),
@@ -327,20 +387,95 @@ let package = Package(
             path: "Packages/Features/HoursOfLifeFeature/Tests"
         ),
         featureTarget(
+            "RoundUpFeature",
+            ["KasoDesignSystem", "RoundUpDomain", tca],
+            path: "Packages/Features/RoundUpFeature/Sources"
+        ),
+        testTarget(
+            "RoundUpFeatureTests",
+            ["RoundUpDomain", "RoundUpFeature", tca],
+            path: "Packages/Features/RoundUpFeature/Tests"
+        ),
+        featureTarget(
+            "GuiltFreeBudgetFeature",
+            ["GuiltFreeBudgetDomain", "KasoDesignSystem", tca],
+            path: "Packages/Features/GuiltFreeBudgetFeature/Sources"
+        ),
+        testTarget(
+            "GuiltFreeBudgetFeatureTests",
+            ["GuiltFreeBudgetDomain", "GuiltFreeBudgetFeature", tca],
+            path: "Packages/Features/GuiltFreeBudgetFeature/Tests"
+        ),
+        featureTarget(
+            "CoolingOffFeature",
+            ["CoolingOffDomain", "KasoDesignSystem", tca],
+            path: "Packages/Features/CoolingOffFeature/Sources"
+        ),
+        testTarget(
+            "CoolingOffFeatureTests",
+            ["CoolingOffDomain", "CoolingOffFeature", tca],
+            path: "Packages/Features/CoolingOffFeature/Tests"
+        ),
+        featureTarget(
+            "MoodJournalFeature",
+            ["KasoDesignSystem", "MoodJournalDomain", tca],
+            path: "Packages/Features/MoodJournalFeature/Sources"
+        ),
+        testTarget(
+            "MoodJournalFeatureTests",
+            ["MoodJournalDomain", "MoodJournalFeature", tca],
+            path: "Packages/Features/MoodJournalFeature/Tests"
+        ),
+        featureTarget(
+            "RegretScoreFeature",
+            ["KasoDesignSystem", "RegretScoreDomain", tca],
+            path: "Packages/Features/RegretScoreFeature/Sources"
+        ),
+        testTarget(
+            "RegretScoreFeatureTests",
+            ["RegretScoreDomain", "RegretScoreFeature", tca],
+            path: "Packages/Features/RegretScoreFeature/Tests"
+        ),
+        featureTarget(
+            "WhatIfFeature",
+            ["KasoDesignSystem", "WhatIfDomain", tca],
+            path: "Packages/Features/WhatIfFeature/Sources"
+        ),
+        testTarget(
+            "WhatIfFeatureTests",
+            ["WhatIfDomain", "WhatIfFeature", tca],
+            path: "Packages/Features/WhatIfFeature/Tests"
+        ),
+        featureTarget(
+            "SpendingCalendarFeature",
+            ["KasoDesignSystem", "SpendingCalendarDomain", tca],
+            path: "Packages/Features/SpendingCalendarFeature/Sources"
+        ),
+        testTarget(
+            "SpendingCalendarFeatureTests",
+            ["SpendingCalendarDomain", "SpendingCalendarFeature", tca],
+            path: "Packages/Features/SpendingCalendarFeature/Tests"
+        ),
+        featureTarget(
             "WellnessFeature",
             [
-                "CompatibilityFeature", "FreelancerFeature", "HoursOfLifeFeature",
-                "KasoDesignSystem", "LegacyFeature", "PhantomExpenseFeature",
-                "SleepCorrelationFeature", tca,
+                "CompatibilityFeature", "CoolingOffFeature", "FreelancerFeature",
+                "GuiltFreeBudgetFeature", "HoursOfLifeFeature",
+                "KasoDesignSystem", "LegacyFeature", "MoodJournalFeature",
+                "PhantomExpenseFeature", "RegretScoreFeature",
+                "RoundUpFeature", "SleepCorrelationFeature",
+                "SpendingCalendarFeature", "WhatIfFeature", tca,
             ],
             path: "Packages/Features/WellnessFeature/Sources"
         ),
         testTarget(
             "WellnessFeatureTests",
             [
-                "CompatibilityFeature", "FreelancerFeature", "HoursOfLifeFeature",
-                "LegacyFeature", "PhantomExpenseFeature", "SleepCorrelationFeature",
-                "WellnessFeature", tca,
+                "CompatibilityFeature", "CoolingOffFeature", "FreelancerFeature",
+                "GuiltFreeBudgetFeature", "HoursOfLifeFeature",
+                "LegacyFeature", "MoodJournalFeature", "PhantomExpenseFeature",
+                "RegretScoreFeature", "RoundUpFeature", "SleepCorrelationFeature",
+                "SpendingCalendarFeature", "WellnessFeature", "WhatIfFeature", tca,
             ],
             path: "Packages/Features/WellnessFeature/Tests"
         ),
@@ -350,6 +485,16 @@ let package = Package(
             path: "Packages/Features/WealthFeature/Sources"
         ),
         testTarget("WealthFeatureTests", ["WealthFeature", tca], path: "Packages/Features/WealthFeature/Tests"),
+        sourceTarget(
+            "QuickEntryIntent",
+            ["PersistenceKit", "TransactionDomain"],
+            path: "Packages/Features/QuickEntryIntent/Sources"
+        ),
+        testTarget(
+            "QuickEntryIntentTests",
+            ["QuickEntryIntent", "PersistenceKit", "TransactionDomain"],
+            path: "Packages/Features/QuickEntryIntent/Tests"
+        ),
     ],
     swiftLanguageModes: [.v6]
 )

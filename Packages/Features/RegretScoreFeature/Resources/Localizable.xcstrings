@@ -1,0 +1,252 @@
+{
+  "sourceLanguage" : "vi",
+  "strings" : {
+    "regret.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Regret score" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Điểm hối tiếc" } }
+      }
+    },
+    "regret.add" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Rate purchase" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Chấm hối tiếc" } }
+      }
+    },
+    "regret.cancel" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Cancel" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Huỷ" } }
+      }
+    },
+    "regret.save" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Save" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Lưu" } }
+      }
+    },
+    "regret.summary.headline" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Total regretted spending" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tổng tiền đã hối tiếc" } }
+      }
+    },
+    "regret.summary.ratings" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Ratings" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Đã chấm" } }
+      }
+    },
+    "regret.summary.regretCount" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Regret" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Hối tiếc" } }
+      }
+    },
+    "regret.summary.regretRatio" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "% Regret" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "% hối tiếc" } }
+      }
+    },
+    "regret.reminders.headline" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Recent big purchases" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Mua lớn gần đây" } }
+      }
+    },
+    "regret.reminders.description" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Bought a week ago — how do you feel about it now?" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Mua hơn 7 ngày — bây giờ bạn cảm thấy thế nào?" } }
+      }
+    },
+    "regret.reminders.rate" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Rate" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Chấm" } }
+      }
+    },
+    "regret.reminders.dismiss" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Skip" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Bỏ qua" } }
+      }
+    },
+    "regret.category.headline" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "By category" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Theo danh mục" } }
+      }
+    },
+    "regret.top.headline" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Top regretted purchases" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Hối tiếc nhiều nhất" } }
+      }
+    },
+    "regret.ratings.headline" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "All ratings" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tất cả lần chấm" } }
+      }
+    },
+    "regret.ratings.add" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Add" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Thêm" } }
+      }
+    },
+    "regret.ratings.empty" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Rate a purchase you made a week ago to start." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Chấm một món bạn đã mua hơn một tuần để bắt đầu." } }
+      }
+    },
+    "regret.ratings.edit" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Edit" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Sửa" } }
+      }
+    },
+    "regret.ratings.delete" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Delete" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Xoá" } }
+      }
+    },
+    "regret.ratings.menu" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "More actions" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Thao tác khác" } }
+      }
+    },
+    "regret.editor.titleNew" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Rate purchase" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Chấm hối tiếc" } }
+      }
+    },
+    "regret.editor.titleEdit" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Edit rating" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Sửa lần chấm" } }
+      }
+    },
+    "regret.editor.purchaseHeader" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Purchase" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Khoản chi" } }
+      }
+    },
+    "regret.editor.titlePlaceholder" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "What did you buy?" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Bạn đã mua gì?" } }
+      }
+    },
+    "regret.editor.amountPlaceholder" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Amount" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Số tiền" } }
+      }
+    },
+    "regret.editor.categoryPlaceholder" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Category" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Loại" } }
+      }
+    },
+    "regret.editor.purchasedAt" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Purchased on" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Ngày mua" } }
+      }
+    },
+    "regret.editor.score" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Regret score" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Điểm hối tiếc" } }
+      }
+    },
+    "regret.editor.scoreHeader" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "How do you feel about it now?" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Bây giờ bạn cảm thấy thế nào?" } }
+      }
+    },
+    "regret.editor.noteHeader" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Note" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Ghi chú" } }
+      }
+    },
+    "regret.editor.notePlaceholder" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Why did you feel that way?" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Vì sao bạn cảm thấy vậy?" } }
+      }
+    },
+    "regret.score.1" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Worth it" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Đáng đồng tiền" } }
+      }
+    },
+    "regret.score.2" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Mostly OK" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tạm ổn" } }
+      }
+    },
+    "regret.score.3" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Neutral" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Bình thường" } }
+      }
+    },
+    "regret.score.4" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Some regret" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Có chút hối tiếc" } }
+      }
+    },
+    "regret.score.5" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Strong regret" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Rất hối tiếc" } }
+      }
+    },
+    "regret.error.loadFailed" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Could not load ratings." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Không tải được dữ liệu chấm." } }
+      }
+    },
+    "regret.error.saveFailed" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Could not save the rating." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Không lưu được lần chấm." } }
+      }
+    },
+    "regret.error.deleteFailed" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Could not delete the rating." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Không xoá được lần chấm." } }
+      }
+    },
+    "regret.error.titleRequired" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Please name what you bought." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Vui lòng nhập tên khoản chi." } }
+      }
+    },
+    "regret.error.amountMustBePositive" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Amount must be a positive number." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Số tiền phải lớn hơn 0." } }
+      }
+    }
+  },
+  "version" : "1.0"
+}

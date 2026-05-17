@@ -1,0 +1,228 @@
+{
+  "sourceLanguage" : "vi",
+  "strings" : {
+    "moodJournal.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Mood journal" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Nhật ký cảm xúc" } }
+      }
+    },
+    "moodJournal.add" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Log mood" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Ghi cảm xúc" } }
+      }
+    },
+    "moodJournal.cancel" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Cancel" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Huỷ" } }
+      }
+    },
+    "moodJournal.save" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Save" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Lưu" } }
+      }
+    },
+    "moodJournal.insight.headline" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Mood × spending" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Cảm xúc × chi tiêu" } }
+      }
+    },
+    "moodJournal.insight.delta" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "You spend %@ more on tough days" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Bạn chi nhiều hơn %@ vào ngày khó khăn" } }
+      }
+    },
+    "moodJournal.insight.description" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Compared to days where you felt good or great." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "So với những ngày bạn cảm thấy ổn hoặc vui." } }
+      }
+    },
+    "moodJournal.insight.needMore" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Log %1$d more (need %2$d entries) to unlock the insight." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Đã ghi %1$d, cần đủ %2$d lần để mở insight." } }
+      }
+    },
+    "moodJournal.insight.positiveAverage" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Good day avg" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "TB ngày vui" } }
+      }
+    },
+    "moodJournal.insight.negativeAverage" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Tough day avg" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "TB ngày khó" } }
+      }
+    },
+    "moodJournal.breakdown.headline" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "By mood" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Theo cảm xúc" } }
+      }
+    },
+    "moodJournal.breakdown.entries" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%d entries" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "%d lần ghi" } }
+      }
+    },
+    "moodJournal.entries.headline" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Recent entries" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Ghi gần đây" } }
+      }
+    },
+    "moodJournal.entries.add" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Add" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Thêm" } }
+      }
+    },
+    "moodJournal.entries.empty" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Tap + to log how you feel after spending." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Bấm + để ghi cảm xúc sau khi chi tiêu." } }
+      }
+    },
+    "moodJournal.entries.edit" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Edit" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Sửa" } }
+      }
+    },
+    "moodJournal.entries.delete" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Delete" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Xoá" } }
+      }
+    },
+    "moodJournal.entries.menu" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "More actions" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Thao tác khác" } }
+      }
+    },
+    "moodJournal.editor.titleNew" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "New mood entry" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Ghi cảm xúc mới" } }
+      }
+    },
+    "moodJournal.editor.titleEdit" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Edit mood entry" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Sửa ghi cảm xúc" } }
+      }
+    },
+    "moodJournal.editor.mood" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Mood" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Cảm xúc" } }
+      }
+    },
+    "moodJournal.editor.moodHeader" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "How are you feeling?" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Bạn đang cảm thấy thế nào?" } }
+      }
+    },
+    "moodJournal.editor.spendingHeader" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Spending today (optional)" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Chi tiêu hôm nay (tuỳ chọn)" } }
+      }
+    },
+    "moodJournal.editor.spendingFooter" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Snapshot the spending you want to associate with this mood." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Ghi lại khoản chi tiêu bạn muốn gắn với cảm xúc này." } }
+      }
+    },
+    "moodJournal.editor.spendingPlaceholder" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Amount" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Số tiền" } }
+      }
+    },
+    "moodJournal.editor.noteHeader" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Note" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Ghi chú" } }
+      }
+    },
+    "moodJournal.editor.notePlaceholder" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "What triggered this?" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Điều gì khiến bạn cảm thấy vậy?" } }
+      }
+    },
+    "moodJournal.error.loadFailed" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Could not load mood journal." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Không tải được nhật ký cảm xúc." } }
+      }
+    },
+    "moodJournal.error.saveFailed" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Could not save the entry." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Không lưu được ghi chú này." } }
+      }
+    },
+    "moodJournal.error.deleteFailed" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Could not delete the entry." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Không xoá được ghi chú." } }
+      }
+    },
+    "moodJournal.error.invalidAmount" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Spending must be a non-negative number." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Số tiền không được nhỏ hơn 0." } }
+      }
+    },
+    "mood.great" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Great" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tuyệt vời" } }
+      }
+    },
+    "mood.good" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Good" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Vui" } }
+      }
+    },
+    "mood.neutral" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Neutral" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Bình thường" } }
+      }
+    },
+    "mood.stressed" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Stressed" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Căng thẳng" } }
+      }
+    },
+    "mood.sad" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sad" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Buồn" } }
+      }
+    },
+    "mood.anxious" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Anxious" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Lo âu" } }
+      }
+    }
+  },
+  "version" : "1.0"
+}

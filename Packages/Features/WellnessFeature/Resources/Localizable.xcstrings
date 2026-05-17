@@ -135,6 +135,48 @@
           }
         }
       }
+    },
+    "wellness.section.roundUp" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Round-up" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Làm tròn" } }
+      }
+    },
+    "wellness.section.spendingCalendar" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Calendar" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Lịch chi" } }
+      }
+    },
+    "wellness.section.whatIf" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "What-if" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "What-if" } }
+      }
+    },
+    "wellness.section.moodJournal" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Mood" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Cảm xúc" } }
+      }
+    },
+    "wellness.section.regretScore" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Regret" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Hối tiếc" } }
+      }
+    },
+    "wellness.section.guiltFreeBudget" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Free money" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tiền tự do" } }
+      }
+    },
+    "wellness.section.coolingOff" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Waitlist" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Hàng chờ" } }
+      }
     }
   },
   "version" : "1.1"

@@ -1,0 +1,156 @@
+{
+  "sourceLanguage" : "vi",
+  "strings" : {
+    "whatIf.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "What-if simulator" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Mô phỏng what-if" } }
+      }
+    },
+    "whatIf.projection.headline" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Projected ending balance" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Số dư dự kiến cuối kỳ" } }
+      }
+    },
+    "whatIf.projection.monthlySavings" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Monthly savings" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tiết kiệm/tháng" } }
+      }
+    },
+    "whatIf.projection.savingsRate" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Savings rate" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tỉ lệ tiết kiệm" } }
+      }
+    },
+    "whatIf.projection.totalSaved" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Total contributions" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tổng góp" } }
+      }
+    },
+    "whatIf.projection.totalInterest" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Total interest" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tổng lãi" } }
+      }
+    },
+    "whatIf.baseline.headline" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Current baseline" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Hiện trạng" } }
+      }
+    },
+    "whatIf.baseline.income" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Avg monthly income" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Thu nhập TB tháng" } }
+      }
+    },
+    "whatIf.baseline.expenses" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Avg monthly expenses" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Chi tiêu TB tháng" } }
+      }
+    },
+    "whatIf.baseline.footnote" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Computed from recent transactions and onboarding income." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tính từ giao dịch gần đây và thu nhập onboarding." } }
+      }
+    },
+    "whatIf.sliders.headline" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "What changes?" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Thay đổi gì?" } }
+      }
+    },
+    "whatIf.sliders.incomeDelta" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Income change" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Thay đổi thu nhập" } }
+      }
+    },
+    "whatIf.sliders.expenseDelta" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Expense change" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Thay đổi chi tiêu" } }
+      }
+    },
+    "whatIf.sliders.additionalSavings" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Extra monthly savings" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tiết kiệm thêm/tháng" } }
+      }
+    },
+    "whatIf.sliders.horizon" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Horizon" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Khoảng thời gian" } }
+      }
+    },
+    "whatIf.sliders.horizonValue" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%d months" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "%d tháng" } }
+      }
+    },
+    "whatIf.sliders.returnRate" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Annual return rate" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Lợi suất đầu tư/năm" } }
+      }
+    },
+    "whatIf.goal.headline" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Goal" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Mục tiêu" } }
+      }
+    },
+    "whatIf.goal.reset" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Reset" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Đặt lại" } }
+      }
+    },
+    "whatIf.goal.placeholder" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Target amount (e.g. 50,000,000)" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Số tiền mục tiêu (VD: 50.000.000)" } }
+      }
+    },
+    "whatIf.goal.monthsValue" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%d months" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "%d tháng" } }
+      }
+    },
+    "whatIf.goal.reachWithinHorizon" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "You will reach the goal in %@." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Bạn đạt mục tiêu sau %@." } }
+      }
+    },
+    "whatIf.goal.reachBeyondHorizon" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Goal reached in %1$@ — outside the %2$d-month horizon." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Cần %1$@ để đạt mục tiêu, vượt khoảng %2$d tháng." } }
+      }
+    },
+    "whatIf.goal.unreachable" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Goal cannot be reached with current monthly savings." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Không thể đạt mục tiêu với mức tiết kiệm hiện tại." } }
+      }
+    },
+    "whatIf.error.loadFailed" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Could not load baseline data." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Không tải được hiện trạng." } }
+      }
+    }
+  },
+  "version" : "1.0"
+}

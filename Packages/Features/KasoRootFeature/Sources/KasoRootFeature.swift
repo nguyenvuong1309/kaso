@@ -3,14 +3,21 @@ import AppearanceFeature
 import AuthFeature
 import BenchmarkFeature
 import BudgetDomain
+import CoolingOffFeature
 import DebtFeature
 import FinancialAssistantFeature
+import GuiltFreeBudgetFeature
 import InvestmentFeature
+import MoodJournalFeature
 import OnboardingDomain
 import OnboardingFeature
+import RegretScoreFeature
+import RoundUpFeature
+import SpendingCalendarFeature
 import TransactionFeature
 import WealthFeature
 import WellnessFeature
+import WhatIfFeature
 
 @Reducer
 public struct KasoRootFeature: Sendable {
