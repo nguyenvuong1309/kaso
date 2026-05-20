@@ -1,0 +1,66 @@
+{
+  "sourceLanguage" : "vi",
+  "strings" : {
+    "smartSearch.header.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Smart search" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tìm kiếm thông minh" } }
+      }
+    },
+    "smartSearch.header.subtitle" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Type how you'd say it. We extract the keyword and the date range automatically." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Gõ như bạn nói. App tự tách từ khoá và khoảng thời gian." } }
+      }
+    },
+    "smartSearch.input.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Ask anything" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Hỏi tự do" } }
+      }
+    },
+    "smartSearch.input.placeholder" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "e.g. coffee last week" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "ví dụ: cà phê tuần trước" } }
+      }
+    },
+    "smartSearch.action.parse" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Parse query" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Phân tích" } }
+      }
+    },
+    "smartSearch.examples.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Try one of these" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Thử một câu sẵn" } }
+      }
+    },
+    "smartSearch.result.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "What we understood" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "App hiểu được gì" } }
+      }
+    },
+    "smartSearch.result.keyword" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Keyword" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Từ khoá" } }
+      }
+    },
+    "smartSearch.result.dateRange" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Date range" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Khoảng thời gian" } }
+      }
+    },
+    "smartSearch.result.noDate" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "No date phrase recognised" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Không có cụm thời gian" } }
+      }
+    }
+  },
+  "version" : "1.0"
+}

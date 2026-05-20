@@ -1,0 +1,132 @@
+{
+  "sourceLanguage" : "vi",
+  "strings" : {
+    "futureSelf.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Letter from Future You" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Thư từ tương lai" } }
+      }
+    },
+    "futureSelf.greeting %@" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Written in %@" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Viết vào %@" } }
+      }
+    },
+    "futureSelf.signature" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "— Future You" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "— Bạn của tương lai" } }
+      }
+    },
+    "futureSelf.projection.age" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Projected age" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tuổi dự phóng" } }
+      }
+    },
+    "futureSelf.projection.annualSavings" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Yearly savings at this pace" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tiết kiệm mỗi năm theo nhịp này" } }
+      }
+    },
+    "futureSelf.projection.savingsRate" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Savings rate" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tỉ lệ tiết kiệm" } }
+      }
+    },
+    "futureSelf.empty.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Not enough data yet" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Chưa đủ dữ liệu" } }
+      }
+    },
+    "futureSelf.empty.subtitle" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Log a few weeks of transactions and your future self will write back." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Ghi giao dịch vài tuần và bạn của tương lai sẽ viết thư cho bạn." } }
+      }
+    },
+    "futureSelf.error.loadFailed" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Could not write the letter." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Không viết được lá thư." } }
+      }
+    },
+    "futureSelf.tone.optimistic.headline" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Thank you for looking after us" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Cảm ơn vì đã lo cho chúng ta" } }
+      }
+    },
+    "futureSelf.tone.steady.headline" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "We are doing okay" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Chúng ta vẫn ổn" } }
+      }
+    },
+    "futureSelf.tone.cautionary.headline" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "A few choices changed everything" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Vài lựa chọn đã thay đổi mọi thứ" } }
+      }
+    },
+    "futureSelf.body.optimistic.1" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "I'm writing from years ahead, and the habits you keep right now gave us real freedom." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Mình viết từ nhiều năm sau, và những thói quen bạn giữ ngay bây giờ đã cho chúng ta sự tự do thật sự." } }
+      }
+    },
+    "futureSelf.body.optimistic.2" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "The small amount you set aside each month kept compounding quietly while life went on." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Số tiền nhỏ bạn để dành mỗi tháng vẫn âm thầm sinh lời trong khi cuộc sống cứ tiếp diễn." } }
+      }
+    },
+    "futureSelf.body.optimistic.3" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Keep going. The future you are building is calmer than you imagine." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Cứ tiếp tục nhé. Tương lai bạn đang xây bình yên hơn bạn nghĩ." } }
+      }
+    },
+    "futureSelf.body.steady.1" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "We are not rich, but we are not worried either — you kept things balanced." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Chúng ta không giàu, nhưng cũng không lo lắng — bạn đã giữ mọi thứ cân bằng." } }
+      }
+    },
+    "futureSelf.body.steady.2" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "If you nudge savings up a little, the version of me writing this gets noticeably freer." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Nếu bạn tăng tiết kiệm thêm một chút, phiên bản mình đang viết đây sẽ thảnh thơi hơn rõ rệt." } }
+      }
+    },
+    "futureSelf.body.steady.3" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "No pressure — just one steady step at a time." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Không áp lực — chỉ cần từng bước đều đặn thôi." } }
+      }
+    },
+    "futureSelf.body.cautionary.1" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "I'm not here to judge — I just want you to see where the current path leads." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Mình không đến để phán xét — chỉ muốn bạn thấy con đường hiện tại dẫn tới đâu." } }
+      }
+    },
+    "futureSelf.body.cautionary.2" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Spending has been outrunning income, and that gap quietly became our biggest stress later." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Chi tiêu đang vượt thu nhập, và khoảng cách đó âm thầm trở thành áp lực lớn nhất của chúng ta sau này." } }
+      }
+    },
+    "futureSelf.body.cautionary.3" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "One small change this month rewrites this letter. I'm rooting for you." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Một thay đổi nhỏ tháng này sẽ viết lại lá thư này. Mình tin ở bạn." } }
+      }
+    }
+  },
+  "version" : "1.0"
+}

@@ -1,0 +1,210 @@
+{
+  "sourceLanguage" : "vi",
+  "strings" : {
+    "personality.type.planner.name" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "The Planner" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Người Lên Kế Hoạch" } }
+      }
+    },
+    "personality.type.planner.tagline" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Every dong has a job" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Mỗi đồng đều có nhiệm vụ" } }
+      }
+    },
+    "personality.type.planner.description" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "You stay within budget, prefer thoughtful purchases, and steadily grow your savings." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Bạn chi tiêu trong ngân sách, mua sắm có chủ đích và đều đặn tăng tiền tiết kiệm." } }
+      }
+    },
+    "personality.type.planner.advice" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Reward your discipline: try an automatic savings goal or upgrade your investment portfolio." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Hãy thưởng cho sự kỷ luật: thử mục tiêu tiết kiệm tự động hoặc nâng cấp danh mục đầu tư." } }
+      }
+    },
+    "personality.type.impulsive.name" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "The Impulsive" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Người Bốc Đồng" } }
+      }
+    },
+    "personality.type.impulsive.tagline" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Live now, plan later" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Sống cho hôm nay, tính sau" } }
+      }
+    },
+    "personality.type.impulsive.description" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "You often follow spontaneous urges. Big purchases and weekend bursts dominate your spending." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Bạn thường chi theo cảm hứng. Các khoản lớn và cuối tuần chiếm phần lớn chi tiêu." } }
+      }
+    },
+    "personality.type.impulsive.advice" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Try the cooling-off feature: add big purchases to a 24h wait list before deciding." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Thử tính năng cooling-off: thêm món lớn vào hàng chờ 24h trước khi quyết định." } }
+      }
+    },
+    "personality.type.minimalist.name" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "The Minimalist" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Người Tối Giản" } }
+      }
+    },
+    "personality.type.minimalist.tagline" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Less is more" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Ít hơn để được nhiều hơn" } }
+      }
+    },
+    "personality.type.minimalist.description" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "You spend less, save more, and concentrate purchases on a few essentials." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Bạn chi ít, tiết kiệm nhiều và tập trung mua những thứ thật sự cần." } }
+      }
+    },
+    "personality.type.minimalist.advice" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Don't forget to enjoy life. Try the guilt-free budget to treat yourself without anxiety." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Đừng quên tận hưởng. Thử guilt-free budget để chi tiêu thoải mái mà không lo lắng." } }
+      }
+    },
+    "personality.type.foodie.name" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "The Foodie" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Người Mê Ẩm Thực" } }
+      }
+    },
+    "personality.type.foodie.tagline" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Eat. Repeat. Track." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Ăn ngon, ghi lại, lặp lại" } }
+      }
+    },
+    "personality.type.foodie.description" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Food makes up over 40% of your spending. You'd rather a great meal than a new shirt." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Ăn uống chiếm hơn 40% chi tiêu của bạn. Một bữa ngon tốt hơn một chiếc áo mới." } }
+      }
+    },
+    "personality.type.foodie.advice" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Try a weekly food budget so each meal feels like a treat, not a guilt." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Đặt ngân sách ăn uống hàng tuần để mỗi bữa là tận hưởng, không phải tội lỗi." } }
+      }
+    },
+    "personality.type.experienceSeeker.name" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "The Experience Seeker" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Người Tìm Trải Nghiệm" } }
+      }
+    },
+    "personality.type.experienceSeeker.tagline" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Memories over things" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Kỷ niệm hơn đồ vật" } }
+      }
+    },
+    "personality.type.experienceSeeker.description" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Entertainment and travel dominate your spending. You'd rather invest in moments than possessions." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Giải trí và du lịch chiếm phần lớn chi tiêu. Bạn đầu tư cho khoảnh khắc thay vì đồ vật." } }
+      }
+    },
+    "personality.type.experienceSeeker.advice" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Create a 'next experience' saving goal so future trips feel free of money worries." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tạo mục tiêu tiết kiệm 'trải nghiệm tiếp theo' để chuyến đi sau không phải lo tiền." } }
+      }
+    },
+    "personality.trait.planning" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Planning" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Có kế hoạch" } }
+      }
+    },
+    "personality.trait.impulse" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Impulse" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Bốc đồng" } }
+      }
+    },
+    "personality.trait.frugality" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Frugality" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tiết kiệm" } }
+      }
+    },
+    "personality.trait.food" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Food affinity" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Mê ẩm thực" } }
+      }
+    },
+    "personality.trait.experiences" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Experiences" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Trải nghiệm" } }
+      }
+    },
+    "personality.trait.diversity" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Spending diversity" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Đa dạng chi tiêu" } }
+      }
+    },
+    "personality.traits.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Your traits" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Đặc điểm tài chính" } }
+      }
+    },
+    "personality.advice.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Personalized tip" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Gợi ý cho bạn" } }
+      }
+    },
+    "personality.share.button" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Share my personality" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Chia sẻ kiểu tài chính" } }
+      }
+    },
+    "personality.share.action" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Share to Story" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Chia sẻ lên Story" } }
+      }
+    },
+    "personality.refresh.button" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Re-analyze" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Phân tích lại" } }
+      }
+    },
+    "personality.insufficient.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Need a bit more data" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Cần thêm dữ liệu" } }
+      }
+    },
+    "personality.insufficient.subtitle %lld" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Log at least %lld transactions and we'll reveal your money personality." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Ghi ít nhất %lld giao dịch để chúng tôi xác định kiểu tài chính của bạn." } }
+      }
+    },
+    "personality.error.analysisFailed" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Could not analyze your data right now." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Không thể phân tích dữ liệu lúc này." } }
+      }
+    }
+  },
+  "version" : "1.1"
+}

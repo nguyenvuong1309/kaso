@@ -1,0 +1,270 @@
+{
+  "sourceLanguage" : "vi",
+  "strings" : {
+    "communityChallenge.header.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Community challenges" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Thử thách cộng đồng" } }
+      }
+    },
+    "communityChallenge.header.subtitle.idle" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Pick a bundled challenge and check in each day to build the habit." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Chọn một thử thách và check-in mỗi ngày để rèn thói quen." } }
+      }
+    },
+    "communityChallenge.header.subtitle.active" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Keep your streak going — small daily check-ins compound." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Giữ vững nhịp — vài lần check-in mỗi ngày sẽ cộng dồn." } }
+      }
+    },
+    "communityChallenge.header.privacy" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "All progress stays on your device. No leaderboards share PII." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tiến độ chỉ lưu trên máy bạn. Không leaderboard nào lộ PII." } }
+      }
+    },
+    "communityChallenge.active.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Active challenges" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Thử thách đang tham gia" } }
+      }
+    },
+    "communityChallenge.progress.format" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Days:" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Ngày:" } }
+      }
+    },
+    "communityChallenge.completed" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Completed" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Đã hoàn thành" } }
+      }
+    },
+    "communityChallenge.enrolled" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Joined" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Đã tham gia" } }
+      }
+    },
+    "communityChallenge.duration" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Days:" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Ngày:" } }
+      }
+    },
+    "communityChallenge.action.join" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Join" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tham gia" } }
+      }
+    },
+    "communityChallenge.action.checkIn" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Check in" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Check-in" } }
+      }
+    },
+    "communityChallenge.action.leave" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Leave challenge" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Rời thử thách" } }
+      }
+    },
+    "communityChallenge.error.loadFailed" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Couldn't load challenges." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Không tải được thử thách." } }
+      }
+    },
+    "communityChallenge.error.saveFailed" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Couldn't save progress." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Không lưu được tiến độ." } }
+      }
+    },
+    "communityChallenge.error.deleteFailed" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Couldn't leave challenge." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Không rời được thử thách." } }
+      }
+    },
+    "communityChallenge.difficulty.easy" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Easy" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Dễ" } }
+      }
+    },
+    "communityChallenge.difficulty.medium" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Medium" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Vừa" } }
+      }
+    },
+    "communityChallenge.difficulty.hard" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Hard" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Khó" } }
+      }
+    },
+    "communityChallenge.category.noSpend" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "No-spend" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Không xài" } }
+      }
+    },
+    "communityChallenge.category.mindfulEating" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Mindful eating" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Ăn uống có ý thức" } }
+      }
+    },
+    "communityChallenge.category.subscriptionCleanup" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Subscription cleanup" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Dọn subscription" } }
+      }
+    },
+    "communityChallenge.category.gratitude" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Gratitude" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Biết ơn" } }
+      }
+    },
+    "communityChallenge.category.savingsBoost" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Savings boost" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tăng tiết kiệm" } }
+      }
+    },
+    "communityChallenge.noSpendWeek.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "No-spend week" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tuần không tiêu" } }
+      }
+    },
+    "communityChallenge.noSpendWeek.description" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Skip every non-essential expense for 7 days in a row." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Bỏ mọi khoản chi không thiết yếu trong 7 ngày liên tiếp." } }
+      }
+    },
+    "communityChallenge.noSpendWeek.goal" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Save the avg week's discretionary spend." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tiết kiệm bằng mức chi tuỳ ý trung bình một tuần." } }
+      }
+    },
+    "communityChallenge.noSpendMonth.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "No-spend month" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tháng không tiêu" } }
+      }
+    },
+    "communityChallenge.noSpendMonth.description" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Stick to essentials only for a full 30 days." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Chỉ chi thiết yếu suốt 30 ngày." } }
+      }
+    },
+    "communityChallenge.noSpendMonth.goal" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Bank an entire month of discretionary budget." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Để dành toàn bộ ngân sách tự do cả tháng." } }
+      }
+    },
+    "communityChallenge.coffeeSkip.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Coffee shop pause" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tạm dừng cà phê quán" } }
+      }
+    },
+    "communityChallenge.coffeeSkip.description" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Brew at home instead of buying coffee for 14 days." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Pha cà phê nhà thay vì mua ngoài trong 14 ngày." } }
+      }
+    },
+    "communityChallenge.coffeeSkip.goal" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Redirect coffee money into your savings goal." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Chuyển tiền cà phê vào mục tiêu tiết kiệm." } }
+      }
+    },
+    "communityChallenge.cookAtHome.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Cook-at-home streak" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Chuỗi tự nấu ăn" } }
+      }
+    },
+    "communityChallenge.cookAtHome.description" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Eat home-cooked meals every day for 14 days." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tự nấu ăn ở nhà mỗi ngày trong 14 ngày." } }
+      }
+    },
+    "communityChallenge.cookAtHome.goal" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Cut food-delivery spend in half." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Giảm một nửa chi tiêu đặt đồ ăn." } }
+      }
+    },
+    "communityChallenge.subscriptionAudit.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Subscription audit" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Rà soát subscription" } }
+      }
+    },
+    "communityChallenge.subscriptionAudit.description" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Review every active subscription and drop at least one." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Xem lại các subscription đang dùng và bỏ ít nhất một." } }
+      }
+    },
+    "communityChallenge.subscriptionAudit.goal" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Free up a recurring monthly fee." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Giải phóng một khoản phí hằng tháng." } }
+      }
+    },
+    "communityChallenge.gratitudeLog.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Gratitude log" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Sổ biết ơn" } }
+      }
+    },
+    "communityChallenge.gratitudeLog.description" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Note one money-related thing you're grateful for each day." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Mỗi ngày ghi một điều liên quan đến tiền bạc bạn biết ơn." } }
+      }
+    },
+    "communityChallenge.gratitudeLog.goal" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Shift attention from scarcity to enough." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Dịch chuyển sự chú ý từ thiếu sang đủ." } }
+      }
+    },
+    "communityChallenge.roundUpMonth.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Round-up month" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tháng làm tròn tiết kiệm" } }
+      }
+    },
+    "communityChallenge.roundUpMonth.description" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Round up every transaction and stash the spare change." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Làm tròn mỗi giao dịch và bỏ phần lẻ vào heo đất." } }
+      }
+    },
+    "communityChallenge.roundUpMonth.goal" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Add a painless boost to your savings goal." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Thêm một cú huých không đau cho mục tiêu tiết kiệm." } }
+      }
+    }
+  },
+  "version" : "1.0"
+}

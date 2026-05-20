@@ -11,6 +11,7 @@ public struct InvestmentFeature: Sendable {
         public var targetAllocation: TargetAllocation
         public var referenceDate: Date
         public var isLoading: Bool
+        public var isRefreshingPrices: Bool
         public var isHoldingEditorPresented: Bool
         public var isTargetEditorPresented: Bool
         public var isHoldingSaving: Bool
@@ -35,6 +36,7 @@ public struct InvestmentFeature: Sendable {
             targetAllocation: TargetAllocation = .empty,
             referenceDate: Date = Date(timeIntervalSinceReferenceDate: 0),
             isLoading: Bool = false,
+            isRefreshingPrices: Bool = false,
             isHoldingEditorPresented: Bool = false,
             isTargetEditorPresented: Bool = false,
             isHoldingSaving: Bool = false,
@@ -58,6 +60,7 @@ public struct InvestmentFeature: Sendable {
             self.targetAllocation = targetAllocation
             self.referenceDate = referenceDate
             self.isLoading = isLoading
+            self.isRefreshingPrices = isRefreshingPrices
             self.isHoldingEditorPresented = isHoldingEditorPresented
             self.isTargetEditorPresented = isTargetEditorPresented
             self.isHoldingSaving = isHoldingSaving
@@ -131,12 +134,16 @@ public struct InvestmentFeature: Sendable {
         case targetSaveButtonTapped
         case targetSaved(TargetAllocation)
         case targetSaveFailed(String)
+        case refreshPricesButtonTapped
+        case priceRefreshSucceeded([PriceQuote])
+        case priceRefreshFailed(String)
     }
 
     @Dependency(\.holdingRepository) private var holdingRepository
     @Dependency(\.priceQuoteRepository) private var priceQuoteRepository
     @Dependency(\.targetAllocationRepository) private var targetAllocationRepository
     @Dependency(\.investmentAssetSyncClient) private var assetSyncClient
+    @Dependency(\.marketPriceProvider) private var marketPriceProvider
     @Dependency(\.date) private var date
     @Dependency(\.uuid) private var uuid
 
@@ -302,6 +309,41 @@ public struct InvestmentFeature: Sendable {
             case let .targetSaveFailed(messageKey):
                 state.isTargetSaving = false
                 state.targetEditorErrorMessageKey = messageKey
+                return .none
+
+            case .refreshPricesButtonTapped:
+                guard state.isRefreshingPrices == false else { return .none }
+                let symbols = state.holdings.map(\.symbol)
+                guard symbols.isEmpty == false else {
+                    state.errorMessageKey = "investment.error.noHoldingsToRefresh"
+                    return .none
+                }
+                state.isRefreshingPrices = true
+                state.errorMessageKey = nil
+                return .run { send in
+                    do {
+                        let quotes = try await marketPriceProvider.fetchQuotes(symbols)
+                        try await priceQuoteRepository.saveMany(quotes)
+                        await send(.priceRefreshSucceeded(quotes))
+                    } catch {
+                        await send(.priceRefreshFailed("investment.error.priceRefreshFailed"))
+                    }
+                }
+
+            case let .priceRefreshSucceeded(quotes):
+                state.isRefreshingPrices = false
+                var merged = state.quotes.reduce(into: [String: PriceQuote]()) { partial, quote in
+                    partial[quote.symbol.uppercased()] = quote
+                }
+                for quote in quotes {
+                    merged[quote.symbol.uppercased()] = quote
+                }
+                state.quotes = Self.sortedQuotes(Array(merged.values))
+                return syncInvestmentAssetEffect(metrics: state.metrics)
+
+            case let .priceRefreshFailed(messageKey):
+                state.isRefreshingPrices = false
+                state.errorMessageKey = messageKey
                 return .none
             }
         }

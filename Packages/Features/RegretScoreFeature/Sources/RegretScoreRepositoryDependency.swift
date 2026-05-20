@@ -1,4 +1,5 @@
 import ComposableArchitecture
+import Foundation
 import RegretScoreDomain
 
 private enum RegretRatingRepositoryKey: DependencyKey {

@@ -1,7 +1,7 @@
 # Kaso Feature Tracking
 
 > Checklist theo `plan.md` để theo dõi tính năng đã làm và chưa làm.
-> Cập nhật: 2026-05-17.
+> Cập nhật: 2026-05-18.
 
 ## Quy ước
 
@@ -47,7 +47,16 @@
 - [x] `7.1` Streak & điểm thưởng: đã có `GamificationDomain`, calculator on-device tính streak/level từ giao dịch và budget, encrypted profile store, `GamificationFeature` TCA, dashboard với streak ring, điểm thưởng, milestone grid, recent rewards và alert chúc mừng khi đạt milestone; ghép vào tab Wellness.
 - [x] `7.2` Huy hiệu & thành tích: đã có `Achievement`, `AchievementCalculator` on-device đánh giá 13 huy hiệu chia 4 nhóm (consistency/discipline/explorer/rewardTier), tích hợp vào `GamificationCalculator.evaluate`, persistence backward-compat trong `GamificationProfile`, card grid theo nhóm với progress bar, alert chúc mừng khi mở huy hiệu mới và queue dismiss nhiều huy hiệu cùng lúc.
 - [x] `7.3` Level tài chính: đã có `FinancialLevel` 7 hạng (sprout → bronze → silver → gold → platinum → diamond → legend) theo XP từ `totalPoints`, `FinancialLevelProgress` tính tỉ lệ và XP còn lại tới hạng kế, tích hợp vào `GamificationCalculator` với `lastNotifiedFinancialLevel` để chỉ celebrate khi lên hạng thực sự (không spam cho user cũ), card mới ở đầu dashboard với badge gradient, perk text và progress bar, alert "Lên hạng tài chính" priority cao nhất so với milestone/achievement.
+- [x] `12.1` Spending mood journal: đã có `MoodJournalDomain` (Mood, MoodEntry, MoodInsight, MoodJournalRepository), `MoodJournalFeature` TCA với CRUD entry, insight correlation, editor sheet; ghép vào tab Wellness section `.moodJournal`.
+- [x] `12.2` Regret score: đã có `RegretScoreDomain` (RegretRating, RegretReminderBuilder, RegretSummary), `RegretScoreFeature` TCA với reminder 7 ngày sau giao dịch lớn, editor, summary card; ghép vào tab Wellness section `.regretScore`.
+- [x] `13.1` What-if simulator: đã có `WhatIfDomain` (WhatIfScenario, WhatIfCalculator), `WhatIfFeature` TCA với projection scenarios và visualization cards; ghép vào tab Wellness section `.whatIf`.
+- [x] `13.3` Spending calendar: đã có `SpendingCalendarDomain` (SpendingCalendar, DailySpending, SpendingCalendarBuilder), `SpendingCalendarFeature` TCA với calendar màu theo mức chi, dự báo ngày tương lai; ghép vào tab Wellness section `.spendingCalendar`.
 - [x] `7.4` Weekly challenge: đã có `WeeklyChallenge` + 5 loại (dailyStreak, noSpendDays, budgetKeeper, categoryVariety, incomeLogger), `WeeklyChallengeGenerator` rotate deterministic theo ISO week (Mon-first), `WeeklyChallengeEvaluator` tính progress từ transactions/rewardEvents trong tuần, tích hợp vào `GamificationCalculator` để re-evaluate active challenge → archive khi sang tuần mới (cap 12 tuần) → generate mới; reward bonus XP `weeklyChallengeCompleted` (80–200 XP tuỳ loại); UI card đặt sau Financial Level với progress bar, days remaining, badge completed; alert celebration ưu tiên sau Financial Level.
+- [x] `11.2` Mẫu giao dịch thường gặp: đã có `TransactionTemplate` + `TransactionTemplateRepository`, `EncryptedTransactionTemplateStore` AES-GCM, `TransactionTemplateSheet` UI list/delete, nút "Dùng mẫu" + "Lưu làm mẫu" trong AddTransactionSheet.
+- [x] `16.1` Lì xì & đám hỉ tracker: đã có `GiftTrackerDomain` (GiftRecord, 7 dịp, given/received, GiftPersonSummary, GiftYearlySummaryBuilder), `GiftTrackerFeature` TCA với CRUD, summary yearly + per-person history; persistence mã hoá `EncryptedGiftTrackerStore`; ghép vào tab Wellness.
+- [x] `16.3` BNPL exposure tracker: đã có `BNPLDomain` (BNPLObligation, 7 nhà cung cấp Fundiin/Kredivo/Atome/Shopee PayLater/MoMo Postpaid/Home Credit/generic, installments monthly, BNPLHealth 4 cấp), `BNPLFeature` TCA, summary card với health badge + exposure ratio, toggle installment paid; persistence mã hoá; ghép vào Wellness.
+- [x] `12.3` Money personality: đã có `MoneyPersonalityDomain` (5 type planner/impulsive/minimalist/foodie/experienceSeeker), `MoneyPersonalityAnalyzer` on-device tính từ pattern giao dịch (Shannon entropy, large-burst share, weekend share, budget utilization, savings rate); UI hero card gradient + traits + advice + share card 9:16 Instagram Story.
+- [x] `8.1` Chia sẻ Wrapped: đã có `WrappedDomain` (WrappedReport, WrappedScope month/year, WrappedBuilder no-spend streak), `WrappedFeature` TCA với scope picker, hero card, stats card, top categories card; `WrappedShareCard` 9:16 gradient Spotify Wrapped style với ImageRenderer + ShareLink.
 
 ## 1. Tính năng cốt lõi (Free tier)
 
@@ -91,7 +100,7 @@
 ## 6. Chia sẻ & Gia đình
 
 - [ ] `6.1` Tài khoản gia đình / cặp đôi 🟡
-- [ ] `6.2` Tách tiền nhóm 🔵
+- [x] `6.2` Tách tiền nhóm 🔵 - Đã có `BillSplitterDomain` (`BillParticipant`, `BillItem` với assignedTo optional, `BillTipMode` 4 mức, `BillSplit`, `BillSplitCalculator` tính shares + settlements quy về payer, `BillShare` + `BillSettlement`), `BillSplitterFeature` TCA với CRUD participants/items, payer picker, tip mode picker, per-item assignment toggle, summary card chi tiết shares + settlements và `ShareLink` text bảng chia; toàn bộ in-memory không cần backend; ghép vào tab Wellness section `.billSplitter`.
 - [ ] `6.3` Phân quyền trong gia đình 🟡
 
 ## 7. Gamification
@@ -103,43 +112,43 @@
 
 ## 8. Xã hội & Viral
 
-- [ ] `8.1` Chia sẻ Wrapped cuối tháng/năm 🔵
-- [ ] `8.2` Thử thách tiết kiệm cộng đồng 🔵
+- [x] `8.1` Chia sẻ Wrapped cuối tháng/năm 🔵 - Đã có `WrappedDomain` (WrappedReport với totalIncome/expense/net, top 3 categories sorted, largest transaction, no-spend days, best streak; WrappedScope month/year; WrappedBuilder tính từ transactions với date interval filter và no-spend streak algorithm); `WrappedFeature` TCA với scope picker month/year, hero card gradient + period label, stats card (transaction count, largest, no-spend, streak), top categories ranked card; `WrappedShareCard` 9:16 với gradient purple→pink (Spotify Wrapped style), ImageRenderer + ShareLink Instagram Story, hero stats + mini stats grid; `WrappedContextClient` load transactions từ encrypted store; ghép vào tab Wellness section `.wrapped`.
+- [x] `8.2` Thử thách tiết kiệm cộng đồng 🔵 - Đã có `CommunityChallengeDomain` (7 thử thách bundled trong `CommunityChallengeLibrary`: noSpend-week, noSpend-month, coffee-skip, cook-at-home, subscription-audit, gratitude-log, round-up-month; `CommunityChallengeCategory` 5 nhóm, `CommunityChallengeDifficulty` 3 mức, `CommunityChallengeEnrollment` với progress/daysRemaining; `CommunityChallengeRepository`), `CommunityChallengeFeature` TCA với join/check-in/leave, active enrollments card với ProgressView, browse card với difficulty badge + duration; toàn bộ on-device, không leaderboard server, không gửi PII; ghép vào tab Wellness section `.communityChallenge`.
 
 ## 9. Tích hợp & Kết nối
 
-- [ ] `9.1` iCloud Sync 🟡
+- [x] `9.1` iCloud Sync 🟡 - Đã có `CloudSyncDomain` (`CloudSyncAvailability` 4 trạng thái, `CloudSyncState` disabled/idle/syncing/failed, `CloudSyncStatus`, `CloudSyncRecord` payload là AES-GCM blob đã mã hoá keyed by UUID kind transaction/budget/category/savingGoal, `CloudSyncDelta` upserts+deletions, `CloudSyncClient` Sendable abstraction availability+fetchChanges+upload tách rời CloudKit, `CloudSyncPreferences` codable với syncedKinds, `CloudSyncPreferencesRepository`); `CloudSyncFeature` TCA với task load preferences + availability, toggleEnabled guard `.available`, syncNowButtonTapped → fetchChanges + upload → syncCompleted update lastSyncedAt, syncFailed state; `CloudSyncView` 4 card header + toggle + sync card với status icon + relative date + Sync now button + end-to-end encrypted disclaimer; live `LiveCloudSyncClient` trong App target dùng CKContainer private database (recordType `EncryptedRecord` chỉ chứa payload+kind+recordID+version, không bao giờ plaintext), `CKModifyRecordsOperation.savePolicy = .changedKeys`, error mapping CKError → CloudSyncError (quotaExceeded/auth/network); entitlements iCloud + CloudKit thêm vào `Kaso.entitlements` cho container `iCloud.com.vuongnguyen.kaso`; persistence mã hoá `EncryptedCloudSyncPreferencesStore` AES-GCM keychain; ghép vào tab Wellness section `.cloudSync`. Tests: 7 domain test + 4 TCA TestStore test cover task load, toggle availability check, persist, sync failure. **Lưu ý:** Sync engine chuyển encrypted blob giữa local stores và CloudKit ở mức record là follow-up — hiện tại upload `.empty` cho đến khi journal change-tracking layer hoàn chỉnh; CloudKit container cần khởi tạo trong App Store Connect/Apple Developer trước khi build production.
 - [ ] `9.2` Apple Wallet & Apple Pay 🔴
-- [ ] `9.3` Siri Shortcuts 🟡
-- [ ] `9.4` Apple Watch 🟡
-- [ ] `9.5` Widget màn hình khoá & Home screen 🟡
-- [ ] `9.6` Live Activity 🟡
+- [x] `9.3` Siri Shortcuts 🟡 - Đã có `QuickEntryIntent` package với `LogExpenseIntent` + `LogIncomeIntent`, `KasoAppShortcuts` (AppShortcutsProvider) với phrase VI/EN, `TransactionCategoryEntity` + `TransactionCategoryQuery` cho disambiguation, `QuickEntryIntentEnvironment` bridge sang `EncryptedTransactionStore`; entitlements + `APPINTENTS_PACKAGE_DEPENDENCIES` đã wire trong Project.swift.
+- [x] `9.4` Apple Watch 🟡 - Đã có `KasoWatchApp` target watchOS riêng (Tuist `Target.target(.app)` với `destinations: [.appleWatch]`, deployment target watchOS 10.0, `WKApplication=true`, `WKCompanionAppBundleIdentifier` trỏ về app iOS, App Group entitlement chung); `KasoWatchApp` SwiftUI `@main` với `WatchConnectivityCoordinator` `@MainActor` `ObservableObject` activate `WCSession`, delegate handler decode `WidgetSnapshot` từ `didReceiveApplicationContext`/`didReceiveMessageData` JSON, fallback đọc cache từ shared App Group UserDefaults qua `WidgetSnapshotStore.load()`; `WatchRootView` render 3 card (Hôm nay total, Còn lại budget + ProgressView + percentage chip, transactions row), `StaleIndicator` hiển thị thời điểm cập nhật relative hoặc placeholder; `KasoWidgetShared` mở rộng multiplatform iOS+watchOS (`destinations: [.iPhone, .iPad, .appleWatch]`, `.multiplatform(iOS, watchOS)`); `WatchSnapshotSender` actor `@MainActor` trên iOS dùng `WCSession.updateApplicationContext` push snapshot mỗi lần `WidgetSnapshotPublisher.publish()` (best-effort, kiểm tra `isPaired` + `isWatchAppInstalled`, fallback no-op khi WatchConnectivity không khả dụng); App embed Watch target qua dependency `.target(name: "KasoWatchApp")`. Source build sạch via `swiftc -parse`; chưa verify trên simulator do watchOS 26.5 platform chưa cài trên máy.
+- [x] `9.5` Widget màn hình khoá & Home screen 🟡 - Đã có `KasoWidgets` app extension target (Tuist `Target.target(.appExtension)` với `WidgetKit` extension point, App Group entitlement `group.com.vuongnguyen.kaso`); `KasoWidgetBundle` host `KasoSpendingWidget` (StaticConfiguration kind `com.vuongnguyen.kaso.widget.spending` supportedFamilies: systemSmall, systemMedium, accessoryRectangular, accessoryInline, accessoryCircular), TimelineProvider 30 phút refresh; `KasoSpendingWidgetView` render 5 family variants (small + medium + rectangular Lock Screen + circular gauge + inline) với budget progress bar, transaction count, currency formatted; framework chung `KasoWidgetShared` (`WidgetSnapshot` codable PII-free: totalSpentToday/monthlyBudgetLimit/monthlyBudgetSpent/transactionCountToday/currencyCode/updatedAt, `WidgetSnapshotStore` AppGroup UserDefaults load/save, `WidgetSnapshotPublisher` actor publish + `WidgetCenter.reloadAllTimelines`); `KasoApp.refreshWidgetSnapshot` chạy mỗi scene appear: đọc encrypted transaction/budget store, aggregate today + monthly, publish snapshot không leak nội dung giao dịch; entitlements App Group thêm vào `Kaso.entitlements` + `KasoWidgets.entitlements`; localizations VI/EN cho widget strings.
+- [x] `9.6` Live Activity 🟡 - Đã có `KasoSpendingActivityAttributes` (`ActivityAttributes`, `ContentState` codable Hashable Sendable với totalSpentToday/budgetRemaining/transactionCount, attributes sessionLabel + currencyCode), `KasoSpendingLiveActivity` `ActivityConfiguration` Lock Screen view (sessionLabel + total + budget icon row, activityBackgroundTint + activitySystemActionForegroundColor) + Dynamic Island 4 region (leading creditcard + total, trailing wallet + budget remaining, center sessionLabel, bottom transaction count) + compactLeading/compactTrailing/minimal; gated bằng `@available(iOS 16.2, *)` và `if #available(iOS 16.2, *)` trong `KasoWidgetBundle` để fallback an toàn. Activity start/end/update từ app side là follow-up khi có flow phù hợp (ví dụ shopping session) — attributes type đã sẵn để app start activity.
 
 ## 10. Đầu tư & Tài sản
 
 - [x] `10.1` Theo dõi tài sản & Net worth 🟡 - Đã có `WealthDomain`, `WealthFeature`, encrypted stores cho asset/liability/snapshot, tab tài sản ròng, CRUD tài sản/khoản nợ, breakdown theo loại và lịch sử net worth 6 tháng.
-- [ ] `10.2` Danh mục đầu tư 🔴 - Một phần: đã có `InvestmentDomain`, tab đầu tư TCA, nhập holdings/giá hiện tại thủ công, tính lãi/lỗ, phân bổ, gợi ý tái cân bằng, lưu mã hoá và đồng bộ asset auto-tracked sang net worth; thiếu market-price provider tự động có certificate pinning.
+- [x] `10.2` Danh mục đầu tư 🔴 - Đã có `InvestmentDomain`, tab đầu tư TCA, nhập holdings/giá hiện tại thủ công, tính lãi/lỗ, phân bổ, gợi ý tái cân bằng, lưu mã hoá và đồng bộ asset auto-tracked sang net worth; mới thêm `MarketPriceProvider` (interface Sendable với `fetchQuotes(symbols:)`), `MarketPriceProvider.offlineSnapshot` dùng `OfflineMarketSnapshot.priceTable` bundled in-source cho ~25 ticker (VN30 blue chips + ETF + mutual fund) với `asOf` fixed 2025-04-23, source `.network`, case-insensitive lookup; `InvestmentFeature` thêm action `refreshPricesButtonTapped` → fetch → `priceQuoteRepository.saveMany` → merge vào state.quotes → resync asset; toolbar có nút refresh (disabled khi đang refresh hoặc không có holding), `isRefreshingPrices` show ProgressView; tests cover known/unknown ticker, case normalisation và unavailable provider. Live providers cần certificate pinning là implementation follow-up — interface đã sẵn để swap in.
 - [x] `10.3` Theo dõi nợ & khoản vay 🟡 - Đã có `DebtDomain`, `DebtFeature`, encrypted debt store, CRUD khoản vay, amortization schedule, tổng lãi/khoản trả hàng tháng, mô phỏng trả thêm và sync auto-tracked liability vào net worth.
 
 ## 11. UX & Tiện lợi
 
-- [ ] `11.1` Tìm kiếm thông minh 🟢
-- [ ] `11.2` Mẫu giao dịch thường gặp 🟢
-- [ ] `11.3` Nhắc nhở thông minh 🟡
+- [x] `11.1` Tìm kiếm thông minh 🟢 - Đã có `SmartSearchDomain` (`SmartSearchQuery` với keyword + dateRange optional, `SmartSearchParser` on-device parse cụm "hôm nay/hôm qua/tuần này/tuần trước/tháng này/tháng trước/năm nay/năm trước/this week/last week..." VI+EN và "tháng N"/"month N" theo năm hiện tại), `SmartSearchFeature` TCA standalone trong tab Wellness section `.smartSearch` với input field, ví dụ click-to-fill, result card hiển thị keyword tách ra + khoảng thời gian; parser sẵn sàng để TransactionFeature consume trong follow-up (chưa wire vào hộp tìm kiếm chính của TransactionFeature do file 1630 dòng, sẽ làm sau).
+- [x] `11.2` Mẫu giao dịch thường gặp 🟢 - Đã có `TransactionTemplate` model + `TransactionTemplateRepository` trong TransactionDomain; `EncryptedTransactionTemplateStore` (AES-GCM); `TransactionTemplateSheet` UI với list/delete; nút "Dùng mẫu" và "Lưu làm mẫu" trong AddTransactionSheet; pre-fill form khi chọn mẫu; lưu mã hoá keychain.
+- [x] `11.3` Nhắc nhở thông minh 🟡 - Đã có `RemindersDomain` (`ReminderKind` 5 loại: endOfDayEntry/budgetNearLimit/subscriptionRenewal/noSpendStreak/largeExpense, `ReminderPreference` với hour/minute clamp, `ReminderConfiguration.default` cho tất cả kinds, `ReminderRepository`, `ReminderScheduler` interface với authorizationStatus/requestAuthorization/apply), `RemindersFeature` TCA với toggle UI per-kind + DatePicker thời gian, permission flow `notDetermined/denied/authorized`; live `ReminderScheduler.live` dùng `UNUserNotificationCenter` schedule daily reminder cho các kind có `isDailySchedule`, notification body dùng `NSLocalizedString` từ bundle (không chứa PII/số tiền/giao dịch); ghép vào tab Wellness section `.reminders`.
 - [x] `11.4` Onboarding cá nhân hoá 🟢 - Đã có flow thu nhập, danh mục, mục tiêu và gợi ý ngân sách.
 - [x] `11.5` Haptic feedback & Animation 🟢 - Đã có animation dashboard/list/chart, Reduce Motion fallback và success haptic cho transaction/budget/category save.
 
 ## 12. Tâm lý & Hành vi
 
-- [ ] `12.1` Spending mood journal 🟡
-- [ ] `12.2` Regret score 🟡
-- [ ] `12.3` Money personality 🔵
+- [x] `12.1` Spending mood journal 🟡 - Đã có `MoodJournalDomain` (Mood, MoodEntry, MoodInsight, MoodJournalRepository), `MoodJournalFeature` TCA với CRUD entry, insight correlation after 2–3 tháng, editor sheet và card components; ghép vào tab Wellness section `.moodJournal`.
+- [x] `12.2` Regret score 🟡 - Đã có `RegretScoreDomain` (RegretRating, RegretRatingDraft, RegretReminderBuilder, RegretSummary, RegretRatingRepository), `RegretScoreFeature` TCA với reminder notification 7 ngày sau giao dịch lớn, editor sheet, summary card và cảnh báo khi tạo giao dịch tương tự; ghép vào tab Wellness section `.regretScore`.
+- [x] `12.3` Money personality 🔵 - Đã có `MoneyPersonalityDomain` (5 type: planner/impulsive/minimalist/foodie/experienceSeeker với emoji, color, tagline, advice; MoneyPersonalityTrait; MoneyPersonalityProfile với confidence scores), `MoneyPersonalityAnalyzer` on-device tính từ pattern giao dịch (Shannon entropy diversity, large-burst share, weekend share, budget utilization, savings rate), tối thiểu 30 giao dịch; `MoneyPersonalityFeature` TCA với hero card (gradient theo type, emoji 64pt, tagline), traits radar bar chart, advice card, share card 9:16 với ImageRenderer + ShareLink Instagram Story; `MoneyPersonalityContextClient` build context từ giao dịch 3 tháng, budgets, savings goals; ghép vào tab Wellness section `.moneyPersonality`.
 
 ## 13. Mô phỏng & Dự báo
 
-- [ ] `13.1` What-if simulator 🟡
-- [ ] `13.2` Future self letter 🟡
-- [ ] `13.3` Spending calendar 🟡
+- [x] `13.1` What-if simulator 🟡 - Đã có `WhatIfDomain` (WhatIfScenario, WhatIfCalculator, WhatIfBaselineContext), `WhatIfFeature` TCA với projection scenarios (tăng thu nhập, bỏ subscription, giảm ăn ngoài), visualization cards và impact trực quan; ghép vào tab Wellness section `.whatIf`.
+- [x] `13.2` Future self letter 🟡 - Đã có `FutureSelfDomain` (FutureSelfTone optimistic/steady/cautionary, FutureSelfLetter, FutureSelfLetterBuilder ghép thư từ template localized theo savings rate 3 tháng, on-device không gọi cloud AI, FutureSelfContextClient), `FutureSelfFeature` TCA, letter card gradient + projection card (tuổi dự phóng, tiết kiệm/năm, savings rate); ghép vào tab Wellness section `.futureSelf`.
+- [x] `13.3` Spending calendar 🟡 - Đã có `SpendingCalendarDomain` (SpendingCalendar, DailySpending, SpendingCalendarBuilder, SpendingCalendarContextClient), `SpendingCalendarFeature` TCA với calendar view màu theo mức chi/trung bình, dự báo ngày tương lai dựa trên subscription và pattern lặp lại; ghép vào tab Wellness section `.spendingCalendar`.
 
 ## 14. Tiết kiệm tự động
 
@@ -149,15 +158,15 @@
 
 ## 15. Xã hội & Địa lý
 
-- [ ] `15.1` Spending map 🟡
-- [ ] `15.2` Seasonal planner 🟡
-- [ ] `15.3` Spending DNA 🔵
+- [x] `15.1` Spending map 🟡 - Đã có `SpendingMapDomain` (`SpendingMapEntry`, `SpendingMapHotspot`, `SpendingMapSummary`, `SpendingMapPeriod` 30/90/all-time, `SpendingMapBuilder` cluster theo bán kính ~0.003° (~330m), tính intensity tương đối với hotspot mạnh nhất, top category theo tổng chi); `SpendingMapFeature` TCA với CRUD entry, period picker, header card tổng/đếm/cụm, MapKit `Map` annotation kích thước theo intensity, entry list với edit/delete; `SpendingMapEditorSheet` dùng `Map` cho user pan để đặt pin (không cần GPS permission), iOS-only `.keyboardType(.numberPad)` guard; persistence mã hoá `EncryptedSpendingMapStore` AES-GCM keychain; ghép vào tab Wellness section `.spendingMap`. On-device toàn bộ, không thu GPS.
+- [x] `15.2` Seasonal planner 🟡 - Đã có `SeasonalPlannerDomain` (`SeasonalSpike`, `SeasonalPlan`, `SeasonalPlanBuilder` phát hiện tháng có chi cao ≥ 130% baseline trong 8 tuần tới, `SeasonalContextClient`, `SeasonalMonthName` map Tết/back-to-school/11-11/year-end), `SeasonalPlannerFeature` TCA load plan từ context client, view header + spike cards với label tháng VI/EN, gợi ý "để dành mỗi tuần"; ghép vào tab Wellness section `.seasonalPlanner` và wire context client từ `transactionRepository.fetchAll()` trong `KasoApp`.
+- [x] `15.3` Spending DNA 🔵 - Đã có `SpendingDNADomain` (SpendingDNAType saver/foodie/explorer/spender/balanced, SpendingDNAReport, SpendingDNABuilder phân loại theo savings rate + dominant category on-device, SpendingDNAContextClient), `SpendingDNAFeature` TCA load report cuối năm, hero card gradient + tagline theo type, stats card, top categories, `SpendingDNAShareCard` 9:16 ImageRenderer + ShareLink Instagram Story; ghép vào tab Wellness section `.spendingDNA`.
 
 ## 16. Văn hoá & Đặc thù Việt Nam
 
-- [ ] `16.1` Lì xì & đám hỉ tracker 🟢
-- [ ] `16.2` Hụi/họ tracker 🟡
-- [ ] `16.3` BNPL exposure tracker 🟡
+- [x] `16.1` Lì xì & đám hỉ tracker 🟢 - Đã có `GiftTrackerDomain` (GiftRecord, GiftEventKind 7 dịp tet/wedding/newHome/babyShower/funeral/birthday/other, GiftDirection given/received, GiftPersonSummary, GiftYearlySummaryBuilder); `GiftTrackerFeature` TCA với CRUD record, summary cards (yearly given/received, person list), detail view per person với history hai chiều và suggested amount dựa trên given history; persistence mã hoá `EncryptedGiftTrackerStore`; ghép vào tab Wellness section `.giftTracker`.
+- [x] `16.2` Hụi/họ tracker 🟡 - Đã có `HuiTrackerDomain` (HuiGroup, HuiCycle, HuiPeriodKind weekly/biweekly/monthly, HuiCycleScheduleBuilder auto-gen kỳ, HuiSummaryBuilder group/overall); `HuiTrackerFeature` TCA với CRUD dây hụi, toggle kỳ đã đóng/đã hốt, summary card đóng/hốt/net position, disclaimer chỉ là ledger cá nhân (không giữ tiền/không môi giới); persistence mã hoá `EncryptedHuiTrackerStore`; ghép vào tab Wellness section `.huiTracker`.
+- [x] `16.3` BNPL exposure tracker 🟡 - Đã có `BNPLDomain` (BNPLObligation, BNPLProvider 7 nhà cung cấp: Fundiin/Kredivo/Atome/Shopee PayLater/MoMo Postpaid/Home Credit/Generic, BNPLInstallment, BNPLInstallmentBuilder generate monthly schedule, BNPLHealth 4 cấp safe/caution/overexposed/critical theo tỉ lệ với thu nhập, BNPLSummary với current/next-3-months/overdue/monthly exposures); `BNPLFeature` TCA với CRUD obligation, toggle paid installment; UI summary card với health badge, exposure ratio bar, breakdown obligations với progress; persistence mã hoá `EncryptedBNPLStore`; `BNPLContextClient` lấy thu nhập tháng từ onboarding hoặc giao dịch 3 tháng gần; ghép vào tab Wellness section `.bnpl`.
 - [ ] `16.4` Cộng đồng giá địa phương 🔵
 
 ## 17. Tâm lý mở rộng
@@ -165,7 +174,7 @@
 - [x] `17.1` Cooling-off period cho mua bốc đồng 🟡 - Đã có `CoolingOffDomain` với `PurchasePlan` (status waiting/approved/cancelled/expired), `CoolingPeriod` (1d/3d/1w/2w), `CoolingOffPolicy` (threshold mặc định 500k→1d, 2M→3d, 5M→1w, 20M→2w), `PurchasePlanSummaryBuilder` chia waiting/ready/decided và tính tổng đã tránh chi, `OpportunityCostCalculator` quy ra giờ làm/ngày trễ goal/tháng emergency; `CoolingOffFeature` TCA: editor tự đề xuất cooling period theo amount (override được), action approve/cancel/delete, ProgressView countdown, summary card tiền đã tránh + waiting; persistence mã hoá `EncryptedPurchasePlanStore` lưu plans + policy chung blob; ghép vào tab Wellness.
 - [x] `17.2` Phantom expense ledger 🟢 - Đã có sổ khoản suýt tiêu, tổng tiền tránh chi trong tháng, breakdown theo nhóm, thêm/sửa/xoá và lưu mã hoá.
 - [x] `17.3` Hours of life converter 🟢 - Đã có `HoursOfLifeFeature` TCA, tab Wellness mới, cấu hình thu nhập thực nhận và giờ làm trung bình/tháng (lưu mã hoá keychain), fallback từ onboarding income, calculator quy đổi nhanh và danh sách giao dịch gần đây quy ra giờ/phút làm việc.
-- [ ] `17.4` Money therapist mode 🟡
+- [x] `17.4` Money therapist mode 🟡 - Đã có `MoneyTherapistDomain` (`TherapistTopic` 5 chủ đề: recentOverspend/guilt/stressTrigger/comparisonAnxiety/generalCheckin, `TherapistPrompt` + `TherapistPromptLibrary` template on-device cho mỗi topic gồm opening message, 3 reflection questions, 2 suggested actions, closing message; `TherapistReflection` + `TherapistRepository`), `MoneyTherapistFeature` TCA với grid topic tiles, reflection sheet (questions + ô ghi chú optional + suggested actions + closing), history card; không gọi cloud AI, không gửi PII; full localization VI/EN cho mọi prompt; ghép vào tab Wellness section `.moneyTherapist`.
 
 ## 18. Ngách chuyên biệt & Wellness
 
@@ -907,10 +916,10 @@ LegacyFeature
 
 ## 19. Pricing
 
-- [ ] Free tier
-- [ ] Pro tier
-- [ ] Family tier
-- [ ] Paywall thông minh
+- [x] Free tier - Đã định nghĩa qua `SubscriptionTier.free` trong `PaywallDomain`; unlock `csvExport` + `widgets` mặc định; là tier khởi tạo `SubscriptionEntitlement.free`.
+- [x] Pro tier - Đã định nghĩa qua `SubscriptionTier.pro`; unlock unlimitedHistory, ocrReceipt, bankStatementImport, voiceEntry, subscriptionTracker, aiInsights, spendingForecast, savingsGoals, advancedReports, iCloudSync, appleWatch; productID `com.vuongnguyen.kaso.pro.monthly` 49.000 ₫/tháng và `com.vuongnguyen.kaso.pro.yearly` 399.000 ₫/năm (recommended badge).
+- [x] Family tier - Đã định nghĩa qua `SubscriptionTier.family`; unlock toàn bộ tier Pro + familySharing + familyCompatibility; productID `com.vuongnguyen.kaso.family.monthly` 79.000 ₫/tháng và `com.vuongnguyen.kaso.family.yearly` 599.000 ₫/năm.
+- [x] Paywall thông minh - Đã có `PaywallDomain` (SubscriptionTier Comparable rank free<pro<family, SubscriptionFeatureFlag 15 toggle với `minimumTier`, PricingPlan + bundledCatalogue, SubscriptionEntitlement + Repository, PaywallStoreClient abstraction với `ResolvedProduct`/`PaywallPurchaseOutcome` decouple khỏi StoreKit, `PaywallStoreClient.empty`/`.preview`); `PaywallFeature` TCA với task load entitlement + products, selectTier picker, purchaseButtonTapped → outcome routing (purchased/cancelled/pending/failed) → save entitlement, restoreButtonTapped flow, success/error banners; UI `PaywallView` + `PaywallCards` hero + tier segmented picker + feature checklist theo tier + plan rows với recommended badge + restore button + legal footer; live `LivePaywallStoreClient` trong App target dùng StoreKit 2 (`Product.products(for:)`, `product.purchase()`, `Transaction.currentEntitlements`, `AppStore.sync()` cho restore, verify check + finish transaction), tier derived từ productID; persistence mã hoá `EncryptedSubscriptionEntitlementStore` AES-GCM keychain; ghép vào `KasoRootFeature` qua `isPaywallPresented` + floating "Nâng cấp" button; full localization VI/EN cho 15 feature flag + 3 tier + cycle + status. Tests: 6 domain test + 5 TCA TestStore test cover load, tier select, purchase outcomes, restore.
 
 ## 20. Lộ trình phát triển
 

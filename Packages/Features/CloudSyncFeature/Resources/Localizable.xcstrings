@@ -1,0 +1,114 @@
+{
+  "sourceLanguage" : "vi",
+  "strings" : {
+    "cloudSync.action.syncNow" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sync now" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Đồng bộ ngay" } }
+      }
+    },
+    "cloudSync.availability.available" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Signed in to iCloud." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Đã đăng nhập iCloud." } }
+      }
+    },
+    "cloudSync.availability.restricted" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "iCloud is restricted on this device." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "iCloud bị giới hạn trên máy này." } }
+      }
+    },
+    "cloudSync.availability.temporary" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "iCloud temporarily unavailable." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "iCloud tạm thời không khả dụng." } }
+      }
+    },
+    "cloudSync.availability.unavailable" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sign in to iCloud in Settings to enable sync." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Đăng nhập iCloud trong Cài đặt để bật đồng bộ." } }
+      }
+    },
+    "cloudSync.error.loadFailed" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Couldn't load sync settings." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Không tải được cài đặt đồng bộ." } }
+      }
+    },
+    "cloudSync.error.syncFailed" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sync failed. We'll retry shortly." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Đồng bộ thất bại. Sẽ thử lại sau." } }
+      }
+    },
+    "cloudSync.error.unavailable" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "iCloud is not available right now." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "iCloud không khả dụng lúc này." } }
+      }
+    },
+    "cloudSync.header.subtitle" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sync your encrypted data across iPhone, iPad and Mac. Nothing ever leaves your devices unencrypted." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Đồng bộ dữ liệu đã mã hoá giữa iPhone, iPad và Mac. Không gì rời thiết bị dưới dạng chưa mã hoá." } }
+      }
+    },
+    "cloudSync.header.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "iCloud sync" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Đồng bộ iCloud" } }
+      }
+    },
+    "cloudSync.privacy.body" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Kaso encrypts every record on-device with a key stored in your Keychain. iCloud only ever sees encrypted blobs." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Kaso mã hoá mọi bản ghi trên máy bằng khoá lưu trong Keychain. iCloud chỉ thấy dữ liệu đã mã hoá." } }
+      }
+    },
+    "cloudSync.privacy.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "End-to-end encrypted" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Mã hoá đầu cuối" } }
+      }
+    },
+    "cloudSync.status.disabled" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sync is off" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Đồng bộ tắt" } }
+      }
+    },
+    "cloudSync.status.failed" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Last sync failed" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Đồng bộ thất bại" } }
+      }
+    },
+    "cloudSync.status.idle" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Last synced" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Đã đồng bộ" } }
+      }
+    },
+    "cloudSync.status.idleNever" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Ready to sync" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Sẵn sàng đồng bộ" } }
+      }
+    },
+    "cloudSync.status.syncing" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Syncing…" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Đang đồng bộ…" } }
+      }
+    },
+    "cloudSync.toggle.label" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sync with iCloud" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Đồng bộ qua iCloud" } }
+      }
+    }
+  },
+  "version" : "1.0"
+}

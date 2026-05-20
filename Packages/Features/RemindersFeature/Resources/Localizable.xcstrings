@@ -1,0 +1,186 @@
+{
+  "sourceLanguage" : "vi",
+  "strings" : {
+    "reminders.header.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Smart reminders" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Nhắc nhở thông minh" } }
+      }
+    },
+    "reminders.header.subtitle" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Pick the nudges you want. Notification bodies don't contain amounts or transaction details." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Chọn các nhắc nhở bạn muốn. Nội dung thông báo không chứa số tiền hay chi tiết giao dịch." } }
+      }
+    },
+    "reminders.permission.authorized" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Notifications enabled" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Thông báo đang bật" } }
+      }
+    },
+    "reminders.permission.denied" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Notifications are off" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Thông báo đang tắt" } }
+      }
+    },
+    "reminders.permission.deniedHint" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Enable in Settings > Notifications > Kaso to receive reminders." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Bật trong Cài đặt > Thông báo > Kaso để nhận nhắc nhở." } }
+      }
+    },
+    "reminders.permission.request" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Allow notifications" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Cho phép thông báo" } }
+      }
+    },
+    "reminders.time" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Time" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Giờ" } }
+      }
+    },
+    "reminders.error.loadFailed" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Couldn't load preferences." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Không tải được cài đặt." } }
+      }
+    },
+    "reminders.error.saveFailed" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Couldn't save preferences." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Không lưu được cài đặt." } }
+      }
+    },
+    "reminders.error.permissionDenied" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Notification permission was denied." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Quyền thông báo bị từ chối." } }
+      }
+    },
+    "reminders.kind.endOfDayEntry.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "End-of-day log nudge" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Nhắc ghi giao dịch cuối ngày" } }
+      }
+    },
+    "reminders.kind.endOfDayEntry.description" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "If you haven't logged anything today, get a friendly nudge before bedtime." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Nếu hôm nay bạn chưa ghi gì, app sẽ nhắc nhẹ trước khi đi ngủ." } }
+      }
+    },
+    "reminders.kind.endOfDayEntry.notification.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Today's log?" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Đã ghi hôm nay chưa?" } }
+      }
+    },
+    "reminders.kind.endOfDayEntry.notification.body" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "A quick check-in keeps your month on track." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Một lần ghi nhanh giúp bạn giữ vững nhịp tháng này." } }
+      }
+    },
+    "reminders.kind.budgetNearLimit.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Budget near limit" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Ngân sách gần hết" } }
+      }
+    },
+    "reminders.kind.budgetNearLimit.description" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Get a heads-up when a category passes 80% of its monthly budget." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Báo trước khi một danh mục vượt 80% ngân sách tháng." } }
+      }
+    },
+    "reminders.kind.budgetNearLimit.notification.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Budget alert" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Cảnh báo ngân sách" } }
+      }
+    },
+    "reminders.kind.budgetNearLimit.notification.body" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "A category is getting close to its monthly limit." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Một danh mục đang gần chạm hạn mức tháng." } }
+      }
+    },
+    "reminders.kind.subscriptionRenewal.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Subscription renewals" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Subscription sắp gia hạn" } }
+      }
+    },
+    "reminders.kind.subscriptionRenewal.description" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Receive a heads-up a few days before a known recurring charge." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Báo vài ngày trước khi tới ngày gia hạn." } }
+      }
+    },
+    "reminders.kind.subscriptionRenewal.notification.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Renewal coming up" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Sắp tới ngày gia hạn" } }
+      }
+    },
+    "reminders.kind.subscriptionRenewal.notification.body" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "A recurring subscription renews soon. Tap to review." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Một subscription sắp được gia hạn. Bấm để xem lại." } }
+      }
+    },
+    "reminders.kind.noSpendStreak.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "No-spend streak" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Chuỗi ngày không tiêu" } }
+      }
+    },
+    "reminders.kind.noSpendStreak.description" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Celebrate your streak with a gentle daily check-in." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Nhắc nhẹ mỗi ngày để giữ chuỗi không tiêu." } }
+      }
+    },
+    "reminders.kind.noSpendStreak.notification.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Streak check-in" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Check-in chuỗi" } }
+      }
+    },
+    "reminders.kind.noSpendStreak.notification.body" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Keep the green streak alive — log a no-spend day if today qualifies." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Giữ chuỗi xanh — ghi nhận ngày không tiêu nếu hôm nay đủ điều kiện." } }
+      }
+    },
+    "reminders.kind.largeExpense.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Large expense follow-up" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Theo dõi chi tiêu lớn" } }
+      }
+    },
+    "reminders.kind.largeExpense.description" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "A week after a large expense, get a gentle prompt to rate how it felt." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Một tuần sau một khoản chi lớn, app sẽ hỏi nhẹ bạn cảm thấy thế nào." } }
+      }
+    },
+    "reminders.kind.largeExpense.notification.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "How does it feel now?" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Giờ bạn cảm thấy thế nào?" } }
+      }
+    },
+    "reminders.kind.largeExpense.notification.body" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Tap to rate how a recent purchase has aged." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Bấm để chấm điểm một khoản chi gần đây." } }
+      }
+    }
+  },
+  "version" : "1.0"
+}

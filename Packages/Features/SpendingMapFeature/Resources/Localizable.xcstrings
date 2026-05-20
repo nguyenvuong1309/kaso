@@ -1,0 +1,186 @@
+{
+  "sourceLanguage" : "vi",
+  "strings" : {
+    "spendingMap.action.add" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Add place" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Thêm điểm" } }
+      }
+    },
+    "spendingMap.editor.amount" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Amount (VND)" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Số tiền (VND)" } }
+      }
+    },
+    "spendingMap.editor.cancel" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Cancel" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Huỷ" } }
+      }
+    },
+    "spendingMap.editor.category" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Category (optional)" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Danh mục (tuỳ chọn)" } }
+      }
+    },
+    "spendingMap.editor.date" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Occurred at" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Thời gian" } }
+      }
+    },
+    "spendingMap.editor.label" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Place name" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tên địa điểm" } }
+      }
+    },
+    "spendingMap.editor.location.hint" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Pan the map to centre the pin on where you spent." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Kéo bản đồ để đặt chốt vào nơi bạn chi tiêu." } }
+      }
+    },
+    "spendingMap.editor.note" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Note (optional)" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Ghi chú (tuỳ chọn)" } }
+      }
+    },
+    "spendingMap.editor.save" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Save" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Lưu" } }
+      }
+    },
+    "spendingMap.editor.section.details" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Details" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Thông tin" } }
+      }
+    },
+    "spendingMap.editor.section.location" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Location" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Vị trí" } }
+      }
+    },
+    "spendingMap.editor.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Pin a place" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Ghim địa điểm" } }
+      }
+    },
+    "spendingMap.empty.subtitle" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Tap “Add place” to record where you spent today." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Chạm “Thêm điểm” để ghi nhận nơi bạn chi tiêu." } }
+      }
+    },
+    "spendingMap.empty.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "No pins yet" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Chưa có điểm nào" } }
+      }
+    },
+    "spendingMap.error.deleteFailed" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Couldn't delete pin." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Không xoá được điểm." } }
+      }
+    },
+    "spendingMap.error.invalidAmount" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Enter a valid amount." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Nhập số tiền hợp lệ." } }
+      }
+    },
+    "spendingMap.error.labelRequired" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Add a place name." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Cần tên địa điểm." } }
+      }
+    },
+    "spendingMap.error.loadFailed" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Couldn't load pins." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Không tải được điểm." } }
+      }
+    },
+    "spendingMap.error.saveFailed" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Couldn't save pin." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Không lưu được điểm." } }
+      }
+    },
+    "spendingMap.header.subtitle" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "See where your money goes around town. All data stays on-device." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Xem tiền bạn đi đâu trong thành phố. Mọi dữ liệu nằm trên thiết bị." } }
+      }
+    },
+    "spendingMap.header.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Spending map" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Bản đồ chi tiêu" } }
+      }
+    },
+    "spendingMap.list.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Pinned places" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Điểm đã ghim" } }
+      }
+    },
+    "spendingMap.map.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Hotspots" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Điểm nóng" } }
+      }
+    },
+    "spendingMap.metric.entries" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Pins" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Điểm" } }
+      }
+    },
+    "spendingMap.metric.hotspots" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Hotspots" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Cụm" } }
+      }
+    },
+    "spendingMap.metric.total" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Total" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tổng" } }
+      }
+    },
+    "spendingMap.period.allTime" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "All time" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tất cả" } }
+      }
+    },
+    "spendingMap.period.label" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Period" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Khoảng thời gian" } }
+      }
+    },
+    "spendingMap.period.last30Days" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "30 days" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "30 ngày" } }
+      }
+    },
+    "spendingMap.period.last90Days" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "90 days" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "90 ngày" } }
+      }
+    }
+  },
+  "version" : "1.0"
+}

@@ -1,0 +1,84 @@
+{
+  "sourceLanguage" : "vi",
+  "strings" : {
+    "budgetFlow.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Budget flow" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Dòng tiền ngân sách" } }
+      }
+    },
+    "budgetFlow.header.total" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Total budget" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tổng ngân sách" } }
+      }
+    },
+    "budgetFlow.section.flow" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "How it is split" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tiền được chia thế nào" } }
+      }
+    },
+    "budgetFlow.mode.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Display" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Hiển thị" } }
+      }
+    },
+    "budgetFlow.mode.amount" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Amount" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Số tiền" } }
+      }
+    },
+    "budgetFlow.mode.percent" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Percent" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Phần trăm" } }
+      }
+    },
+    "budgetFlow.error.loadFailed" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Could not load budget breakdown." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Không tải được chi tiết ngân sách." } }
+      }
+    },
+    "budgetFlow.category.housing" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Housing" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Nhà ở" } }
+      }
+    },
+    "budgetFlow.category.savings" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Savings" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tiết kiệm" } }
+      }
+    },
+    "budgetFlow.category.transport" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Transport" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Đi lại" } }
+      }
+    },
+    "budgetFlow.category.personalCare" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Personal care" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Chăm sóc bản thân" } }
+      }
+    },
+    "budgetFlow.category.food" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Food & drink" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Ăn uống" } }
+      }
+    },
+    "budgetFlow.category.lifestyle" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Lifestyle" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Phong cách sống" } }
+      }
+    }
+  },
+  "version" : "1.0"
+}

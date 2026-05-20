@@ -1,0 +1,360 @@
+{
+  "sourceLanguage" : "vi",
+  "strings" : {
+    "moneyTherapist.header.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Money therapist" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Trợ lý cảm xúc tiền bạc" } }
+      }
+    },
+    "moneyTherapist.header.subtitle" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "A safe space to reflect on how money makes you feel — without judgment." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Một góc nhỏ để nghĩ lại về cảm xúc với tiền bạc — không phán xét." } }
+      }
+    },
+    "moneyTherapist.header.privacy" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "All reflections stay on this device. No cloud, no PII." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Mọi ghi chép chỉ lưu trên máy. Không cloud, không gửi đi đâu." } }
+      }
+    },
+    "moneyTherapist.topics.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "What's on your mind?" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Bạn đang nghĩ gì?" } }
+      }
+    },
+    "moneyTherapist.history.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Recent reflections" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Các lần ghi chép gần đây" } }
+      }
+    },
+    "moneyTherapist.sheet.questions" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sit with these for a moment" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Hãy thử nghĩ về những điều sau" } }
+      }
+    },
+    "moneyTherapist.sheet.note" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Your note (optional)" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Ghi chú riêng (không bắt buộc)" } }
+      }
+    },
+    "moneyTherapist.sheet.notePlaceholder" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Anything you want to remember…" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Ghi lại điều bạn muốn nhớ…" } }
+      }
+    },
+    "moneyTherapist.sheet.actions" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Tiny next steps" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Bước nhỏ tiếp theo" } }
+      }
+    },
+    "moneyTherapist.sheet.cancel" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Cancel" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Huỷ" } }
+      }
+    },
+    "moneyTherapist.sheet.save" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Save" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Lưu" } }
+      }
+    },
+    "moneyTherapist.error.loadFailed" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Couldn't load reflections." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Không tải được lịch sử ghi chép." } }
+      }
+    },
+    "moneyTherapist.error.saveFailed" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Couldn't save reflection." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Không lưu được ghi chép." } }
+      }
+    },
+    "moneyTherapist.error.deleteFailed" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Couldn't delete reflection." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Không xoá được ghi chép." } }
+      }
+    },
+    "moneyTherapist.topic.recentOverspend.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Just overspent" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Lỡ chi quá tay" } }
+      }
+    },
+    "moneyTherapist.topic.recentOverspend.subtitle" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Process a big spend without spiraling." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Bình tĩnh lại sau một khoản chi lớn." } }
+      }
+    },
+    "moneyTherapist.topic.recentOverspend.opening" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "It happened. One slip doesn't undo all the careful months you've already had. Let's slow down and look at it gently." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Chuyện đã xảy ra rồi. Một lần lỡ tay không xoá đi những tháng bạn đã cẩn thận. Mình cùng nhìn lại nhẹ nhàng thôi." } }
+      }
+    },
+    "moneyTherapist.topic.recentOverspend.question.0" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "What were you feeling right before you bought?" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Trước khi bấm mua, bạn đang cảm thấy gì?" } }
+      }
+    },
+    "moneyTherapist.topic.recentOverspend.question.1" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Did the purchase actually solve that feeling?" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Khoản chi đó có thực sự giải quyết cảm giác đó không?" } }
+      }
+    },
+    "moneyTherapist.topic.recentOverspend.question.2" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Is there one small adjustment for next time?" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Lần sau có một điều nhỏ nào bạn muốn làm khác đi không?" } }
+      }
+    },
+    "moneyTherapist.topic.recentOverspend.action.0" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Skip one small treat in the next 3 days to soften the impact." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Bỏ một khoản nhỏ trong 3 ngày tới để bù lại nhẹ nhàng." } }
+      }
+    },
+    "moneyTherapist.topic.recentOverspend.action.1" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Set a 24-hour wait for any non-essential buy above a comfortable threshold." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Đặt khoảng chờ 24h cho mọi khoản chi không thiết yếu vượt ngưỡng." } }
+      }
+    },
+    "moneyTherapist.topic.recentOverspend.closing" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "You're not your worst day with money. Tomorrow is fresh." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Bạn không phải là ngày tệ nhất của mình. Mai lại là một ngày mới." } }
+      }
+    },
+    "moneyTherapist.topic.guilt.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Feeling guilty" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Cảm giác có lỗi" } }
+      }
+    },
+    "moneyTherapist.topic.guilt.subtitle" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Put the guilt down so it doesn't drive the next decision." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Đặt nỗi áy náy xuống để nó không dẫn dắt quyết định kế tiếp." } }
+      }
+    },
+    "moneyTherapist.topic.guilt.opening" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Guilt is information, not a sentence. It tells you something mattered — it doesn't tell you you're bad with money." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Cảm giác có lỗi là thông tin, không phải bản án. Nó nói có điều gì quan trọng — không nói bạn dở chuyện tiền bạc." } }
+      }
+    },
+    "moneyTherapist.topic.guilt.question.0" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "What value or hope did the spend bump against?" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Khoản chi đó va vào giá trị hay kỳ vọng nào của bạn?" } }
+      }
+    },
+    "moneyTherapist.topic.guilt.question.1" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Would you say the same thing to a friend who did this?" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Nếu bạn bè làm điều tương tự, bạn sẽ nói thế nào với họ?" } }
+      }
+    },
+    "moneyTherapist.topic.guilt.question.2" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "What's one repair action you can take today?" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Hôm nay bạn có thể làm một điều nhỏ để \"vá\" lại không?" } }
+      }
+    },
+    "moneyTherapist.topic.guilt.action.0" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Write a one-sentence kind reply to yourself in the note above." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Viết một câu nhẹ nhàng cho chính bạn vào ô ghi chú phía trên." } }
+      }
+    },
+    "moneyTherapist.topic.guilt.action.1" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Move on with the rest of today's plan as if the slip-up didn't multiply." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tiếp tục kế hoạch hôm nay, đừng để một cú trượt nhân lên." } }
+      }
+    },
+    "moneyTherapist.topic.guilt.closing" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Self-kindness is a financial skill. Keep practicing." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Đối xử tử tế với bản thân cũng là một kỹ năng tài chính. Cứ luyện tập." } }
+      }
+    },
+    "moneyTherapist.topic.stressTrigger.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Stressed and tempted" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Căng thẳng, muốn xài" } }
+      }
+    },
+    "moneyTherapist.topic.stressTrigger.subtitle" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Notice the urge before it becomes the bill." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Để ý cơn thèm trước khi nó thành hoá đơn." } }
+      }
+    },
+    "moneyTherapist.topic.stressTrigger.opening" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Stress and money decisions don't make a good combination. Let's create a tiny pause between the feeling and the tap." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Căng thẳng và quyết định tiền bạc không hợp nhau lắm. Mình thử tạo một khoảng dừng nhỏ giữa cảm giác và cái bấm \"mua\"." } }
+      }
+    },
+    "moneyTherapist.topic.stressTrigger.question.0" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "What is your body asking for that money can't buy?" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Cơ thể bạn đang cần điều gì mà tiền không mua được?" } }
+      }
+    },
+    "moneyTherapist.topic.stressTrigger.question.1" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "On a calmer day, would today's purchase still feel necessary?" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Vào một ngày bình tĩnh hơn, khoản này còn cảm thấy cần thiết không?" } }
+      }
+    },
+    "moneyTherapist.topic.stressTrigger.question.2" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "What's one free way to settle the same feeling?" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Có cách nào miễn phí để xoa dịu cùng cảm giác đó không?" } }
+      }
+    },
+    "moneyTherapist.topic.stressTrigger.action.0" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Step away from the app/cart for 10 minutes — set a timer." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Rời app/giỏ hàng 10 phút — đặt hẹn giờ." } }
+      }
+    },
+    "moneyTherapist.topic.stressTrigger.action.1" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Drink water, slow your breath, then revisit the decision." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Uống nước, thở chậm lại, rồi mới quay lại quyết định." } }
+      }
+    },
+    "moneyTherapist.topic.stressTrigger.closing" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "You don't have to act on every urge. The urge passes; the savings stay." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Bạn không cần làm theo mọi cơn thèm. Cảm giác sẽ qua, tiền tiết kiệm ở lại." } }
+      }
+    },
+    "moneyTherapist.topic.comparisonAnxiety.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Comparing with others" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "So sánh với người khác" } }
+      }
+    },
+    "moneyTherapist.topic.comparisonAnxiety.subtitle" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Reframe other people's highlights before they shape your budget." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Nhìn lại những \"highlight\" của người khác trước khi chúng định hình ngân sách của bạn." } }
+      }
+    },
+    "moneyTherapist.topic.comparisonAnxiety.opening" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Other people share what looks good. You see the bill on your end. The comparison was unfair before you even started." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Người khác chia sẻ phần đẹp nhất. Bạn thì thấy hoá đơn của chính mình. Phép so sánh đã không công bằng từ đầu." } }
+      }
+    },
+    "moneyTherapist.topic.comparisonAnxiety.question.0" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Whose life are you comparing — and what don't you see?" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Bạn đang so với cuộc sống của ai — và điều gì bạn không thấy được?" } }
+      }
+    },
+    "moneyTherapist.topic.comparisonAnxiety.question.1" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "What does *your* enough look like, not theirs?" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "\"Đủ\" của *bạn* trông như thế nào, không phải của họ?" } }
+      }
+    },
+    "moneyTherapist.topic.comparisonAnxiety.question.2" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "What progress would past-you be proud of right now?" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Bản thân bạn của vài tháng trước sẽ tự hào về điều gì lúc này?" } }
+      }
+    },
+    "moneyTherapist.topic.comparisonAnxiety.action.0" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Mute or unfollow one account that consistently triggers comparison." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Mute hoặc bỏ theo dõi một tài khoản hay khiến bạn so sánh." } }
+      }
+    },
+    "moneyTherapist.topic.comparisonAnxiety.action.1" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "List one number you're proud of in your own progress." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Ghi một con số riêng mà bạn tự hào trong tiến trình của mình." } }
+      }
+    },
+    "moneyTherapist.topic.comparisonAnxiety.closing" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Your finances run on your real life, not on someone else's feed." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tài chính của bạn chạy theo cuộc sống thật của bạn, không phải feed của ai khác." } }
+      }
+    },
+    "moneyTherapist.topic.generalCheckin.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Just checking in" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Chỉ là check-in thôi" } }
+      }
+    },
+    "moneyTherapist.topic.generalCheckin.subtitle" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Take a calm minute with your money — no emergency required." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Dành một phút bình tĩnh với tiền bạc — không cần có chuyện gì xảy ra." } }
+      }
+    },
+    "moneyTherapist.topic.generalCheckin.opening" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Money is part of your daily life. A short check-in keeps small things small." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tiền là một phần đời sống hằng ngày. Check-in ngắn giúp những điều nhỏ ở yên nhỏ." } }
+      }
+    },
+    "moneyTherapist.topic.generalCheckin.question.0" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "What is going well with your money this week?" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tuần này điều gì đang ổn với tiền bạc của bạn?" } }
+      }
+    },
+    "moneyTherapist.topic.generalCheckin.question.1" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "What is one decision you'd like to make on purpose, not by default?" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Có quyết định nào bạn muốn ra một cách chủ động, không phải vô thức?" } }
+      }
+    },
+    "moneyTherapist.topic.generalCheckin.question.2" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "What would future-you want this week to leave you with?" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Bản thân tương lai muốn tuần này để lại điều gì cho bạn?" } }
+      }
+    },
+    "moneyTherapist.topic.generalCheckin.action.0" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Pick one money goal to nudge by a small amount this week." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Chọn một mục tiêu tiền bạc và nhích thêm một bước nhỏ tuần này." } }
+      }
+    },
+    "moneyTherapist.topic.generalCheckin.action.1" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Plan one no-spend afternoon you'd actually enjoy." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Lên kế hoạch một buổi chiều không tiêu mà bạn thật sự thấy vui." } }
+      }
+    },
+    "moneyTherapist.topic.generalCheckin.closing" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "You don't need a crisis to check in. Calm reflections compound too." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Không cần có khủng hoảng mới check-in. Sự bình thản cũng nhân lên theo thời gian." } }
+      }
+    }
+  },
+  "version" : "1.0"
+}

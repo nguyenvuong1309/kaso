@@ -1,0 +1,126 @@
+{
+  "sourceLanguage" : "vi",
+  "strings" : {
+    "dna.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Spending DNA" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "DNA Chi Tiêu" } }
+      }
+    },
+    "dna.share.action" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Share" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Chia sẻ" } }
+      }
+    },
+    "dna.empty.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Not enough data yet" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Chưa đủ dữ liệu" } }
+      }
+    },
+    "dna.empty.subtitle" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Keep logging transactions this year to unlock your Spending DNA." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tiếp tục ghi giao dịch trong năm để mở khoá DNA chi tiêu của bạn." } }
+      }
+    },
+    "dna.section.topCategories" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Top categories" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Nhóm chi nhiều nhất" } }
+      }
+    },
+    "dna.stat.savingsRate" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Savings rate" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tỉ lệ tiết kiệm" } }
+      }
+    },
+    "dna.stat.totalExpense" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Total spent" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tổng chi" } }
+      }
+    },
+    "dna.stat.largest" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Largest transaction" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Giao dịch lớn nhất" } }
+      }
+    },
+    "dna.stat.transactions" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Transactions" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Số giao dịch" } }
+      }
+    },
+    "dna.error.loadFailed" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Could not build your Spending DNA." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Không tạo được DNA chi tiêu." } }
+      }
+    },
+    "dna.type.saver.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "The Saver" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Người Tích Luỹ" } }
+      }
+    },
+    "dna.type.saver.tagline" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Future you is already smiling." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Bạn của tương lai đang mỉm cười." } }
+      }
+    },
+    "dna.type.foodie.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "The Foodie" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tín Đồ Ẩm Thực" } }
+      }
+    },
+    "dna.type.foodie.tagline" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Life is short, the menu is long." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Đời ngắn, thực đơn dài." } }
+      }
+    },
+    "dna.type.explorer.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "The Explorer" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Người Trải Nghiệm" } }
+      }
+    },
+    "dna.type.explorer.tagline" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "You buy memories, not things." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Bạn mua kỷ niệm, không mua đồ vật." } }
+      }
+    },
+    "dna.type.spender.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "The Spender" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Người Phóng Khoáng" } }
+      }
+    },
+    "dna.type.spender.tagline" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "A little balance could go a long way." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Cân bằng thêm chút sẽ đi xa hơn." } }
+      }
+    },
+    "dna.type.balanced.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "The Balanced" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Người Cân Bằng" } }
+      }
+    },
+    "dna.type.balanced.tagline" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Steady hands, steady wallet." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tay vững, ví vững." } }
+      }
+    }
+  },
+  "version" : "1.0"
+}

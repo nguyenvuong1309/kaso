@@ -88,6 +88,18 @@ public struct InvestmentView: View {
             .toolbar {
                 ToolbarItemGroup(placement: .primaryAction) {
                     Button {
+                        store.send(.refreshPricesButtonTapped)
+                    } label: {
+                        if store.isRefreshingPrices {
+                            ProgressView()
+                        } else {
+                            Image(systemName: "arrow.clockwise")
+                        }
+                    }
+                    .disabled(store.isRefreshingPrices || store.holdings.isEmpty)
+                    .accessibilityLabel(Text("investment.price.refresh", bundle: .module))
+
+                    Button {
                         store.send(.targetEditButtonTapped)
                     } label: {
                         Image(systemName: "target")

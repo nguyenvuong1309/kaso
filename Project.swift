@@ -17,6 +17,12 @@ let appSettings = Settings.settings(
         "APPINTENTS_PACKAGE_DEPENDENCIES": "QuickEntryIntent",
     ]) { _, appValue in appValue }
 )
+let widgetSettings = Settings.settings(
+    base: baseSettings.merging([
+        "INFOPLIST_KEY_CFBundleDisplayName": "KasoWidgets",
+        "INFOPLIST_KEY_NSHumanReadableCopyright": "Kaso",
+    ]) { _, override in override }
+)
 
 struct ModuleSpec {
     let name: String
@@ -123,6 +129,17 @@ let coreTargets: [Target] = [
         product: .framework,
         buildableFolders: ["Packages/Core/KasoLogging/Sources"]
     ),
+    .target(
+        name: "KasoWidgetShared",
+        destinations: [.iPhone, .iPad, .appleWatch],
+        product: .framework,
+        bundleId: bundleId(for: "KasoWidgetShared"),
+        deploymentTargets: .multiplatform(iOS: "17.0", watchOS: "10.0"),
+        infoPlist: .default,
+        buildableFolders: [folder("Packages/Core/KasoWidgetShared/Sources")],
+        dependencies: [],
+        settings: projectSettings
+    ),
     moduleTarget(
         name: "KasoDesignSystem",
         product: .framework,
@@ -147,6 +164,7 @@ let domainSpecs = [
     ModuleSpec("SleepCorrelationDomain", dependencies: ["TransactionDomain"]),
     ModuleSpec("LegacyDomain"),
     ModuleSpec("BudgetDomain", dependencies: ["TransactionDomain"]),
+    ModuleSpec("BudgetFlowDomain"),
     ModuleSpec("OnboardingDomain", dependencies: ["TransactionDomain"]),
     ModuleSpec(
         "GamificationDomain",
@@ -160,22 +178,44 @@ let domainSpecs = [
     ModuleSpec("RegretScoreDomain"),
     ModuleSpec("WhatIfDomain"),
     ModuleSpec("SpendingCalendarDomain"),
+    ModuleSpec("GiftTrackerDomain"),
+    ModuleSpec("HuiTrackerDomain"),
+    ModuleSpec("SpendingDNADomain"),
+    ModuleSpec("FutureSelfDomain"),
+    ModuleSpec("BNPLDomain"),
+    ModuleSpec("MoneyPersonalityDomain"),
+    ModuleSpec("WrappedDomain"),
+    ModuleSpec("SeasonalPlannerDomain"),
+    ModuleSpec("MoneyTherapistDomain"),
+    ModuleSpec("CommunityChallengeDomain"),
+    ModuleSpec("RemindersDomain"),
+    ModuleSpec("BillSplitterDomain"),
+    ModuleSpec("SmartSearchDomain"),
+    ModuleSpec("SpendingMapDomain"),
+    ModuleSpec("PaywallDomain"),
+    ModuleSpec("CloudSyncDomain"),
 ]
 
 let persistenceDependencies = [
-    "AppearanceDomain", "AuthDomain", "BudgetDomain", "CoolingOffDomain",
-    "DebtDomain", "FreelancerDomain", "GamificationDomain", "GoalDomain",
-    "GuiltFreeBudgetDomain", "InvestmentDomain",
+    "AppearanceDomain", "AuthDomain", "BNPLDomain", "BudgetDomain",
+    "CloudSyncDomain", "CoolingOffDomain",
+    "DebtDomain", "FreelancerDomain", "GamificationDomain", "GiftTrackerDomain",
+    "GoalDomain", "GuiltFreeBudgetDomain", "HuiTrackerDomain", "InvestmentDomain",
     "KasoFoundation", "LegacyDomain", "MoodJournalDomain", "OnboardingDomain",
+    "PaywallDomain",
     "PhantomExpenseDomain", "RegretScoreDomain", "RoundUpDomain",
+    "SpendingMapDomain",
     "TransactionDomain", "WealthDomain", "WellnessDomain",
 ]
 let persistenceTestDependencies = [
-    "AppearanceDomain", "BudgetDomain", "CoolingOffDomain", "DebtDomain",
-    "FreelancerDomain", "GamificationDomain", "GoalDomain", "GuiltFreeBudgetDomain",
+    "AppearanceDomain", "BNPLDomain", "BudgetDomain", "CoolingOffDomain", "DebtDomain",
+    "FreelancerDomain", "GamificationDomain", "GiftTrackerDomain",
+    "GoalDomain", "GuiltFreeBudgetDomain",
     "InvestmentDomain", "LegacyDomain", "MoodJournalDomain",
+    "PaywallDomain",
     "PersistenceKit", "PhantomExpenseDomain", "RegretScoreDomain",
-    "RoundUpDomain", "TransactionDomain", "WealthDomain", "WellnessDomain",
+    "RoundUpDomain", "SpendingMapDomain",
+    "TransactionDomain", "WealthDomain", "WellnessDomain",
 ]
 
 let rootFeatureDependencies = [
@@ -188,11 +228,26 @@ let rootFeatureDependencies = [
     "KasoDesignSystem", "LegacyDomain", "LegacyFeature",
     "MoodJournalDomain", "MoodJournalFeature",
     "OnboardingDomain", "OnboardingFeature",
+    "PaywallDomain", "PaywallFeature",
     "PhantomExpenseDomain", "PhantomExpenseFeature",
     "RegretScoreDomain", "RegretScoreFeature",
     "RoundUpDomain", "RoundUpFeature",
     "SleepCorrelationFeature",
     "SpendingCalendarDomain", "SpendingCalendarFeature",
+    "GiftTrackerDomain", "GiftTrackerFeature",
+    "HuiTrackerDomain", "HuiTrackerFeature",
+    "SpendingDNADomain", "SpendingDNAFeature",
+    "FutureSelfDomain", "FutureSelfFeature",
+    "BNPLDomain", "BNPLFeature",
+    "MoneyPersonalityDomain", "MoneyPersonalityFeature",
+    "WrappedDomain", "WrappedFeature",
+    "SeasonalPlannerDomain", "SeasonalPlannerFeature",
+    "MoneyTherapistDomain", "MoneyTherapistFeature",
+    "CommunityChallengeDomain", "CommunityChallengeFeature",
+    "RemindersDomain", "RemindersFeature",
+    "BillSplitterDomain", "BillSplitterFeature",
+    "SmartSearchDomain", "SmartSearchFeature",
+    "SpendingMapDomain", "SpendingMapFeature",
     "TransactionDomain", "TransactionFeature", "WealthDomain", "WealthFeature",
     "WellnessDomain", "WellnessFeature", "WhatIfDomain", "WhatIfFeature",
 ]
@@ -291,6 +346,11 @@ let featureSpecs = [
         testDependencies: ["GuiltFreeBudgetDomain"]
     ),
     ModuleSpec(
+        "BudgetFlowFeature",
+        dependencies: ["BudgetFlowDomain", "KasoDesignSystem"],
+        testDependencies: ["BudgetFlowDomain"]
+    ),
+    ModuleSpec(
         "CoolingOffFeature",
         dependencies: ["CoolingOffDomain", "KasoDesignSystem"],
         testDependencies: ["CoolingOffDomain"]
@@ -316,22 +376,116 @@ let featureSpecs = [
         testDependencies: ["SpendingCalendarDomain"]
     ),
     ModuleSpec(
+        "GiftTrackerFeature",
+        dependencies: ["KasoDesignSystem", "GiftTrackerDomain"],
+        testDependencies: ["GiftTrackerDomain"]
+    ),
+    ModuleSpec(
+        "BNPLFeature",
+        dependencies: ["KasoDesignSystem", "BNPLDomain"],
+        testDependencies: ["BNPLDomain"]
+    ),
+    ModuleSpec(
+        "HuiTrackerFeature",
+        dependencies: ["KasoDesignSystem", "HuiTrackerDomain"],
+        testDependencies: ["HuiTrackerDomain"]
+    ),
+    ModuleSpec(
+        "SpendingDNAFeature",
+        dependencies: ["KasoDesignSystem", "SpendingDNADomain"],
+        testDependencies: ["SpendingDNADomain"]
+    ),
+    ModuleSpec(
+        "FutureSelfFeature",
+        dependencies: ["KasoDesignSystem", "FutureSelfDomain"],
+        testDependencies: ["FutureSelfDomain"]
+    ),
+    ModuleSpec(
+        "MoneyPersonalityFeature",
+        dependencies: ["KasoDesignSystem", "MoneyPersonalityDomain"],
+        testDependencies: ["MoneyPersonalityDomain"]
+    ),
+    ModuleSpec(
+        "WrappedFeature",
+        dependencies: ["KasoDesignSystem", "WrappedDomain"],
+        testDependencies: ["WrappedDomain"]
+    ),
+    ModuleSpec(
+        "SeasonalPlannerFeature",
+        dependencies: ["KasoDesignSystem", "SeasonalPlannerDomain"],
+        testDependencies: ["SeasonalPlannerDomain"]
+    ),
+    ModuleSpec(
+        "MoneyTherapistFeature",
+        dependencies: ["KasoDesignSystem", "MoneyTherapistDomain"],
+        testDependencies: ["MoneyTherapistDomain"]
+    ),
+    ModuleSpec(
+        "CommunityChallengeFeature",
+        dependencies: ["KasoDesignSystem", "CommunityChallengeDomain"],
+        testDependencies: ["CommunityChallengeDomain"]
+    ),
+    ModuleSpec(
+        "RemindersFeature",
+        dependencies: ["KasoDesignSystem", "RemindersDomain"],
+        testDependencies: ["RemindersDomain"]
+    ),
+    ModuleSpec(
+        "BillSplitterFeature",
+        dependencies: ["KasoDesignSystem", "BillSplitterDomain"],
+        testDependencies: ["BillSplitterDomain"]
+    ),
+    ModuleSpec(
+        "SmartSearchFeature",
+        dependencies: ["KasoDesignSystem", "SmartSearchDomain"],
+        testDependencies: ["SmartSearchDomain"]
+    ),
+    ModuleSpec(
+        "SpendingMapFeature",
+        dependencies: ["KasoDesignSystem", "SpendingMapDomain"],
+        testDependencies: ["SpendingMapDomain"]
+    ),
+    ModuleSpec(
+        "PaywallFeature",
+        dependencies: ["KasoDesignSystem", "PaywallDomain"],
+        testDependencies: ["PaywallDomain"]
+    ),
+    ModuleSpec(
+        "CloudSyncFeature",
+        dependencies: ["KasoDesignSystem", "CloudSyncDomain"],
+        testDependencies: ["CloudSyncDomain"]
+    ),
+    ModuleSpec(
         "WellnessFeature",
         dependencies: [
-            "CompatibilityFeature", "CoolingOffFeature", "FreelancerFeature",
-            "GamificationFeature", "GuiltFreeBudgetFeature",
-            "HoursOfLifeFeature", "KasoDesignSystem", "LegacyFeature",
-            "MoodJournalFeature", "PhantomExpenseFeature", "RegretScoreFeature",
-            "RoundUpFeature", "SleepCorrelationFeature",
-            "SpendingCalendarFeature", "WhatIfFeature",
+            "BNPLFeature", "CloudSyncFeature", "CompatibilityFeature", "CoolingOffFeature", "FreelancerFeature",
+            "GamificationFeature", "GiftTrackerFeature", "GuiltFreeBudgetFeature",
+            "HoursOfLifeFeature", "HuiTrackerFeature", "SpendingDNAFeature", "FutureSelfFeature",
+            "KasoDesignSystem", "LegacyFeature",
+            "BillSplitterFeature",
+            "CommunityChallengeFeature",
+            "MoneyPersonalityFeature", "MoneyTherapistFeature",
+            "MoodJournalFeature", "PhantomExpenseFeature",
+            "RegretScoreFeature", "RemindersFeature",
+            "RoundUpFeature", "SeasonalPlannerFeature",
+            "SleepCorrelationFeature", "SmartSearchFeature",
+            "SpendingCalendarFeature", "SpendingMapFeature",
+            "WhatIfFeature", "WrappedFeature",
         ],
         testDependencies: [
+            "BNPLFeature", "BillSplitterFeature", "CloudSyncFeature",
+            "CommunityChallengeFeature",
             "CompatibilityFeature", "CoolingOffFeature", "FreelancerFeature",
-            "GamificationFeature", "GuiltFreeBudgetFeature",
-            "HoursOfLifeFeature", "LegacyFeature", "MoodJournalFeature",
-            "PhantomExpenseFeature", "RegretScoreFeature",
-            "RoundUpFeature", "SleepCorrelationFeature",
-            "SpendingCalendarFeature", "WhatIfFeature",
+            "GamificationFeature", "GiftTrackerFeature", "GuiltFreeBudgetFeature",
+            "HoursOfLifeFeature", "HuiTrackerFeature", "SpendingDNAFeature", "FutureSelfFeature",
+            "LegacyFeature",
+            "MoneyPersonalityFeature", "MoneyTherapistFeature",
+            "MoodJournalFeature", "PhantomExpenseFeature",
+            "RegretScoreFeature", "RemindersFeature",
+            "RoundUpFeature", "SeasonalPlannerFeature",
+            "SleepCorrelationFeature", "SmartSearchFeature",
+            "SpendingCalendarFeature", "SpendingMapFeature",
+            "WhatIfFeature", "WrappedFeature",
         ]
     ),
 ]
@@ -370,10 +524,53 @@ let appTarget = Target.target(
     dependencies: targetDependencies([
         "BenchmarkFeature", "DebtFeature", "FinancialAssistantFeature", "FreelancerFeature",
         "GamificationFeature", "HoursOfLifeFeature", "InvestmentFeature", "KasoRootFeature",
-        "LegacyFeature", "PersistenceKit", "QuickEntryIntent", "SleepCorrelationDomain",
-        "SleepCorrelationFeature",
-    ]),
+        "KasoWidgetShared", "LegacyFeature", "PaywallDomain", "PaywallFeature",
+        "PersistenceKit", "QuickEntryIntent",
+        "SleepCorrelationDomain", "SleepCorrelationFeature",
+    ]) + [.target(name: "KasoWidgets"), .target(name: "KasoWatchApp")],
     settings: appSettings
+)
+
+let watchTarget = Target.target(
+    name: "KasoWatchApp",
+    destinations: [.appleWatch],
+    product: .app,
+    bundleId: "\(bundlePrefix).watchkitapp",
+    deploymentTargets: .watchOS("10.0"),
+    infoPlist: .extendingDefault(
+        with: [
+            "CFBundleDisplayName": .string("Kaso"),
+            "WKApplication": .boolean(true),
+            "WKWatchOnly": .boolean(false),
+            "WKCompanionAppBundleIdentifier": .string(bundlePrefix),
+        ]
+    ),
+    sources: "KasoWatchAppTarget/Sources/**",
+    resources: "KasoWatchAppTarget/Resources/**",
+    entitlements: .file(path: "KasoWatchAppTarget/Entitlements/KasoWatchApp.entitlements"),
+    dependencies: [.target(name: "KasoWidgetShared")],
+    settings: projectSettings
+)
+
+let widgetTarget = Target.target(
+    name: "KasoWidgets",
+    destinations: destinations,
+    product: .appExtension,
+    bundleId: "\(bundlePrefix).widgets",
+    deploymentTargets: deploymentTarget,
+    infoPlist: .extendingDefault(
+        with: [
+            "CFBundleDisplayName": .string("Kaso Widgets"),
+            "NSExtension": .dictionary([
+                "NSExtensionPointIdentifier": .string("com.apple.widgetkit-extension"),
+            ]),
+        ]
+    ),
+    sources: "KasoWidgetsTarget/Sources/**",
+    resources: "KasoWidgetsTarget/Resources/**",
+    entitlements: .file(path: "KasoWidgetsTarget/Entitlements/KasoWidgets.entitlements"),
+    dependencies: [.target(name: "KasoWidgetShared")],
+    settings: projectSettings
 )
 
 let dataTargets = [
@@ -416,7 +613,7 @@ let project = Project(
         ),
     ],
     settings: projectSettings,
-    targets: [appTarget]
+    targets: [appTarget, widgetTarget, watchTarget]
         + coreTargets
         + domainSpecs.flatMap(domainTargets)
         + dataTargets

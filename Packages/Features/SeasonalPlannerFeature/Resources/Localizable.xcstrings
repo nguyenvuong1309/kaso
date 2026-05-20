@@ -1,0 +1,114 @@
+{
+  "sourceLanguage" : "vi",
+  "strings" : {
+    "seasonal.name.tet" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Tết Lunar New Year" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tết Nguyên Đán" } }
+      }
+    },
+    "seasonal.name.backToSchool" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Back to school" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Mùa tựu trường" } }
+      }
+    },
+    "seasonal.name.shopping" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Shopping season" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Mùa mua sắm 11/11" } }
+      }
+    },
+    "seasonal.name.yearEnd" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Year-end" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Cuối năm" } }
+      }
+    },
+    "seasonal.name.general" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "High-spending month" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tháng chi nhiều" } }
+      }
+    },
+    "seasonalPlanner.header.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Seasonal planner" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Kế hoạch mùa chi" } }
+      }
+    },
+    "seasonalPlanner.header.hasSpike" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Heads up — your history shows higher spending coming up. Start setting aside money each week to avoid a cash crunch." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Lịch sử cho thấy bạn sắp vào mùa chi nhiều. Để dành mỗi tuần để không bị động." } }
+      }
+    },
+    "seasonalPlanner.header.noSpike" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "No big spending peaks predicted in the next two months." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Không có mùa chi đột biến trong 2 tháng tới." } }
+      }
+    },
+    "seasonalPlanner.header.insufficient" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "We need at least two years of history to detect seasons accurately." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Cần ít nhất 2 năm dữ liệu để phát hiện mùa chi chính xác." } }
+      }
+    },
+    "seasonalPlanner.empty.calm.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Calm season ahead" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Mùa chi đang ổn định" } }
+      }
+    },
+    "seasonalPlanner.empty.calm.message" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Keep doing what you're doing." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Cứ duy trì cách chi tiêu hiện tại." } }
+      }
+    },
+    "seasonalPlanner.empty.insufficient.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Still learning your seasons" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Đang học nhịp chi của bạn" } }
+      }
+    },
+    "seasonalPlanner.empty.insufficient.message" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Add more transactions or come back next year for richer predictions." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Thêm giao dịch hoặc quay lại năm sau để có dự báo tốt hơn." } }
+      }
+    },
+    "seasonalPlanner.spike.historicalLabel" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Avg last years" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "TB các năm trước" } }
+      }
+    },
+    "seasonalPlanner.spike.suggestionLabel" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Set aside" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Để dành" } }
+      }
+    },
+    "seasonalPlanner.spike.weeks.one" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "this week" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "tuần này" } }
+      }
+    },
+    "seasonalPlanner.spike.weeks.many" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "per week" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "mỗi tuần" } }
+      }
+    },
+    "seasonalPlanner.error.loadFailed" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Couldn't load seasonal data." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Không tải được dữ liệu mùa chi." } }
+      }
+    }
+  },
+  "version" : "1.0"
+}

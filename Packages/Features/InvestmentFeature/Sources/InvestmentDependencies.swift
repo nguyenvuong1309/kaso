@@ -20,6 +20,12 @@ private enum TargetAllocationRepositoryKey: DependencyKey {
     static let testValue = TargetAllocationRepository.empty
 }
 
+private enum MarketPriceProviderKey: DependencyKey {
+    static let liveValue = MarketPriceProvider.offlineSnapshot
+    static let previewValue = MarketPriceProvider.offlineSnapshot
+    static let testValue = MarketPriceProvider.empty
+}
+
 public struct InvestmentAssetSyncClient: Sendable {
     public var replaceAutoTracked: @Sendable ([Asset]) async throws -> Void
 
@@ -105,5 +111,10 @@ public extension DependencyValues {
     var investmentAssetSyncClient: InvestmentAssetSyncClient {
         get { self[InvestmentAssetSyncClientKey.self] }
         set { self[InvestmentAssetSyncClientKey.self] = newValue }
+    }
+
+    var marketPriceProvider: MarketPriceProvider {
+        get { self[MarketPriceProviderKey.self] }
+        set { self[MarketPriceProviderKey.self] = newValue }
     }
 }

@@ -3784,6 +3784,86 @@
           }
         }
       }
+    },
+    "transactions.templates.title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Templates"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mẫu giao dịch"
+          }
+        }
+      }
+    },
+    "transactions.templates.apply.button" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Use a Template"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dùng mẫu có sẵn"
+          }
+        }
+      }
+    },
+    "transactions.templates.save.button" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save as Template"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lưu làm mẫu"
+          }
+        }
+      }
+    },
+    "transactions.templates.empty.title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Templates Yet"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chưa có mẫu nào"
+          }
+        }
+      }
+    },
+    "transactions.templates.empty.subtitle" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fill in a transaction and tap ••• → Save as Template to reuse it later."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Điền giao dịch và nhấn ••• → Lưu làm mẫu để dùng lại lần sau."
+          }
+        }
+      }
     }
   },
   "version" : "1.1"

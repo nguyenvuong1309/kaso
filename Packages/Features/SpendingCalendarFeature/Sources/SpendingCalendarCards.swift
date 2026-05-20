@@ -203,10 +203,9 @@ struct SpendingCalendarDayCard: View {
                 .font(.kaso.titleMedium)
 
             HStack {
-                Text(day.kind == .actual
+                (day.kind == .actual
                     ? Text("calendar.day.actual", bundle: .module)
-                    : Text("calendar.day.forecast", bundle: .module)
-                )
+                    : Text("calendar.day.forecast", bundle: .module))
                 .font(.kaso.caption)
                 .foregroundStyle(Color.kaso.textSecondary)
                 Spacer()

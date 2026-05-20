@@ -1,18 +1,33 @@
+import BNPLFeature
+import BillSplitterFeature
+import CloudSyncFeature
+import CommunityChallengeFeature
 import ComposableArchitecture
 import CompatibilityFeature
 import CoolingOffFeature
 import FreelancerFeature
+import FutureSelfFeature
 import GamificationFeature
+import GiftTrackerFeature
 import GuiltFreeBudgetFeature
 import HoursOfLifeFeature
+import HuiTrackerFeature
 import LegacyFeature
+import MoneyPersonalityFeature
+import MoneyTherapistFeature
 import MoodJournalFeature
 import PhantomExpenseFeature
 import RegretScoreFeature
+import RemindersFeature
 import RoundUpFeature
+import SeasonalPlannerFeature
 import SleepCorrelationFeature
+import SmartSearchFeature
 import SpendingCalendarFeature
+import SpendingDNAFeature
+import SpendingMapFeature
 import WhatIfFeature
+import WrappedFeature
 
 @Reducer
 public struct WellnessFeature: Sendable {
@@ -31,6 +46,21 @@ public struct WellnessFeature: Sendable {
         case freelancer
         case sleepCorrelation
         case legacy
+        case giftTracker
+        case huiTracker
+        case bnpl
+        case moneyPersonality
+        case spendingDNA
+        case futureSelf
+        case wrapped
+        case seasonalPlanner
+        case moneyTherapist
+        case communityChallenge
+        case reminders
+        case billSplitter
+        case smartSearch
+        case spendingMap
+        case cloudSync
 
         public var id: String {
             rawValue
@@ -66,6 +96,36 @@ public struct WellnessFeature: Sendable {
                 "wellness.section.sleepCorrelation"
             case .legacy:
                 "wellness.section.legacy"
+            case .giftTracker:
+                "wellness.section.giftTracker"
+            case .huiTracker:
+                "wellness.section.huiTracker"
+            case .bnpl:
+                "wellness.section.bnpl"
+            case .moneyPersonality:
+                "wellness.section.moneyPersonality"
+            case .spendingDNA:
+                "wellness.section.spendingDNA"
+            case .futureSelf:
+                "wellness.section.futureSelf"
+            case .wrapped:
+                "wellness.section.wrapped"
+            case .seasonalPlanner:
+                "wellness.section.seasonalPlanner"
+            case .moneyTherapist:
+                "wellness.section.moneyTherapist"
+            case .communityChallenge:
+                "wellness.section.communityChallenge"
+            case .reminders:
+                "wellness.section.reminders"
+            case .billSplitter:
+                "wellness.section.billSplitter"
+            case .smartSearch:
+                "wellness.section.smartSearch"
+            case .spendingMap:
+                "wellness.section.spendingMap"
+            case .cloudSync:
+                "wellness.section.cloudSync"
             }
         }
     }
@@ -87,6 +147,21 @@ public struct WellnessFeature: Sendable {
         public var freelancer: FreelancerFeature.State
         public var sleepCorrelation: SleepCorrelationFeature.State
         public var legacy: LegacyFeature.State
+        public var giftTracker: GiftTrackerFeature.State
+        public var huiTracker: HuiTrackerFeature.State
+        public var bnpl: BNPLFeature.State
+        public var moneyPersonality: MoneyPersonalityFeature.State
+        public var spendingDNA: SpendingDNAFeature.State
+        public var futureSelf: FutureSelfFeature.State
+        public var wrapped: WrappedFeature.State
+        public var seasonalPlanner: SeasonalPlannerFeature.State
+        public var moneyTherapist: MoneyTherapistFeature.State
+        public var communityChallenge: CommunityChallengeFeature.State
+        public var reminders: RemindersFeature.State
+        public var billSplitter: BillSplitterFeature.State
+        public var smartSearch: SmartSearchFeature.State
+        public var spendingMap: SpendingMapFeature.State
+        public var cloudSync: CloudSyncFeature.State
 
         public init(
             section: Section = .gamification,
@@ -103,7 +178,22 @@ public struct WellnessFeature: Sendable {
             compatibility: CompatibilityFeature.State = CompatibilityFeature.State(),
             freelancer: FreelancerFeature.State = FreelancerFeature.State(),
             sleepCorrelation: SleepCorrelationFeature.State = SleepCorrelationFeature.State(),
-            legacy: LegacyFeature.State = LegacyFeature.State()
+            legacy: LegacyFeature.State = LegacyFeature.State(),
+            giftTracker: GiftTrackerFeature.State = GiftTrackerFeature.State(),
+            huiTracker: HuiTrackerFeature.State = HuiTrackerFeature.State(),
+            bnpl: BNPLFeature.State = BNPLFeature.State(),
+            moneyPersonality: MoneyPersonalityFeature.State = MoneyPersonalityFeature.State(),
+            spendingDNA: SpendingDNAFeature.State = SpendingDNAFeature.State(),
+            futureSelf: FutureSelfFeature.State = FutureSelfFeature.State(),
+            wrapped: WrappedFeature.State = WrappedFeature.State(),
+            seasonalPlanner: SeasonalPlannerFeature.State = SeasonalPlannerFeature.State(),
+            moneyTherapist: MoneyTherapistFeature.State = MoneyTherapistFeature.State(),
+            communityChallenge: CommunityChallengeFeature.State = CommunityChallengeFeature.State(),
+            reminders: RemindersFeature.State = RemindersFeature.State(),
+            billSplitter: BillSplitterFeature.State = BillSplitterFeature.State(),
+            smartSearch: SmartSearchFeature.State = SmartSearchFeature.State(),
+            spendingMap: SpendingMapFeature.State = SpendingMapFeature.State(),
+            cloudSync: CloudSyncFeature.State = CloudSyncFeature.State()
         ) {
             self.section = section
             self.gamification = gamification
@@ -120,6 +210,21 @@ public struct WellnessFeature: Sendable {
             self.freelancer = freelancer
             self.sleepCorrelation = sleepCorrelation
             self.legacy = legacy
+            self.giftTracker = giftTracker
+            self.huiTracker = huiTracker
+            self.bnpl = bnpl
+            self.moneyPersonality = moneyPersonality
+            self.spendingDNA = spendingDNA
+            self.futureSelf = futureSelf
+            self.wrapped = wrapped
+            self.seasonalPlanner = seasonalPlanner
+            self.moneyTherapist = moneyTherapist
+            self.communityChallenge = communityChallenge
+            self.reminders = reminders
+            self.billSplitter = billSplitter
+            self.smartSearch = smartSearch
+            self.spendingMap = spendingMap
+            self.cloudSync = cloudSync
         }
     }
 
@@ -139,6 +244,21 @@ public struct WellnessFeature: Sendable {
         case freelancer(FreelancerFeature.Action)
         case sleepCorrelation(SleepCorrelationFeature.Action)
         case legacy(LegacyFeature.Action)
+        case giftTracker(GiftTrackerFeature.Action)
+        case huiTracker(HuiTrackerFeature.Action)
+        case bnpl(BNPLFeature.Action)
+        case moneyPersonality(MoneyPersonalityFeature.Action)
+        case spendingDNA(SpendingDNAFeature.Action)
+        case futureSelf(FutureSelfFeature.Action)
+        case wrapped(WrappedFeature.Action)
+        case seasonalPlanner(SeasonalPlannerFeature.Action)
+        case moneyTherapist(MoneyTherapistFeature.Action)
+        case communityChallenge(CommunityChallengeFeature.Action)
+        case reminders(RemindersFeature.Action)
+        case billSplitter(BillSplitterFeature.Action)
+        case smartSearch(SmartSearchFeature.Action)
+        case spendingMap(SpendingMapFeature.Action)
+        case cloudSync(CloudSyncFeature.Action)
     }
 
     public init() {}
@@ -200,6 +320,66 @@ public struct WellnessFeature: Sendable {
             LegacyFeature()
         }
 
+        Scope(state: \.giftTracker, action: \.giftTracker) {
+            GiftTrackerFeature()
+        }
+
+        Scope(state: \.huiTracker, action: \.huiTracker) {
+            HuiTrackerFeature()
+        }
+
+        Scope(state: \.bnpl, action: \.bnpl) {
+            BNPLFeature()
+        }
+
+        Scope(state: \.moneyPersonality, action: \.moneyPersonality) {
+            MoneyPersonalityFeature()
+        }
+
+        Scope(state: \.spendingDNA, action: \.spendingDNA) {
+            SpendingDNAFeature()
+        }
+
+        Scope(state: \.futureSelf, action: \.futureSelf) {
+            FutureSelfFeature()
+        }
+
+        Scope(state: \.wrapped, action: \.wrapped) {
+            WrappedFeature()
+        }
+
+        Scope(state: \.seasonalPlanner, action: \.seasonalPlanner) {
+            SeasonalPlannerFeature()
+        }
+
+        Scope(state: \.moneyTherapist, action: \.moneyTherapist) {
+            MoneyTherapistFeature()
+        }
+
+        Scope(state: \.communityChallenge, action: \.communityChallenge) {
+            CommunityChallengeFeature()
+        }
+
+        Scope(state: \.reminders, action: \.reminders) {
+            RemindersFeature()
+        }
+
+        Scope(state: \.billSplitter, action: \.billSplitter) {
+            BillSplitterFeature()
+        }
+
+        Scope(state: \.smartSearch, action: \.smartSearch) {
+            SmartSearchFeature()
+        }
+
+        Scope(state: \.spendingMap, action: \.spendingMap) {
+            SpendingMapFeature()
+        }
+
+        Scope(state: \.cloudSync, action: \.cloudSync) {
+            CloudSyncFeature()
+        }
+
         Reduce { state, action in
             switch action {
             case let .sectionChanged(section):
@@ -209,7 +389,10 @@ public struct WellnessFeature: Sendable {
             case .gamification, .hoursOfLife, .spendingCalendar, .whatIf,
                  .phantomExpense, .roundUp, .guiltFreeBudget, .coolingOff,
                  .moodJournal, .regretScore, .compatibility, .freelancer,
-                 .sleepCorrelation, .legacy:
+                 .sleepCorrelation, .legacy, .giftTracker, .huiTracker, .bnpl, .moneyPersonality,
+                 .spendingDNA, .futureSelf, .wrapped, .seasonalPlanner, .moneyTherapist,
+                 .communityChallenge, .reminders, .billSplitter, .smartSearch,
+                 .spendingMap, .cloudSync:
                 return .none
             }
         }

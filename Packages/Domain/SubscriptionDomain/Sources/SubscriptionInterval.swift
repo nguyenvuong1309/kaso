@@ -5,6 +5,14 @@ public enum SubscriptionInterval: String, CaseIterable, Codable, Equatable, Send
     case monthly
     case yearly
 
+    public var approximateDays: Int {
+        switch self {
+        case .weekly: 7
+        case .monthly: 30
+        case .yearly: 365
+        }
+    }
+
     public func monthlyEquivalent(for amount: Decimal) -> Decimal {
         switch self {
         case .weekly:

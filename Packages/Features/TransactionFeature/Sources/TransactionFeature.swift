@@ -143,11 +143,13 @@ public struct TransactionFeature: Sendable {
     @ObservableState
     public struct State: Equatable {
         public var transactions: IdentifiedArrayOf<Transaction>
+        public var templates: IdentifiedArrayOf<TransactionTemplate>
         public var summary: MonthlyTransactionSummary
         public var categorySpendings: [MonthlyCategorySpending]
         public var budgets: [Budget]
         public var savingGoals: IdentifiedArrayOf<SavingGoal>
         public var customCategories: [TransactionCategory]
+        public var isTemplateSheetPresented: Bool
         public var historyReferenceDate: Date
         public var historyScope: TransactionHistoryScope
         public var searchText: String
@@ -198,11 +200,13 @@ public struct TransactionFeature: Sendable {
 
         public init(
             transactions: IdentifiedArrayOf<Transaction> = [],
+            templates: IdentifiedArrayOf<TransactionTemplate> = [],
             summary: MonthlyTransactionSummary = .empty,
             categorySpendings: [MonthlyCategorySpending] = [],
             budgets: [Budget] = [],
             savingGoals: IdentifiedArrayOf<SavingGoal> = [],
             customCategories: [TransactionCategory] = [],
+            isTemplateSheetPresented: Bool = false,
             historyReferenceDate: Date = Date(timeIntervalSinceReferenceDate: 0),
             historyScope: TransactionHistoryScope = .all,
             searchText: String = "",
@@ -252,11 +256,13 @@ public struct TransactionFeature: Sendable {
             formErrorMessageKey: String? = nil
         ) {
             self.transactions = transactions
+            self.templates = templates
             self.summary = summary
             self.categorySpendings = categorySpendings
             self.budgets = budgets
             self.savingGoals = savingGoals
             self.customCategories = customCategories
+            self.isTemplateSheetPresented = isTemplateSheetPresented
             self.historyReferenceDate = historyReferenceDate
             self.historyScope = historyScope
             self.searchText = searchText
@@ -635,10 +641,19 @@ public struct TransactionFeature: Sendable {
         case voiceInputButtonTapped
         case voiceInputTranscriptRecognized(String)
         case voiceInputFailed(String)
+        case templateSheetOpened
+        case templateSheetDismissed
+        case templatesLoaded([TransactionTemplate])
+        case templateSelected(TransactionTemplate)
+        case saveAsTemplateButtonTapped
+        case templateSaved(TransactionTemplate)
+        case templateDeleteButtonTapped(UUID)
+        case templateDeleted(UUID)
     }
 
     @Dependency(\.bankStatementPDFClient) private var bankStatementPDFClient
     @Dependency(\.budgetRepository) private var budgetRepository
+    @Dependency(\.transactionTemplateRepository) private var templateRepository
     @Dependency(\.date.now) private var now
     @Dependency(\.receiptImageRepository) private var receiptImageRepository
     @Dependency(\.receiptOCRClient) private var receiptOCRClient
@@ -693,6 +708,9 @@ public struct TransactionFeature: Sendable {
                     } catch {
                         await send(.categorySaveFailed("transactions.category.error.loadFailed"))
                     }
+
+                    let templates = (try? await templateRepository.fetchAll()) ?? []
+                    await send(.templatesLoaded(templates))
                 }
 
             case let .transactionsLoaded(transactions):
@@ -1241,6 +1259,63 @@ public struct TransactionFeature: Sendable {
 
             case let .subscriptionRenewalReminderSchedulingFailed(messageKey):
                 state.subscriptionRenewalReminderErrorMessageKey = messageKey
+                return .none
+
+            case .templateSheetOpened:
+                state.isTemplateSheetPresented = true
+                return .none
+
+            case .templateSheetDismissed:
+                state.isTemplateSheetPresented = false
+                return .none
+
+            case let .templatesLoaded(templates):
+                state.templates = IdentifiedArray(uniqueElements: templates)
+                return .none
+
+            case let .templateSelected(template):
+                state.isTemplateSheetPresented = false
+                state.draftKind = template.kind
+                state.draftCategory = template.category
+                state.amountText = TransactionAmountFormatter.formatForEditing(
+                    template.amount.description
+                )
+                state.draftNote = template.note ?? ""
+                return .none
+
+            case .saveAsTemplateButtonTapped:
+                guard let amount = TransactionAmountParser.parse(state.amountText) else {
+                    return .none
+                }
+                let note = state.draftNote.trimmingCharacters(in: .whitespacesAndNewlines)
+                let categorySlug = state.draftCategory.nameKey
+                    .split(separator: ".").last.map(String.init) ?? state.draftCategory.id
+                let amountFormatted = TransactionAmountFormatter.formatForEditing(amount.description)
+                let template = TransactionTemplate(
+                    id: uuid(),
+                    name: note.isEmpty ? "\(categorySlug) \(amountFormatted)₫" : note,
+                    kind: state.draftKind,
+                    amount: amount,
+                    category: state.draftCategory,
+                    note: note.isEmpty ? nil : note
+                )
+                return .run { send in
+                    try? await templateRepository.save(template)
+                    await send(.templateSaved(template))
+                }
+
+            case let .templateSaved(template):
+                state.templates.updateOrAppend(template)
+                return .none
+
+            case let .templateDeleteButtonTapped(id):
+                return .run { send in
+                    try? await templateRepository.delete(id)
+                    await send(.templateDeleted(id))
+                }
+
+            case let .templateDeleted(id):
+                state.templates.remove(id: id)
                 return .none
             }
         }

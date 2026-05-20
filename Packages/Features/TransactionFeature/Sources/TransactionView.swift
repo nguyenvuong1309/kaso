@@ -198,6 +198,9 @@ public struct TransactionView: View {
                 CategoryEditorSheet(store: store)
                     .kasoAddSheetPresentation()
             }
+            .sheet(isPresented: templateSheetPresented) {
+                TransactionTemplateSheet(store: store)
+            }
             .fileImporter(
                 isPresented: bankStatementImporterPresented,
                 allowedContentTypes: [.pdf],
@@ -244,6 +247,17 @@ public struct TransactionView: View {
             set: { isPresented in
                 if isPresented == false {
                     store.send(.addSheetDismissed)
+                }
+            }
+        )
+    }
+
+    private var templateSheetPresented: Binding<Bool> {
+        Binding(
+            get: { store.isTemplateSheetPresented },
+            set: { isPresented in
+                if isPresented == false {
+                    store.send(.templateSheetDismissed)
                 }
             }
         )
@@ -2636,6 +2650,17 @@ private struct AddTransactionSheet: View {
                     .kasoAmountKeyboard()
 
                     Button {
+                        store.send(.templateSheetOpened)
+                    } label: {
+                        Label {
+                            Text("transactions.templates.apply.button", bundle: .module)
+                        } icon: {
+                            Image(systemName: "doc.text")
+                        }
+                    }
+                    .disabled(store.isSaving)
+
+                    Button {
                         store.send(.voiceInputButtonTapped)
                     } label: {
                         Label {
@@ -2795,6 +2820,19 @@ private struct AddTransactionSheet: View {
                             || store.isReceiptOCRProcessing
                             || store.isVoiceInputRecording
                     )
+                }
+
+                ToolbarItem(placement: .secondaryAction) {
+                    Button {
+                        store.send(.saveAsTemplateButtonTapped)
+                    } label: {
+                        Label {
+                            Text("transactions.templates.save.button", bundle: .module)
+                        } icon: {
+                            Image(systemName: "doc.badge.plus")
+                        }
+                    }
+                    .disabled(store.amountText.isEmpty || store.isSaving)
                 }
             }
         }

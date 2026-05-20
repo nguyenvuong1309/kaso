@@ -1,0 +1,42 @@
+{
+  "sourceLanguage" : "vi",
+  "strings" : {
+    "widget.spending.budgetGauge" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Budget" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Ngân sách" } }
+      }
+    },
+    "widget.spending.budgetRemainingLabel" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Budget left" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Ngân sách còn" } }
+      }
+    },
+    "widget.spending.description" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "See today's spending and how much budget you have left." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Xem chi tiêu hôm nay và ngân sách còn lại." } }
+      }
+    },
+    "widget.spending.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Kaso spending" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Kaso chi tiêu" } }
+      }
+    },
+    "widget.spending.todayLabel" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Today" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Hôm nay" } }
+      }
+    },
+    "widget.spending.transactionsLabel" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%d transactions" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "%d giao dịch" } }
+      }
+    }
+  },
+  "version" : "1.0"
+}

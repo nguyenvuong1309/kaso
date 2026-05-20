@@ -33,6 +33,12 @@
         }
       }
     },
+    "root.paywall.open": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Upgrade" } },
+        "vi": { "stringUnit": { "state": "translated", "value": "Nâng cấp" } }
+      }
+    },
     "root.tab.transactions": {
       "localizations": {
         "en": {

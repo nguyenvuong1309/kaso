@@ -1,0 +1,228 @@
+{
+  "sourceLanguage" : "vi",
+  "strings" : {
+    "paywall.action.active" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Active" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Đang dùng" } }
+      }
+    },
+    "paywall.action.purchase" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Subscribe" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Đăng ký" } }
+      }
+    },
+    "paywall.action.restore" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Restore previous purchases" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Khôi phục giao dịch trước đây" } }
+      }
+    },
+    "paywall.badge.recommended" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Best value" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Đáng giá nhất" } }
+      }
+    },
+    "paywall.cycle.monthly" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Monthly" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Hàng tháng" } }
+      }
+    },
+    "paywall.cycle.yearly" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Yearly" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Hàng năm" } }
+      }
+    },
+    "paywall.error.loadFailed" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Couldn't load plans. Try again later." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Không tải được gói. Thử lại sau." } }
+      }
+    },
+    "paywall.error.productNotFound" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "That plan is not available." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Gói này không khả dụng." } }
+      }
+    },
+    "paywall.error.storeUnavailable" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "App Store is unavailable. Try again later." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "App Store không khả dụng. Thử lại sau." } }
+      }
+    },
+    "paywall.feature.unlimitedHistory.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Unlimited transaction history" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Lịch sử giao dịch không giới hạn" } }
+      }
+    },
+    "paywall.feature.ocrReceipt.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "OCR receipt capture" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Chụp hoá đơn bằng OCR" } }
+      }
+    },
+    "paywall.feature.bankStatementImport.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Import bank statements" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Nhập sao kê ngân hàng" } }
+      }
+    },
+    "paywall.feature.voiceEntry.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Voice expense entry" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Nhập chi tiêu bằng giọng nói" } }
+      }
+    },
+    "paywall.feature.subscriptionTracker.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Subscription tracker" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Theo dõi đăng ký định kỳ" } }
+      }
+    },
+    "paywall.feature.aiInsights.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "AI insights & cut-back tips" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Phân tích AI & gợi ý cắt giảm" } }
+      }
+    },
+    "paywall.feature.spendingForecast.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "End-of-month spending forecast" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Dự báo chi tiêu cuối tháng" } }
+      }
+    },
+    "paywall.feature.savingsGoals.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Savings goals" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Mục tiêu tiết kiệm" } }
+      }
+    },
+    "paywall.feature.advancedReports.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Advanced PDF & comparison reports" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Báo cáo PDF & so sánh nâng cao" } }
+      }
+    },
+    "paywall.feature.csvExport.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "CSV export" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Xuất CSV" } }
+      }
+    },
+    "paywall.feature.iCloudSync.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "iCloud sync across devices" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Đồng bộ iCloud giữa thiết bị" } }
+      }
+    },
+    "paywall.feature.widgets.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Home & Lock screen widgets" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Widget Home & Lock screen" } }
+      }
+    },
+    "paywall.feature.appleWatch.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Apple Watch companion" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Ứng dụng Apple Watch" } }
+      }
+    },
+    "paywall.feature.familySharing.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Family sharing up to 5 members" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Chia sẻ gia đình tối đa 5 thành viên" } }
+      }
+    },
+    "paywall.feature.familyCompatibility.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Couple compatibility test" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Bài test tương thích cặp đôi" } }
+      }
+    },
+    "paywall.hero.subtitle" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Unlock automatic capture, AI insights, and family sharing. Cancel any time from Settings." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Mở khoá tự động nhập, phân tích AI và chia sẻ gia đình. Huỷ bất kỳ lúc nào trong Cài đặt." } }
+      }
+    },
+    "paywall.hero.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Take Kaso further" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Mở khoá tối đa Kaso" } }
+      }
+    },
+    "paywall.legal.disclaimer" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Subscriptions renew automatically until cancelled. You can manage them in your Apple ID settings." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Đăng ký tự động gia hạn cho đến khi bạn huỷ. Quản lý trong cài đặt Apple ID." } }
+      }
+    },
+    "paywall.success.purchased" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "All set — your new tier is active." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Xong — gói mới đã kích hoạt." } }
+      }
+    },
+    "paywall.success.restored" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Previous purchases restored." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Đã khôi phục giao dịch trước." } }
+      }
+    },
+    "paywall.success.pending" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Purchase pending approval. We'll update once it clears." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Giao dịch đang chờ duyệt. Sẽ cập nhật khi hoàn tất." } }
+      }
+    },
+    "paywall.tier.family.tagline" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Everything in Pro plus shared family tools." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Mọi tính năng Pro cộng thêm công cụ gia đình." } }
+      }
+    },
+    "paywall.tier.family.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Family" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Gia đình" } }
+      }
+    },
+    "paywall.tier.free.tagline" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Core tracking and budgeting at no cost." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Theo dõi và ngân sách cơ bản miễn phí." } }
+      }
+    },
+    "paywall.tier.free.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Free" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Miễn phí" } }
+      }
+    },
+    "paywall.tier.label" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Tier" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Gói" } }
+      }
+    },
+    "paywall.tier.pro.tagline" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Automation, AI and unlimited history for power users." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tự động hoá, AI và lịch sử không giới hạn cho người dùng nâng cao." } }
+      }
+    },
+    "paywall.tier.pro.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Pro" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Pro" } }
+      }
+    }
+  },
+  "version" : "1.0"
+}

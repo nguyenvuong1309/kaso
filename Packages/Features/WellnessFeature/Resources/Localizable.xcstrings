@@ -102,6 +102,118 @@
         }
       }
     },
+    "wellness.section.futureSelf" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Future"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tương lai"
+          }
+        }
+      }
+    },
+    "wellness.section.spendingDNA" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "DNA"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "DNA"
+          }
+        }
+      }
+    },
+    "wellness.section.huiTracker" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hụi/Họ"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hụi/Họ"
+          }
+        }
+      }
+    },
+    "wellness.section.giftTracker" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gifts"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lì xì"
+          }
+        }
+      }
+    },
+    "wellness.section.bnpl" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "BNPL"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "BNPL"
+          }
+        }
+      }
+    },
+    "wellness.section.moneyPersonality" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Personality"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kiểu tài chính"
+          }
+        }
+      }
+    },
+    "wellness.section.wrapped" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wrapped"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wrapped"
+          }
+        }
+      }
+    },
     "wellness.section.phantomExpense" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -176,6 +288,54 @@
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Waitlist" } },
         "vi" : { "stringUnit" : { "state" : "translated", "value" : "Hàng chờ" } }
+      }
+    },
+    "wellness.section.seasonalPlanner" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Seasons" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Mùa chi" } }
+      }
+    },
+    "wellness.section.moneyTherapist" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Therapist" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Trợ lý cảm xúc" } }
+      }
+    },
+    "wellness.section.communityChallenge" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Challenges" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Thử thách" } }
+      }
+    },
+    "wellness.section.reminders" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Reminders" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Nhắc nhở" } }
+      }
+    },
+    "wellness.section.billSplitter" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Split bill" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Chia hoá đơn" } }
+      }
+    },
+    "wellness.section.smartSearch" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Search" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tìm kiếm" } }
+      }
+    },
+    "wellness.section.spendingMap" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Map" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Bản đồ" } }
+      }
+    },
+    "wellness.section.cloudSync" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sync" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Đồng bộ" } }
       }
     }
   },

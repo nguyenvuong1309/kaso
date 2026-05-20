@@ -11,6 +11,7 @@ import InvestmentFeature
 import MoodJournalFeature
 import OnboardingDomain
 import OnboardingFeature
+import PaywallFeature
 import RegretScoreFeature
 import RoundUpFeature
 import SpendingCalendarFeature
@@ -33,6 +34,8 @@ public struct KasoRootFeature: Sendable {
         public var investment: InvestmentFeature.State
         public var wellness: WellnessFeature.State
         public var debt: DebtFeature.State
+        public var paywall: PaywallFeature.State
+        public var isPaywallPresented: Bool
 
         public init(
             appearance: AppearanceFeature.State = AppearanceFeature.State(),
@@ -44,7 +47,9 @@ public struct KasoRootFeature: Sendable {
             wealth: WealthFeature.State = WealthFeature.State(),
             investment: InvestmentFeature.State = InvestmentFeature.State(),
             wellness: WellnessFeature.State = WellnessFeature.State(),
-            debt: DebtFeature.State = DebtFeature.State()
+            debt: DebtFeature.State = DebtFeature.State(),
+            paywall: PaywallFeature.State = PaywallFeature.State(),
+            isPaywallPresented: Bool = false
         ) {
             self.appearance = appearance
             self.auth = auth
@@ -56,6 +61,8 @@ public struct KasoRootFeature: Sendable {
             self.investment = investment
             self.wellness = wellness
             self.debt = debt
+            self.paywall = paywall
+            self.isPaywallPresented = isPaywallPresented
         }
     }
 
@@ -71,6 +78,9 @@ public struct KasoRootFeature: Sendable {
         case investment(InvestmentFeature.Action)
         case wellness(WellnessFeature.Action)
         case debt(DebtFeature.Action)
+        case paywall(PaywallFeature.Action)
+        case paywallButtonTapped
+        case paywallDismissed
     }
 
     public init() {}
@@ -116,6 +126,10 @@ public struct KasoRootFeature: Sendable {
             DebtFeature()
         }
 
+        Scope(state: \.paywall, action: \.paywall) {
+            PaywallFeature()
+        }
+
         Reduce { state, action in
             switch action {
             case .task:
@@ -127,8 +141,16 @@ public struct KasoRootFeature: Sendable {
             case let .onboarding(.profileSaved(profile)):
                 return .send(.transaction(.budgetsUpdated(Self.budgets(from: profile))))
 
+            case .paywallButtonTapped:
+                state.isPaywallPresented = true
+                return .none
+
+            case .paywallDismissed:
+                state.isPaywallPresented = false
+                return .none
+
             case .appearance, .auth, .benchmark, .onboarding, .transaction, .assistant,
-                 .wealth, .investment, .wellness, .debt:
+                 .wealth, .investment, .wellness, .debt, .paywall:
                 return .none
             }
         }

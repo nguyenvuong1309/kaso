@@ -1,0 +1,258 @@
+{
+  "sourceLanguage" : "vi",
+  "strings" : {
+    "common.cancel" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Cancel" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Huỷ" } }
+      }
+    },
+    "common.save" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Save" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Lưu" } }
+      }
+    },
+    "hui.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Hụi / Họ" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Hụi / Họ" } }
+      }
+    },
+    "hui.disclaimer" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Personal ledger only. Kaso never holds money or brokers between members." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Chỉ là sổ ghi chép cá nhân. Kaso không giữ tiền và không môi giới giữa các thành viên." } }
+      }
+    },
+    "hui.section.groups" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Groups" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Dây hụi" } }
+      }
+    },
+    "hui.back" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Back" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Quay lại" } }
+      }
+    },
+    "hui.empty.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "No hụi groups yet" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Chưa có dây hụi nào" } }
+      }
+    },
+    "hui.empty.subtitle" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Track contributions and payouts for each hụi/họ group you join." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Theo dõi kỳ đóng và kỳ hốt cho từng dây hụi/họ bạn tham gia." } }
+      }
+    },
+    "hui.add.button" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Add Group" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Thêm dây hụi" } }
+      }
+    },
+    "hui.summary.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Overview" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tổng quan" } }
+      }
+    },
+    "hui.summary.activeGroups %@" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%@ active" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "%@ đang chạy" } }
+      }
+    },
+    "hui.summary.contributed" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Contributed" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Đã đóng" } }
+      }
+    },
+    "hui.summary.received" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Received" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Đã hốt" } }
+      }
+    },
+    "hui.row.progress %@ %@" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%@/%@ cycles paid" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Đã đóng %@/%@ kỳ" } }
+      }
+    },
+    "hui.detail.organizer %@" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Organizer: %@" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Chủ hụi: %@" } }
+      }
+    },
+    "hui.cycle.index %@" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Cycle %@" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Kỳ %@" } }
+      }
+    },
+    "hui.cycle.received %@" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Received %@" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Đã hốt %@" } }
+      }
+    },
+    "hui.cycle.togglePaid" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Toggle contribution paid" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Đánh dấu đã đóng" } }
+      }
+    },
+    "hui.cycle.toggleReceived" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Toggle payout received" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Đánh dấu đã hốt" } }
+      }
+    },
+    "hui.period.weekly" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Weekly" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Hàng tuần" } }
+      }
+    },
+    "hui.period.biweekly" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Every 2 weeks" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "2 tuần/lần" } }
+      }
+    },
+    "hui.period.monthly" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Monthly" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Hàng tháng" } }
+      }
+    },
+    "hui.editor.name" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Group name" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tên dây hụi" } }
+      }
+    },
+    "hui.editor.name.placeholder" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "e.g. Hụi chợ Bà Chiểu" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "VD: Hụi chợ Bà Chiểu" } }
+      }
+    },
+    "hui.editor.organizer" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Organizer" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Chủ hụi" } }
+      }
+    },
+    "hui.editor.organizer.placeholder" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Who keeps the pot" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Người giữ hụi" } }
+      }
+    },
+    "hui.editor.contribution" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Contribution / cycle" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tiền đóng mỗi kỳ" } }
+      }
+    },
+    "hui.editor.contribution.placeholder" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Amount" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Số tiền" } }
+      }
+    },
+    "hui.editor.memberCount" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Members" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Số thành viên" } }
+      }
+    },
+    "hui.editor.memberCount.placeholder" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Number of members" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Số người trong dây" } }
+      }
+    },
+    "hui.editor.period" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Period" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Chu kỳ" } }
+      }
+    },
+    "hui.editor.startDate" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Start date" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Ngày bắt đầu" } }
+      }
+    },
+    "hui.editor.note" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Note" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Ghi chú" } }
+      }
+    },
+    "hui.editor.note.placeholder" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Optional" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tuỳ chọn" } }
+      }
+    },
+    "hui.editor.title.add" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "New Group" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Dây hụi mới" } }
+      }
+    },
+    "hui.editor.title.edit" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Edit Group" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Sửa dây hụi" } }
+      }
+    },
+    "hui.error.loadFailed" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Could not load groups." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Không tải được dây hụi." } }
+      }
+    },
+    "hui.error.nameRequired" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Please enter a group name." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Vui lòng nhập tên dây hụi." } }
+      }
+    },
+    "hui.error.invalidContribution" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Enter a valid contribution amount." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Nhập số tiền đóng hợp lệ." } }
+      }
+    },
+    "hui.error.invalidMemberCount" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Enter a valid number of members." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Nhập số thành viên hợp lệ." } }
+      }
+    },
+    "hui.error.saveFailed" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Could not save. Please try again." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Không lưu được. Vui lòng thử lại." } }
+      }
+    },
+    "hui.error.deleteFailed" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Could not delete. Please try again." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Không xoá được. Vui lòng thử lại." } }
+      }
+    }
+  },
+  "version" : "1.0"
+}

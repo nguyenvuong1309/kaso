@@ -1,4 +1,5 @@
 import ComposableArchitecture
+import Foundation
 import SpendingCalendarDomain
 
 private enum SpendingCalendarContextClientKey: DependencyKey {

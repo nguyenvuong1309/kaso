@@ -1,0 +1,114 @@
+{
+  "sourceLanguage" : "vi",
+  "strings" : {
+    "wrapped.scope.label" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Scope" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Phạm vi" } }
+      }
+    },
+    "wrapped.scope.month.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "This month" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tháng này" } }
+      }
+    },
+    "wrapped.scope.year.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "This year" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Năm nay" } }
+      }
+    },
+    "wrapped.hero.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Your Wrapped" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tổng kết của bạn" } }
+      }
+    },
+    "wrapped.hero.income" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Income" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Thu" } }
+      }
+    },
+    "wrapped.hero.expense" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Expense" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Chi" } }
+      }
+    },
+    "wrapped.hero.netLabel" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Net balance" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Số dư" } }
+      }
+    },
+    "wrapped.stats.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Stats" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Số liệu" } }
+      }
+    },
+    "wrapped.stats.transactionCount" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Transactions" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Giao dịch" } }
+      }
+    },
+    "wrapped.stats.largest" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Largest expense" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Giao dịch lớn nhất" } }
+      }
+    },
+    "wrapped.stats.noSpendDays" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "No-spend days" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Ngày không chi" } }
+      }
+    },
+    "wrapped.stats.bestStreak" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Best streak" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Chuỗi dài nhất" } }
+      }
+    },
+    "wrapped.topCategories.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Top spending" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Chi nhiều nhất" } }
+      }
+    },
+    "wrapped.share.button" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Share Wrapped" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Chia sẻ Wrapped" } }
+      }
+    },
+    "wrapped.share.action" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Share to Story" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Chia sẻ lên Story" } }
+      }
+    },
+    "wrapped.insufficient.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Not enough data yet" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Chưa đủ dữ liệu" } }
+      }
+    },
+    "wrapped.insufficient.subtitle" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Log a few transactions and come back to see your Wrapped." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Ghi thêm vài giao dịch rồi quay lại để xem Wrapped của bạn." } }
+      }
+    },
+    "wrapped.error.loadFailed" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Could not load Wrapped." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Không thể tải Wrapped." } }
+      }
+    }
+  },
+  "version" : "1.1"
+}

@@ -1,0 +1,180 @@
+{
+  "sourceLanguage" : "vi",
+  "strings" : {
+    "billSplitter.header.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Split the bill" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Chia hoá đơn" } }
+      }
+    },
+    "billSplitter.header.subtitle" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Add who joined, what they ate, and we'll do the math." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Thêm người tham gia và món, app tự tính ai trả bao nhiêu." } }
+      }
+    },
+    "billSplitter.title.placeholder" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Bill name (optional)" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tên hoá đơn (tuỳ chọn)" } }
+      }
+    },
+    "billSplitter.action.reset" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Reset" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Làm lại" } }
+      }
+    },
+    "billSplitter.participants.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Who's in?" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Ai tham gia?" } }
+      }
+    },
+    "billSplitter.participants.placeholder" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Name" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tên" } }
+      }
+    },
+    "billSplitter.participants.add" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Add person" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Thêm người" } }
+      }
+    },
+    "billSplitter.participants.payer" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Mark as payer" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Đánh dấu người trả" } }
+      }
+    },
+    "billSplitter.participants.empty" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Add at least two people to start." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Thêm ít nhất hai người để bắt đầu." } }
+      }
+    },
+    "billSplitter.items.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Items" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Món" } }
+      }
+    },
+    "billSplitter.items.labelPlaceholder" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Item" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Món" } }
+      }
+    },
+    "billSplitter.items.amountPlaceholder" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Amount" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Số tiền" } }
+      }
+    },
+    "billSplitter.items.add" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Add item" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Thêm món" } }
+      }
+    },
+    "billSplitter.items.empty" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Add at least one item to compute shares." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Thêm ít nhất một món để tính chia." } }
+      }
+    },
+    "billSplitter.items.assignmentHint" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Tap names to assign — empty means split equally." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Bấm vào tên để gán — không gán ai = chia đều." } }
+      }
+    },
+    "billSplitter.tip.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Tip" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tiền tip" } }
+      }
+    },
+    "billSplitter.tip.none" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "No tip" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Không tip" } }
+      }
+    },
+    "billSplitter.tip.10" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "10%" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "10%" } }
+      }
+    },
+    "billSplitter.tip.15" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "15%" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "15%" } }
+      }
+    },
+    "billSplitter.tip.20" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "20%" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "20%" } }
+      }
+    },
+    "billSplitter.summary.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Summary" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tổng kết" } }
+      }
+    },
+    "billSplitter.summary.subtotal" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Subtotal" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tạm tính" } }
+      }
+    },
+    "billSplitter.summary.tip" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Tip" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tip" } }
+      }
+    },
+    "billSplitter.summary.total" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Total" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tổng" } }
+      }
+    },
+    "billSplitter.summary.settlements" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Who owes whom" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Ai nợ ai" } }
+      }
+    },
+    "billSplitter.summary.share" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Share breakdown" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Chia sẻ bảng chia" } }
+      }
+    },
+    "billSplitter.error.emptyName" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Enter a name first." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Nhập tên trước đã." } }
+      }
+    },
+    "billSplitter.error.emptyItemLabel" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Item needs a label." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Món cần có tên." } }
+      }
+    },
+    "billSplitter.error.invalidAmount" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Amount must be a positive number." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Số tiền phải là số dương." } }
+      }
+    }
+  },
+  "version" : "1.0"
+}

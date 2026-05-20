@@ -287,6 +287,24 @@
         }
       }
     },
+    "investment.price.refresh" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Refresh prices" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Cập nhật giá" } }
+      }
+    },
+    "investment.error.noHoldingsToRefresh" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Add at least one holding before refreshing prices." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Thêm ít nhất một mã trước khi cập nhật giá." } }
+      }
+    },
+    "investment.error.priceRefreshFailed" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Couldn't refresh prices. Try again later." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Không cập nhật được giá. Thử lại sau." } }
+      }
+    },
     "investment.error.loadFailed" : {
       "extractionState" : "stale",
       "localizations" : {

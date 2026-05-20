@@ -8,23 +8,33 @@ let tca: Target.Dependency = .product(
 )
 let featureResources: [Resource] = [.process("../Resources")]
 let libraryProductNames = [
-    "KasoFoundation", "KasoLogging", "KasoDesignSystem",
+    "KasoFoundation", "KasoLogging", "KasoWidgetShared", "KasoDesignSystem",
     "AppearanceDomain", "AuthDomain", "GoalDomain", "InsightDomain",
     "SubscriptionDomain", "TransactionDomain", "WellnessDomain",
     "WealthDomain", "DebtDomain", "InvestmentDomain",
     "PhantomExpenseDomain", "CompatibilityDomain", "FreelancerDomain",
-    "SleepCorrelationDomain", "LegacyDomain", "BudgetDomain",
+    "SleepCorrelationDomain", "LegacyDomain", "BudgetDomain", "BudgetFlowDomain",
     "OnboardingDomain", "RoundUpDomain", "GuiltFreeBudgetDomain",
     "CoolingOffDomain", "MoodJournalDomain", "RegretScoreDomain",
-    "WhatIfDomain", "SpendingCalendarDomain",
+    "WhatIfDomain", "SpendingCalendarDomain", "GiftTrackerDomain", "BNPLDomain",
+    "HuiTrackerDomain", "SpendingDNADomain", "FutureSelfDomain",
+    "MoneyPersonalityDomain", "WrappedDomain",
+    "SeasonalPlannerDomain", "MoneyTherapistDomain",
+    "CommunityChallengeDomain", "RemindersDomain", "BillSplitterDomain",
+    "SmartSearchDomain", "SpendingMapDomain", "PaywallDomain", "CloudSyncDomain",
     "PersistenceKit", "AppearanceFeature",
     "AuthFeature", "BenchmarkFeature", "OnboardingFeature", "KasoRootFeature",
     "FinancialAssistantFeature", "TransactionFeature", "WealthFeature", "DebtFeature",
     "InvestmentFeature", "PhantomExpenseFeature", "CompatibilityFeature",
     "FreelancerFeature", "SleepCorrelationFeature", "LegacyFeature",
-    "HoursOfLifeFeature", "RoundUpFeature", "GuiltFreeBudgetFeature",
+    "HoursOfLifeFeature", "RoundUpFeature", "GuiltFreeBudgetFeature", "BudgetFlowFeature",
     "CoolingOffFeature", "MoodJournalFeature", "RegretScoreFeature",
-    "WhatIfFeature", "SpendingCalendarFeature",
+    "WhatIfFeature", "SpendingCalendarFeature", "GiftTrackerFeature", "BNPLFeature",
+    "HuiTrackerFeature", "SpendingDNAFeature", "FutureSelfFeature",
+    "MoneyPersonalityFeature", "WrappedFeature",
+    "SeasonalPlannerFeature", "MoneyTherapistFeature",
+    "CommunityChallengeFeature", "RemindersFeature", "BillSplitterFeature",
+    "SmartSearchFeature", "SpendingMapFeature", "PaywallFeature", "CloudSyncFeature",
     "WellnessFeature", "QuickEntryIntent",
 ]
 
@@ -58,18 +68,19 @@ func testTarget(
 }
 
 let persistenceDependencies: [Target.Dependency] = [
-    "AppearanceDomain", "AuthDomain", "BudgetDomain", "CoolingOffDomain",
-    "DebtDomain", "FreelancerDomain", "GoalDomain", "GuiltFreeBudgetDomain",
-    "InvestmentDomain", "KasoFoundation",
-    "LegacyDomain", "MoodJournalDomain", "OnboardingDomain", "PhantomExpenseDomain",
-    "RegretScoreDomain", "RoundUpDomain", "TransactionDomain", "WealthDomain",
+    "AppearanceDomain", "AuthDomain", "BNPLDomain", "BudgetDomain", "CloudSyncDomain", "CoolingOffDomain",
+    "DebtDomain", "FreelancerDomain", "GiftTrackerDomain", "GoalDomain", "GuiltFreeBudgetDomain",
+    "HuiTrackerDomain", "InvestmentDomain", "KasoFoundation",
+    "LegacyDomain", "MoodJournalDomain", "OnboardingDomain", "PaywallDomain", "PhantomExpenseDomain",
+    "RegretScoreDomain", "RoundUpDomain", "SpendingMapDomain", "TransactionDomain", "WealthDomain",
     "WellnessDomain",
 ]
 let persistenceTestDependencies: [Target.Dependency] = [
     "AppearanceDomain", "BudgetDomain", "CoolingOffDomain", "DebtDomain", "GoalDomain",
     "FreelancerDomain", "GuiltFreeBudgetDomain", "InvestmentDomain", "LegacyDomain",
-    "MoodJournalDomain", "PersistenceKit", "PhantomExpenseDomain", "RegretScoreDomain",
-    "RoundUpDomain", "TransactionDomain", "WealthDomain", "WellnessDomain",
+    "MoodJournalDomain", "PaywallDomain",
+    "PersistenceKit", "PhantomExpenseDomain", "RegretScoreDomain",
+    "RoundUpDomain", "SpendingMapDomain", "TransactionDomain", "WealthDomain", "WellnessDomain",
 ]
 let rootFeatureDependencies: [Target.Dependency] = [
     "AppearanceDomain", "AppearanceFeature", "AuthDomain", "AuthFeature",
@@ -80,10 +91,19 @@ let rootFeatureDependencies: [Target.Dependency] = [
     "InvestmentFeature", "KasoDesignSystem", "LegacyDomain", "LegacyFeature",
     "MoodJournalDomain", "MoodJournalFeature",
     "OnboardingDomain", "OnboardingFeature",
+    "PaywallDomain", "PaywallFeature",
     "PhantomExpenseDomain", "PhantomExpenseFeature", "RegretScoreDomain", "RegretScoreFeature",
     "RoundUpDomain", "RoundUpFeature", "SpendingCalendarDomain", "SpendingCalendarFeature",
+    "GiftTrackerDomain", "GiftTrackerFeature", "BNPLDomain", "BNPLFeature",
+    "HuiTrackerDomain", "HuiTrackerFeature",
+    "SpendingDNADomain", "SpendingDNAFeature",
+    "FutureSelfDomain", "FutureSelfFeature",
+    "MoneyPersonalityDomain", "MoneyPersonalityFeature",
+    "WrappedDomain", "WrappedFeature",
+    "SeasonalPlannerDomain", "SeasonalPlannerFeature",
     "TransactionDomain",
-    "SleepCorrelationFeature", "TransactionFeature", "WealthDomain",
+    "SleepCorrelationFeature", "SpendingMapDomain", "SpendingMapFeature",
+    "TransactionFeature", "WealthDomain",
     "WealthFeature", "WellnessDomain", "WellnessFeature", "WhatIfDomain", "WhatIfFeature",
     tca,
 ]
@@ -113,8 +133,9 @@ let package = Package(
             name: "Kaso",
             dependencies: [
                 "BenchmarkFeature", "DebtFeature", "FinancialAssistantFeature", "FreelancerFeature",
-                "HoursOfLifeFeature", "InvestmentFeature", "KasoRootFeature",
-                "LegacyFeature", "PersistenceKit", "QuickEntryIntent", "SleepCorrelationDomain",
+                "HoursOfLifeFeature", "InvestmentFeature", "KasoRootFeature", "KasoWidgetShared",
+                "LegacyFeature", "PaywallDomain", "PaywallFeature",
+                "PersistenceKit", "QuickEntryIntent", "SleepCorrelationDomain",
                 "SleepCorrelationFeature",
             ],
             path: "App/Sources",
@@ -122,6 +143,7 @@ let package = Package(
         ),
         sourceTarget("KasoFoundation", path: "Packages/Core/KasoFoundation/Sources"),
         sourceTarget("KasoLogging", path: "Packages/Core/KasoLogging/Sources"),
+        sourceTarget("KasoWidgetShared", path: "Packages/Core/KasoWidgetShared/Sources"),
         sourceTarget("KasoDesignSystem", path: "Packages/DesignSystem/KasoDesignSystem/Sources"),
         sourceTarget("AppearanceDomain", path: "Packages/Domain/AppearanceDomain/Sources"),
         testTarget("AppearanceDomainTests", ["AppearanceDomain"], path: "Packages/Domain/AppearanceDomain/Tests"),
@@ -216,6 +238,15 @@ let package = Package(
             ["GuiltFreeBudgetDomain"],
             path: "Packages/Domain/GuiltFreeBudgetDomain/Tests"
         ),
+        sourceTarget(
+            "BudgetFlowDomain",
+            path: "Packages/Domain/BudgetFlowDomain/Sources"
+        ),
+        testTarget(
+            "BudgetFlowDomainTests",
+            ["BudgetFlowDomain"],
+            path: "Packages/Domain/BudgetFlowDomain/Tests"
+        ),
         sourceTarget("CoolingOffDomain", path: "Packages/Domain/CoolingOffDomain/Sources"),
         testTarget(
             "CoolingOffDomainTests",
@@ -245,6 +276,102 @@ let package = Package(
             "SpendingCalendarDomainTests",
             ["SpendingCalendarDomain"],
             path: "Packages/Domain/SpendingCalendarDomain/Tests"
+        ),
+        sourceTarget("GiftTrackerDomain", path: "Packages/Domain/GiftTrackerDomain/Sources"),
+        testTarget(
+            "GiftTrackerDomainTests",
+            ["GiftTrackerDomain"],
+            path: "Packages/Domain/GiftTrackerDomain/Tests"
+        ),
+        sourceTarget("BNPLDomain", path: "Packages/Domain/BNPLDomain/Sources"),
+        testTarget(
+            "BNPLDomainTests",
+            ["BNPLDomain"],
+            path: "Packages/Domain/BNPLDomain/Tests"
+        ),
+        sourceTarget("HuiTrackerDomain", path: "Packages/Domain/HuiTrackerDomain/Sources"),
+        testTarget(
+            "HuiTrackerDomainTests",
+            ["HuiTrackerDomain"],
+            path: "Packages/Domain/HuiTrackerDomain/Tests"
+        ),
+        sourceTarget("SpendingDNADomain", path: "Packages/Domain/SpendingDNADomain/Sources"),
+        testTarget(
+            "SpendingDNADomainTests",
+            ["SpendingDNADomain"],
+            path: "Packages/Domain/SpendingDNADomain/Tests"
+        ),
+        sourceTarget("FutureSelfDomain", path: "Packages/Domain/FutureSelfDomain/Sources"),
+        testTarget(
+            "FutureSelfDomainTests",
+            ["FutureSelfDomain"],
+            path: "Packages/Domain/FutureSelfDomain/Tests"
+        ),
+        sourceTarget("MoneyPersonalityDomain", path: "Packages/Domain/MoneyPersonalityDomain/Sources"),
+        testTarget(
+            "MoneyPersonalityDomainTests",
+            ["MoneyPersonalityDomain"],
+            path: "Packages/Domain/MoneyPersonalityDomain/Tests"
+        ),
+        sourceTarget("WrappedDomain", path: "Packages/Domain/WrappedDomain/Sources"),
+        testTarget(
+            "WrappedDomainTests",
+            ["WrappedDomain"],
+            path: "Packages/Domain/WrappedDomain/Tests"
+        ),
+        sourceTarget("SeasonalPlannerDomain", path: "Packages/Domain/SeasonalPlannerDomain/Sources"),
+        testTarget(
+            "SeasonalPlannerDomainTests",
+            ["SeasonalPlannerDomain"],
+            path: "Packages/Domain/SeasonalPlannerDomain/Tests"
+        ),
+        sourceTarget("MoneyTherapistDomain", path: "Packages/Domain/MoneyTherapistDomain/Sources"),
+        testTarget(
+            "MoneyTherapistDomainTests",
+            ["MoneyTherapistDomain"],
+            path: "Packages/Domain/MoneyTherapistDomain/Tests"
+        ),
+        sourceTarget("CommunityChallengeDomain", path: "Packages/Domain/CommunityChallengeDomain/Sources"),
+        testTarget(
+            "CommunityChallengeDomainTests",
+            ["CommunityChallengeDomain"],
+            path: "Packages/Domain/CommunityChallengeDomain/Tests"
+        ),
+        sourceTarget("RemindersDomain", path: "Packages/Domain/RemindersDomain/Sources"),
+        testTarget(
+            "RemindersDomainTests",
+            ["RemindersDomain"],
+            path: "Packages/Domain/RemindersDomain/Tests"
+        ),
+        sourceTarget("BillSplitterDomain", path: "Packages/Domain/BillSplitterDomain/Sources"),
+        testTarget(
+            "BillSplitterDomainTests",
+            ["BillSplitterDomain"],
+            path: "Packages/Domain/BillSplitterDomain/Tests"
+        ),
+        sourceTarget("SmartSearchDomain", path: "Packages/Domain/SmartSearchDomain/Sources"),
+        testTarget(
+            "SmartSearchDomainTests",
+            ["SmartSearchDomain"],
+            path: "Packages/Domain/SmartSearchDomain/Tests"
+        ),
+        sourceTarget("SpendingMapDomain", path: "Packages/Domain/SpendingMapDomain/Sources"),
+        testTarget(
+            "SpendingMapDomainTests",
+            ["SpendingMapDomain"],
+            path: "Packages/Domain/SpendingMapDomain/Tests"
+        ),
+        sourceTarget("PaywallDomain", path: "Packages/Domain/PaywallDomain/Sources"),
+        testTarget(
+            "PaywallDomainTests",
+            ["PaywallDomain"],
+            path: "Packages/Domain/PaywallDomain/Tests"
+        ),
+        sourceTarget("CloudSyncDomain", path: "Packages/Domain/CloudSyncDomain/Sources"),
+        testTarget(
+            "CloudSyncDomainTests",
+            ["CloudSyncDomain"],
+            path: "Packages/Domain/CloudSyncDomain/Tests"
         ),
         sourceTarget("PersistenceKit", persistenceDependencies, path: "Packages/Data/PersistenceKit/Sources"),
         testTarget("PersistenceKitTests", persistenceTestDependencies, path: "Packages/Data/PersistenceKit/Tests"),
@@ -406,6 +533,20 @@ let package = Package(
             ["GuiltFreeBudgetDomain", "GuiltFreeBudgetFeature", tca],
             path: "Packages/Features/GuiltFreeBudgetFeature/Tests"
         ),
+        .target(
+            name: "BudgetFlowFeature",
+            dependencies: ["BudgetFlowDomain", "KasoDesignSystem", tca],
+            path: "Packages/Features/BudgetFlowFeature/Sources",
+            resources: [
+                .process("../Resources"),
+                .process("Shaders/budget_flow_ribbon.metal"),
+            ]
+        ),
+        testTarget(
+            "BudgetFlowFeatureTests",
+            ["BudgetFlowDomain", "BudgetFlowFeature", tca],
+            path: "Packages/Features/BudgetFlowFeature/Tests"
+        ),
         featureTarget(
             "CoolingOffFeature",
             ["CoolingOffDomain", "KasoDesignSystem", tca],
@@ -457,25 +598,201 @@ let package = Package(
             path: "Packages/Features/SpendingCalendarFeature/Tests"
         ),
         featureTarget(
+            "GiftTrackerFeature",
+            ["GiftTrackerDomain", "KasoDesignSystem", tca],
+            path: "Packages/Features/GiftTrackerFeature/Sources"
+        ),
+        testTarget(
+            "GiftTrackerFeatureTests",
+            ["GiftTrackerDomain", "GiftTrackerFeature", tca],
+            path: "Packages/Features/GiftTrackerFeature/Tests"
+        ),
+        featureTarget(
+            "BNPLFeature",
+            ["BNPLDomain", "KasoDesignSystem", tca],
+            path: "Packages/Features/BNPLFeature/Sources"
+        ),
+        testTarget(
+            "BNPLFeatureTests",
+            ["BNPLDomain", "BNPLFeature", tca],
+            path: "Packages/Features/BNPLFeature/Tests"
+        ),
+        featureTarget(
+            "HuiTrackerFeature",
+            ["HuiTrackerDomain", "KasoDesignSystem", tca],
+            path: "Packages/Features/HuiTrackerFeature/Sources"
+        ),
+        testTarget(
+            "HuiTrackerFeatureTests",
+            ["HuiTrackerDomain", "HuiTrackerFeature", tca],
+            path: "Packages/Features/HuiTrackerFeature/Tests"
+        ),
+        featureTarget(
+            "SpendingDNAFeature",
+            ["SpendingDNADomain", "KasoDesignSystem", tca],
+            path: "Packages/Features/SpendingDNAFeature/Sources"
+        ),
+        testTarget(
+            "SpendingDNAFeatureTests",
+            ["SpendingDNADomain", "SpendingDNAFeature", tca],
+            path: "Packages/Features/SpendingDNAFeature/Tests"
+        ),
+        featureTarget(
+            "FutureSelfFeature",
+            ["FutureSelfDomain", "KasoDesignSystem", tca],
+            path: "Packages/Features/FutureSelfFeature/Sources"
+        ),
+        testTarget(
+            "FutureSelfFeatureTests",
+            ["FutureSelfDomain", "FutureSelfFeature", tca],
+            path: "Packages/Features/FutureSelfFeature/Tests"
+        ),
+        featureTarget(
+            "MoneyPersonalityFeature",
+            ["MoneyPersonalityDomain", "KasoDesignSystem", tca],
+            path: "Packages/Features/MoneyPersonalityFeature/Sources"
+        ),
+        testTarget(
+            "MoneyPersonalityFeatureTests",
+            ["MoneyPersonalityDomain", "MoneyPersonalityFeature", tca],
+            path: "Packages/Features/MoneyPersonalityFeature/Tests"
+        ),
+        featureTarget(
+            "WrappedFeature",
+            ["WrappedDomain", "KasoDesignSystem", tca],
+            path: "Packages/Features/WrappedFeature/Sources"
+        ),
+        testTarget(
+            "WrappedFeatureTests",
+            ["WrappedDomain", "WrappedFeature", tca],
+            path: "Packages/Features/WrappedFeature/Tests"
+        ),
+        featureTarget(
+            "SeasonalPlannerFeature",
+            ["SeasonalPlannerDomain", "KasoDesignSystem", tca],
+            path: "Packages/Features/SeasonalPlannerFeature/Sources"
+        ),
+        testTarget(
+            "SeasonalPlannerFeatureTests",
+            ["SeasonalPlannerDomain", "SeasonalPlannerFeature", tca],
+            path: "Packages/Features/SeasonalPlannerFeature/Tests"
+        ),
+        featureTarget(
+            "MoneyTherapistFeature",
+            ["MoneyTherapistDomain", "KasoDesignSystem", tca],
+            path: "Packages/Features/MoneyTherapistFeature/Sources"
+        ),
+        testTarget(
+            "MoneyTherapistFeatureTests",
+            ["MoneyTherapistDomain", "MoneyTherapistFeature", tca],
+            path: "Packages/Features/MoneyTherapistFeature/Tests"
+        ),
+        featureTarget(
+            "CommunityChallengeFeature",
+            ["CommunityChallengeDomain", "KasoDesignSystem", tca],
+            path: "Packages/Features/CommunityChallengeFeature/Sources"
+        ),
+        testTarget(
+            "CommunityChallengeFeatureTests",
+            ["CommunityChallengeDomain", "CommunityChallengeFeature", tca],
+            path: "Packages/Features/CommunityChallengeFeature/Tests"
+        ),
+        featureTarget(
+            "RemindersFeature",
+            ["RemindersDomain", "KasoDesignSystem", tca],
+            path: "Packages/Features/RemindersFeature/Sources"
+        ),
+        testTarget(
+            "RemindersFeatureTests",
+            ["RemindersDomain", "RemindersFeature", tca],
+            path: "Packages/Features/RemindersFeature/Tests"
+        ),
+        featureTarget(
+            "BillSplitterFeature",
+            ["BillSplitterDomain", "KasoDesignSystem", tca],
+            path: "Packages/Features/BillSplitterFeature/Sources"
+        ),
+        testTarget(
+            "BillSplitterFeatureTests",
+            ["BillSplitterDomain", "BillSplitterFeature", tca],
+            path: "Packages/Features/BillSplitterFeature/Tests"
+        ),
+        featureTarget(
+            "SmartSearchFeature",
+            ["SmartSearchDomain", "KasoDesignSystem", tca],
+            path: "Packages/Features/SmartSearchFeature/Sources"
+        ),
+        testTarget(
+            "SmartSearchFeatureTests",
+            ["SmartSearchDomain", "SmartSearchFeature", tca],
+            path: "Packages/Features/SmartSearchFeature/Tests"
+        ),
+        featureTarget(
+            "SpendingMapFeature",
+            ["SpendingMapDomain", "KasoDesignSystem", tca],
+            path: "Packages/Features/SpendingMapFeature/Sources"
+        ),
+        testTarget(
+            "SpendingMapFeatureTests",
+            ["SpendingMapDomain", "SpendingMapFeature", tca],
+            path: "Packages/Features/SpendingMapFeature/Tests"
+        ),
+        featureTarget(
+            "PaywallFeature",
+            ["PaywallDomain", "KasoDesignSystem", tca],
+            path: "Packages/Features/PaywallFeature/Sources"
+        ),
+        testTarget(
+            "PaywallFeatureTests",
+            ["PaywallDomain", "PaywallFeature", tca],
+            path: "Packages/Features/PaywallFeature/Tests"
+        ),
+        featureTarget(
+            "CloudSyncFeature",
+            ["CloudSyncDomain", "KasoDesignSystem", tca],
+            path: "Packages/Features/CloudSyncFeature/Sources"
+        ),
+        testTarget(
+            "CloudSyncFeatureTests",
+            ["CloudSyncDomain", "CloudSyncFeature", tca],
+            path: "Packages/Features/CloudSyncFeature/Tests"
+        ),
+        featureTarget(
             "WellnessFeature",
             [
+                "BNPLFeature", "CloudSyncFeature",
                 "CompatibilityFeature", "CoolingOffFeature", "FreelancerFeature",
-                "GuiltFreeBudgetFeature", "HoursOfLifeFeature",
-                "KasoDesignSystem", "LegacyFeature", "MoodJournalFeature",
-                "PhantomExpenseFeature", "RegretScoreFeature",
-                "RoundUpFeature", "SleepCorrelationFeature",
-                "SpendingCalendarFeature", "WhatIfFeature", tca,
+                "GiftTrackerFeature", "GuiltFreeBudgetFeature", "HoursOfLifeFeature",
+                "HuiTrackerFeature", "SpendingDNAFeature", "FutureSelfFeature",
+                "KasoDesignSystem", "LegacyFeature", "MoneyPersonalityFeature",
+                "MoodJournalFeature",
+                "BillSplitterFeature",
+                "CommunityChallengeFeature",
+                "MoneyTherapistFeature",
+                "PhantomExpenseFeature", "RegretScoreFeature", "RemindersFeature",
+                "RoundUpFeature", "SeasonalPlannerFeature", "SleepCorrelationFeature",
+                "SmartSearchFeature",
+                "SpendingCalendarFeature", "SpendingMapFeature",
+                "WhatIfFeature", "WrappedFeature", tca,
             ],
             path: "Packages/Features/WellnessFeature/Sources"
         ),
         testTarget(
             "WellnessFeatureTests",
             [
-                "CompatibilityFeature", "CoolingOffFeature", "FreelancerFeature",
-                "GuiltFreeBudgetFeature", "HoursOfLifeFeature",
-                "LegacyFeature", "MoodJournalFeature", "PhantomExpenseFeature",
-                "RegretScoreFeature", "RoundUpFeature", "SleepCorrelationFeature",
-                "SpendingCalendarFeature", "WellnessFeature", "WhatIfFeature", tca,
+                "BNPLFeature", "BillSplitterFeature", "CloudSyncFeature",
+                "CommunityChallengeFeature", "CompatibilityFeature",
+                "CoolingOffFeature", "FreelancerFeature",
+                "GiftTrackerFeature", "GuiltFreeBudgetFeature", "HoursOfLifeFeature",
+                "HuiTrackerFeature", "SpendingDNAFeature", "FutureSelfFeature",
+                "LegacyFeature", "MoneyPersonalityFeature", "MoodJournalFeature",
+                "MoneyTherapistFeature",
+                "PhantomExpenseFeature",
+                "RegretScoreFeature", "RemindersFeature",
+                "RoundUpFeature", "SeasonalPlannerFeature",
+                "SleepCorrelationFeature", "SmartSearchFeature",
+                "SpendingCalendarFeature", "SpendingMapFeature",
+                "WellnessFeature", "WhatIfFeature", "WrappedFeature", tca,
             ],
             path: "Packages/Features/WellnessFeature/Tests"
         ),
