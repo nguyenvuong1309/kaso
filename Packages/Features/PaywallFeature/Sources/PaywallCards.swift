@@ -4,26 +4,48 @@ import SwiftUI
 
 struct PaywallHeroCard: View {
     let entitlement: SubscriptionEntitlement
+    let triggeringFeature: SubscriptionFeatureFlag?
 
     var body: some View {
         KasoCard {
             VStack(alignment: .leading, spacing: Spacing.xs) {
-                Text("paywall.hero.title", bundle: .module)
-                    .font(.kaso.titleMedium)
-                    .foregroundStyle(Color.kaso.textPrimary)
-
-                Text("paywall.hero.subtitle", bundle: .module)
-                    .font(.kaso.body)
-                    .foregroundStyle(Color.kaso.textSecondary)
-
-                if entitlement.tier.isPaid {
+                if let triggeringFeature {
                     Label {
-                        Text(LocalizedStringKey(entitlement.tier.titleKey), bundle: .module)
+                        Text(LocalizedStringKey(triggeringFeature.minimumTier.titleKey), bundle: .module)
                     } icon: {
-                        Image(systemName: "checkmark.seal.fill")
+                        Image(systemName: "lock.open.fill")
                     }
                     .font(.kaso.caption.weight(.semibold))
                     .foregroundStyle(Color.kaso.accent)
+
+                    Text(
+                        "paywall.hero.gateTitle \(String(localized: String.LocalizationValue(triggeringFeature.titleKey), bundle: .module))",
+                        bundle: .module
+                    )
+                    .font(.kaso.titleMedium)
+                    .foregroundStyle(Color.kaso.textPrimary)
+
+                    Text("paywall.hero.gateSubtitle", bundle: .module)
+                        .font(.kaso.body)
+                        .foregroundStyle(Color.kaso.textSecondary)
+                } else {
+                    Text("paywall.hero.title", bundle: .module)
+                        .font(.kaso.titleMedium)
+                        .foregroundStyle(Color.kaso.textPrimary)
+
+                    Text("paywall.hero.subtitle", bundle: .module)
+                        .font(.kaso.body)
+                        .foregroundStyle(Color.kaso.textSecondary)
+
+                    if entitlement.tier.isPaid {
+                        Label {
+                            Text(LocalizedStringKey(entitlement.tier.titleKey), bundle: .module)
+                        } icon: {
+                            Image(systemName: "checkmark.seal.fill")
+                        }
+                        .font(.kaso.caption.weight(.semibold))
+                        .foregroundStyle(Color.kaso.accent)
+                    }
                 }
             }
             .frame(maxWidth: .infinity, alignment: .leading)

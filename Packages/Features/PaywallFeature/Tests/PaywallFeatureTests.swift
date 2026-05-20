@@ -96,6 +96,27 @@ struct PaywallFeatureTests {
         }
     }
 
+    @Test("setTriggeringFeature switches selected tier to feature's minimum")
+    func setTriggeringFeatureSwitchesTier() async {
+        let store = TestStore(initialState: PaywallFeature.State(selectedTier: .pro)) {
+            PaywallFeature()
+        } withDependencies: {
+            $0.paywallStoreClient = .empty
+            $0.subscriptionEntitlementRepository = .empty
+        }
+
+        // familyCompatibility requires Family — picker should auto-advance.
+        await store.send(.setTriggeringFeature(.familyCompatibility)) {
+            $0.triggeringFeature = .familyCompatibility
+            $0.selectedTier = .family
+        }
+
+        // Clearing leaves selectedTier where it was, just resets context.
+        await store.send(.setTriggeringFeature(nil)) {
+            $0.triggeringFeature = nil
+        }
+    }
+
     @Test("restoreCompleted with cancelled outcome leaves state untouched")
     func restoreCancelled() async {
         let store = TestStore(initialState: PaywallFeature.State(isRestoring: true)) {

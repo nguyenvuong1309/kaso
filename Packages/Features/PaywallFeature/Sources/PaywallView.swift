@@ -13,7 +13,10 @@ public struct PaywallView: View {
     public var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: Spacing.lg) {
-                PaywallHeroCard(entitlement: store.entitlement)
+                PaywallHeroCard(
+                    entitlement: store.entitlement,
+                    triggeringFeature: store.triggeringFeature
+                )
 
                 PaywallTierSelector(
                     selectedTier: store.selectedTier,

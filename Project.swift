@@ -273,15 +273,18 @@ let featureSpecs = [
     ModuleSpec(
         "KasoRootFeature",
         dependencies: rootFeatureDependencies,
-        testDependencies: ["BudgetDomain", "OnboardingDomain", "TransactionDomain"]
+        testDependencies: ["BudgetDomain", "OnboardingDomain", "PaywallDomain", "TransactionDomain"]
     ),
     ModuleSpec(
         "TransactionFeature",
         dependencies: [
             "BudgetDomain", "GoalDomain", "InsightDomain", "KasoDesignSystem",
-            "SubscriptionDomain", "TransactionDomain", "WellnessDomain",
+            "SmartSearchDomain", "SubscriptionDomain", "TransactionDomain", "WellnessDomain",
         ],
-        testDependencies: ["GoalDomain", "InsightDomain", "SubscriptionDomain", "WellnessDomain"]
+        testDependencies: [
+            "GoalDomain", "InsightDomain", "SmartSearchDomain",
+            "SubscriptionDomain", "WellnessDomain",
+        ]
     ),
     ModuleSpec(
         "DebtFeature",
@@ -510,6 +513,7 @@ let appTarget = Target.target(
                 "Kaso đọc dữ liệu giấc ngủ từ HealthKit để phân tích tương quan "
                 + "với chi tiêu ngay trên thiết bị."
             ),
+            "NSSupportsLiveActivities": .boolean(true),
             "UILaunchScreen": .dictionary([
                 "UIColorName": .string(""),
                 "UIImageName": .string(""),

@@ -3,6 +3,8 @@ import ComposableArchitecture
 import BudgetDomain
 import GoalDomain
 import InsightDomain
+import PaywallDomain
+import SmartSearchDomain
 import SubscriptionDomain
 import TransactionDomain
 import WellnessDomain
@@ -197,6 +199,7 @@ public struct TransactionFeature: Sendable {
         public var categoryEditorErrorMessageKey: String?
         public var errorMessageKey: String?
         public var formErrorMessageKey: String?
+        public var currentEntitlement: SubscriptionEntitlement
 
         public init(
             transactions: IdentifiedArrayOf<Transaction> = [],
@@ -253,7 +256,8 @@ public struct TransactionFeature: Sendable {
             savingGoalEditorErrorMessageKey: String? = nil,
             categoryEditorErrorMessageKey: String? = nil,
             errorMessageKey: String? = nil,
-            formErrorMessageKey: String? = nil
+            formErrorMessageKey: String? = nil,
+            currentEntitlement: SubscriptionEntitlement = .free
         ) {
             self.transactions = transactions
             self.templates = templates
@@ -310,6 +314,7 @@ public struct TransactionFeature: Sendable {
             self.categoryEditorErrorMessageKey = categoryEditorErrorMessageKey
             self.errorMessageKey = errorMessageKey
             self.formErrorMessageKey = formErrorMessageKey
+            self.currentEntitlement = currentEntitlement
         }
 
         public var filterCategories: [TransactionCategory] {
@@ -335,16 +340,30 @@ public struct TransactionFeature: Sendable {
             categories(for: draftKind)
         }
 
+        public var smartSearchQuery: SmartSearchQuery {
+            SmartSearchParser.parse(searchText, referenceDate: historyReferenceDate)
+        }
+
         public var filteredTransactions: [Transaction] {
-            let normalizedQuery = searchText.normalizedForTransactionSearch
+            let parsed = smartSearchQuery
+            let normalizedQuery = parsed.keyword.normalizedForTransactionSearch
+            let smartDateRange = parsed.dateRange
 
             return transactions.filter { transaction in
                 let matchesCategory = selectedCategoryID == nil
                     || transaction.category.id == selectedCategoryID
-                let matchesScope = historyScope.contains(
-                    transaction.occurredAt,
-                    referenceDate: historyReferenceDate
-                )
+                // A natural-language date range ("tuần trước", "tháng 3", …)
+                // overrides the explicit history scope so the user can drill
+                // outside whatever picker is currently selected.
+                let matchesScope: Bool
+                if let smartDateRange {
+                    matchesScope = smartDateRange.contains(transaction.occurredAt)
+                } else {
+                    matchesScope = historyScope.contains(
+                        transaction.occurredAt,
+                        referenceDate: historyReferenceDate
+                    )
+                }
                 let matchesSearch = normalizedQuery.isEmpty
                     || transaction.matchesSearch(normalizedQuery)
 
@@ -649,6 +668,12 @@ public struct TransactionFeature: Sendable {
         case templateSaved(TransactionTemplate)
         case templateDeleteButtonTapped(UUID)
         case templateDeleted(UUID)
+        case entitlementUpdated(SubscriptionEntitlement)
+        case delegate(Delegate)
+
+        public enum Delegate: Equatable, Sendable {
+            case paywallGateRequested(SubscriptionFeatureFlag)
+        }
     }
 
     @Dependency(\.bankStatementPDFClient) private var bankStatementPDFClient
@@ -1105,6 +1130,14 @@ public struct TransactionFeature: Sendable {
                     return .none
                 }
 
+                let decision = PaywallGate.evaluate(
+                    feature: .ocrReceipt,
+                    entitlement: state.currentEntitlement
+                )
+                if decision.isGated {
+                    return .send(.delegate(.paywallGateRequested(.ocrReceipt)))
+                }
+
                 state.isReceiptImageSaving = true
                 state.isReceiptOCRProcessing = true
                 state.receiptOCRResult = nil
@@ -1157,6 +1190,13 @@ public struct TransactionFeature: Sendable {
                 return .none
 
             case .voiceInputButtonTapped:
+                let decision = PaywallGate.evaluate(
+                    feature: .voiceEntry,
+                    entitlement: state.currentEntitlement
+                )
+                if decision.isGated {
+                    return .send(.delegate(.paywallGateRequested(.voiceEntry)))
+                }
                 state.isVoiceInputRecording = true
                 state.voiceInputTranscript = nil
                 state.voiceInputErrorMessageKey = nil
@@ -1188,6 +1228,13 @@ public struct TransactionFeature: Sendable {
                 return .none
 
             case .bankStatementImportButtonTapped:
+                let decision = PaywallGate.evaluate(
+                    feature: .bankStatementImport,
+                    entitlement: state.currentEntitlement
+                )
+                if decision.isGated {
+                    return .send(.delegate(.paywallGateRequested(.bankStatementImport)))
+                }
                 state.isBankStatementImporterPresented = true
                 state.bankStatementImportErrorMessageKey = nil
                 return .none
@@ -1316,6 +1363,14 @@ public struct TransactionFeature: Sendable {
 
             case let .templateDeleted(id):
                 state.templates.remove(id: id)
+                return .none
+
+            case let .entitlementUpdated(entitlement):
+                state.currentEntitlement = entitlement
+                return .none
+
+            case .delegate:
+                // Parent (KasoRootFeature) listens to delegate events.
                 return .none
             }
         }

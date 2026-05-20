@@ -1,0 +1,12 @@
+{
+  "sourceLanguage" : "vi",
+  "strings" : {
+    "live.activity.sessionLabel" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Spending today" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Chi tiêu hôm nay" } }
+      }
+    }
+  },
+  "version" : "1.0"
+}

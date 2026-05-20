@@ -13,6 +13,12 @@ private enum SubscriptionEntitlementRepositoryKey: DependencyKey {
     static let testValue = SubscriptionEntitlementRepository.empty
 }
 
+private enum PaywallPromptScheduleRepositoryKey: DependencyKey {
+    static let liveValue = PaywallPromptScheduleRepository.empty
+    static let previewValue = PaywallPromptScheduleRepository.preview
+    static let testValue = PaywallPromptScheduleRepository.empty
+}
+
 public extension DependencyValues {
     var paywallStoreClient: PaywallStoreClient {
         get { self[PaywallStoreClientKey.self] }
@@ -22,5 +28,10 @@ public extension DependencyValues {
     var subscriptionEntitlementRepository: SubscriptionEntitlementRepository {
         get { self[SubscriptionEntitlementRepositoryKey.self] }
         set { self[SubscriptionEntitlementRepositoryKey.self] = newValue }
+    }
+
+    var paywallPromptScheduleRepository: PaywallPromptScheduleRepository {
+        get { self[PaywallPromptScheduleRepositoryKey.self] }
+        set { self[PaywallPromptScheduleRepositoryKey.self] = newValue }
     }
 }

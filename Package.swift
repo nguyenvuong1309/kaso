@@ -109,7 +109,7 @@ let rootFeatureDependencies: [Target.Dependency] = [
 ]
 let transactionFeatureDependencies: [Target.Dependency] = [
     "BudgetDomain", "GoalDomain", "InsightDomain", "KasoDesignSystem",
-    "SubscriptionDomain", "TransactionDomain", "WellnessDomain", tca,
+    "SmartSearchDomain", "SubscriptionDomain", "TransactionDomain", "WellnessDomain", tca,
 ]
 
 let package = Package(
@@ -424,7 +424,7 @@ let package = Package(
         featureTarget("KasoRootFeature", rootFeatureDependencies, path: "Packages/Features/KasoRootFeature/Sources"),
         testTarget(
             "KasoRootFeatureTests",
-            ["BudgetDomain", "KasoRootFeature", "OnboardingDomain", "TransactionDomain", tca],
+            ["BudgetDomain", "KasoRootFeature", "OnboardingDomain", "PaywallDomain", "TransactionDomain", tca],
             path: "Packages/Features/KasoRootFeature/Tests"
         ),
         featureTarget(
@@ -434,7 +434,7 @@ let package = Package(
         ),
         testTarget(
             "TransactionFeatureTests",
-            ["GoalDomain", "InsightDomain", "SubscriptionDomain", "TransactionFeature", "WellnessDomain", tca],
+            ["GoalDomain", "InsightDomain", "SmartSearchDomain", "SubscriptionDomain", "TransactionFeature", "WellnessDomain", tca],
             path: "Packages/Features/TransactionFeature/Tests"
         ),
         featureTarget(

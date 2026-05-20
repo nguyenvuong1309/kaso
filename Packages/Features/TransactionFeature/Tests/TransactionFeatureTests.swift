@@ -469,6 +469,70 @@ func filtersHistoryBySearchCategoryAndTimeScope() async throws {
 }
 
 @MainActor
+@Test("smart search natural language overrides history scope")
+func smartSearchNaturalLanguageOverridesScope() async throws {
+    let calendar = Calendar(identifier: .gregorian)
+    let referenceDate = try #require(
+        DateComponents(calendar: calendar, year: 2026, month: 4, day: 26, hour: 12).date
+    )
+    let yesterday = try #require(
+        DateComponents(calendar: calendar, year: 2026, month: 4, day: 25, hour: 8).date
+    )
+    let lastMonth = try #require(
+        DateComponents(calendar: calendar, year: 2026, month: 3, day: 26, hour: 9).date
+    )
+    let coffeeTransaction = Transaction(
+        amount: 45_000,
+        kind: .expense,
+        category: .food,
+        occurredAt: referenceDate,
+        note: "Cà phê sáng"
+    )
+    let coffeeYesterday = Transaction(
+        amount: 50_000,
+        kind: .expense,
+        category: .food,
+        occurredAt: yesterday,
+        note: "Cà phê chiều"
+    )
+    let coffeeLastMonth = Transaction(
+        amount: 55_000,
+        kind: .expense,
+        category: .food,
+        occurredAt: lastMonth,
+        note: "Cà phê cuối tháng"
+    )
+    let store = TestStore(
+        initialState: TransactionFeature.State(
+            transactions: IdentifiedArray(
+                uniqueElements: [coffeeTransaction, coffeeYesterday, coffeeLastMonth]
+            ),
+            historyScope: .day,
+            historyReferenceDate: referenceDate
+        )
+    ) {
+        TransactionFeature()
+    } withDependencies: {
+        $0.date.now = referenceDate
+    }
+
+    // Day scope restricts to today only.
+    #expect(store.state.filteredTransactions.map(\.id) == [coffeeTransaction.id])
+
+    // "tháng trước" overrides the day scope.
+    await store.send(.searchTextChanged("cà phê tháng trước")) {
+        $0.searchText = "cà phê tháng trước"
+    }
+    #expect(store.state.filteredTransactions.map(\.id) == [coffeeLastMonth.id])
+
+    // "hôm qua" picks just yesterday's entry.
+    await store.send(.searchTextChanged("cà phê hôm qua")) {
+        $0.searchText = "cà phê hôm qua"
+    }
+    #expect(store.state.filteredTransactions.map(\.id) == [coffeeYesterday.id])
+}
+
+@MainActor
 @Test("adds custom category and selects it for draft")
 func addsCustomCategoryAndSelectsItForDraft() async throws {
     let customCategory = TransactionCategory(

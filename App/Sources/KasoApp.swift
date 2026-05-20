@@ -66,6 +66,7 @@ struct KasoApp: App {
     private let savingGoalStore = EncryptedSavingGoalStore()
     private let spendingMapStore = EncryptedSpendingMapStore()
     private let subscriptionEntitlementStore = EncryptedSubscriptionEntitlementStore()
+    private let paywallPromptScheduleStore = EncryptedPaywallPromptScheduleStore()
     private let cloudSyncPreferencesStore = EncryptedCloudSyncPreferencesStore()
     private let transactionStore = EncryptedTransactionStore()
     private let transactionTemplateStore = EncryptedTransactionTemplateStore()
@@ -121,10 +122,11 @@ struct KasoApp: App {
                 spendingMapRepository: spendingMapStore.repository(),
                 paywallStoreClient: LivePaywallStoreClient.make(),
                 subscriptionEntitlementRepository: subscriptionEntitlementStore.repository(),
+                paywallPromptScheduleRepository: paywallPromptScheduleStore.repository(),
                 cloudSyncClient: LiveCloudSyncClient.make(),
                 cloudSyncPreferencesRepository: cloudSyncPreferencesStore.repository(),
                 futureSelfContextClient: futureSelfContextClient,
-                transactionRepository: transactionStore.repository(),
+                transactionRepository: makeTransactionRepository(),
                 transactionTemplateRepository: transactionTemplateStore.repository(),
                 whatIfBaselineClient: whatIfBaselineClient,
                 wrappedContextClient: wrappedContextClient
@@ -133,6 +135,20 @@ struct KasoApp: App {
                 await refreshWidgetSnapshot()
             }
         }
+    }
+
+    /// Wraps the encrypted transaction repository so every persisted save also
+    /// kicks the widget/Live Activity snapshot refresh. Keeps `TransactionFeature`
+    /// free of any widget-layer dependency.
+    private func makeTransactionRepository() -> TransactionRepository {
+        let base = transactionStore.repository()
+        return TransactionRepository(
+            fetchAll: base.fetchAll,
+            save: { [self] transaction in
+                try await base.save(transaction)
+                await refreshWidgetSnapshot()
+            }
+        )
     }
 
     private func refreshWidgetSnapshot() async {
@@ -171,6 +187,10 @@ struct KasoApp: App {
             updatedAt: now
         )
         await widgetSnapshotPublisher.publish(snapshot)
+        if #available(iOS 16.2, *) {
+            let label = String(localized: "live.activity.sessionLabel")
+            await KasoLiveActivityClient.shared.apply(snapshot: snapshot, sessionLabel: label)
+        }
     }
 
     private var gamificationContextClient: GamificationContextClient {

@@ -1,34 +1,8 @@
 import ActivityKit
 import Foundation
+import KasoWidgetShared
 import SwiftUI
 import WidgetKit
-
-/// Live Activity describing in-progress spending throughout the day.
-///
-/// The main app starts an activity at the start of a session and updates
-/// `ContentState` after each transaction. Dynamic Island + Lock Screen views
-/// render the latest content state.
-public struct KasoSpendingActivityAttributes: ActivityAttributes {
-    public struct ContentState: Codable, Hashable, Sendable {
-        public var totalSpentToday: Decimal
-        public var budgetRemaining: Decimal
-        public var transactionCount: Int
-
-        public init(totalSpentToday: Decimal, budgetRemaining: Decimal, transactionCount: Int) {
-            self.totalSpentToday = totalSpentToday
-            self.budgetRemaining = budgetRemaining
-            self.transactionCount = transactionCount
-        }
-    }
-
-    public var sessionLabel: String
-    public var currencyCode: String
-
-    public init(sessionLabel: String, currencyCode: String) {
-        self.sessionLabel = sessionLabel
-        self.currencyCode = currencyCode
-    }
-}
 
 @available(iOS 16.2, *)
 struct KasoSpendingLiveActivity: Widget {

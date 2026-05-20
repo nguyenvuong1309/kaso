@@ -11,6 +11,7 @@ import InvestmentFeature
 import MoodJournalFeature
 import OnboardingDomain
 import OnboardingFeature
+import PaywallDomain
 import PaywallFeature
 import RegretScoreFeature
 import RoundUpFeature
@@ -36,6 +37,8 @@ public struct KasoRootFeature: Sendable {
         public var debt: DebtFeature.State
         public var paywall: PaywallFeature.State
         public var isPaywallPresented: Bool
+        public var currentEntitlement: SubscriptionEntitlement
+        public var paywallGateRequestedFeature: SubscriptionFeatureFlag?
 
         public init(
             appearance: AppearanceFeature.State = AppearanceFeature.State(),
@@ -49,7 +52,9 @@ public struct KasoRootFeature: Sendable {
             wellness: WellnessFeature.State = WellnessFeature.State(),
             debt: DebtFeature.State = DebtFeature.State(),
             paywall: PaywallFeature.State = PaywallFeature.State(),
-            isPaywallPresented: Bool = false
+            isPaywallPresented: Bool = false,
+            currentEntitlement: SubscriptionEntitlement = .free,
+            paywallGateRequestedFeature: SubscriptionFeatureFlag? = nil
         ) {
             self.appearance = appearance
             self.auth = auth
@@ -63,6 +68,12 @@ public struct KasoRootFeature: Sendable {
             self.debt = debt
             self.paywall = paywall
             self.isPaywallPresented = isPaywallPresented
+            self.currentEntitlement = currentEntitlement
+            self.paywallGateRequestedFeature = paywallGateRequestedFeature
+        }
+
+        public func gateDecision(for feature: SubscriptionFeatureFlag) -> PaywallGateDecision {
+            PaywallGate.evaluate(feature: feature, entitlement: currentEntitlement)
         }
     }
 
@@ -81,7 +92,14 @@ public struct KasoRootFeature: Sendable {
         case paywall(PaywallFeature.Action)
         case paywallButtonTapped
         case paywallDismissed
+        case paywallPromptEvaluated(Bool)
+        case entitlementLoaded(SubscriptionEntitlement)
+        case proGateRequested(SubscriptionFeatureFlag)
     }
+
+    @Dependency(\.subscriptionEntitlementRepository) private var entitlementRepository
+    @Dependency(\.paywallPromptScheduleRepository) private var paywallPromptScheduleRepository
+    @Dependency(\.date.now) private var now
 
     public init() {}
 
@@ -133,7 +151,19 @@ public struct KasoRootFeature: Sendable {
         Reduce { state, action in
             switch action {
             case .task:
-                return .send(.appearance(.task))
+                return .merge(
+                    .send(.appearance(.task)),
+                    evaluatePaywallPrompt()
+                )
+
+            case .paywallPromptEvaluated(let shouldPrompt):
+                guard shouldPrompt else { return .none }
+                state.isPaywallPresented = true
+                return .run { [reference = now] _ in
+                    var schedule = (try? await paywallPromptScheduleRepository.load()) ?? .initial
+                    PaywallPromptScheduler.recordPromptShown(in: &schedule, now: reference)
+                    try? await paywallPromptScheduleRepository.save(schedule)
+                }
 
             case let .onboarding(.profileLoaded(profile)):
                 return .send(.transaction(.budgetsUpdated(Self.budgets(from: profile))))
@@ -142,17 +172,52 @@ public struct KasoRootFeature: Sendable {
                 return .send(.transaction(.budgetsUpdated(Self.budgets(from: profile))))
 
             case .paywallButtonTapped:
+                state.paywallGateRequestedFeature = nil
                 state.isPaywallPresented = true
-                return .none
+                return .send(.paywall(.setTriggeringFeature(nil)))
 
             case .paywallDismissed:
                 state.isPaywallPresented = false
-                return .none
+                state.paywallGateRequestedFeature = nil
+                return .send(.paywall(.setTriggeringFeature(nil)))
+
+            case let .entitlementLoaded(entitlement):
+                state.currentEntitlement = entitlement
+                return .send(.transaction(.entitlementUpdated(entitlement)))
+
+            case let .transaction(.delegate(.paywallGateRequested(feature))):
+                return .send(.proGateRequested(feature))
+
+            case let .proGateRequested(feature):
+                let decision = PaywallGate.evaluate(
+                    feature: feature,
+                    entitlement: state.currentEntitlement
+                )
+                guard decision.isGated else { return .none }
+                state.paywallGateRequestedFeature = feature
+                state.isPaywallPresented = true
+                return .send(.paywall(.setTriggeringFeature(feature)))
 
             case .appearance, .auth, .benchmark, .onboarding, .transaction, .assistant,
                  .wealth, .investment, .wellness, .debt, .paywall:
                 return .none
             }
+        }
+    }
+
+    private func evaluatePaywallPrompt() -> Effect<Action> {
+        .run { [reference = now] send in
+            var schedule = (try? await paywallPromptScheduleRepository.load()) ?? .initial
+            PaywallPromptScheduler.recordFirstLaunchIfNeeded(in: &schedule, now: reference)
+            try? await paywallPromptScheduleRepository.save(schedule)
+            let entitlement = (try? await entitlementRepository.load()) ?? .free
+            await send(.entitlementLoaded(entitlement))
+            let shouldPrompt = PaywallPromptScheduler.shouldPrompt(
+                tier: entitlement.tier,
+                schedule: schedule,
+                now: reference
+            )
+            await send(.paywallPromptEvaluated(shouldPrompt))
         }
     }
 

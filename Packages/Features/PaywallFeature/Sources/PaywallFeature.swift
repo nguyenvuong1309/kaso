@@ -14,6 +14,7 @@ public struct PaywallFeature: Sendable {
         public var resolvedProducts: [String: ResolvedProduct]
         public var errorMessageKey: String?
         public var successMessageKey: String?
+        public var triggeringFeature: SubscriptionFeatureFlag?
 
         public init(
             isLoading: Bool = false,
@@ -23,7 +24,8 @@ public struct PaywallFeature: Sendable {
             selectedTier: SubscriptionTier = .pro,
             resolvedProducts: [String: ResolvedProduct] = [:],
             errorMessageKey: String? = nil,
-            successMessageKey: String? = nil
+            successMessageKey: String? = nil,
+            triggeringFeature: SubscriptionFeatureFlag? = nil
         ) {
             self.isLoading = isLoading
             self.isPurchasing = isPurchasing
@@ -33,6 +35,7 @@ public struct PaywallFeature: Sendable {
             self.resolvedProducts = resolvedProducts
             self.errorMessageKey = errorMessageKey
             self.successMessageKey = successMessageKey
+            self.triggeringFeature = triggeringFeature
         }
 
         public var plansForSelectedTier: [PricingPlan] {
@@ -51,6 +54,7 @@ public struct PaywallFeature: Sendable {
         case restoreButtonTapped
         case restoreCompleted(PaywallPurchaseOutcome)
         case dismissError
+        case setTriggeringFeature(SubscriptionFeatureFlag?)
     }
 
     @Dependency(\.paywallStoreClient) private var storeClient
@@ -133,6 +137,13 @@ public struct PaywallFeature: Sendable {
 
             case .dismissError:
                 state.errorMessageKey = nil
+                return .none
+
+            case let .setTriggeringFeature(feature):
+                state.triggeringFeature = feature
+                if let feature, feature.minimumTier.isPaid {
+                    state.selectedTier = feature.minimumTier
+                }
                 return .none
             }
         }

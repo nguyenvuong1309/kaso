@@ -151,6 +151,18 @@
         "vi" : { "stringUnit" : { "state" : "translated", "value" : "Mở khoá tự động nhập, phân tích AI và chia sẻ gia đình. Huỷ bất kỳ lúc nào trong Cài đặt." } }
       }
     },
+    "paywall.hero.gateTitle %@" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Unlock %@" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Mở khoá %@" } }
+      }
+    },
+    "paywall.hero.gateSubtitle" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "This feature is part of a paid tier. Subscribe to keep using it without limits." } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tính năng này thuộc gói trả phí. Đăng ký để dùng không giới hạn." } }
+      }
+    },
     "paywall.hero.title" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Take Kaso further" } },

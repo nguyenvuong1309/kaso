@@ -109,6 +109,7 @@ public struct KasoRootView: View {
         onboardingProfileRepository: OnboardingProfileRepository = .empty,
         paywallStoreClient: PaywallStoreClient = .empty,
         subscriptionEntitlementRepository: SubscriptionEntitlementRepository = .empty,
+        paywallPromptScheduleRepository: PaywallPromptScheduleRepository = .empty,
         cloudSyncClient: CloudSyncClient = .empty,
         cloudSyncPreferencesRepository: CloudSyncPreferencesRepository = .empty,
         receiptImageRepository: ReceiptImageRepository = .empty,
@@ -166,6 +167,7 @@ public struct KasoRootView: View {
             $0.onboardingProfileRepository = onboardingProfileRepository
             $0.paywallStoreClient = paywallStoreClient
             $0.subscriptionEntitlementRepository = subscriptionEntitlementRepository
+            $0.paywallPromptScheduleRepository = paywallPromptScheduleRepository
             $0.cloudSyncClient = cloudSyncClient
             $0.cloudSyncPreferencesRepository = cloudSyncPreferencesRepository
             $0.receiptImageRepository = receiptImageRepository
@@ -401,14 +403,20 @@ public struct KasoRootView: View {
         .accessibilityLabel(Text("root.paywall.open", bundle: .module))
     }
 
+    @ViewBuilder
     private var assistantFloatingButton: some View {
+        let decision = store.gateDecision(for: .aiInsights)
         Button {
-            store.send(.assistant(.floatingButtonTapped))
+            if decision.isGated {
+                store.send(.proGateRequested(.aiInsights))
+            } else {
+                store.send(.assistant(.floatingButtonTapped))
+            }
         } label: {
             Label {
                 Text("root.assistant.open", bundle: .module)
             } icon: {
-                Image(systemName: "sparkles")
+                Image(systemName: decision.isGated ? "lock.fill" : "sparkles")
             }
         }
         .buttonStyle(.borderedProminent)
