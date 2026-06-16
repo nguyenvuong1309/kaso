@@ -1,0 +1,12 @@
+// Kaso — Prod environment build settings.
+// Values here intentionally match the original single-environment setup so
+// existing production installs keep their App Group / iCloud container.
+// Note: `//` would start a comment in xcconfig, so URLs use the `/$()/` escape.
+
+KASO_ENV = prod
+KASO_BUNDLE_SUFFIX =
+KASO_APP_NAME = Kaso
+KASO_APP_GROUP = group.com.vuongnguyen.kaso
+KASO_ICLOUD_CONTAINER = iCloud.com.vuongnguyen.kaso
+KASO_API_BASE_URL = https:/$()/api.kaso.app
+KASO_VERBOSE_LOGGING = NO

@@ -1,0 +1,11 @@
+// Kaso — Dev environment build settings.
+// Single source of truth for everything that differs between dev and prod.
+// Note: `//` would start a comment in xcconfig, so URLs use the `/$()/` escape.
+
+KASO_ENV = dev
+KASO_BUNDLE_SUFFIX = .dev
+KASO_APP_NAME = Kaso Dev
+KASO_APP_GROUP = group.com.vuongnguyen.kaso.dev
+KASO_ICLOUD_CONTAINER = iCloud.com.vuongnguyen.kaso.dev
+KASO_API_BASE_URL = https:/$()/api-dev.kaso.app
+KASO_VERBOSE_LOGGING = YES

@@ -15,6 +15,8 @@ import GamificationFeature
 import GuiltFreeBudgetFeature
 import HoursOfLifeFeature
 import InvestmentFeature
+import KasoDesignSystem
+import KasoFoundation
 import KasoRootFeature
 import LegacyFeature
 import MoodJournalFeature
@@ -134,6 +136,9 @@ struct KasoApp: App {
             .task {
                 await refreshWidgetSnapshot()
             }
+            .environmentBadge(
+                AppConfiguration.current.environment == .dev ? "DEV" : nil
+            )
         }
     }
 

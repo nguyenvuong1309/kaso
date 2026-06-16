@@ -4,7 +4,16 @@ import Foundation
 /// Activities to render. The widget extension only ever reads from this
 /// snapshot — it never touches the encrypted transaction store directly.
 public struct WidgetSnapshot: Codable, Equatable, Sendable {
-    public static let appGroupID = "group.com.vuongnguyen.kaso"
+    /// App Group container shared by the app, widget and watch targets. Resolved
+    /// per-environment from the target's `Info.plist` (set via `$(KASO_APP_GROUP)`)
+    /// so dev and prod builds never share widget data. This module is multiplatform
+    /// and dependency-free, so it reads the value directly instead of via
+    /// `AppConfiguration`.
+    public static let appGroupID: String = {
+        Bundle.main.object(forInfoDictionaryKey: "KasoAppGroupIdentifier") as? String
+            ?? "group.com.vuongnguyen.kaso"
+    }()
+
     public static let storageKey = "widget.snapshot.v1"
 
     public var totalSpentToday: Decimal
